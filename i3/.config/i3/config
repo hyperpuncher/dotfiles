@@ -5,6 +5,8 @@
 # this file and re-run i3-config-wizard(1).
 #
 
+set $nsi --no-startup-id
+
 # i3 config file (v4)
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
@@ -20,46 +22,46 @@ font pango:monospace 8
 #font pango:DejaVu Sans Mono 8
 
 # Polkit
-exec --no-startup-id lxpolkit
+exec $nsi lxpolkit
 
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart
-exec --no-startup-id dex-autostart --autostart --environment i3
+exec $nsi dex-autostart --autostart --environment i3
 
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-# exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+# exec $nsi xss-lock --transfer-sleep-lock -- i3lock --nofork
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
-exec --no-startup-id nm-applet
+exec $nsi nm-applet
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+bindsym XF86AudioRaiseVolume exec $nsi pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec $nsi pactl set-sink-volume @DEFAULT_SINK@ -5% && $refresh_i3status
+bindsym XF86AudioMute exec $nsi pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+bindsym XF86AudioMicMute exec $nsi pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec kitty
+bindsym $mod+Return exec $nsi kitty
 
 # kill focused window
 bindsym $mod+q kill
 
 # start dmenu (a program launcher)
-# bindsym $mod+d exec --no-startup-id "dmenu_run -nf '#F8F8F2' -nb '#282A36' -sb '#6272A4' -sf '#F8F8F2' -fn 'monospace-10' -p 'dmenu:'"
+# bindsym $mod+d exec $nsi "dmenu_run -nf '#F8F8F2' -nb '#282A36' -sb '#6272A4' -sf '#F8F8F2' -fn 'monospace-10' -p 'dmenu:'"
 # A more modern dmenu replacement is rofi:
-bindcode $mod+40 exec "rofi -modi drun,run -show drun"
+bindcode $mod+40 exec $nsi "rofi -modi drun,run -show drun"
 # There also is i3-dmenu-desktop which only displays applications shipping a
 # .desktop file. It is a wrapper around dmenu, so you need that installed.
-# bindcode $mod+40 exec --no-startup-id i3-dmenu-desktop
+# bindcode $mod+40 exec $nsi i3-dmenu-desktop
 
 # change focus
 bindsym $mod+j focus left
@@ -208,12 +210,11 @@ client.background       #F8F8F2
 #   status_command i3status
 # }
 
-exec --no-startup-id xdg-user-dirs-update
+exec $nsi xdg-user-dirs-update
 
-exec --no-startup-id xrandr --output DP-0 --off --output DP-1 --off --output DP-2 --off --output DP-3 --off --output HDMI-0 --mode 1920x1080 --pos 2560x0 --rotate right --output DP-4 --primary --mode 2560x1440 --pos 0x0 --rotate normal --output DP-5 --off
+exec $nsi xrandr --output DP-0 --off --output DP-1 --off --output DP-2 --off --output DP-3 --off --output HDMI-0 --mode 1920x1080 --pos 2560x0 --rotate right --output DP-4 --primary --mode 2560x1440 --pos 0x0 --rotate normal --output DP-5 --off
 
-# exec_always --no-startup-id feh --bg-scale /home/igor/Pictures/wp.jpg
-exec ~/.fehbg
+exec $nsi ~/.fehbg
 
 set $monitor_h DP-4
 set $monitor_v HDMI-0
@@ -222,21 +223,25 @@ set $monitor_v HDMI-0
 for_window [class=".*"] border pixel 3
 
 workspace $ws1 output $monitor_h
+workspace $ws9 output $monitor_v
 workspace $ws10 output $monitor_v
 
 assign [class="firefox"] $ws1
 assign [class="Google-chrome"] $ws1
+for_window [class="Spotify"] move container to workspace $ws9, fullscreen enable
 assign [class="Code"] $ws10
 assign [class="kitty"] $ws10
 
-exec google-chrome
-exec code
-exec kitty
-exec_always --no-startup-id picom
-exec --no-startup-id "setxkbmap -layout us,ru -option grp:alt_shift_toggle"
+exec $nsi google-chrome
+exec $nsi spotify
+exec $nsi code
+exec $nsi kitty
+
+exec_always $nsi picom
+exec $nsi "setxkbmap -layout us,ru -option grp:caps_toggle"
 
 
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+exec_always $nsi $HOME/.config/polybar/launch.sh
 
 gaps inner 10
 gaps outer 10
@@ -249,3 +254,12 @@ smart_gaps inverse_outer
 
 # Activate smart borders (always)
 # smart_borders on
+
+# Sreen brightness controls
+bindsym XF86MonBrightnessUp exec $nsi "ddccontrol dev:/dev/i2c-6 -r 0x10 -W 10 && ddccontrol dev:/dev/i2c-5 -r 0x10 -W 10"
+bindsym XF86MonBrightnessDown exec $nsi "ddccontrol dev:/dev/i2c-6 -r 0x10 -W -10 && ddccontrol dev:/dev/i2c-5 -r 0x10 -W -10"
+
+# Media player controls
+bindsym XF86AudioPlay exec $nsi playerctl play-pause
+bindsym XF86AudioNext exec $nsi playerctl next
+bindsym XF86AudioPrev exec $nsi playerctl previous
