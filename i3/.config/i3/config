@@ -246,7 +246,7 @@ exec $nsi "setxkbmap -layout us,ru -option grp:caps_toggle"
 exec_always $nsi $HOME/.config/polybar/launch.sh
 
 gaps inner 10
-gaps outer 10
+gaps outer 0
 
 # Only enable gaps on a workspace when there is at least one container
 # smart_gaps on
