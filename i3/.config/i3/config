@@ -235,8 +235,8 @@ assign [class="kitty"] $ws10
 
 exec $nsi google-chrome
 exec $nsi spotify, fullscreen enable
-exec $nsi code
 exec $nsi kitty
+exec $nsi code
 exec $nsi telegram-desktop
 
 exec_always $nsi picom
@@ -258,8 +258,8 @@ smart_gaps inverse_outer
 # smart_borders on
 
 # Sreen brightness controls
-bindsym XF86MonBrightnessUp exec $nsi "ddccontrol dev:/dev/i2c-6 -r 0x10 -W 10 && ddccontrol dev:/dev/i2c-5 -r 0x10 -W 10"
-bindsym XF86MonBrightnessDown exec $nsi "ddccontrol dev:/dev/i2c-6 -r 0x10 -W -10 && ddccontrol dev:/dev/i2c-5 -r 0x10 -W -10"
+bindsym XF86MonBrightnessUp exec $nsi "ddccontrol dev:/dev/i2c-6 -r 0x10 -W 5 && ddccontrol dev:/dev/i2c-5 -r 0x10 -W 5"
+bindsym XF86MonBrightnessDown exec $nsi "ddccontrol dev:/dev/i2c-6 -r 0x10 -W -5 && ddccontrol dev:/dev/i2c-5 -r 0x10 -W -5"
 
 # Media player controls
 bindsym XF86AudioPlay exec $nsi playerctl play-pause

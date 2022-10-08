@@ -1,5 +1,5 @@
 [directory]
-style = "fg:#FF5E8A"
+style = "fg:#D2A1FF"
 
 [character]
 success_symbol = "[❯](white)"
@@ -8,7 +8,7 @@ success_symbol = "[❯](white)"
 style = "fg:#5FFFC7"
 
 [git_status]
-style = "fg:#B45FFF"
+style = "fg:#FF5E8A"
 
 
 [bun]
