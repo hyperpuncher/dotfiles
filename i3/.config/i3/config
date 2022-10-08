@@ -265,3 +265,6 @@ bindsym XF86MonBrightnessDown exec $nsi "ddccontrol dev:/dev/i2c-6 -r 0x10 -W -5
 bindsym XF86AudioPlay exec $nsi playerctl play-pause
 bindsym XF86AudioNext exec $nsi playerctl next
 bindsym XF86AudioPrev exec $nsi playerctl previous
+
+# Take a screenshot upon pressing $mod+x (select an area)
+bindsym --release $mod+x exec --no-startup-id import /tmp/latest-screenshot.png
