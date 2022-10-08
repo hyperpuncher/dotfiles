@@ -1,6 +1,2 @@
-# Get editor completions based on the config schema
-"$schema" = 'https://starship.rs/config-schema.json'
-
-# Disable the package module, hiding it from the prompt completely
-[package]
-disabled = false
+# Wait 10 milliseconds for starship to check files under the current directory.
+scan_timeout = 10
