@@ -115,16 +115,16 @@ bindsym $mod+a focus parent
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1"
+set $ws1 "1: "
 set $ws2 "2"
 set $ws3 "3"
 set $ws4 "4"
 set $ws5 "5"
 set $ws6 "6"
 set $ws7 "7"
-set $ws8 "8"
-set $ws9 "9"
-set $ws10 "10"
+set $ws8 "8:切 "
+set $ws9 "9: "
+set $ws10 "10: "
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
@@ -223,11 +223,13 @@ set $monitor_v HDMI-0
 for_window [class=".*"] border pixel 2
 
 workspace $ws1 output $monitor_h
+workspace $ws8 output $monitor_v
 workspace $ws9 output $monitor_v
 workspace $ws10 output $monitor_v
 
 assign [class="firefox"] $ws1
 assign [class="Google-chrome"] $ws1
+for_window [class="TelegramDesktop"] move container to workspace $ws8, fullscreen enable
 for_window [class="Spotify"] move container to workspace $ws9, fullscreen enable
 assign [class="Code"] $ws10
 assign [class="kitty"] $ws10
@@ -237,7 +239,7 @@ exec $nsi spotify
 exec $nsi kitty
 exec $nsi code
 exec telegram-desktop
-for_window [class="telegram-desktop"] move container to workspace $ws8, fullscreen enable
+exec $nsi i3-msg workspace $ws10
 
 exec_always $nsi picom
 exec $nsi "setxkbmap -layout us,ru -option grp:caps_toggle"
