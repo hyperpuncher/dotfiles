@@ -228,7 +228,6 @@ workspace $ws10 output $monitor_v
 
 assign [class="firefox"] $ws1
 assign [class="Google-chrome"] $ws1
-assign [class="telegram-desktop"] $ws8
 for_window [class="Spotify"] move container to workspace $ws9, fullscreen enable
 assign [class="Code"] $ws10
 assign [class="kitty"] $ws10
@@ -237,7 +236,8 @@ exec $nsi google-chrome
 exec $nsi spotify
 exec $nsi kitty
 exec $nsi code
-exec telegram-desktop, fullscreen enable
+exec telegram-desktop
+for_window [class="telegram-desktop"] move container to workspace $ws8, fullscreen enable
 
 exec_always $nsi picom
 exec $nsi "setxkbmap -layout us,ru -option grp:caps_toggle"
@@ -267,4 +267,9 @@ bindsym XF86AudioNext exec $nsi playerctl next
 bindsym XF86AudioPrev exec $nsi playerctl previous
 
 # Take a screenshot upon pressing $mod+x (select an area)
-bindsym --release $mod+x exec --no-startup-id import /tmp/latest-screenshot.png
+# bindsym --release $mod+x exec --no-startup-id import /tmp/latest-screenshot.png
+
+## Clipboard Screenshots
+bindsym $mod+t exec --no-startup-id maim | xclip -selection clipboard -t image/png
+bindsym $mod+g exec --no-startup-id maim --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
+bindsym $mod+b exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
