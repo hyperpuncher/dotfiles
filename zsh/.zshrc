@@ -22,15 +22,39 @@ ENABLE_CORRECTION="true"
 
 setopt histignorealldups
 
-# Aliases
-alias ls="exa -a --icons --group-directories-first"
-alias lt="exa -T -L=2 -a --icons --group-directories-first"
-alias install="sudo dnf install"
-alias remove="sudo dnf remove"
-alias upgrade="sudo dnf upgrade"
-alias stow="stow -t /home/igor"
-
 LS_COLORS="di=38;5;183"
+
+# nnn cd on quit function
+n ()
+{
+    # Block nesting of nnn in subshells
+    if [[ "${NNNLVL:-0}" -ge 1 ]]; then
+        echo "nnn is already running"
+        return
+    fi
+
+    # The behaviour is set to cd on quit (nnn checks if NNN_TMPFILE is set)
+    # If NNN_TMPFILE is set to a custom path, it must be exported for nnn to
+    # see. To cd on quit only on ^G, remove the "export" and make sure not to
+    # use a custom path, i.e. set NNN_TMPFILE *exactly* as follows:
+    #     NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
+    export NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
+
+    # Unmask ^Q (, ^V etc.) (if required, see `stty -a`) to Quit nnn
+    # stty start undef
+    # stty stop undef
+    # stty lwrap undef
+    # stty lnext undef
+
+    # The backslash allows one to alias n to nnn if desired without making an
+    # infinitely recursive alias
+    \nnn "$@"
+
+    if [ -f "$NNN_TMPFILE" ]; then
+            . "$NNN_TMPFILE"
+            rm -f "$NNN_TMPFILE" > /dev/null
+    fi
+}
 
 # zsh-syntax-highlighting
 typeset -A ZSH_HIGHLIGHT_STYLES
@@ -41,6 +65,7 @@ ZSH_HIGHLIGHT_STYLES[unknown-token]='fg=#FF0059'
 
 source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/dotfiles/aliases.zsh
 source ~/.config/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
