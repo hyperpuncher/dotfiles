@@ -27,6 +27,8 @@ xdotool
 materia-gtk-theme
 papirus-icon-theme
 exa
+mpv
+qbittorrent
 
 
 qalc ?

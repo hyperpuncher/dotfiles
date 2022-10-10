@@ -1,4 +1,4 @@
-alias ls="exa -a --icons --group-directories-first"
+alias ls="exa -a --icons --group-directories-first -s ext"
 alias lt="exa -T -L=2 -a --icons --group-directories-first"
 alias install="sudo dnf install"
 alias remove="sudo dnf remove"
