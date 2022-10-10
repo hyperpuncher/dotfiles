@@ -229,7 +229,7 @@ workspace $ws10 output $monitor_v
 
 # assign [class="firefox"] $ws1
 assign [class="Google-chrome"] $ws1
-for_window [class="TelegramDesktop"] move container to workspace $ws8, fullscreen enable
+for_window [class="TelegramDesktop"] move container to workspace $ws8
 for_window [class="Spotify"] move container to workspace $ws9, fullscreen enable
 assign [class="Code"] $ws10
 assign [class="kitty"] $ws10

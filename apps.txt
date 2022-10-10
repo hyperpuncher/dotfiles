@@ -29,6 +29,7 @@ papirus-icon-theme
 exa
 mpv
 qbittorrent
+android-file-transfer
 
 
 qalc ?
