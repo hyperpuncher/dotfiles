@@ -20,6 +20,8 @@ compinit
 
 ENABLE_CORRECTION="true"
 
+setopt histignorealldups
+
 # Aliases
 alias ls="exa -a --icons --group-directories-first"
 alias lt="exa -T -L=2 -a --icons --group-directories-first"
