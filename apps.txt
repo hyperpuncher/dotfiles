@@ -1,8 +1,13 @@
+sudo dnf install stow
+
 stow -t /home/igor/ */
 
 sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
-sudo dnf install i3-gaps kitty arandr feh unzip lxpolkit rofi picom stow nnn lxappearance easyeffects xprop git neofetch polybar telegram zsh playerctl ddccontrol ddccontrol-gtk zsh-autosuggestions zsh-syntax-highlighting redshift xclip xdotool materia-gtk-theme papirus-icon-theme exa mpv qbittorrent android-file-transfer akmod-nvidia xorg-x11-drv-nvidia-cuda
+sudo dnf install --allowerasing i3-gaps kitty arandr feh unzip lxpolkit rofi picom stow nnn lxappearance easyeffects xprop git neofetch polybar telegram zsh playerctl ddccontrol ddccontrol-gtk zsh-autosuggestions zsh-syntax-highlighting redshift xclip xdotool materia-gtk-theme papirus-icon-theme exa mpv qbittorrent android-file-transfer
+
+# Nvidia only
+akmod-nvidia xorg-x11-drv-nvidia-cuda
 
 qalc ?
 passmenu ?
