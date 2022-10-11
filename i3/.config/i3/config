@@ -184,6 +184,7 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+#FF5E8A
 # class                 border  bground text    indicator child_border
 client.focused          #FF5E8A #FF5E8A #F8F8F2 #FF5E8A   #FF5E8A
 client.focused_inactive #44475A #44475A #F8F8F2 #44475A   #44475A
@@ -227,14 +228,13 @@ workspace $ws8 output $monitor_v
 workspace $ws9 output $monitor_v
 workspace $ws10 output $monitor_v
 
-# assign [class="firefox"] $ws1
-assign [class="Google-chrome"] $ws1
+assign [class="firefox"] $ws1
 for_window [class="TelegramDesktop"] move container to workspace $ws8
 for_window [class="Spotify"] move container to workspace $ws9, fullscreen enable
 assign [class="Code"] $ws10
 assign [class="kitty"] $ws10
 
-exec $nsi google-chrome
+exec $nsi firefox
 exec $nsi spotify
 exec $nsi kitty
 exec $nsi code
