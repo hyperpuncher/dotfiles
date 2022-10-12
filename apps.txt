@@ -1,12 +1,15 @@
-sudo dnf install stow
-
-stow -t /home/igor/ */
-
-sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-
-sudo dnf install --allowerasing i3-gaps kitty arandr feh unzip lxpolkit rofi picom stow nnn lxappearance easyeffects xprop git neofetch polybar telegram zsh playerctl ddccontrol ddccontrol-gtk zsh-autosuggestions zsh-syntax-highlighting redshift xclip xdotool materia-gtk-theme papirus-icon-theme exa mpv qbittorrent android-file-transfer speedcrunch
-
 # Nvidia only
 akmod-nvidia xorg-x11-drv-nvidia-cuda
+# Force composition after install in nvidia settings
 
-passmenu ?
+passmenu
+https://github.com/phillipberndt/autorandr
+
+https://github.com/rockowitz/ddcutil/
+
+https://www.reddit.com/r/VFIO/comments/edna02/suggestion_ddccontrol_you_might_not_need/
+
+https://github.com/syncthing/syncthing
+
+gh
+qtile

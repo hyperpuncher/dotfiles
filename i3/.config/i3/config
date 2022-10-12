@@ -276,3 +276,4 @@ bindsym $mod+t exec --no-startup-id maim | xclip -selection clipboard -t image/p
 bindsym $mod+g exec --no-startup-id maim --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
 bindsym $mod+b exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
 
+bindsym $mod+Shift+m move workspace to output next
