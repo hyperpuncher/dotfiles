@@ -274,8 +274,6 @@ bindsym XF86AudioPrev exec $nsi playerctl previous
 # bindsym --release $mod+x exec --no-startup-id import /tmp/latest-screenshot.png
 
 ## Clipboard Screenshots
-bindsym $mod+59 exec --no-startup-id maim | xclip -selection clipboard -t image/png
-bindsym $mod+60 exec --no-startup-id maim --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
-bindsym $mod+61 exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
-
-bindsym $mod+Shift+m move workspace to output next
+bindsym $mod+comma exec --no-startup-id maim | xclip -selection clipboard -t image/png
+bindsym $mod+period exec --no-startup-id maim --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
+bindsym $mod+slash exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
