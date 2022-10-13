@@ -1,16 +1,15 @@
 # Should you change your keyboard layout some time, delete
 # this file and re-run i3-config-wizard(1).
 
+#                                      Variables
 font pango:Ubuntu Nerd Font 8
 
-#                                      Variables
 set $nsi --no-startup-id
 
 set $mod Mod4
 
 set $monitor_h DP-4
 set $monitor_v HDMI-0
-
 
 # Define names for default workspaces for which we configure key bindings later on.
 set $ws1 " "
