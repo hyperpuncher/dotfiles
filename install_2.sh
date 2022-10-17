@@ -6,7 +6,7 @@ sudo dnf install --allowerasing -y i3-gaps kitty code arandr feh unzip lxpolkit 
 
 cd dotfiles &&
 
-stow -t --no-folding /home/igor/ */ &&
+stow --no-folding -t /home/igor/ */ &&
 
 echo  -e "\e[1;36mPoopity poop may I offer reboop"
 
