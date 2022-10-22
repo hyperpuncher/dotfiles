@@ -192,10 +192,8 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # Sreen brightness controls
-# bindsym XF86MonBrightnessUp exec $nsi "ddccontrol dev:/dev/i2c-6 -r 0x10 -W 5 && ddccontrol dev:/dev/i2c-5 -r 0x10 -W 5"
-bindsym XF86MonBrightnessUp exec $nsi "ddcutil setvcp 10 + 10 --bus 6 && ddcutil setvcp 10 + 10 --bus 5"
-# bindsym XF86MonBrightnessDown exec $nsi "ddccontrol dev:/dev/i2c-6 -r 0x10 -W -5 && ddccontrol dev:/dev/i2c-5 -r 0x10 -W -5"
-bindsym XF86MonBrightnessDown exec $nsi "ddcutil setvcp 10 - 10 --bus 6 && ddcutil setvcp 10 - 10 --bus 5"
+bindsym XF86MonBrightnessUp exec $nsi "ddccontrol dev:/dev/i2c-5 -r 0x10 -W 5 ; ddccontrol dev:/dev/i2c-6 -r 0x10 -W 5"
+bindsym XF86MonBrightnessDown exec $nsi "ddccontrol dev:/dev/i2c-5 -r 0x10 -W -5 ; ddccontrol dev:/dev/i2c-6 -r 0x10 -W -5"
 
 # Media player controls
 bindsym XF86AudioPlay exec $nsi playerctl play-pause
