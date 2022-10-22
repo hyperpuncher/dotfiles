@@ -17,8 +17,8 @@ set $ws2 "2"
 set $ws3 "3"
 set $ws4 "4"
 set $ws5 "5"
-set $ws6 "6"
-set $ws7 "7"
+set $ws6 "ﳻ"
+set $ws7 "浪"
 set $ws8 "切 "
 set $ws9 " "
 set $ws10 " "
@@ -32,9 +32,11 @@ smart_gaps on
 hide_edge_borders smart
 
 #Hide window title bar
-for_window [class=".*"] border pixel 0
+for_window [class=".*"] border pixel 1
 
 workspace $ws1 output $monitor_h
+workspace $ws6 output $monitor_h
+workspace $ws7 output $monitor_v
 workspace $ws8 output $monitor_v
 workspace $ws9 output $monitor_v
 workspace $ws10 output $monitor_v
@@ -47,7 +49,7 @@ exec $nsi lxpolkit
 exec $nsi dex-autostart --autostart --environment i3
 exec $nsi xdg-user-dirs-update
 exec $nsi xrandr --output DP-0 --off --output DP-1 --off --output DP-2 --off --output DP-3 --off --output HDMI-0 --mode 1920x1080 --pos 2560x0 --rotate right --output DP-4 --primary --mode 2560x1440 --pos 0x0 --rotate normal --output DP-5 --off
-exec_always $nsi picom -c
+exec_always $nsi picom
 exec_always $nsi $HOME/.config/polybar/launch.sh
 
 exec $nsi redshift
@@ -61,6 +63,8 @@ exec $nsi i3-msg workspace $ws10
 exec $nsi "setxkbmap -layout us,ru -option grp:caps_toggle"
 
 assign [class="firefox"] $ws1
+assign [class="superslicer"] $ws6
+for_window [class="superslicer"] move container to workspace $ws6
 for_window [class="TelegramDesktop"] move container to workspace $ws8
 for_window [class="Spotify"] move container to workspace $ws9
 assign [class="Code"] $ws10
@@ -135,8 +139,8 @@ bindsym $mod+2 workspace $ws2
 bindsym $mod+3 workspace $ws3
 bindsym $mod+4 workspace $ws4
 bindsym $mod+5 workspace $ws5
-bindsym $mod+6 workspace $ws6
-bindsym $mod+7 workspace $ws7
+bindsym $mod+o workspace $ws6
+bindsym $mod+p workspace $ws7
 bindsym $mod+t workspace $ws8
 bindsym $mod+s workspace $ws9
 bindsym $mod+c workspace $ws10
@@ -147,8 +151,8 @@ bindsym $mod+Shift+2 move container to workspace $ws2
 bindsym $mod+Shift+3 move container to workspace $ws3
 bindsym $mod+Shift+4 move container to workspace $ws4
 bindsym $mod+Shift+5 move container to workspace $ws5
-bindsym $mod+Shift+6 move container to workspace $ws6
-bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+o move container to workspace $ws6
+bindsym $mod+Shift+p move container to workspace $ws7
 bindsym $mod+Shift+8 move container to workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
@@ -188,8 +192,10 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # Sreen brightness controls
-bindsym XF86MonBrightnessUp exec $nsi "ddccontrol dev:/dev/i2c-6 -r 0x10 -W 5 && ddccontrol dev:/dev/i2c-5 -r 0x10 -W 5"
-bindsym XF86MonBrightnessDown exec $nsi "ddccontrol dev:/dev/i2c-6 -r 0x10 -W -5 && ddccontrol dev:/dev/i2c-5 -r 0x10 -W -5"
+# bindsym XF86MonBrightnessUp exec $nsi "ddccontrol dev:/dev/i2c-6 -r 0x10 -W 5 && ddccontrol dev:/dev/i2c-5 -r 0x10 -W 5"
+bindsym XF86MonBrightnessUp exec $nsi "ddcutil setvcp 10 + 10 --bus 6 && ddcutil setvcp 10 + 10 --bus 5"
+# bindsym XF86MonBrightnessDown exec $nsi "ddccontrol dev:/dev/i2c-6 -r 0x10 -W -5 && ddccontrol dev:/dev/i2c-5 -r 0x10 -W -5"
+bindsym XF86MonBrightnessDown exec $nsi "ddcutil setvcp 10 - 10 --bus 6 && ddcutil setvcp 10 - 10 --bus 5"
 
 # Media player controls
 bindsym XF86AudioPlay exec $nsi playerctl play-pause
@@ -206,7 +212,7 @@ bindsym $mod+slash exec --no-startup-id maim --select | xclip -selection clipboa
 
 
 # class                 border  bground text    indicator child_border
-client.focused          #FF5E8A #FF5E8A #F8F8F2 #FF5E8A   #FF5E8A
+client.focused          #FFFFFF #FFFFFF #F8F8F2 #FFFFFF   #FFFFFF
 client.focused_inactive #44475A #44475A #F8F8F2 #44475A   #44475A
 client.unfocused        #282A36 #282A36 #BFBFBF #282A36   #282A36
 client.urgent           #44475A #FF5555 #F8F8F2 #FF5555   #FF5555
