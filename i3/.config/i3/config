@@ -57,7 +57,7 @@ exec $nsi ~/.fehbg
 exec $nsi firefox
 exec $nsi spotify
 exec $nsi kitty
-exec $nsi code
+# exec $nsi code
 exec telegram-desktop
 exec $nsi i3-msg workspace $ws10
 exec $nsi "setxkbmap -layout us,ru -option grp:caps_toggle"
@@ -67,7 +67,7 @@ assign [class="superslicer"] $ws6
 for_window [class="superslicer"] move container to workspace $ws6
 for_window [class="TelegramDesktop"] move container to workspace $ws8
 for_window [class="Spotify"] move container to workspace $ws9
-assign [class="Code"] $ws10
+# assign [class="C+ode"] $ws10
 assign [class="kitty"] $ws10
 
 
