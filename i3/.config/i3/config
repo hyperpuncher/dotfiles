@@ -108,6 +108,9 @@ bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
+# move focused window between monitors
+bindsym $mod+n move container to output right
+
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
@@ -115,7 +118,7 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+x split h
+# bindsym $mod+x split h
 
 # split in vertical orientation
 bindsym $mod+v split v
@@ -125,7 +128,7 @@ bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+w layout toggle tabbed
-bindsym $mod+e layout toggle split
+bindsym $mod+x layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
@@ -146,19 +149,19 @@ bindsym $mod+s workspace $ws9
 bindsym $mod+c workspace $ws10
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+b move container to workspace $ws1
 bindsym $mod+Shift+2 move container to workspace $ws2
 bindsym $mod+Shift+3 move container to workspace $ws3
 bindsym $mod+Shift+4 move container to workspace $ws4
 bindsym $mod+Shift+5 move container to workspace $ws5
 bindsym $mod+Shift+o move container to workspace $ws6
 bindsym $mod+Shift+p move container to workspace $ws7
-bindsym $mod+Shift+8 move container to workspace $ws8
-bindsym $mod+Shift+9 move container to workspace $ws9
-bindsym $mod+Shift+0 move container to workspace $ws10
+bindsym $mod+Shift+t move container to workspace $ws8
+bindsym $mod+Shift+s move container to workspace $ws9
+bindsym $mod+Shift+c move container to workspace $ws10
 
 # reload the configuration file
-bindsym $mod+Shift+c reload
+# bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
@@ -207,6 +210,8 @@ bindsym XF86AudioPrev exec $nsi playerctl previous
 bindsym $mod+comma exec --no-startup-id maim | xclip -selection clipboard -t image/png
 bindsym $mod+period exec --no-startup-id maim --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
 bindsym $mod+slash exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
+
+bindsym $mod+e exec thunar
 
 
 # class                 border  bground text    indicator child_border
