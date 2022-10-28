@@ -1,0 +1,5 @@
+appimagelauncher
+
+superslicer
+upscayl
+vial
