@@ -69,6 +69,7 @@ for_window [class="TelegramDesktop"] move container to workspace $ws8
 for_window [class="Spotify"] move container to workspace $ws9
 # assign [class="C+ode"] $ws10
 assign [class="kitty"] $ws10
+assign [class="Thunar"] $ws10
 
 
 #                                       Bindings
