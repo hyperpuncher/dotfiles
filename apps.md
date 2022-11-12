@@ -1,6 +1,5 @@
 # Nvidia only
-`akmod-nvidia xorg-x11-drv-nvidia-cuda`
-# Force composition after install in nvidia settings
+https://rpmfusion.org/Howto/NVIDIA#Latest.2FBeta_driver
 
 passmenu
 https://github.com/phillipberndt/autorandr
