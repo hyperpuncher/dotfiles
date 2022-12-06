@@ -59,7 +59,9 @@ exec $nsi kitty
 # exec $nsi code
 exec telegram-desktop
 exec $nsi i3-msg workspace $ws10
-exec $nsi "setxkbmap -layout us,ru -option grp:caps_toggle"
+exec $nsi "setxkbmap -layout us,ru -option grp:win_space_toggle"
+exec $nsi xbindkeys
+exec_always --no-startup-id autotiling
 
 assign [class="firefox"] $ws1
 assign [class="superslicer"] $ws6
@@ -68,6 +70,13 @@ for_window [class="TelegramDesktop"] move container to workspace $ws8
 for_window [class="Spotify"] move container to workspace $ws9
 assign [class="kitty"] $ws10
 assign [class="Thunar"] $ws10
+
+for_window [window_role="pop-up"]                       floating enable
+for_window [window_role="bubble"]                       floating enable 
+for_window [window_role="task_dialog"]                  floating enable
+for_window [window_role="Preferences"]                  floating enable
+for_window [window_type="dialog"]                       floating enable 
+for_window [window_type="menu"]                         floating enable
 
 
 #                                       Bindings
