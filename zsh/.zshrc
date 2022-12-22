@@ -5,6 +5,9 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+export LD_LIBRARY_PATH=/usr/local/lib/
+export PATH="/home/igor/.local/bin/avr-gcc/avr-gcc-11.1.0-x64-linux/bin:$PATH"
+# export PATH="/home/igor/.local/bin/avr-gcc/avr-gcc-8.3.0-x64-linux/bin:$PATH"
 export PATH="/home/igor/.local/bin:$PATH"
 
 # Lines configured by zsh-newuser-install
