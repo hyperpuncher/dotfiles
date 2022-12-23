@@ -2,7 +2,7 @@
 # this file and re-run i3-config-wizard(1).
 
 #                                      Variables
-font pango:Ubuntu Nerd Font 8
+font pango:SF Pro Rounded 10
 
 set $nsi --no-startup-id
 

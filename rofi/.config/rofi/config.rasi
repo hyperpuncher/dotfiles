@@ -1,6 +1,6 @@
 configuration {
 	modes: "window,drun,run,ssh,filebrowser";
-	font: "UbuntuMono Nerd Font 15";
+	font: "SF Pro Rounded Medium 15";
 /*	location: 0;*/
 /*	yoffset: 0;*/
 /*	xoffset: 0;*/
@@ -148,4 +148,8 @@ configuration {
       directories-first: true;
       sorting-method:    "name";
   }
+}
+
+window {
+  width: 35%;
 }
