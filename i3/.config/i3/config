@@ -23,7 +23,7 @@ set $ws8 "切"
 set $ws9 ""
 set $ws10 ""
 
-# gaps inner 15
+# gaps inner 10
 # gaps outer 0
 
 # Enable gaps for more than one window
@@ -227,7 +227,7 @@ bindsym $mod+slash exec $nsi maim --select | xclip -selection clipboard -t image
 
 bindsym $mod+e exec thunar
 
-set $focus   #f2f2f2
+set $focus   #707070
 set $unfocus #303030
 set $alert   #D9FF00
 set $text    #F8F8F2
