@@ -13,8 +13,8 @@ set $monitor_v HDMI-0
 
 # Define names for default workspaces for which we configure key bindings later on.
 set $ws1 ""
-set $ws2 "2"
-set $ws3 "3"
+set $ws2 ""
+set $ws3 ""
 set $ws4 "4"
 set $ws5 "5"
 set $ws6 "ﳻ"
@@ -23,18 +23,19 @@ set $ws8 "切"
 set $ws9 ""
 set $ws10 ""
 
-# gaps inner 10
+# gaps inner 7
 # gaps outer 0
 
-# Enable gaps for more than one window
+# # Enable gaps for more than one window
 # smart_gaps on
 
-hide_edge_borders smart
+# hide_edge_borders smart
 
 #Hide window title bar
-for_window [class=".*"] border pixel 1
+for_window [class=".*"] border pixel 3
 
 workspace $ws1 output $monitor_h
+workspace $ws2 output $monitor_h
 workspace $ws6 output $monitor_h
 workspace $ws7 output $monitor_v
 workspace $ws8 output $monitor_v
@@ -78,6 +79,7 @@ for_window [window_role="GtkFileChooserDialog"]         floating enable, resize 
 for_window [title="Preferences$"]                       floating enable, resize set 900 900, move position center
 for_window [class="Blueman-manager"]                    floating enable, resize set 400 300, move position center
 for_window [class="Setroubleshoot"]                     floating enable
+for_window [class="Quickgui"]                           floating enable
 for_window [window_type="dialog"]                       floating enable, move position center
 for_window [window_type="menu"]                         floating enable, resize set 900 900, move position center
 for_window [title="Sign in - Google Accounts*"]         floating enable, resize set 900 900, move position center
@@ -102,7 +104,7 @@ bindsym $mod+q kill
 floating_modifier $mod
 
 # A more modern dmenu replacement is rofi:
-bindcode $mod+40 exec $nsi "rofi -modi drun,run,filebrowser -show drun"
+bindcode $mod+40 exec $nsi "rofi -modes 'drun,run,filebrowser' -show drun"
 
 # change focus
 bindsym $mod+h focus left
@@ -135,7 +137,7 @@ bindsym $mod+Shift+Right move right
 # bindsym $mod+x split h
 
 # split in vertical orientation
-bindsym $mod+v split v
+# bindsym $mod+v split v
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
@@ -152,8 +154,8 @@ bindsym $mod+space focus mode_toggle
 
 # switch to workspace
 bindsym $mod+b workspace $ws1
-bindsym $mod+2 workspace $ws2
-bindsym $mod+3 workspace $ws3
+bindsym $mod+g workspace $ws2
+bindsym $mod+v workspace $ws3
 bindsym $mod+4 workspace $ws4
 bindsym $mod+5 workspace $ws5
 bindsym $mod+o workspace $ws6
@@ -164,8 +166,8 @@ bindsym $mod+c workspace $ws10
 
 # move focused container to workspace
 bindsym $mod+Shift+b move container to workspace $ws1
-bindsym $mod+Shift+2 move container to workspace $ws2
-bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+g move container to workspace $ws2
+bindsym $mod+Shift+v move container to workspace $ws3
 bindsym $mod+Shift+4 move container to workspace $ws4
 bindsym $mod+Shift+5 move container to workspace $ws5
 bindsym $mod+Shift+o move container to workspace $ws6
@@ -220,14 +222,17 @@ bindsym XF86AudioPrev exec $nsi playerctl previous
 # Take a screenshot upon pressing $mod+x (select an area)
 # bindsym --release $mod+x exec $nsi import /tmp/latest-screenshot.png
 
-## Clipboard Screenshots
+# Clipboard Screenshots
 bindsym $mod+comma exec $nsi maim | xclip -selection clipboard -t image/png
 bindsym $mod+period exec $nsi maim --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
 bindsym $mod+slash exec $nsi maim --select | xclip -selection clipboard -t image/png
 
+# Color picker
+bindsym --release $mod+ctrl+c exec $nsi xcolor -s
+
 bindsym $mod+e exec thunar
 
-set $focus   #707070
+set $focus   #bd93f9
 set $unfocus #303030
 set $alert   #D9FF00
 set $text    #F8F8F2
