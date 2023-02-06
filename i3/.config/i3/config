@@ -225,7 +225,7 @@ bindsym XF86AudioPrev exec $nsi playerctl previous
 # Clipboard Screenshots
 bindsym $mod+comma exec $nsi maim | xclip -selection clipboard -t image/png
 bindsym $mod+period exec $nsi maim --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
-bindsym $mod+slash exec $nsi maim --select | xclip -selection clipboard -t image/png
+bindsym $mod+apostrophe exec $nsi maim --select | xclip -selection clipboard -t image/png
 
 # Color picker
 bindsym --release $mod+ctrl+c exec $nsi xcolor -s
