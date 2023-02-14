@@ -12,16 +12,16 @@ set $monitor_h DP-4
 set $monitor_v HDMI-0
 
 # Define names for default workspaces for which we configure key bindings later on.
-set $ws1 ""
-set $ws2 ""
-set $ws3 ""
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
 set $ws4 "4"
 set $ws5 "5"
-set $ws6 "ﳻ"
-set $ws7 "浪"
-set $ws8 "切"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
 set $ws9 ""
-set $ws10 ""
+set $ws10 "切"
 
 # gaps inner 7
 # gaps outer 0
@@ -59,14 +59,14 @@ exec $nsi firefox
 exec $nsi spotify
 exec $nsi kitty
 exec telegram-desktop
-exec $nsi i3-msg workspace $ws10
+exec $nsi i3-msg workspace $ws8
 exec $nsi xbindkeys
-exec $nsi "setxkbmap -layout us,ru -option grp:rctrl_toggle"
+exec_always $nsi "setxkbmap -layout us,ru -option grp:rctrl_toggle"
 exec_always $nsi xkb-switch --i3
 
 assign [class="superslicer"] $ws6
 for_window [class="superslicer"] move container to workspace $ws6
-for_window [class="TelegramDesktop"] move container to workspace $ws8
+for_window [class="TelegramDesktop"] move container to workspace $ws10
 for_window [class="Spotify"] move container to workspace $ws9
 
 
@@ -133,18 +133,8 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
-# split in horizontal orientation
-# bindsym $mod+x split h
-
-# split in vertical orientation
-# bindsym $mod+v split v
-
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
-
-# change container layout (stacked, tabbed, toggle split)
-bindsym $mod+w layout toggle tabbed
-bindsym $mod+x layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+Shift+f floating toggle
@@ -153,31 +143,29 @@ bindsym $mod+Shift+f floating toggle
 bindsym $mod+space focus mode_toggle
 
 # switch to workspace
-bindsym $mod+b workspace $ws1
-bindsym $mod+g workspace $ws2
+bindsym $mod+g workspace $ws1
+bindsym $mod+b workspace $ws2
 bindsym $mod+v workspace $ws3
 bindsym $mod+4 workspace $ws4
 bindsym $mod+5 workspace $ws5
 bindsym $mod+o workspace $ws6
 bindsym $mod+p workspace $ws7
-bindsym $mod+t workspace $ws8
+bindsym $mod+c workspace $ws8
 bindsym $mod+s workspace $ws9
-bindsym $mod+c workspace $ws10
+bindsym $mod+t workspace $ws10
 
 # move focused container to workspace
-bindsym $mod+Shift+b move container to workspace $ws1
-bindsym $mod+Shift+g move container to workspace $ws2
+bindsym $mod+Shift+g move container to workspace $ws1
+bindsym $mod+Shift+b move container to workspace $ws2
 bindsym $mod+Shift+v move container to workspace $ws3
 bindsym $mod+Shift+4 move container to workspace $ws4
 bindsym $mod+Shift+5 move container to workspace $ws5
 bindsym $mod+Shift+o move container to workspace $ws6
 bindsym $mod+Shift+p move container to workspace $ws7
-bindsym $mod+Shift+t move container to workspace $ws8
+bindsym $mod+Shift+c move container to workspace $ws8
 bindsym $mod+Shift+s move container to workspace $ws9
-bindsym $mod+Shift+c move container to workspace $ws10
+bindsym $mod+Shift+t move container to workspace $ws10
 
-# reload the configuration file
-# bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
@@ -219,13 +207,10 @@ bindsym XF86AudioPlay exec $nsi playerctl play-pause
 bindsym XF86AudioNext exec $nsi playerctl next
 bindsym XF86AudioPrev exec $nsi playerctl previous
 
-# Take a screenshot upon pressing $mod+x (select an area)
-# bindsym --release $mod+x exec $nsi import /tmp/latest-screenshot.png
-
 # Clipboard Screenshots
 bindsym $mod+comma exec $nsi maim | xclip -selection clipboard -t image/png
 bindsym $mod+period exec $nsi maim --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
-bindsym $mod+apostrophe exec $nsi maim --select | xclip -selection clipboard -t image/png
+bindsym $mod+slash exec $nsi maim --select | xclip -selection clipboard -t image/png
 
 # Color picker
 bindsym --release $mod+ctrl+c exec $nsi xcolor -s
