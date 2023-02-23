@@ -15,7 +15,7 @@ ENABLE_CORRECTION="true"
 # Created by newuser for 5.9
 source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-source ~/dotfiles/aliases.zsh
+source ./aliases.zsh
 
 # source ~/.config/dracula/zsh/dracula.zsh-theme
 source ~/.config/dracula/zsh-syntax-highlighting/zsh-syntax-highlighting.sh

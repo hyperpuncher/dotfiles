@@ -1,9 +1,9 @@
-width = 100%
-height = 100%
+width = 150%
+height = 150%
 border-width = 0
 outline-width = 0
-padding-left = 35%
-padding-top = 35%
+padding-left = 50%
+padding-top = 50%
 result-spacing = 25
 num-results = 5
 font = SF Pro Rounded Medium

@@ -102,8 +102,7 @@
     "hyprland/language": {
         "format": "{}",
         "format-en": "EN",
-        "format-ru": "RU",
-        "keyboard-name": "hyperpuncher-kanariyoi"
+        "format-ru": "RU"
     },
     "wlr/taskbar": {
         "format": "{icon}",
