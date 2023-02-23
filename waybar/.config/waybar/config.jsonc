@@ -1,0 +1,119 @@
+{
+    // "layer": "top", // Waybar at top layer
+    // "position": "bottom", // Waybar position (top|bottom|left|right)
+    // "height": 30, // Waybar height (to be removed for auto height)
+    // "width": 1280, // Waybar width
+    // "spacing": 4, // Gaps between modules (4px)
+    // Choose the order of the modules
+    "modules-left": ["wlr/workspaces", "wlr/taskbar"],
+    "modules-center": ["custom/media"],
+    "modules-right": ["pulseaudio", "temperature", "cpu", "memory", "disk", "hyprland/language", "clock"],
+    "wlr/workspaces": {
+        "format": "{icon}",
+        "format-icons": {
+            "active": "",
+            "default": ""
+        },
+        "on-scroll-up": "hyprctl dispatch workspace e-1",
+        "on-scroll-down": "hyprctl dispatch workspace e+1",
+        "on-click": "activate"
+    },
+    "mpd": {
+        "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ {volume}% ",
+        "format-disconnected": "Disconnected ",
+        "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
+        "unknown-tag": "N/A",
+        "interval": 2,
+        "consume-icons": {
+            "on": " "
+        },
+        "random-icons": {
+            "off": "<span color=\"#f53c3c\"></span> ",
+            "on": " "
+        },
+        "repeat-icons": {
+            "on": " "
+        },
+        "single-icons": {
+            "on": "1 "
+        },
+        "state-icons": {
+            "paused": "",
+            "playing": ""
+        },
+        "tooltip-format": "MPD (connected)",
+        "tooltip-format-disconnected": "MPD (disconnected)"
+    },
+    "clock": {
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "format-alt": "{:%d-%m-%Y}"
+    },
+    "cpu": {
+        "format": "{usage}% 󰍛",
+        "tooltip": false,
+        "interval": 2
+    },
+    "memory": {
+        "format": "{}% "
+    },
+    "disk": {
+        "interval": 30,
+        "format": "{percentage_used}% ",
+        "path": "/"
+    },
+    "temperature": {
+        // "thermal-zone": 1,
+        "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+        "critical-threshold": 80,
+        // "format-critical": "{temperatureC}°C {icon}",
+        "format": "{temperatureC}°C {icon}",
+        "format-icons": [""]
+    },
+    "backlight": {
+        // "device": "acpi_video1",
+        "format": "{percent}% {icon}",
+        "format-icons": ["", "", "", "", "", "", "", "", ""]
+    },
+    "pulseaudio": {
+        // "scroll-step": 1, // %, can be a float
+        "format": "{volume}% {icon}",
+        "format-bluetooth": "{volume}% {icon} ",
+        "format-bluetooth-muted": " {icon}",
+        "format-muted": " {format_source}",
+        "format-source": "{volume}% ",
+        "format-source-muted": "",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", "", ""]
+        },
+        "on-click": "pavucontrol"
+    },
+    "custom/media": {
+        "format": "{}",
+        "interval": 1,
+        "exec": "$HOME/.config/waybar/scripts/get_spotify.sh",
+        // "on-click": "hyprctl --batch 'dispatch exec spotify ; dispatch exec sleep 1 ; keyword windowrule = workspace 4 silent, title:^(Spotify)$'"
+    },
+    "hyprland/language": {
+        "format": "{}",
+        "format-en": "EN",
+        "format-ru": "RU",
+        "keyboard-name": "hyperpuncher-kanariyoi"
+    },
+    "wlr/taskbar": {
+        "format": "{icon}",
+        "icon-size": 18,
+        "tooltip": false,
+        "on-click": "activate",
+        "on-click-middle": "close",
+        "ignore-list": [
+           "Kitty", "Spotify"
+        ]
+    }
+}
+
