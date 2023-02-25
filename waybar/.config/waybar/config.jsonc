@@ -111,7 +111,7 @@
         "on-click": "activate",
         "on-click-middle": "close",
         "ignore-list": [
-           "Kitty", "Spotify"
+           "kitty", "Spotify"
         ]
     }
 }
