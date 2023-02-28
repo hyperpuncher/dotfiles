@@ -96,7 +96,7 @@
     "custom/media": {
         "format": "{}",
         "interval": 1,
-        "exec": "$HOME/.config/waybar/scripts/get_spotify.sh",
+        "exec": "$HOME/.config/waybar/scripts/get_spotify.sh"
         // "on-click": "hyprctl --batch 'dispatch exec spotify ; dispatch exec sleep 1 ; keyword windowrule = workspace 4 silent, title:^(Spotify)$'"
     },
     "hyprland/language": {
