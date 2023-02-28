@@ -7,7 +7,7 @@
     // Choose the order of the modules
     "modules-left": ["wlr/workspaces", "wlr/taskbar"],
     "modules-center": ["custom/media"],
-    "modules-right": ["pulseaudio", "temperature", "cpu", "memory", "disk", "hyprland/language", "clock"],
+    "modules-right": ["custom/brightness", "pulseaudio", "temperature", "cpu", "memory", "disk", "hyprland/language", "clock"],
     "wlr/workspaces": {
         "format": "{icon}",
         "format-icons": {
@@ -113,6 +113,11 @@
         "ignore-list": [
            "kitty", "Spotify", "firefox"
         ]
+    },
+    "custom/brightness": {
+        "format": "{}%  ",
+        "interval": 1,
+        "exec": "brillo | cut -d '.' -f 1"
     }
 }
 

@@ -70,6 +70,7 @@ button:hover {
 #pulseaudio,
 #wireplumber,
 #custom-media,
+#custom-brightness,
 #tray,
 #mode,
 #mpd,
@@ -204,4 +205,8 @@ label:focus {
 #language {
     background: #00b093;
     min-width: 18px;
+}
+
+#custom-brightness {
+    background-color: #90b1b1;
 }
