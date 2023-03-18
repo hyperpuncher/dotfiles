@@ -7,7 +7,7 @@
     // Choose the order of the modules
     "modules-left": ["wlr/workspaces", "wlr/taskbar"],
     "modules-center": ["custom/media"],
-    "modules-right": ["pulseaudio", "temperature", "cpu", "memory", "disk", "hyprland/language", "clock"],
+    "modules-right": ["custom/brightness", "pulseaudio", "temperature", "cpu", "memory", "disk", "hyprland/language", "clock"],
     "wlr/workspaces": {
         "format": "{icon}",
         "format-icons": {
@@ -95,7 +95,7 @@
     },
     "custom/media": {
         "format": "{}",
-        "interval": 1,
+        "interval": 2,
         "exec": "$HOME/.config/waybar/scripts/get_spotify.sh"
         // "on-click": "hyprctl --batch 'dispatch exec spotify ; dispatch exec sleep 1 ; keyword windowrule = workspace 4 silent, title:^(Spotify)$'"
     },
@@ -116,7 +116,7 @@
     },
     "custom/brightness": {
         "format": "{}%  ",
-        "interval": 1,
+        "interval": 2,
         "exec": "brillo | cut -d '.' -f 1"
     }
 }
