@@ -15,9 +15,9 @@ ENABLE_CORRECTION="true"
 # Created by newuser for 5.9
 source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-source ./aliases.zsh
+source ~/dotfiles/zsh/aliases.zsh
 
-source ./zsh-syntax-highlighting-dracula.sh
+source ~/dotfiles/zsh/zsh-syntax-highlighting-dracula.sh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
@@ -28,3 +28,4 @@ export PATH=$PATH:~/.local/bin:~/.cargo/bin
 export VISUAL=code
 
 pfetch
+source /usr/share/nvm/init-nvm.sh
