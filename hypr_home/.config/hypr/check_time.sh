@@ -13,8 +13,6 @@ while true; do
     current_minutes=$(date +%M)
     current_time=$(( current_hour * 60 + current_minutes ))
 
-    echo "$current_time"
-
     if (( current_time >= wakeup && current_time < sunset )); then
         color_temp=$color_day
 
@@ -31,5 +29,5 @@ while true; do
     sed -i "s/temperature = [0-9][0-9]/temperature = $color_temp/" ~/dotfiles/hypr_home/.config/hypr/night_light.glsl
     echo "$color_temp"
 
-    sleep 60
+    sleep 180
 done
