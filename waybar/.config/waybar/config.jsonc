@@ -7,7 +7,7 @@
     // Choose the order of the modules
     "modules-left": ["wlr/workspaces", "wlr/taskbar"],
     "modules-center": ["custom/media"],
-    "modules-right": ["custom/brightness", "pulseaudio", "temperature", "cpu", "memory", "disk", "hyprland/language", "clock"],
+    "modules-right": ["custom/brightness", "wireplumber", "temperature", "cpu", "memory", "disk", "hyprland/language", "clock"],
     "wlr/workspaces": {
         "format": "{icon}",
         "format-icons": {
@@ -74,24 +74,37 @@
         "format": "{percent}% {icon}",
         "format-icons": ["", "", "", "", "", "", "", "", ""]
     },
-    "pulseaudio": {
-        // "scroll-step": 1, // %, can be a float
+    // "pulseaudio": {
+    //     // "scroll-step": 1, // %, can be a float
+    //     "format": "{volume}% {icon}",
+    //     "format-bluetooth": "{volume}% {icon} ",
+    //     "format-bluetooth-muted": " {icon}",
+    //     "format-muted": " {format_source}",
+    //     "format-source": "{volume}% ",
+    //     "format-source-muted": "",
+    //     "format-icons": {
+    //         "headphone": "",
+    //         "hands-free": "",
+    //         "headset": "",
+    //         "phone": "",
+    //         "portable": "",
+    //         "car": "",
+    //         "default": ["", "", ""]
+    //     },
+    //     "on-click": "pavucontrol"
+    // },
+    "wireplumber": {
         "format": "{volume}% {icon}",
         "format-bluetooth": "{volume}% {icon} ",
         "format-bluetooth-muted": " {icon}",
-        "format-muted": " {format_source}",
-        "format-source": "{volume}% ",
-        "format-source-muted": "",
+        "format-muted": "",
+        "on-click": "helvum",
         "format-icons": {
             "headphone": "",
             "hands-free": "",
             "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
             "default": ["", "", ""]
-        },
-        "on-click": "pavucontrol"
+        }
     },
     "custom/media": {
         "format": "{}",
