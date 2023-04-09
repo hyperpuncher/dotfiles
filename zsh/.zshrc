@@ -27,5 +27,7 @@ export BAT_THEME="Dracula"
 export PATH=$PATH:~/.local/bin:~/.cargo/bin
 export VISUAL=code
 
+export PF_INFO="ascii title os de kernel uptime pkgs memory"
+
 pfetch
 source /usr/share/nvm/init-nvm.sh
