@@ -7,7 +7,7 @@
     // Choose the order of the modules
     "modules-left": ["wlr/workspaces", "wlr/taskbar"],
     "modules-center": ["custom/media"],
-    "modules-right": ["custom/brightness", "wireplumber", "temperature", "cpu", "memory", "disk", "hyprland/language", "clock"],
+    "modules-right": ["custom/vpn", "custom/brightness", "wireplumber", "temperature", "cpu", "memory", "disk", "hyprland/language", "clock"],
     "wlr/workspaces": {
         "format": "{icon}",
         "format-icons": {
@@ -132,6 +132,12 @@
         "format": "{}%  ",
         "interval": 2,
         "exec": "brillo | cut -d '.' -f 1"
+    },
+    "custom/vpn": {
+        "format": "VPN ",
+        "exec": "echo '0'",
+        "exec-if": "test -d /proc/sys/net/ipv4/conf/racknerd",
+        "interval": 5
     }
 }
 

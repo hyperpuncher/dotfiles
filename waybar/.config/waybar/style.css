@@ -74,6 +74,7 @@ button:hover {
 #tray,
 #mode,
 #mpd,
+#custom-vpn,
 #language {
     padding: 0.2em 0.5em;
     color: #000000;
@@ -209,4 +210,8 @@ label:focus {
 
 #custom-brightness {
     background-color: #90b1b1;
+}
+
+#custom-vpn {
+    background-color: #ff0084;
 }
