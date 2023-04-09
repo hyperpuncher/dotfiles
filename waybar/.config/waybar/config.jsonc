@@ -111,7 +111,6 @@
         "interval": 2,
         "escape": true,
         "exec": "$HOME/.config/waybar/scripts/get_spotify.sh"
-        // "on-click": "hyprctl --batch 'dispatch exec spotify ; dispatch exec sleep 1 ; keyword windowrule = workspace 4 silent, title:^(Spotify)$'"
     },
     "hyprland/language": {
         "format": "{}",
