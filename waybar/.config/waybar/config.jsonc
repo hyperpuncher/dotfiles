@@ -14,7 +14,7 @@
     ],
     "modules-right": [
         "custom/vpn",
-        "custom/brightness",
+        // "custom/brightness",
         // "wireplumber",
         "pulseaudio",
         "temperature",
