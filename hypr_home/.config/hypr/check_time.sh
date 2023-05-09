@@ -27,7 +27,7 @@ while true; do
     fi
 
     sed -i "s/temperature = [0-9][0-9]/temperature = $color_temp/" ~/dotfiles/hypr_home/.config/hypr/night_light.glsl
-    echo "$color_temp"
+    # echo "$color_temp"
 
     sleep 90
 done
