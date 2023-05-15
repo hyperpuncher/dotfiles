@@ -34,3 +34,9 @@ source /usr/share/nvm/init-nvm.sh
 
 # autojump-rs config
 [[ -s /etc/profile.d/autojump.sh ]] && source /etc/profile.d/autojump.sh
+
+export PYTORCH_CUDA_ALLOC_CONF=max_split_size_mb:64
+
+newproj() {
+    mkdir -p ~/projects/"$1" && cd ~/projects/"$1" && code .
+}
