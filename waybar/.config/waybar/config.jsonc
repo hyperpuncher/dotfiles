@@ -1,137 +1,109 @@
 {
-    // "layer": "top", // Waybar at top layer
-    // "position": "bottom", // Waybar position (top|bottom|left|right)
-    // "height": 30, // Waybar height (to be removed for auto height)
-    // "width": 1280, // Waybar width
-    // "spacing": 4, // Gaps between modules (4px)
-    // Choose the order of the modules
-    "modules-left": [
-        "wlr/workspaces",
-        "wlr/taskbar"
-    ],
-    "modules-center": [
-        "custom/media"
-    ],
-    "modules-right": [
-        "custom/vpn",
-        "custom/brightness",
-        // "wireplumber",
-        "pulseaudio",
-        "temperature",
-        "cpu",
-        "memory",
-        "disk",
-        "hyprland/language",
-        "clock"
-    ],
-    "wlr/workspaces": {
-        "format": "{icon}",
-        "format-icons": {
-            "active": "",
-            "default": ""
-        },
-        "on-scroll-up": "hyprctl dispatch workspace e-1",
-        "on-scroll-down": "hyprctl dispatch workspace e+1",
-        "on-click": "activate"
+  // "layer": "top", // Waybar at top layer
+  // "position": "bottom", // Waybar position (top|bottom|left|right)
+  // "height": 30, // Waybar height (to be removed for auto height)
+  // "width": 1280, // Waybar width
+  // "spacing": 4, // Gaps between modules (4px)
+  // Choose the order of the modules
+  "modules-left": ["wlr/workspaces", "wlr/taskbar"],
+  "modules-center": ["custom/media"],
+  "modules-right": [
+    "custom/vpn",
+    "custom/brightness",
+    "pulseaudio",
+    "temperature",
+    "cpu",
+    "memory",
+    "disk",
+    "hyprland/language",
+    "clock"
+  ],
+  "wlr/workspaces": {
+    "format": "{icon}",
+    "format-icons": {
+      "active": "",
+      "default": ""
     },
-    "clock": {
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format-alt": "{:%d.%m.%Y}"
+    "on-scroll-up": "hyprctl dispatch workspace e-1",
+    "on-scroll-down": "hyprctl dispatch workspace e+1",
+    "on-click": "activate"
+  },
+  "clock": {
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    "format-alt": "{:%d.%m.%Y}"
+  },
+  "cpu": {
+    "format": "{usage}% 󰍛",
+    "tooltip": false,
+    "interval": 2
+  },
+  "memory": {
+    "format": "{}% "
+  },
+  "disk": {
+    "interval": 30,
+    "format": "{percentage_used}% ",
+    "path": "/"
+  },
+  "temperature": {
+    // "thermal-zone": 1,
+    "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+    "critical-threshold": 80,
+    // "format-critical": "{temperatureC}°C {icon}",
+    "format": "{temperatureC}°C {icon}",
+    "format-icons": [""]
+  },
+  "pulseaudio": {
+    // "scroll-step": 1, // %, can be a float
+    "format": "{volume}% {icon}",
+    "format-bluetooth": "{volume}% {icon} ",
+    "format-bluetooth-muted": " {icon}",
+    "format-muted": " {format_source}",
+    "format-source": "{volume}% ",
+    "format-source-muted": "",
+    "format-icons": {
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": ["", "", ""]
     },
-    "cpu": {
-        "format": "{usage}% 󰍛",
-        "tooltip": false,
-        "interval": 2
-    },
-    "memory": {
-        "format": "{}% "
-    },
-    "disk": {
-        "interval": 30,
-        "format": "{percentage_used}% ",
-        "path": "/"
-    },
-    "temperature": {
-        // "thermal-zone": 1,
-        "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
-        "critical-threshold": 80,
-        // "format-critical": "{temperatureC}°C {icon}",
-        "format": "{temperatureC}°C {icon}",
-        "format-icons": [
-            ""
-        ]
-    },
-    "pulseaudio": {
-        // "scroll-step": 1, // %, can be a float
-        "format": "{volume}% {icon}",
-        "format-bluetooth": "{volume}% {icon} ",
-        "format-bluetooth-muted": " {icon}",
-        "format-muted": " {format_source}",
-        "format-source": "{volume}% ",
-        "format-source-muted": "",
-        "format-icons": {
-            "headphone": "",
-            "hands-free": "",
-            "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
-            "default": [
-                "",
-                "",
-                ""
-            ]
-        },
-        "on-click": "pavucontrol"
-    },
-    "wireplumber": {
-        "format": "{volume}% {icon}",
-        "format-bluetooth": "{volume}% {icon} ",
-        "format-bluetooth-muted": " {icon}",
-        "format-muted": "",
-        "format-icons": {
-            "headphone": "",
-            "hands-free": "",
-            "headset": "",
-            "default": [
-                "",
-                "",
-                ""
-            ]
-        }
-    },
-    "custom/media": {
-        "format": "{}",
-        "interval": 2,
-        "escape": true,
-        "exec": "$HOME/.config/waybar/scripts/get_spotify.sh"
-    },
-    "hyprland/language": {
-        "format": "{}",
-        "format-en": "EN",
-        "format-ru": "RU"
-    },
-    "wlr/taskbar": {
-        "format": "{icon}",
-        "icon-size": 18,
-        "tooltip": false,
-        "on-click": "activate",
-        "on-click-middle": "close",
-        "ignore-list": [
-            // "kitty",
-            "Spotify",
-            "firefox"
-        ]
-    },
-    "custom/brightness": {
-        "format": "{}%  ",
-        "interval": 2,
-        "exec": "brillo | cut -d '.' -f 1"
-    },
-    "custom/vpn": {
-        "format": "VPN ",
-        "exec": "echo '0'",
-        "exec-if": "test -d /proc/sys/net/ipv4/conf/racknerd",
-        "interval": 5
-    }
+    "ignored-sinks": ["Easy Effects Sink"]
+  },
+  "custom/media": {
+    "format": "{}",
+    "interval": 2,
+    "escape": true,
+    "exec": "$HOME/.config/waybar/scripts/get_spotify.sh"
+  },
+  "hyprland/language": {
+    "format": "{}",
+    "format-en": "EN",
+    "format-ru": "RU"
+  },
+  "wlr/taskbar": {
+    "format": "{icon}",
+    "icon-size": 18,
+    "tooltip": false,
+    "on-click": "activate",
+    "on-click-middle": "close",
+    "ignore-list": [
+      // "kitty",
+      "Spotify",
+      "firefox"
+    ]
+  },
+  "custom/brightness": {
+    "format": "{}%  ",
+    "interval": 2,
+    "exec": "brillo | cut -d '.' -f 1"
+  },
+  "custom/vpn": {
+    "format": "VPN ",
+    "exec": "echo '0'",
+    "exec-if": "test -d /proc/sys/net/ipv4/conf/racknerd",
+    "interval": 5
+  }
 }
