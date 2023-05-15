@@ -65,10 +65,7 @@
       "headphone": "",
       "hands-free": "",
       "headset": "",
-      "phone": "",
-      "portable": "",
-      "car": "",
-      "default": ["", "", ""]
+      "default": ["", ""]
     },
     "ignored-sinks": ["Easy Effects Sink"]
   },
