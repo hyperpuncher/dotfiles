@@ -5,7 +5,7 @@ sunset=$((20 * 60))
 night=$((22 * 60))
 
 color_day=65
-color_night=25
+color_night=30
 
 while true; do
     current_hour=$(date +%k)
