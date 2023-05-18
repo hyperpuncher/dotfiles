@@ -17,6 +17,15 @@ return {
   },
 
   {
+    "nvim-treesitter/nvim-treesitter",
+    opts = {
+      ensure_installed = {
+        "jsonc",
+      },
+    },
+  },
+
+  {
     "williamboman/mason.nvim",
     opts = {
       ensure_installed = {
@@ -25,7 +34,6 @@ return {
         "ruff-lsp",
         "prettierd",
         "shellcheck",
-        "typescript-language-server",
       },
     },
   },
@@ -36,10 +44,8 @@ return {
       local nls = require("null-ls")
       return {
         sources = {
-          nls.builtins.formatting.stylua,
           nls.builtins.formatting.prettierd,
           nls.builtins.formatting.black,
-          nls.builtins.formatting.shfmt,
 
           nls.builtins.diagnostics.shellcheck,
           nls.builtins.diagnostics.ruff,
