@@ -86,11 +86,7 @@
     "tooltip": false,
     "on-click": "activate",
     "on-click-middle": "close",
-    "ignore-list": [
-      // "kitty",
-      "Spotify",
-      "firefox"
-    ]
+    "ignore-list": ["Spotify"]
   },
   "custom/brightness": {
     "format": "{}%  ",
