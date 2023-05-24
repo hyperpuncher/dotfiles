@@ -25,7 +25,7 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 
 export BAT_THEME="Dracula"
 export PATH=$PATH:~/.local/bin:~/.cargo/bin
-export VISUAL=code
+export EDITOR=nvim
 
 export PF_INFO="ascii title os de kernel uptime pkgs memory"
 
