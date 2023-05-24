@@ -21,6 +21,7 @@ return {
     opts = {
       ensure_installed = {
         "jsonc",
+        "svelte",
       },
     },
   },
@@ -34,6 +35,7 @@ return {
         "ruff-lsp",
         "prettierd",
         "shellcheck",
+        "svelte-language-server",
       },
     },
   },
@@ -51,15 +53,6 @@ return {
           nls.builtins.diagnostics.ruff,
         },
       }
-    end,
-  },
-
-  {
-    "Exafunction/codeium.vim",
-    config = function()
-      vim.keymap.set("i", "<C-l>", function()
-        return vim.fn["codeium#Accept"]()
-      end, { expr = true })
     end,
   },
 
