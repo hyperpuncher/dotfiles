@@ -38,5 +38,5 @@ source /usr/share/nvm/init-nvm.sh
 export PYTORCH_CUDA_ALLOC_CONF=max_split_size_mb:64
 
 newproj() {
-    mkdir -p ~/projects/"$1" && cd ~/projects/"$1" && code .
+    mkdir -p ~/projects/"$1" && cd ~/projects/"$1" && nvim .
 }
