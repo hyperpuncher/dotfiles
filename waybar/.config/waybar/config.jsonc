@@ -96,7 +96,7 @@
   "custom/vpn": {
     "format": "VPN ",
     "exec": "echo '0'",
-    "exec-if": "test -d /proc/sys/net/ipv4/conf/racknerd",
+    "exec-if": "test -d /proc/sys/net/ipv4/conf/racknerd || test -d /proc/sys/net/ipv6/conf/proxmox",
     "interval": 5
   }
 }
