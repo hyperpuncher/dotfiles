@@ -1,5 +1,13 @@
 return {
   {
+    "folke/which-key.nvim",
+    init = function()
+      vim.o.timeout = true
+      vim.o.timeoutlen = 700
+    end,
+  },
+
+  {
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
