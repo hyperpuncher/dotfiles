@@ -5,11 +5,12 @@
 * {
     red:                         rgba ( 220, 50, 47, 100 % );
     selected-active-foreground:  var(background);
-    lightfg:                     rgba ( 88, 104, 117, 100 % );
+    lightfg:                     rgba ( 196, 141, 255, 100 % ); // purple
+    lightfg:                     rgba ( 250, 37, 115, 100 % ); // pink
     separatorcolor:              var(foreground);
     urgent-foreground:           var(red);
     alternate-urgent-background: var(lightbg);
-    lightbg:                     rgba ( 238, 232, 213, 100 % );
+    lightbg:                     rgba ( 20, 20, 20, 100 % );
     background-color:            transparent;
     border-color:                var(foreground);
     normal-background:           var(background);
@@ -21,12 +22,12 @@
     urgent-background:           var(background);
     selected-normal-foreground:  var(lightbg);
     active-foreground:           var(blue);
-    background:                  rgba ( 253, 246, 227, 100 % );
+    background:                  rgba ( 0, 0, 0, 100 % );
     selected-active-background:  var(blue);
     active-background:           var(background);
     selected-normal-background:  var(lightfg);
     alternate-normal-background: var(lightbg);
-    foreground:                  rgba ( 0, 43, 54, 100 % );
+    foreground:                  rgba ( 255, 255, 255, 100 % );
     selected-urgent-foreground:  var(background);
     normal-foreground:           var(foreground);
     alternate-urgent-foreground: var(red);
@@ -89,7 +90,7 @@ element-icon {
 window {
     padding:          5;
     background-color: var(background);
-    border:           1;
+    border:           0;
 }
 mainbox {
     padding: 0;
