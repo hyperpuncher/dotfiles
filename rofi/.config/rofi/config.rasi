@@ -1,11 +1,11 @@
 configuration {
-	modes: "window,drun,run,ssh,filebrowser";
-	font: "SF Pro Rounded Medium 15";
-/*	location: 0;*/
+/*	modes: "window,drun,run,ssh";*/
+/*	font: "mono 12";*/
+	location: 2;
 /*	yoffset: 0;*/
 /*	xoffset: 0;*/
 /*	fixed-num-lines: true;*/
-	show-icons: true;
+/*	show-icons: false;*/
 /*	terminal: "rofi-sensible-terminal";*/
 /*	ssh-client: "ssh";*/
 /*	ssh-command: "{terminal} -e {ssh-client} {host} [-p {port}]";*/
@@ -53,11 +53,10 @@ configuration {
 /*	normalize-match: false;*/
 /*	steal-focus: false;*/
 /*	application-fallback-icon: ;*/
-/*	refilter-timeout-limit: 8192;*/
+/*	refilter-timeout-limit: 300;*/
 /*	xserver-i300-workaround: false;*/
 /*	pid: "/run/user/1000/rofi.pid";*/
 /*	display-window: ;*/
-/*	display-windowcd: ;*/
 /*	display-run: ;*/
 /*	display-ssh: ;*/
 /*	display-drun: ;*/
@@ -66,6 +65,7 @@ configuration {
 /*	display-filebrowser: ;*/
 /*	kb-primary-paste: "Control+V,Shift+Insert";*/
 /*	kb-secondary-paste: "Control+v,Insert";*/
+/*	kb-secondary-copy: "Control+c";*/
 /*	kb-clear-line: "Control+w";*/
 /*	kb-move-front: "Control+a";*/
 /*	kb-move-end: "Control+e";*/
@@ -148,8 +148,4 @@ configuration {
       directories-first: true;
       sorting-method:    "name";
   }
-}
-
-window {
-  width: 35%;
 }
