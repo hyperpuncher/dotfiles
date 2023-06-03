@@ -83,7 +83,7 @@ element-text {
 }
 element-icon {
     background-color: transparent;
-    size:             1.0000em ;
+    size:             1.0em;
     cursor:           inherit;
     text-color:       inherit;
 }
@@ -171,4 +171,8 @@ textbox-prompt-colon {
     expand:     false;
     str:        ":";
     text-color: inherit;
+}
+window {
+  width: 100%;
+  y-offset: -37px;
 }
