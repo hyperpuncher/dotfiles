@@ -81,4 +81,9 @@ return {
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     ft = "hypr",
   },
+
+  {
+    'Fymyte/rasi.vim',
+    ft = 'rasi',
+  }
 }
