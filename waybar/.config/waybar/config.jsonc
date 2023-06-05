@@ -10,7 +10,7 @@
   "modules-right": [
     "custom/vpn",
     "custom/brightness",
-    "bluetooth",
+    // "bluetooth",
     "pulseaudio",
     "temperature",
     "cpu",
