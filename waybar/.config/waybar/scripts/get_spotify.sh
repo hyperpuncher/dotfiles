@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ -n "$(playerctl status)" ]; then
+if [ -n "$(playerctl status 2>/dev/null)" ]; then
 
     media=$(playerctl metadata -f "{{artist}} - {{title}}")
 

@@ -64,6 +64,7 @@ button:hover {
 
 #clock,
 #cpu,
+#bluetooth,
 #memory,
 #disk,
 #temperature,
@@ -115,6 +116,10 @@ label:focus {
 
 #cpu {
   background-color: #2ecc71;
+}
+
+#bluetooth {
+  background-color: #006cff;
 }
 
 #memory {
