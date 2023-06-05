@@ -1,4 +1,5 @@
 alias archive='tar -caf'
+alias bt='bluetoothctl'
 alias cat='bat -p'
 alias fd='fd -H'
 alias i='paru -S'

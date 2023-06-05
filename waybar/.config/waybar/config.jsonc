@@ -1,5 +1,5 @@
 {
-  // "layer": "top", // Waybar at top layer
+  "layer": "top", // Waybar at top layer
   // "position": "bottom", // Waybar position (top|bottom|left|right)
   // "height": 30, // Waybar height (to be removed for auto height)
   // "width": 1280, // Waybar width
@@ -32,7 +32,6 @@
   },
   "cpu": {
     "format": "{usage}% 󰍛",
-    "tooltip": false,
     "interval": 2
   },
   "memory": {
@@ -44,6 +43,7 @@
     "path": "/"
   },
   "temperature": {
+    "tooltip": false,
     // "thermal-zone": 1,
     "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
     "critical-threshold": 80,
@@ -87,14 +87,16 @@
     "ignore-list": ["Spotify"]
   },
   "custom/brightness": {
+    "tooltip": false,
     "format": "{}%  ",
     "interval": 2,
     "exec": "brillo | cut -d '.' -f 1"
   },
   "custom/vpn": {
+    "tooltip": false,
     "format": "VPN ",
     "exec": "echo '0'",
-    "exec-if": "test -d /proc/sys/net/ipv4/conf/racknerd || test -d /proc/sys/net/ipv6/conf/proxmox",
+    "exec-if": "test -d /proc/sys/net/ipv4/conf/*vpn",
     "interval": 5
   }
 }
