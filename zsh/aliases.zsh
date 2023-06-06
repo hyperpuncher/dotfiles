@@ -1,6 +1,7 @@
 alias archive='tar -caf'
 alias bt='bluetoothctl'
 alias cat='bat -p'
+alias cd..='cd ..'
 alias fd='fd -H'
 alias i='paru -S'
 alias killp='ps x -o pid,cmd | fzf -e | awk "{print \$1}" | xargs kill'
