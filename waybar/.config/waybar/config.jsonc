@@ -114,7 +114,7 @@
   "custom/weather": {
     "tooltip": false,
     "format": "{}°C 󰖕",
-    "exec": "curl -s 'https://api.open-meteo.com/v1/forecast?latitude=53.90&longitude=27.57&current_weather=true&temperature_2m' | jq '.current_weather.temperature' | xargs printf '%.*f\n' 0",
+    "exec": "curl -s 'https://api.open-meteo.com/v1/forecast?latitude=53.90&longitude=27.57&current_weather=true&temperature_2m' | jq '.current_weather.temperature' | xargs printf '%.0f'",
     "interval": 1800
   }
 }
