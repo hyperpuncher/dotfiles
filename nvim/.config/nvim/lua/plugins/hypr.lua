@@ -42,6 +42,7 @@ return {
         "black",
         "ruff",
         "ruff-lsp",
+        "rustywind",
         "prettier",
         "prettierd",
         "shellcheck",
@@ -62,6 +63,7 @@ return {
             filetypes = { "svelte" },
             extra_filetypes = { "svelte" },
           }),
+          nls.builtins.formatting.rustywind,
           nls.builtins.formatting.black,
 
           nls.builtins.diagnostics.shellcheck,
@@ -91,6 +93,7 @@ return {
       },
     },
   },
+
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
