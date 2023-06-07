@@ -17,6 +17,7 @@
     "memory",
     "disk",
     "hyprland/language",
+    // "custom/weather",
     "clock"
   ],
   "wlr/workspaces": {
@@ -28,7 +29,7 @@
     "on-click": "activate"
   },
   "clock": {
-    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    "tooltip-format": "<tt><small>{calendar}</small></tt>",
     "format-alt": "{:%d.%m.%Y}"
   },
   "cpu": {
@@ -101,7 +102,7 @@
     "tooltip": false,
     "format": "{}%  ",
     "interval": 2,
-    "exec": "brillo | cut -d '.' -f 1"
+    "exec": "brillo 2>/dev/null | cut -d '.' -f 1"
   },
   "custom/vpn": {
     "tooltip": false,
@@ -109,5 +110,11 @@
     "exec": "echo '0'",
     "exec-if": "test -d /proc/sys/net/ipv4/conf/*vpn",
     "interval": 5
+  },
+  "custom/weather": {
+    "tooltip": false,
+    "format": "{}°C 󰖕",
+    "exec": "curl -s 'https://api.open-meteo.com/v1/forecast?latitude=53.90&longitude=27.57&current_weather=true&temperature_2m' | jq '.current_weather.temperature' | xargs printf '%.*f\n' 0",
+    "interval": 1800
   }
 }
