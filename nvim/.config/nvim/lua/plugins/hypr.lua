@@ -46,6 +46,7 @@ return {
         "prettier",
         "prettierd",
         "shellcheck",
+        "astro-language-server",
         "svelte-language-server",
         "tailwindcss-language-server",
       },
