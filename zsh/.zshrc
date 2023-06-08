@@ -40,3 +40,11 @@ export PYTORCH_CUDA_ALLOC_CONF=max_split_size_mb:64
 newproj() {
     mkdir -p ~/projects/"$1" && cd ~/projects/"$1" && nvim .
 }
+
+# pnpm
+export PNPM_HOME="/home/igor/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
