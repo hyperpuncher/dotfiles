@@ -101,6 +101,9 @@ return {
       { "roobert/tailwindcss-colorizer-cmp.nvim", config = true },
     },
     opts = function(_, opts)
+      opts.experimental = {
+        ghost_text = false
+      }
       -- original LazyVim kind icon formatter
       local format_kinds = opts.formatting.format
       opts.formatting.format = function(entry, item)
