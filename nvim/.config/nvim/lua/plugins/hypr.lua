@@ -20,7 +20,6 @@ return {
             },
           },
         },
-
       },
     },
   },
@@ -45,6 +44,7 @@ return {
         "rustywind",
         "prettier",
         "prettierd",
+        "pyright",
         "shellcheck",
         "astro-language-server",
         "svelte-language-server",
