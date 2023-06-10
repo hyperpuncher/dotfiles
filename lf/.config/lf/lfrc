@@ -112,9 +112,13 @@ set ratios 1:2
 set info size:time
 set cursorpreviewfmt ""
 set sortby ext
+set icons
 
 # create directory
 map a push %mkdir<space>-p<space>
 
 set previewer ~/.config/lf/lf_kitty_preview
 set cleaner ~/.config/lf/lf_kitty_clean
+
+
+
