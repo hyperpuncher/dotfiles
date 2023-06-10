@@ -46,14 +46,16 @@ return {
     "williamboman/mason.nvim",
     opts = {
       ensure_installed = {
+        "astro-language-server",
         "black",
-        "ruff",
-        "rustywind",
+        "eslint_d",
+        "isort",
         "prettier",
         "prettierd",
         "pyright",
+        "ruff",
+        "rustywind",
         "shellcheck",
-        "astro-language-server",
         "svelte-language-server",
         "tailwindcss-language-server",
       },
@@ -66,16 +68,22 @@ return {
       local nls = require("null-ls")
       return {
         sources = {
+          nls.builtins.diagnostics.eslint_d,
           nls.builtins.formatting.prettierd,
           nls.builtins.formatting.prettier.with({
             filetypes = { "svelte" },
             extra_filetypes = { "svelte" },
           }),
           nls.builtins.formatting.rustywind,
-          nls.builtins.formatting.black,
 
           nls.builtins.diagnostics.shellcheck,
+
+          -- python
           nls.builtins.diagnostics.ruff,
+          nls.builtins.formatting.black,
+          nls.builtins.formatting.isort.with({
+            extra_args = { "--profile", "black" },
+          })
         },
       }
     end,
