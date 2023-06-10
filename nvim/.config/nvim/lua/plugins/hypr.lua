@@ -28,6 +28,9 @@ return {
     "nvim-treesitter/nvim-treesitter",
     opts = {
       ensure_installed = {
+        "astro",
+        "css",
+        "dockerfile",
         "jsonc",
         "svelte",
       },
@@ -84,6 +87,12 @@ return {
         },
       },
     },
+  },
+
+  {
+    "iamcco/markdown-preview.nvim",
+    ft = "markdown",
+    build = "cd app && npm install",
   },
 
   {
