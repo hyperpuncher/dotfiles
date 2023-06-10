@@ -3,6 +3,13 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_STATE_HOME="$HOME/.local/state"
 
+export PAGER=bat
+export EDITOR=nvim
+export VISUAL=nvim
+export BROWSER=firefox
+export TERMINAL=kitty
+
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -30,7 +37,6 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 
 export BAT_THEME="Dracula"
 export PATH=$PATH:~/.local/bin:~/.cargo/bin
-export EDITOR=nvim
 
 export PF_INFO="ascii title os de kernel uptime pkgs memory"
 
