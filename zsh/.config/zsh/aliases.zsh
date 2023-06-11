@@ -24,4 +24,5 @@ alias untar='tar -xaf'
 alias upscale='realesrgan-ncnn-vulkan -n realesrgan-x4plus'
 alias v='nvim'
 alias wgdown='sudo wg-quick down'
+alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
 alias wgup='sudo wg-quick up'
