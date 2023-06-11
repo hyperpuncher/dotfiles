@@ -117,8 +117,10 @@ set icons
 # create directory
 map a push %mkdir<space>-p<space>
 
+# previewer
 set previewer ~/.config/lf/lf_kitty_preview
 set cleaner ~/.config/lf/lf_kitty_clean
 
-
+# set statfmt "\033[7;31m %p \033[33m %u \033[34m %s \033[35m %t \033[36m %l \033[0m"
+set ruler "acc:progress:selection:filter:df:ind"
 
