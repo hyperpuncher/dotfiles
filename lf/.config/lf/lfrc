@@ -113,6 +113,8 @@ set info size:time
 set cursorpreviewfmt ""
 set sortby ext
 set icons
+set mouse true
+set hidden true
 
 # create directory
 map a push %mkdir<space>-p<space>
