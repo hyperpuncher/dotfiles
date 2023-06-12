@@ -1,5 +1,5 @@
 configuration {
-	modes: "drun";
+	modes: "drun,emoji";
 	font: "CaskaydiaCove Nerd Font 14";
 	location: 2;
 /*	yoffset: 0;*/
