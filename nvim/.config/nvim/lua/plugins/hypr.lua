@@ -109,6 +109,38 @@ return {
   },
 
   {
+    "nvim-lualine/lualine.nvim",
+    opts = {
+      options = {
+        component_separators = { left = '|', right = '|' },
+        section_separators = { left = '', right = '' },
+      },
+      sections = {
+        lualine_c = {
+          {
+            "filetype",
+            icon_only = true,
+            separator = "",
+            padding = {
+              left = 1, right = 0
+            }
+          },
+          { "filename", path = 1, symbols = { modified = "  ", readonly = "", unnamed = "" } },
+        },
+        lualine_y = {
+
+        },
+        lualine_z = {
+          {
+            "progress", separator = " ", padding = { left = 1, right = 0 }
+          },
+          { "location", padding = { left = 0, right = 1 } },
+        },
+      },
+    },
+  },
+
+  {
     "iamcco/markdown-preview.nvim",
     ft = "markdown",
     build = "cd app && npm install",
