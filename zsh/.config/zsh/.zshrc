@@ -12,6 +12,8 @@ setopt histignorealldups
 autoload -U compinit && compinit -u
 ENABLE_CORRECTION="true"
 
+set -o emacs
+
 source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $ZDOTDIR/aliases.zsh
