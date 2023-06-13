@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 wakeup=$((6 * 60))
 sunset=$((20 * 60))
@@ -10,12 +10,12 @@ color_night=25
 while true; do
     current_hour=$(date +%k)
     current_minutes=$(date +%M)
-    current_time=$((current_hour * 60 + 10#$current_minutes))
+    current_time=$((current_hour * 60 + $(echo "ibase=10;$current_minutes" | bc)))
 
-    if ((current_time >= wakeup && current_time < sunset)); then
+    if : $((current_time >= wakeup && current_time < sunset)); then
         color_temp=$color_day
 
-    elif ((current_time >= sunset && current_time < night)); then
+    elif : $((current_time >= sunset && current_time < night)); then
         range=$((night - sunset))
         percent=$(echo "($current_time - $sunset) / $range" | bc -l)
         color_temp=$(echo "$color_day - (($color_day - $color_night) * $percent)" | bc -l)
