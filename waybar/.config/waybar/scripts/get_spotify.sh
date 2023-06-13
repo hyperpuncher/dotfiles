@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 if [ -n "$(playerctl status 2>/dev/null)" ]; then
 
@@ -18,5 +18,5 @@ if [ -n "$(playerctl status 2>/dev/null)" ]; then
         song_status=''
     fi
 
-    echo -e "$song_status $media"
+    printf "%s" "$song_status $media"
 fi
