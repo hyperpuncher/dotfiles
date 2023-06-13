@@ -11,4 +11,7 @@ user_pref("browser.newtabpage.activity-stream.showSponsoredTopSites", false);
 user_pref("media.hardwaremediakeys.enabled", false);
 user_pref("services.sync.declinedEngines", "creditcards,passwords");
 user_pref("services.sync.engine.passwords", false);
-user_pref("browser.startup.homepage", "file:///home/igor/projects/startpage/index.html");
+user_pref(
+  "browser.startup.homepage",
+  "file:///home/igor/projects/startpage/index.html"
+);

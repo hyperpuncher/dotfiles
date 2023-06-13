@@ -21,6 +21,7 @@ export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
 export NVM_DIR="$XDG_DATA_HOME/nvm"
 export PARALLEL_HOME="$XDG_CONFIG_HOME/parallel"
 export PNPM_HOME="$XDG_DATA_HOME/pnpm"
+export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/pythonrc"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 export ZDOTDIR="$HOME/.config/zsh"
 
