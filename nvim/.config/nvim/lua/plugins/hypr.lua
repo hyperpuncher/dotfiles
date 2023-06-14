@@ -141,9 +141,33 @@ return {
   },
 
   {
+    "echasnovski/mini.comment",
+    opts = {
+      options = {
+        ignore_blank_line = true,
+      },
+      mappings = {
+        -- Toggle comment (like `gcip` - comment inner paragraph) for both
+        -- Normal and Visual modes
+        comment = '<C-/>',
+
+        -- Toggle comment on current line
+        comment_line = '<C-/>',
+
+        -- Define 'comment' textobject (like `dgc` - delete whole comment block)
+        textobject = '<C-/>'
+      },
+    }
+  },
+
+  {
     "iamcco/markdown-preview.nvim",
     ft = "markdown",
     build = "cd app && npm install",
+    init = function()
+      -- vim.g.mkdp_auto_start = 1
+      vim.g.mkdp_auto_close = 0
+    end,
   },
 
   {
