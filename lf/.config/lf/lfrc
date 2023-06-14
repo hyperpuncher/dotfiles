@@ -1,31 +1,24 @@
-# interpreter for shell commands
-set shell sh
-
-# set '-eu' options for shell commands
-# These options are used to have safer shell commands. Option '-e' is used to
-# exit on error and option '-u' is used to give error for unset variables.
-# Option '-f' disables pathname expansion which can be useful when $f, $fs, and
-# $fx variables contain names with '*' or '?' characters. However, this option
-# is used selectively within individual commands as it can be limiting at
-# times.
-set shellopts '-eu'
-
-# set internal field separator (IFS) to "\n" for shell commands
-# This is useful to automatically split file names in $fs and $fx properly
-# since default file separator used in these variables (i.e. 'filesep' option)
-# is newline. You need to consider the values of these options and create your
-# commands accordingly.
+set cursorpreviewfmt ""
+set drawbox
+set hidden true
+set icons
 set ifs "\n"
-
-# leave some space at the top and the bottom of the screen
+set info size:time
+set mouse true
+set ratios 1:2
+set ruler "acc:progress:selection:filter:df:ind"
 set scrolloff 10
+set shell sh
+set shellopts '-eu'
+set sortby ext
 
-# Use the `dim` attribute instead of underline for the cursor in the preview pane
-set cursorpreviewfmt "\033[7;2m"
+set previewer ~/.config/lf/lf_kitty_preview
+set cleaner ~/.config/lf/lf_kitty_clean
 
-# use enter for shell commands
+# set statfmt "\033[7;31m %p \033[33m %u \033[34m %s \033[35m %t \033[36m %l \033[0m"
+# set statfmt "\033[7;31m %p \033[32m %c \033[33m %u %g \033[34m %s \033[35m %t \033[36m %l \033[0m"
+
 map <enter> shell
-
 # show the result of execution of previous commands
 map ` !true
 
@@ -36,6 +29,19 @@ map X !$f
 # dedicated keys for file opener actions
 map o &mimeopen $f
 map O $mimeopen --ask $f
+
+# Basic commands
+map . set hidden!
+map <delete> delete
+map DD trash
+map a push %mkdir<space>-p<space>
+map u extract
+
+# Movement
+map gc cd ~/dotfiles
+map gd cd ~/Downloads
+map gp cd ~/projects
+
 
 # define a custom 'open' command
 # This command is called when current file is not a directory. You may want to
@@ -55,12 +61,9 @@ map a :push %mkdir<space>
 # cmd rename %[ -e $1 ] && printf "file exists" || mv $f $1
 # map r push :rename<space>
 
-# make sure trash folder exists
-# %mkdir -p ~/.trash
-
 # move current file or selected files to trash folder
 # (also see 'man mv' for backup/overwrite options)
-cmd trash %set -f; mv $fx ~/.trash
+cmd trash %set -f; mv $fx ~/.local/share/Trash/files/
 
 # define a custom 'delete' command
 cmd delete ${{
@@ -70,10 +73,6 @@ cmd delete ${{
     read ans
     [ "$ans" = "y" ] && rm -rf $fx
 }}
-
-# use '<delete>' key for either 'trash' or 'delete' command
-# map <delete> trash
-map <delete> delete
 
 # extract the current file with the right command
 # (xkcd link: https://xkcd.com/1168/)
@@ -106,23 +105,3 @@ cmd zip ${{
     zip -r $1.zip $1
     rm -rf $1
 }}
-
-set drawbox
-set ratios 1:2
-set info size:time
-set cursorpreviewfmt ""
-set sortby ext
-set icons
-set mouse true
-set hidden true
-
-# create directory
-map a push %mkdir<space>-p<space>
-
-# previewer
-set previewer ~/.config/lf/lf_kitty_preview
-set cleaner ~/.config/lf/lf_kitty_clean
-
-# set statfmt "\033[7;31m %p \033[33m %u \033[34m %s \033[35m %t \033[36m %l \033[0m"
-set ruler "acc:progress:selection:filter:df:ind"
-
