@@ -23,8 +23,5 @@ source $ZDOTDIR/p10k.zsh
 
 source /usr/share/nvm/init-nvm.sh
 
-# autojump-rs config
-# [[ -s /etc/profile.d/autojump.sh ]] && source /etc/profile.d/autojump.sh
-
 pfetch
 eval "$(zoxide init zsh)"
