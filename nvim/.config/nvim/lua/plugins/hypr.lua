@@ -57,6 +57,7 @@ return {
         "black",
         "eslint_d",
         "isort",
+        "marksman",
         "prettier",
         "prettierd",
         "pyright",
@@ -159,6 +160,13 @@ return {
       options = {
         ignore_blank_line = true,
       },
+    }
+  },
+
+  {
+    "rcarriga/nvim-notify",
+    opts = {
+      timeout = 0,
     }
   },
 
