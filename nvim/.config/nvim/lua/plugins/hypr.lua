@@ -3,7 +3,7 @@ return {
     "folke/which-key.nvim",
     init = function()
       vim.o.timeout = true
-      vim.o.timeoutlen = 700
+      vim.o.timeoutlen = 1500
     end,
   },
 
@@ -109,6 +109,19 @@ return {
   },
 
   {
+    "nvim-telescope/telescope.nvim",
+    opts = {
+      pickers = {
+        find_files = {
+          find_command = {
+            "fd", "-E", "Desktop", "-t", "f", "-t", "l"
+          }
+        }
+      }
+    }
+  },
+
+  {
     "nvim-lualine/lualine.nvim",
     opts = {
       options = {
@@ -145,17 +158,6 @@ return {
     opts = {
       options = {
         ignore_blank_line = true,
-      },
-      mappings = {
-        -- Toggle comment (like `gcip` - comment inner paragraph) for both
-        -- Normal and Visual modes
-        comment = '<C-/>',
-
-        -- Toggle comment on current line
-        comment_line = '<C-/>',
-
-        -- Define 'comment' textobject (like `dgc` - delete whole comment block)
-        textobject = '<C-/>'
       },
     }
   },
