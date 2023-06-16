@@ -99,6 +99,7 @@ xdg-ninja \
 xorg-xhost \
 yt-dlp \
 zip \
+zoxide \
 zsh-autosuggestions \
 zsh-syntax-highlighting \
 zsh-theme-powerlevel10k-git
