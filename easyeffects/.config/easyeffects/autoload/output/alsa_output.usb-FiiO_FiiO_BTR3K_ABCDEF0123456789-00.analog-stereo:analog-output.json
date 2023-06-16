@@ -1,0 +1,6 @@
+{
+    "device": "alsa_output.usb-FiiO_FiiO_BTR3K_ABCDEF0123456789-00.analog-stereo",
+    "device-description": "FiiO BTR3K Analog Stereo",
+    "device-profile": "analog-output",
+    "preset-name": "PC38X"
+}
