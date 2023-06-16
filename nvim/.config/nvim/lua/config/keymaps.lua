@@ -16,3 +16,7 @@ local function map(mode, lhs, rhs, opts)
 end
 
 map("n", "q", "")
+map("n", "<C-d>", "<C-d>zz")
+map("n", "<C-u>", "<C-u>zz")
+map("n", "n", "nzz")
+map("n", "N", "Nzz")
