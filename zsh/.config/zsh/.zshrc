@@ -6,13 +6,15 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
     source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+HISTORY_IGNORE="(ls|la|cd|cd ..|cd -|cd -|z|z ..|z -|lg)"
 HISTSIZE=10000
 SAVEHIST=10000
-setopt histignorealldups
-autoload -U compinit && compinit -u
-ENABLE_CORRECTION="true"
 
 set -o emacs
+setopt autocd
+setopt correctall
+setopt histignorealldups
+autoload -U compinit && compinit -u
 
 source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
