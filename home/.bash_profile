@@ -26,3 +26,5 @@ export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 export ZDOTDIR="$HOME/.config/zsh"
 
 export PATH=$PATH:$HOME/.local/bin:$CARGO_HOME/bin:$PNPM_HOME
+
+[[ -f ~/.bashrc ]] && . ~/.bashrc
