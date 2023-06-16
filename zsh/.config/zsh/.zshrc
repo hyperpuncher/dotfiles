@@ -21,9 +21,13 @@ source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $ZDOTDIR/aliases.zsh
 source $ZDOTDIR/zsh-syntax-highlighting-dracula.sh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
 source $ZDOTDIR/p10k.zsh
 
 source /usr/share/nvm/init-nvm.sh
+
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
 
 pfetch
 eval "$(zoxide init zsh)"
