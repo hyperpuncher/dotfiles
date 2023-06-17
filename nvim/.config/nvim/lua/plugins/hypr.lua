@@ -64,6 +64,7 @@ return {
                 "ruff",
                 "rustywind",
                 "shellcheck",
+                "shfmt",
                 "svelte-language-server",
                 "tailwindcss-language-server",
             },
