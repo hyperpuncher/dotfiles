@@ -3,30 +3,28 @@
 wakeup=$((6 * 60))
 sunset=$((20 * 60))
 night=$((22 * 60))
+range=$((night - sunset))
 
-color_day=65
-color_night=25
+color_day=6500
+color_night=2500
+color_range=$((color_day - color_night))
 
 while true; do
-    current_hour=$(date +%k)
-    current_minutes=$(date +%M)
-    current_time=$((current_hour * 60 + $(echo "ibase=10;$current_minutes" | bc)))
+	current_time=$(($(date +%s) / 60 - $(date -d "$(date +%F)" +%s) / 60))
 
-    if : $((current_time >= wakeup && current_time < sunset)); then
-        color_temp=$color_day
+	if [ $current_time -gt $wakeup ] && [ $current_time -lt $sunset ]; then
+		color_temp=$color_day
 
-    elif : $((current_time >= sunset && current_time < night)); then
-        range=$((night - sunset))
-        percent=$(echo "($current_time - $sunset) / $range" | bc -l)
-        color_temp=$(echo "$color_day - (($color_day - $color_night) * $percent)" | bc -l)
-        color_temp=$(printf "%.0f" "$color_temp")
+	elif [ $current_time -gt $sunset ] && [ $current_time -lt $night ]; then
+		percent=$(echo "($current_time - $sunset) / $range" | bc -l)
+		color_temp=$(echo "$color_day - $color_range * $percent" | bc -l)
+		color_temp=$(printf "%.1f" "$color_temp")
 
-    else
-        color_temp=$color_night
-    fi
+	else
+		color_temp=$color_night
+	fi
 
-    sed -i "s/temperature = [0-9][0-9]/temperature = $color_temp/" ~/dotfiles/hypr_home/.config/hypr/night_light.glsl
+	sed -i "s/temperature = [0-9][0-9][0-9][0-9]\.[0-9]/temperature = $color_temp/" ~/dotfiles/hypr_home/.config/hypr/night_light.glsl
 
-    echo "$color_temp"
-    sleep 30
+	sleep 60
 done
