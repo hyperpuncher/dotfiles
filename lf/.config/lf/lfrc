@@ -40,8 +40,8 @@ map u extract
 # Movement
 map gc cd ~/dotfiles
 map gd cd ~/Downloads
+map gm cd /run/media/igor
 map gp cd ~/projects
-map go cd /run/media/igor/d80a3935-ef75-409f-b633-178e5e01aa91/@home/igor/
 
 # define a custom 'open' command
 # This command is called when current file is not a directory. You may want to
