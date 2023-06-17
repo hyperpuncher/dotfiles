@@ -12,7 +12,7 @@ SAVEHIST=10000
 
 set -o emacs
 setopt autocd
-setopt correctall
+setopt correct
 setopt histignorealldups
 autoload -U compinit && compinit -u
 
@@ -23,8 +23,6 @@ source $ZDOTDIR/zsh-syntax-highlighting-dracula.sh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
 source $ZDOTDIR/p10k.zsh
-
-source /usr/share/nvm/init-nvm.sh
 
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
