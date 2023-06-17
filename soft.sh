@@ -1,105 +1,114 @@
 #!/bin/bash
 paru -S \
-android-file-transfer \
-android-tools \
-bat \
-blueman \
-brillo \
-btop \
-c-lolcat \
-cliphist \
-dashbinsh \
-ddcci-driver-linux-dkms \
-ddcutil \
-dunst \
-exa \
-exfatprogs \
-fd \
-ffmpeg \
-figlet-fonts-extra \
-firefox \
-font-manager \
-gdu \
-github-cli \
-glow \
-gnome-keyring \
-google-chrome \
-gparted \
-greetd-tuigreet \
-grim \
-gvfs \
-hyprland-per-window-layout \
-hyprpaper \
-hyprpicker-git \
-imagemagick \
-jq \
-kvantum \
-lavat-git \
-lf \
-libreoffice-fresh \
-losslesscut-bin \
-man-db \
-mpv \
-mtpfs \
-nasc \
-nfs-utils \
-nvm \
-nvtop \
-nwg-look \
-obsidian \
-ocrmypdf \
-pacman-contrib \
-papirus-folders-git \
-papirus-icon-theme \
-pfetch-rs-bin \
-pinta \
-polkit-gnome \
-procs \
-python-beautifulsoup4 \
-python-dotenv \
-python-numpy \
-python-pillow \
-python-pip \
-python-pipreqs \
-python-pipx \
-python-pynvim \
-python-requests \
-python-rich \
-python-setuptools \
-python-tabulate \
-python-wxpython \
-qt5-wayland \
-qt5ct \
-qt6-wayland \
-qt6ct \
-qview \
-realesrgan-ncnn-vulkan-bin \
-ripgrep \
-rofi-emoji \
-rofi-lbonn-wayland-git \
-slurp \
-solaar \
-speedtest-cli \
-spotify-edge \
-telegram-desktop \
-thunar \
-thunar-archive-plugin \
-thunar-volman \
-tldr \
-transmission-gtk \
-unzip \
-ventoy-bin \
-vial-appimage \
-waybar \
-wget \
-wireguard-tools \
-wl-clipboard \
-xdg-desktop-portal-hyprland \
-xdg-ninja \
-xorg-xhost \
-yt-dlp \
-zip \
-zoxide \
-zsh-autosuggestions \
-zsh-syntax-highlighting \
-zsh-theme-powerlevel10k-git
+	android-file-transfer \
+	android-tools \
+	bat \
+	bc \
+	blueman \
+	bluez_utils \
+	brillo \
+	btop \
+	c-lolcat \
+	cliphist \
+	dashbinsh \
+	ddcci-driver-linux-dkms \
+	ddcutil \
+	dunst \
+	easyeffects \
+	exa \
+	exfatprogs \
+	fd \
+	ffmpeg \
+	figlet-fonts-extra \
+	firefox \
+	fnm-bin \
+	font-manager \
+	fzf \
+	gdu \
+	github-cli \
+	glow \
+	gnome-keyring \
+	google-chrome \
+	gparted \
+	greetd-tuigreet \
+	grim \
+	gvfs \
+	hyprland-per-window-layout \
+	hyprpaper \
+	hyprpicker-git \
+	imagemagick \
+	jq \
+	kitty \
+	kvantum \
+	lavat-git \
+	lazygit \
+	lf \
+	libreoffice-fresh \
+	losslesscut-bin \
+	man-db \
+	mpv \
+	mtpfs \
+	nasc \
+	nfs-utils \
+	nvtop \
+	nwg-look \
+	obsidian \
+	ocrmypdf \
+	pacman-contrib \
+	papirus-folders-git \
+	papirus-icon-theme \
+	pfetch-rs-bin \
+	pinta \
+	polkit-gnome \
+	procs \
+	python-beautifulsoup4 \
+	python-dotenv \
+	python-numpy \
+	python-pillow \
+	python-pip \
+	python-pipreqs \
+	python-pipx \
+	python-pynvim \
+	python-requests \
+	python-rich \
+	python-setuptools \
+	python-tabulate \
+	python-wxpython \
+	qt5-wayland \
+	qt5ct \
+	qt6-wayland \
+	qt6ct \
+	quickgui-bin \
+	qview \
+	realesrgan-ncnn-vulkan-bin \
+	ripgrep \
+	rofi-calc \
+	rofi-emoji \
+	rofi-lbonn-wayland-git \
+	slurp \
+	solaar \
+	speedtest-cli \
+	spotify-edge \
+	telegram-desktop \
+	thunar \
+	thunar-archive-plugin \
+	thunar-volman \
+	tldr \
+	transmission-gtk \
+	unzip \
+	ventoy-bin \
+	vial-appimage \
+	waybar \
+	wget \
+	wireguard-tools \
+	wl-clipboard \
+	xdg-desktop-portal-hyprland \
+	xdg-ninja \
+	xorg-xhost \
+	yt-dlp \
+	zip \
+	zoxide \
+	zsh-autosuggestions \
+	zsh-history-substring-search \
+	zsh-syntax-highlighting \
+	zsh-theme-powerlevel10k-git
