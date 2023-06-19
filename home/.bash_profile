@@ -18,13 +18,12 @@ export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc"
 export HISTFILE="$XDG_STATE_HOME/zsh/history"
 export LESSHISTFILE="$XDG_CACHE_HOME/less/history"
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
-export NVM_DIR="$XDG_DATA_HOME/nvm"
 export PARALLEL_HOME="$XDG_CONFIG_HOME/parallel"
 export PNPM_HOME="$XDG_DATA_HOME/pnpm"
 export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/pythonrc"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 export ZDOTDIR="$HOME/.config/zsh"
 
-export PATH=$PATH:$HOME/.local/bin:$CARGO_HOME/bin:$PNPM_HOME
+export PATH=$PATH:$HOME/.local/bin:$CARGO_HOME/bin:$PNPM_HOME:$XDG_DATA_HOME/npm/bin
 
 [[ -f ~/.bashrc ]] && . ~/.bashrc
