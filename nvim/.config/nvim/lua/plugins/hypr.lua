@@ -119,19 +119,25 @@ return {
             pickers = {
                 find_files = {
                     find_command = {
-                        "fd", "-E", "Desktop", "-t", "f", "-t", "l"
-                    }
-                }
-            }
-        }
+                        "fd",
+                        "-E",
+                        "Desktop",
+                        "-t",
+                        "f",
+                        "-t",
+                        "l",
+                    },
+                },
+            },
+        },
     },
 
     {
         "nvim-lualine/lualine.nvim",
         opts = {
             options = {
-                component_separators = { left = '|', right = '|' },
-                section_separators = { left = '', right = '' },
+                component_separators = { left = "|", right = "|" },
+                section_separators = { left = "", right = "" },
             },
             sections = {
                 lualine_c = {
@@ -140,17 +146,18 @@ return {
                         icon_only = true,
                         separator = "",
                         padding = {
-                            left = 1, right = 0
-                        }
+                            left = 1,
+                            right = 0,
+                        },
                     },
                     { "filename", path = 1, symbols = { modified = "  ", readonly = "", unnamed = "" } },
                 },
-                lualine_y = {
-
-                },
+                lualine_y = {},
                 lualine_z = {
                     {
-                        "progress", separator = " ", padding = { left = 1, right = 0 }
+                        "progress",
+                        separator = " ",
+                        padding = { left = 1, right = 0 },
                     },
                     { "location", padding = { left = 0, right = 1 } },
                 },
@@ -164,14 +171,14 @@ return {
             options = {
                 ignore_blank_line = true,
             },
-        }
+        },
     },
 
     {
         "rcarriga/nvim-notify",
         opts = {
             timeout = 0,
-        }
+        },
     },
 
     { "echasnovski/mini.pairs", enabled = false },
@@ -179,7 +186,9 @@ return {
     {
         "iamcco/markdown-preview.nvim",
         ft = "markdown",
-        build = "cd app && npm install",
+        build = function()
+            vim.fn["mkdp#util#install"]()
+        end,
         init = function()
             -- vim.g.mkdp_auto_start = 1
             vim.g.mkdp_auto_close = 0
@@ -202,7 +211,7 @@ return {
         },
         opts = function(_, opts)
             opts.experimental = {
-                ghost_text = false
+                ghost_text = false,
             }
             -- original LazyVim kind icon formatter
             local format_kinds = opts.formatting.format
@@ -220,7 +229,7 @@ return {
     },
 
     {
-        'Fymyte/rasi.vim',
-        ft = 'rasi',
-    }
+        "Fymyte/rasi.vim",
+        ft = "rasi",
+    },
 }
