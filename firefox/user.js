@@ -1,6 +1,6 @@
 user_pref("browser.aboutConfig.showWarning", false);
-user_pref("browser.download.always_ask_before_handling_new_types", false);
 user_pref("browser.download.alwaysOpenPanel", false);
+user_pref("browser.download.always_ask_before_handling_new_types", false);
 user_pref("browser.download.useDownloadDir", true);
 user_pref("browser.fullscreen.autohide", false);
 user_pref("browser.newtabpage.activity-stream.showSponsoredTopSites", false);
@@ -13,6 +13,7 @@ user_pref("browser.tabs.inTitlebar", 1);
 user_pref("browser.uidensity", 1);
 user_pref("dom.push.enabled", true);
 user_pref("identity.fxaccounts.enabled", true);
+user_pref("layout.css.prefers-color-scheme.content-override", 0);
 user_pref("media.hardwaremediakeys.enabled", false);
 user_pref("media.videocontrols.picture-in-picture.video-toggle.enabled", false);
 user_pref("services.sync.declinedEngines", "creditcards,passwords");
