@@ -11,6 +11,7 @@ user_pref(
 );
 user_pref("browser.tabs.inTitlebar", 1);
 user_pref("browser.uidensity", 1);
+user_pref("browser.urlbar.suggest.engines", true);
 user_pref("dom.push.enabled", true);
 user_pref("identity.fxaccounts.enabled", true);
 user_pref("layout.css.prefers-color-scheme.content-override", 0);
