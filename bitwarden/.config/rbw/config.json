@@ -2,7 +2,7 @@
   "email": "million_ants@protonmail.com",
   "base_url": null,
   "identity_url": null,
-  "lock_timeout": 54000,
+  "lock_timeout": 21600,
   "sync_interval": 60,
   "pinentry": "pinentry",
   "client_cert_path": null
