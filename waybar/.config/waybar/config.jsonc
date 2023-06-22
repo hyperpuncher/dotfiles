@@ -80,6 +80,7 @@
     "ignored-sinks": ["Easy Effects Sink"]
   },
   "custom/media": {
+    "tooltip": false,
     "format": "{}",
     "interval": 2,
     "escape": true,
