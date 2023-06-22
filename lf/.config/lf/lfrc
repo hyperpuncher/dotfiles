@@ -23,8 +23,8 @@ map <enter> shell
 map ` !true
 
 # execute current file (must be executable)
-map x $$f
-map X !$f
+# map x $$f
+# map X !$f
 
 # dedicated keys for file opener actions
 map o &mimeopen $f
@@ -36,6 +36,7 @@ map <delete> delete
 map DD trash
 map a push %mkdir<space>-p<space>
 map u extract
+map x dragon
 
 # Movement
 map gc cd ~/dotfiles
@@ -105,3 +106,6 @@ cmd zip ${{
     zip -r $1.zip $1
     rm -rf $1
 }}
+
+# open dragon window with current file
+cmd dragon %dragon-drop -x -a $fx
