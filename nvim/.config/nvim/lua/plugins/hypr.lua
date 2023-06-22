@@ -223,6 +223,18 @@ return {
     },
 
     {
+        "echasnovski/mini.indentscope",
+        opts = {
+            draw = {
+                delay = 50,
+            },
+            options = {
+                border = 'top',
+            }
+        },
+    },
+
+    {
         "jackMort/ChatGPT.nvim",
         event = "VeryLazy",
         config = function()
