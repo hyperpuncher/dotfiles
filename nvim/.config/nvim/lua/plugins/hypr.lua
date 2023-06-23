@@ -235,6 +235,20 @@ return {
     },
 
     {
+        "folke/noice.nvim",
+        opts = {
+            views = {
+                cmdline_popup = {
+                    position = {
+                        row = "50%",
+                    },
+
+                },
+            },
+        },
+    },
+
+    {
         "jackMort/ChatGPT.nvim",
         event = "VeryLazy",
         config = function()
