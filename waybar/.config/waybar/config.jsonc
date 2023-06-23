@@ -82,7 +82,7 @@
   "custom/media": {
     "tooltip": false,
     "format": "{}",
-    "interval": 2,
+    "interval": 1,
     "escape": true,
     "exec": "$HOME/.config/waybar/scripts/get_spotify.sh"
   },
