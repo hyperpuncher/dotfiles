@@ -1,22 +1,16 @@
 #!/bin/sh
 
-if [ -n "$(playerctl status 2>/dev/null)" ]; then
+playback_status=$(playerctl status 2>/dev/null)
 
-    media=$(playerctl metadata -f "{{artist}} - {{title}}")
+if [ -n "$playback_status" ]; then
 
-    # Shrink for vertical monitor
-    # media_chars=$(echo "$media" | wc -c)
+	media=$(playerctl metadata -f "{{artist}} - {{title}}")
 
-    # if [[ $media_chars -gt 32 ]]; then
-    #     media=$(echo "$media" | cut -c -32)
-    #     media+="..."
-    # fi
+	if [ "$playback_status" = "Playing" ]; then
+		song_status=''
+	else
+		song_status=''
+	fi
 
-    if [ "$(playerctl status)" = "Playing" ]; then
-        song_status=''
-    else
-        song_status=''
-    fi
-
-    printf "%s" "$song_status $media"
+	printf "%s" "$song_status $media"
 fi
