@@ -229,8 +229,8 @@ return {
                 delay = 50,
             },
             options = {
-                border = 'top',
-            }
+                border = "top",
+            },
         },
     },
 
@@ -242,7 +242,6 @@ return {
                     position = {
                         row = "50%",
                     },
-
                 },
             },
         },
@@ -257,8 +256,8 @@ return {
         dependencies = {
             "MunifTanjim/nui.nvim",
             "nvim-lua/plenary.nvim",
-            "nvim-telescope/telescope.nvim"
-        }
+            "nvim-telescope/telescope.nvim",
+        },
     },
 
     {
@@ -272,5 +271,18 @@ return {
         ft = "rasi",
     },
 
-    { "ThePrimeagen/harpoon", }
+    { "RRethy/vim-illuminate",  enabled = false, },
+
+    { "ThePrimeagen/harpoon" },
+
+    -- { "EdenEast/nightfox.nvim" },
+
+    {
+        "LazyVim/LazyVim",
+        opts = {
+            -- colorscheme = "carbonfox",
+            -- colorscheme = "tokyonight",
+            colorscheme = "catppuccin",
+        },
+    },
 }
