@@ -181,7 +181,7 @@ return {
         },
     },
 
-    { "echasnovski/mini.pairs", enabled = false },
+    -- { "echasnovski/mini.pairs", enabled = false },
 
     {
         "iamcco/markdown-preview.nvim",
@@ -271,7 +271,7 @@ return {
         ft = "rasi",
     },
 
-    { "RRethy/vim-illuminate",  enabled = false, },
+    { "RRethy/vim-illuminate", enabled = false, },
 
     { "ThePrimeagen/harpoon" },
 
