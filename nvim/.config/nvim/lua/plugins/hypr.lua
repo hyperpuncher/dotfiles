@@ -96,6 +96,9 @@ return {
 
                     -- shell
                     nls.builtins.formatting.shfmt,
+
+                    -- go
+                    nls.builtins.formatting.golines,
                 },
             }
         end,
