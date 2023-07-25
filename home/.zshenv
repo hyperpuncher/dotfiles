@@ -22,6 +22,7 @@ export PARALLEL_HOME="$XDG_CONFIG_HOME/parallel"
 export PNPM_HOME="$XDG_DATA_HOME/pnpm"
 export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/pythonrc"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
+export WINEPREFIX="$XDG_DATA_HOME/wine"
 export ZDOTDIR="$HOME/.config/zsh"
 
 export PATH=$PATH:$HOME/.local/bin:$CARGO_HOME/bin:$PNPM_HOME:$XDG_DATA_HOME/npm/bin
