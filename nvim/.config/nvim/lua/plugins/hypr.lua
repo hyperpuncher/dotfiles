@@ -277,7 +277,7 @@ return {
 
     { "RRethy/vim-illuminate", enabled = false, },
 
-    { "ThePrimeagen/harpoon" },
+    { "ThePrimeagen/harpoon",  enabled = false },
 
     -- { "EdenEast/nightfox.nvim" },
 
@@ -286,7 +286,7 @@ return {
         opts = {
             -- colorscheme = "carbonfox",
             -- colorscheme = "tokyonight",
-            colorscheme = "catppuccin",
+            -- colorscheme = "catppuccin",
         },
     },
 }
