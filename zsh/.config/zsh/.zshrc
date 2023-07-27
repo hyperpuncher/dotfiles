@@ -12,7 +12,6 @@ SAVEHIST=10000
 
 set -o emacs
 setopt autocd
-setopt correct
 setopt histignorealldups
 autoload -U compinit && compinit -u
 
