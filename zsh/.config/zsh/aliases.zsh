@@ -1,7 +1,7 @@
 alias archive='tar -caf'
 alias bt='bluetoothctl'
 alias cat='bat -p'
-alias c='code .'
+alias c='code'
 alias d='cd ~/dotfiles/'
 alias fd='fd -HI -E Desktop'
 alias sudoe='sudoedit'
