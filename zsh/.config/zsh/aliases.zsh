@@ -1,7 +1,6 @@
 alias archive='tar -caf'
 alias bt='bluetoothctl'
 alias cat='bat -p'
-alias cd..='cd ..'
 alias c='code .'
 alias d='cd ~/dotfiles/'
 alias fd='fd -HI -E Desktop'
