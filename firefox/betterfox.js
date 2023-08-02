@@ -231,7 +231,7 @@ user_pref("browser.privatebrowsing.enable-new-indicator", false);
 user_pref("full-screen-api.transition-duration.enter", "0 0");
 user_pref("full-screen-api.transition-duration.leave", "0 0");
 user_pref("full-screen-api.warning.delay", -1);
-user_pref("full-screen-api.warning.timeout", 0);
+user_pref("full-screen-api.warning.timeout", 1);
 
 /** URL BAR ***/
 user_pref("browser.urlbar.suggest.engines", false);
