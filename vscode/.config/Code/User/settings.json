@@ -96,16 +96,30 @@
   },
   "tailwindCSS.emmetCompletions": true,
   "workbench.colorTheme": "Aura Dark",
-  "vim.enableNeovim": true,
-  "vim.highlightedyank.enable": true,
   "editor.suggest.insertMode": "replace",
   "editor.linkedEditing": true,
-
-  // Melkey bindings
+  
   "vim.leader": "<Space>",
+  "vim.enableNeovim": true,
+  "vim.highlightedyank.enable": true,
   "vim.hlsearch": true,
+  "vim.useSystemClipboard": true,
+
   "vim.normalModeKeyBindingsNonRecursive": [
+    // Prime paste
+    {
+      "before": ["p"],
+      "after": ["p", "g", "v", "y"]
+    },
+
     // NAVIGATION
+
+    // center view
+    { "before": ["<C-d>"], "after": ["<C-d>", "z", "z"] },
+    { "before": ["<C-u>"], "after": ["<C-u>", "z", "z"] },
+    { "before": ["n"], "after": ["n", "z", "z"] },
+    { "before": ["N"], "after": ["N", "z", "z"] },
+    { "before": ["G"], "after": ["G", "z", "z"] },
     // switch b/w buffers
     { "before": ["<S-h>"], "commands": [":bprevious"] },
     { "before": ["<S-l>"], "commands": [":bnext"] },
@@ -116,19 +130,19 @@
 
     // panes
     {
-      "before": ["leader", "h"],
+      "before": ["<C-h>"],
       "commands": ["workbench.action.focusLeftGroup"]
     },
     {
-      "before": ["leader", "j"],
+      "before": ["<C-j>"],
       "commands": ["workbench.action.focusBelowGroup"]
     },
     {
-      "before": ["leader", "k"],
+      "before": ["<C-k>"],
       "commands": ["workbench.action.focusAboveGroup"]
     },
     {
-      "before": ["leader", "l"],
+      "before": ["<C-l>"],
       "commands": ["workbench.action.focusRightGroup"]
     },
     // NICE TO HAVE
@@ -161,5 +175,9 @@
     // Move selected lines while staying in visual mode
     { "before": ["J"], "commands": ["editor.action.moveLinesDownAction"] },
     { "before": ["K"], "commands": ["editor.action.moveLinesUpAction"] }
-  ]
+  ],
+  "vim.handleKeys": {
+    "<C-a>": false,
+    "<C-s>": false
+  }
 }
