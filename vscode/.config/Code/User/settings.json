@@ -1,7 +1,5 @@
 {
   "code-runner.runInTerminal": true,
-  "colorize.colorized_colors": ["BROWSERS_COLORS", "HEXA", "RGB", "HSL"],
-  "colorize.hide_current_line_decorations": false,
   "editor.cursorBlinking": "phase",
   "editor.cursorSurroundingLines": 15,
   "editor.detectIndentation": false,
@@ -10,6 +8,7 @@
   "editor.fontSize": 18,
   "editor.fontWeight": "normal",
   "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
   "editor.guides.indentation": true,
   "editor.largeFileOptimizations": false,
   "editor.lineNumbers": "relative",
@@ -18,60 +17,31 @@
   "explorer.confirmDelete": false,
   "explorer.confirmDragAndDrop": false,
   "explorer.sortOrder": "type",
-  "files.autoSave": "afterDelay",
   "git.autofetch": true,
   "git.confirmSync": false,
   "git.openRepositoryInParentFolders": "never",
   "git.postCommitCommand": "sync",
-  "liveServer.settings.donotShowInfoMsg": true,
-  "python.analysis.typeCheckingMode": "off",
   "security.workspace.trust.untrustedFiles": "open",
   "svelte.enable-ts-plugin": true,
   "terminal.integrated.cursorBlinking": true,
   "terminal.integrated.cursorStyle": "underline",
   "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font",
   "terminal.integrated.fontSize": 17,
-  "terminal.integrated.fontWeight": "normal",
   "update.showReleaseNotes": false,
   "window.menuBarVisibility": "toggle",
   "window.titleBarStyle": "native",
-  "workbench.colorCustomizations": {},
   "workbench.iconTheme": "bearded-icons",
   "workbench.startupEditor": "none",
   "workbench.tree.indent": 20,
   "editor.codeActionsOnSave": {
     "source.fixAll.shellcheck": true
   },
-  "colorize.languages": [
-    "python",
-    // "css",
-    "sass",
-    "scss",
-    "less",
-    "postcss",
-    "sss",
-    "stylus",
-    "xml",
-    "svg",
-    "rc-script"
-  ],
-  "colorize.include": [
-    "**/*.ini",
-    // "**/*.css",
-    "**/*.scss",
-    "**/*.sass",
-    "**/*.less",
-    "**/*.styl"
-  ],
   "[javascript][typescript][html][css][json][jsonc][typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": true,
-    "editor.formatOnPaste": true,
     "editor.tabSize": 2
   },
   "[python]": {
     "editor.defaultFormatter": "ms-python.black-formatter",
-    "editor.formatOnSave": true,
     "editor.formatOnType": true
   },
   "extensions.experimental.affinity": {
@@ -98,7 +68,7 @@
   "workbench.colorTheme": "Aura Dark",
   "editor.suggest.insertMode": "replace",
   "editor.linkedEditing": true,
-  
+
   "vim.leader": "<Space>",
   "vim.enableNeovim": true,
   "vim.highlightedyank.enable": true,
@@ -106,12 +76,6 @@
   "vim.useSystemClipboard": true,
 
   "vim.normalModeKeyBindingsNonRecursive": [
-    // Prime paste
-    {
-      "before": ["p"],
-      "after": ["p", "g", "v", "y"]
-    },
-
     // NAVIGATION
 
     // center view
@@ -120,6 +84,7 @@
     { "before": ["n"], "after": ["n", "z", "z"] },
     { "before": ["N"], "after": ["N", "z", "z"] },
     { "before": ["G"], "after": ["G", "z", "z"] },
+    { "before": ["*"], "after": ["*", "z", "z"] },
     // switch b/w buffers
     { "before": ["<S-h>"], "commands": [":bprevious"] },
     { "before": ["<S-l>"], "commands": [":bnext"] },
@@ -161,12 +126,7 @@
       "before": ["<leader>", "c", "a"],
       "commands": ["editor.action.quickFix"]
     },
-    { "before": ["leader", "f"], "commands": ["workbench.action.quickOpen"] },
-    { "before": ["leader", "p"], "commands": ["editor.action.formatDocument"] },
-    {
-      "before": ["g", "h"],
-      "commands": ["editor.action.showDefinitionPreviewHover"]
-    }
+    { "before": ["leader", "p"], "commands": ["editor.action.formatDocument"] }
   ],
   "vim.visualModeKeyBindings": [
     // Stay in visual mode while indenting
