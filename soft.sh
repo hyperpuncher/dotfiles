@@ -14,6 +14,7 @@ paru -S \
     dashbinsh \
     ddcci-driver-linux-dkms \
     ddcutil \
+    dkms \
     docker \
     docker-compose \
     dragon-drop \
@@ -52,6 +53,7 @@ paru -S \
     ledger-live-bin \
     lf \
     libreoffice-fresh \
+    linux-headers \
     losslesscut-bin \
     man-db \
     mpv \
