@@ -30,6 +30,7 @@ paru -S \
     fnm \
     font-manager \
     fzf \
+    gammastep \
     gdu \
     gimp-devel \
     github-cli \
@@ -120,6 +121,7 @@ paru -S \
     wget \
     wireguard-tools \
     wl-clipboard \
+    wl-screenrec-git \
     wtype \
     xdg-desktop-portal-hyprland \
     xdg-ninja \
