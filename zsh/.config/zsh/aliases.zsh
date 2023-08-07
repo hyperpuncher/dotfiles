@@ -19,7 +19,6 @@ alias mirrors='curl -s "https://archlinux.org/mirrorlist/?country=BY&country=DE&
 alias mkdir='mkdir -p'
 alias p='cd ~/projects'
 alias pipreqs='pipreqs --force && sort -u requirements.txt -o requirements.txt'
-alias pipup='pip install -U pip && pip list --outdated | awk "NR > 2 {print \$1}" | xargs pip install -U'
 alias procsme='procs | rg igor | wc -l'
 alias r='paru -Rs'
 alias rg='rg --hidden --no-ignore --no-messages'
