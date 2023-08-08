@@ -40,6 +40,7 @@ paru -S \
     greetd-tuigreet \
     grim \
     gvfs \
+    helvum \
     hyprland-per-window-layout \
     hyprpaper \
     hyprpicker \
@@ -67,9 +68,11 @@ paru -S \
     obs-studio \
     obsidian \
     ocrmypdf \
+    pulsemixer \
     pacman-contrib \
     papirus-folders-git \
     papirus-icon-theme \
+    pavucontrol \
     pfetch-rs-bin \
     polkit-gnome \
     procs \
