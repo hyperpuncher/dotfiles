@@ -19,6 +19,9 @@ user_pref("media.hardwaremediakeys.enabled", false);
 user_pref("media.videocontrols.picture-in-picture.video-toggle.enabled", false);
 user_pref("services.sync.declinedEngines", "creditcards,passwords");
 user_pref("services.sync.engine.passwords", false);
+user_pref("media.ffmpeg.vaapi.enabled", true);
+user_pref("gfx.webrender.all", true);
+user_pref("browser.toolbars.bookmarks.visibility", "never");
 
 ///  NATURAL SMOOTH SCROLLING V4 "SHARP" - AveYo, 2020-2022             preset     [default]
 ///  copy into firefox/librewolf profile as user.js, add to existing, or set in about:config
