@@ -36,7 +36,6 @@ paru -S \
     github-cli \
     glow \
     gnome-keyring \
-    google-chrome \
     gparted \
     greetd-tuigreet \
     grim \
@@ -106,6 +105,7 @@ paru -S \
     speedtest-rs-bin \
     spotify-edge \
     telegram-desktop \
+    thorium-browser-bin \
     thunar \
     thunar-archive-plugin \
     thunar-volman \
