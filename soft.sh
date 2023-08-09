@@ -56,6 +56,7 @@ paru -S \
     libreoffice-fresh \
     linux-headers \
     losslesscut-bin \
+    lsp-plugins \
     man-db \
     mpv \
     mtpfs \
@@ -68,7 +69,6 @@ paru -S \
     obs-studio \
     obsidian \
     ocrmypdf \
-    pulsemixer \
     pacman-contrib \
     papirus-folders-git \
     papirus-icon-theme \
@@ -76,6 +76,7 @@ paru -S \
     pfetch-rs-bin \
     polkit-gnome \
     procs \
+    pulsemixer \
     python-beautifulsoup4 \
     python-dotenv \
     python-numpy \
