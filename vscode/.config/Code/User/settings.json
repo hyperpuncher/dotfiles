@@ -53,8 +53,9 @@
   "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font",
   "terminal.integrated.fontSize": 17,
   "update.showReleaseNotes": false,
-  "window.menuBarVisibility": "toggle",
+  "window.menuBarVisibility": "hidden",
   "window.titleBarStyle": "native",
+  "workbench.activityBar.visible": false,
   "workbench.colorTheme": "Aura Dark",
   "workbench.iconTheme": "bearded-icons",
   "workbench.startupEditor": "none",
@@ -131,9 +132,6 @@
       "commands": ["workbench.action.focusRightGroup"]
     },
     // NICE TO HAVE
-    { "before": ["leader", "w"], "commands": [":w!"] },
-    { "before": ["leader", "q"], "commands": [":q!"] },
-    { "before": ["leader", "x"], "commands": [":x!"] },
     {
       "before": ["[", "d"],
       "commands": ["editor.action.marker.prev"]
@@ -146,7 +144,16 @@
       "before": ["<leader>", "c", "a"],
       "commands": ["editor.action.quickFix"]
     },
-    { "before": ["leader", "p"], "commands": ["editor.action.formatDocument"] }
+    { "before": ["leader", "p"], "commands": ["editor.action.formatDocument"] },
+    // Change undo to vscode undo
+    {
+      "before": ["u"],
+      "commands": ["undo"]
+    },
+    {
+      "before": ["<C-r>"],
+      "commands": ["redo"]
+    }
   ],
   "vim.visualModeKeyBindings": [
     // Stay in visual mode while indenting
@@ -158,6 +165,7 @@
   ],
   "vim.handleKeys": {
     "<C-a>": false,
-    "<C-s>": false
+    "<C-s>": false,
+    "<C-w>": false
   }
 }

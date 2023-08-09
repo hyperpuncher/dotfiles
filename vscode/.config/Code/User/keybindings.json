@@ -26,7 +26,17 @@
   {
     "key": "f",
     "command": "explorer.newFolder",
-    "when": "explorerViewletFocus"
+    "when": "filesExplorerFocus && !inputFocus"
+  },
+  {
+    "key": "y",
+    "command": "filesExplorer.copy",
+    "when": "filesExplorerFocus && !inputFocus"
+  },
+  {
+    "key": "p",
+    "command": "filesExplorer.paste",
+    "when": "filesExplorerFocus && !inputFocus"
   },
   // {
   //   "key": "shift+n",
@@ -43,5 +53,20 @@
   {
     "key": "ctrl+z",
     "command": "workbench.action.toggleZenMode"
+  },
+  {
+    "key": "ctrl+shift+c",
+    "command": "codeium.openChatView",
+    "when": "true"
+  },
+  {
+    "key": "ctrl+shift+a",
+    "command": "-codeium.openChatView",
+    "when": "false"
+  },
+  {
+    "key": "ctrl+alt+a",
+    "command": "-codeium.openChatView",
+    "when": "true"
   }
 ]
