@@ -2,6 +2,9 @@ rule = {
     matches = {
         {
             { "device.name", "equals", "alsa_card.pci-0000_09_00.4" },
+        },
+        {
+            { "device.name", "equals", "alsa_card.pci-0000_07_00.6" },
         }
 
     },

@@ -5,6 +5,9 @@ rule = {
         },
         {
             { "node.name", "equals", "alsa_output.pci-0000_09_00.4.iec958-stereo" },
+        },
+        {
+            { "device.name", "equals", "alsa_card.pci-0000_07_00.1.3" },
         }
     },
     apply_properties = {
