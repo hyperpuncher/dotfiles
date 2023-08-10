@@ -2,7 +2,7 @@ export BROWSER=firefox
 export EDITOR=nvim
 export PAGER=bat
 export TERM=xterm-kitty
-export VISUAL=code
+export VISUAL=nvim
 
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_CONFIG_HOME="$HOME/.config"
