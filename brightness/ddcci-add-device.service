@@ -1,8 +1,0 @@
-[Unit]
-Description=DDCCI Shell Script
-
-[Service]
-ExecStart=/usr/bin/ddcci_add_devices.sh
-
-[Install]
-WantedBy=multi-user.target
