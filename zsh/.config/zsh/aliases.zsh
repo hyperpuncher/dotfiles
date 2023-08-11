@@ -1,4 +1,5 @@
 alias archive='tar -caf'
+alias b='cd ~/projects/newtonlabs/backend'
 alias bt='bluetoothctl'
 alias c.='code .'
 alias c='code'
