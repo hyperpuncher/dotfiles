@@ -1,5 +1,4 @@
 export BAT_THEME="Dracula"
-export PF_ASCII="linux"
 export PF_INFO="ascii title os de kernel pkgs memory"
 
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
