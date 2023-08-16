@@ -45,6 +45,7 @@ paru -S \
     hyprpaper \
     hyprpicker \
     imagemagick \
+    inkscape \
     jq \
     kitty \
     kvantum \
