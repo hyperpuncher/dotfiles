@@ -279,13 +279,11 @@ return {
 
     { "ThePrimeagen/harpoon",  enabled = false },
 
-    -- { "EdenEast/nightfox.nvim" },
-
+    { 'Mofiqul/dracula.nvim' },
     {
         "LazyVim/LazyVim",
         opts = {
-            -- colorscheme = "carbonfox",
-            -- colorscheme = "tokyonight",
+            colorscheme = "dracula"
             -- colorscheme = "catppuccin",
         },
     },
