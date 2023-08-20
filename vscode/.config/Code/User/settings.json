@@ -36,6 +36,7 @@
   "editor.lineNumbers": "relative",
   "editor.linkedEditing": true,
   "editor.minimap.enabled": false,
+  "editor.stickyScroll.enabled": true,
   "editor.suggest.insertMode": "replace",
   "editor.wordWrap": "on",
   "explorer.confirmDelete": false,
@@ -55,8 +56,7 @@
   "update.showReleaseNotes": false,
   "window.menuBarVisibility": "hidden",
   "window.titleBarStyle": "native",
-  "workbench.activityBar.visible": false,
-  "workbench.colorTheme": "Aura Dark",
+  "workbench.activityBar.visible": true,
   "workbench.iconTheme": "bearded-icons",
   "workbench.startupEditor": "none",
   "workbench.tree.indent": 20,
@@ -64,12 +64,21 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.shellcheck": true
   },
-  "[javascript][typescript][html][css][json][jsonc][typescriptreact]": {
+  "prettier.documentSelectors": ["**/*.astro"],
+  "[javascript][typescript][html][css][json][jsonc][typescriptreact][astro]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.tabSize": 2
   },
+  "[svelte]": {
+    "editor.defaultFormatter": "svelte.svelte-vscode",
+    "editor.tabSize": 2
+  },
   "[python]": {
-    "editor.defaultFormatter": "ms-python.black-formatter"
+    "editor.defaultFormatter": "ms-python.black-formatter",
+    "editor.codeActionsOnSave": {
+      "source.fixAll": true,
+      "source.organizeImports": true
+    }
   },
   "eslint.validate": [
     "javascript",
@@ -78,10 +87,6 @@
     "typescript", // Enable .ts
     "typescriptreact" // Enable .tsx
   ],
-  "[astro]": {
-    "editor.defaultFormatter": "astro-build.astro-vscode",
-    "editor.tabSize": 2
-  },
   "codeium.enableConfig": {
     "*": true
   },
@@ -89,8 +94,13 @@
     "strings": true
   },
 
+  "extensions.experimental.affinity": {
+    "asvetliakov.vscode-neovim": 1
+  },
+
   // VIM
   "vim.leader": "<Space>",
+  "vim.gdefault": true,
   "vim.enableNeovim": true,
   "vim.highlightedyank.enable": true,
   "vim.hlsearch": true,
@@ -153,8 +163,17 @@
     {
       "before": ["<C-r>"],
       "commands": ["redo"]
+    },
+    {
+      "before": ["Y"],
+      "after": ["y", "$"]
+    },
+    {
+      "before": ["<C-a>"],
+      "after": ["g", "g", "V", "G"]
     }
   ],
+
   "vim.visualModeKeyBindings": [
     // Stay in visual mode while indenting
     { "before": ["<"], "commands": ["editor.action.outdentLines"] },
@@ -163,9 +182,10 @@
     { "before": ["J"], "commands": ["editor.action.moveLinesDownAction"] },
     { "before": ["K"], "commands": ["editor.action.moveLinesUpAction"] }
   ],
+
   "vim.handleKeys": {
-    "<C-a>": false,
     "<C-s>": false,
     "<C-w>": false
-  }
+  },
+  "workbench.colorTheme": "Aura Dark"
 }

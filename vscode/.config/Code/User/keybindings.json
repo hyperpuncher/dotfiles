@@ -13,47 +13,43 @@
     "key": "ctrl+e",
     "when": "editorTextFocus"
   },
-  {
-    "key": "a",
-    "command": "explorer.newFile",
-    "when": "filesExplorerFocus && !inputFocus"
-  },
-  {
-    "command": "renameFile",
-    "key": "r",
-    "when": "filesExplorerFocus && !inputFocus"
-  },
-  {
-    "key": "f",
-    "command": "explorer.newFolder",
-    "when": "filesExplorerFocus && !inputFocus"
-  },
-  {
-    "key": "y",
-    "command": "filesExplorer.copy",
-    "when": "filesExplorerFocus && !inputFocus"
-  },
-  {
-    "key": "p",
-    "command": "filesExplorer.paste",
-    "when": "filesExplorerFocus && !inputFocus"
-  },
+  // {
+  //   "key": "a",
+  //   "command": "explorer.newFile",
+  //   "when": "filesExplorerFocus && !inputFocus"
+  // },
+  // {
+  //   "command": "renameFile",
+  //   "key": "r",
+  //   "when": "filesExplorerFocus && !inputFocus"
+  // },
+  // {
+  //   "key": "f",
+  //   "command": "explorer.newFolder",
+  //   "when": "filesExplorerFocus && !inputFocus"
+  // },
+  // {
+  //   "key": "y",
+  //   "command": "filesExplorer.copy",
+  //   "when": "filesExplorerFocus && !inputFocus"
+  // },
+  // {
+  //   "key": "p",
+  //   "command": "filesExplorer.paste",
+  //   "when": "filesExplorerFocus && !inputFocus"
+  // },
   // {
   //   "key": "shift+n",
   //   "command": "workbench.action.newWindow",
   //   "when": "!explorerViewletFocus"
   // },
-  {
-    "command": "deleteFile",
-    "key": "d",
-    "when": "filesExplorerFocus && !inputFocus"
-  },
+  // {
+  //   "command": "deleteFile",
+  //   "key": "d",
+  //   "when": "filesExplorerFocus && !inputFocus"
+  // },
 
   // EXTRA
-  {
-    "key": "ctrl+z",
-    "command": "workbench.action.toggleZenMode"
-  },
   {
     "key": "ctrl+shift+c",
     "command": "codeium.openChatView",
@@ -68,5 +64,74 @@
     "key": "ctrl+alt+a",
     "command": "-codeium.openChatView",
     "when": "true"
+  },
+  {
+    "key": "ctrl+shift+k",
+    "command": "-editor.action.deleteLines",
+    "when": "textInputFocus && !editorReadonly"
+  },
+
+  // Neovim
+  {
+    "command": "-vscode-neovim.send",
+    "key": "ctrl+h"
+  },
+  {
+    "command": "-vscode-neovim.send",
+    "key": "ctrl+a"
+  },
+  {
+    "command": "-vscode-neovim.send",
+    "key": "ctrl+w"
+  },
+  {
+    "command": "vscode-neovim.compositeEscape1",
+    "key": "j",
+    "when": "neovim.mode == insert && editorTextFocus",
+    "args": "j"
+  },
+  {
+    "command": "vscode-neovim.compositeEscape2",
+    "key": "k",
+    "when": "neovim.mode == insert && editorTextFocus",
+    "args": "k"
+  },
+  {
+    "key": "ctrl+n",
+    "command": "-workbench.action.files.newUntitledFile"
+  },
+  {
+    "key": "shift+h",
+    "command": "workbench.action.previousEditor",
+    "when": "neovim.mode == normal && editorTextFocus"
+  },
+  {
+    "key": "shift+l",
+    "command": "workbench.action.nextEditor",
+    "when": "neovim.mode == normal && editorTextFocus"
+  },
+  // {
+  //   "key": "ctrl+h",
+  //   "command": "workbench.action.focusLeftGroup"
+  // },
+  // {
+  //   "key": "ctrl+j",
+  //   "command": "workbench.action.focusBelowGroup"
+  // },
+  // {
+  //   "key": "ctrl+k",
+  //   "command": "workbench.action.focusAboveGroup"
+  // },
+  // {
+  //   "key": "ctrl+l",
+  //   "command": "workbench.action.focusRightGroup"
+  // },
+  {
+    "key": "alt+j",
+    "command": "editor.action.moveLinesDownAction"
+  },
+  {
+    "key": "alt+k",
+    "command": "editor.action.moveLinesUpAction"
   }
 ]
