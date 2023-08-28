@@ -31,5 +31,5 @@ while true; do
         esac
         previous_window_class="$active_window_class"
     fi
-    sleep 1
+    sleep 0.2
 done
