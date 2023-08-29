@@ -43,7 +43,7 @@ map gc cd ~/dotfiles
 map gd cd ~/Downloads
 map gm cd /run/media/igor
 map gp cd ~/projects
-map gf cd ~/projects/newtonlabs/frontend
+map gn cd ~/projects/newtonlabs
 
 # define a custom 'open' command
 # This command is called when current file is not a directory. You may want to
