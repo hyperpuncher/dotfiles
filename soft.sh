@@ -18,6 +18,7 @@ paru -S \
     dkms \
     docker \
     docker-compose \
+    downgrade \
     dragon-drop \
     dunst \
     easyeffects \
