@@ -108,6 +108,7 @@ paru -S \
     rofi-emoji \
     rofi-lbonn-wayland-git \
     rofi-rbw \
+    shell-gpt \
     slurp \
     solaar \
     speedtest-rs-bin \
