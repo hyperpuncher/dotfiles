@@ -43,7 +43,6 @@ paru -S \
     grim \
     gvfs \
     helvum \
-    hyprland-per-window-layout \
     hyprpaper \
     hyprpicker \
     imagemagick \
@@ -59,7 +58,6 @@ paru -S \
     libreoffice-fresh \
     linux-headers \
     losslesscut-bin \
-    lsp-plugins \
     man-db \
     mpv \
     mtpfs \
@@ -102,7 +100,6 @@ paru -S \
     qt6ct \
     quickgui-bin \
     qview \
-    realesrgan-ncnn-vulkan-bin \
     ripgrep \
     rofi-calc \
     rofi-emoji \
@@ -126,7 +123,6 @@ paru -S \
     vial-appimage \
     visual-studio-code-bin \
     waybar \
-    wf-recorder \
     wget \
     wireguard-tools \
     wl-clipboard \
