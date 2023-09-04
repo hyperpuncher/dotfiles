@@ -12,6 +12,7 @@ paru -S \
     btop \
     c-lolcat \
     cliphist \
+    corectl \
     dashbinsh \
     ddcci-driver-linux-dkms \
     ddcutil \
