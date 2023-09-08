@@ -23,7 +23,7 @@ paru -S \
     dragon-drop \
     dunst \
     easyeffects \
-    exa \
+    eza \
     exfatprogs \
     fd \
     ffmpeg \
