@@ -23,8 +23,8 @@ paru -S \
     dragon-drop \
     dunst \
     easyeffects \
-    eza \
     exfatprogs \
+    eza \
     fd \
     ffmpeg \
     figlet-fonts-extra \
@@ -123,6 +123,7 @@ paru -S \
     ventoy-bin \
     vial-appimage \
     visual-studio-code-bin \
+    vscodium-bin \
     waybar \
     wget \
     wireguard-tools \

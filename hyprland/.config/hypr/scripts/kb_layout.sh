@@ -6,7 +6,7 @@ kb_names="bastard-keyboards-charybdis-mini-(3x6)-pro-micro hyperpuncher-kanariyo
 
 active_keyboard=""
 
-en_layout_apps="code-url-handler kitty firefox obsidian beekeeper-studio"
+en_layout_apps="code-url-handler codium-url-handler kitty firefox obsidian beekeeper-studio"
 ru_layout_apps="org.telegram.desktop"
 
 for name in ${kb_names}; do
