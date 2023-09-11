@@ -38,6 +38,7 @@ paru -S \
     gimp-devel \
     github-cli \
     glow \
+    gnome-disk-utility \
     gnome-keyring \
     gparted \
     greetd-tuigreet \
