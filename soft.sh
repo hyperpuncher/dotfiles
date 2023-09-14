@@ -110,6 +110,7 @@ paru -S \
     shell-gpt \
     slurp \
     solaar \
+    solvespace \
     speedtest-rs-bin \
     spotify-edge \
     telegram-desktop \
