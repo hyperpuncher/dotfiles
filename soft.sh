@@ -72,6 +72,7 @@ paru -S \
     obs-studio \
     obsidian \
     ocrmypdf \
+    orca-slicer-bin \
     pacman-contrib \
     papirus-folders-git \
     papirus-icon-theme \
