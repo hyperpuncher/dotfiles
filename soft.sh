@@ -16,6 +16,7 @@ paru -S \
     dashbinsh \
     ddcci-driver-linux-dkms \
     ddcutil \
+    dirstat-rs-bin \
     dkms \
     docker \
     docker-compose \
@@ -121,6 +122,7 @@ paru -S \
     thunar-volman \
     tldr \
     transmission-gtk \
+    udiskie \
     unzip \
     upscayl-bin \
     ventoy-bin \
