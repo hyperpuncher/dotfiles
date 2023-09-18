@@ -81,6 +81,7 @@ paru -S \
     pacman-contrib \
     papirus-folders-git \
     papirus-icon-theme \
+    parallel \
     pavucontrol \
     pfetch-rs-bin \
     pnpm \
