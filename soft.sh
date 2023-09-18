@@ -2,6 +2,7 @@
 paru -S \
     android-file-transfer \
     android-tools \
+    ansible-lint \
     anydesk-bin \
     bat \
     bc \
@@ -10,6 +11,7 @@ paru -S \
     bluez-utils \
     brillo \
     btop \
+    bun-bin \
     c-lolcat \
     cliphist \
     corectrl \
@@ -46,6 +48,7 @@ paru -S \
     grim \
     gvfs \
     helvum \
+    hyprland \
     hyprpaper \
     hyprpicker \
     imagemagick \
@@ -68,6 +71,7 @@ paru -S \
     nasc \
     ncspot-bin \
     nfs-utils \
+    npm \
     nvtop \
     nwg-look \
     obs-studio \
@@ -79,6 +83,7 @@ paru -S \
     papirus-icon-theme \
     pavucontrol \
     pfetch-rs-bin \
+    pnpm \
     polkit-gnome \
     procs \
     pulsemixer \
@@ -95,7 +100,6 @@ paru -S \
     python-rich \
     python-setuptools \
     python-tabulate \
-    python-undetected-chromedriver \
     python-wxpython \
     qt5-imageformats \
     qt5-wayland \
@@ -138,6 +142,7 @@ paru -S \
     xdg-desktop-portal-hyprland \
     xdg-ninja \
     xorg-xhost \
+    yarn \
     yt-dlp \
     zip \
     zoxide \
