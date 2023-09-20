@@ -11,7 +11,7 @@ paru -S \
     bluez-utils \
     brillo \
     btop \
-    bun-bin \
+    bunjs-bin \
     c-lolcat \
     cliphist \
     corectrl \
