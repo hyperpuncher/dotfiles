@@ -6,7 +6,8 @@ set ifs "\n"
 set info size:time
 set mouse true
 set ratios 1:2
-set ruler "acc:progress:selection:filter:df:ind"
+set statfmt "\033[7;31m %p| \033[33m %u| \033[34m %s| \033[35m %t| \033[36m %l| \033[0m"
+set rulerfmt "%a  |%p  |\033[7;31m %m \033[0m  |\033[7;33m %c \033[0m  |\033[7;35m %s \033[0m  |\033[7;34m %f | \033[7;31m %d | \033[0m %i/%t"
 set scrolloff 10
 set shell sh
 set shellopts '-eu'
@@ -15,8 +16,6 @@ set sortby ext
 set previewer ~/.config/lf/lf_kitty_preview
 set cleaner ~/.config/lf/lf_kitty_clean
 
-# set statfmt "\033[7;31m %p \033[33m %u \033[34m %s \033[35m %t \033[36m %l \033[0m"
-# set statfmt "\033[7;31m %p \033[32m %c \033[33m %u %g \033[34m %s \033[35m %t \033[36m %l \033[0m"
 
 map <enter> shell
 # show the result of execution of previous commands
