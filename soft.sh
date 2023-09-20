@@ -65,6 +65,7 @@ paru -S \
     linux-headers \
     losslesscut-bin \
     man-db \
+    moar \
     mpv \
     mtpfs \
     mumble \
