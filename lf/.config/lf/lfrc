@@ -6,8 +6,8 @@ set ifs "\n"
 set info size:time
 set mouse true
 set ratios 1:2
-set statfmt "\033[7;31m %p| \033[33m %u| \033[34m %s| \033[35m %t| \033[36m %l| \033[0m"
-set rulerfmt "%a  |%p  |\033[7;31m %m \033[0m  |\033[7;33m %c \033[0m  |\033[7;35m %s \033[0m  |\033[7;34m %f | \033[7;31m %d | \033[0m %i/%t"
+set statfmt "\033[35m %s| \033[34m %t| \033[36m %l| \033[0m"
+set rulerfmt "%a  |%p  |\033[7;31m %m \033[0m  |\033[7;33m %c \033[0m  |\033[7;35m %s \033[0m  |\033[7;34m %f | \033[35m %d | \033[0m %i/%t"
 set scrolloff 10
 set shell sh
 set shellopts '-eu'
