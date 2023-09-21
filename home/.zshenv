@@ -1,6 +1,6 @@
 export BROWSER=firefox
 export EDITOR=nvim
-export PAGER='moar -style dracula'
+export PAGER='moar -style dracula -no-linenumbers'
 export MANPAGER='nvim +Man!'
 export TERM=xterm-kitty
 export VISUAL=nvim
