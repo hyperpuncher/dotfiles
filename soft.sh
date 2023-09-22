@@ -116,6 +116,7 @@ paru -S \
     rofi-lbonn-wayland-git \
     rofi-rbw \
     shell-gpt \
+    signal-desktop \
     slurp \
     solaar \
     solvespace \
