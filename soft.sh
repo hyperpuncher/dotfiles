@@ -103,6 +103,7 @@ paru -S \
     python-setuptools \
     python-tabulate \
     python-wxpython \
+    qemu-full \
     qt5-imageformats \
     qt5-wayland \
     qt5ct \
