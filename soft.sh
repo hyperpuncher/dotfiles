@@ -18,7 +18,7 @@ paru -S \
     dashbinsh \
     ddcci-driver-linux-dkms \
     ddcutil \
-    dirstat-rs-bin \
+    dirstat-rs-git \
     dkms \
     docker \
     docker-compose \
