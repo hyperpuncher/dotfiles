@@ -4,6 +4,7 @@ paru -S \
     android-tools \
     ansible-lint \
     anydesk-bin \
+    aria2 \
     bat \
     bc \
     bibata-cursor-theme \
@@ -59,7 +60,6 @@ paru -S \
     lavat-git \
     lazydocker \
     lazygit \
-    ledger-live-bin \
     lf \
     libreoffice-fresh \
     linux-headers \
@@ -121,7 +121,7 @@ paru -S \
     slurp \
     solaar \
     solvespace \
-    speedtest-rs-bin \
+    speedtest-go \
     spotify-edge \
     telegram-desktop \
     thorium-browser-bin \
