@@ -1,2 +1,2 @@
 #!/bin/bash
-paru -S nerd-fonts-meta noto-fonts noto-fonts-cjk noto-fonts-emoji apple-fonts nerd-fonts-sf-mono
+paru -S noto-fonts noto-fonts-cjk noto-fonts-emoji ttf-cascadia-code-nerd ttf-jetbrains-mono-nerd ttf-ubuntu-mono-nerd

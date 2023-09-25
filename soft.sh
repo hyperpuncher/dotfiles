@@ -6,7 +6,6 @@ paru -S \
     anydesk-bin \
     aria2 \
     bat \
-    bc \
     bibata-cursor-theme \
     blueman \
     bluez-utils \
@@ -32,8 +31,8 @@ paru -S \
     fd \
     ffmpeg \
     figlet-fonts-extra \
+    file-roller \
     firefox \
-    flatpak \
     fnm \
     font-manager \
     fzf \
@@ -57,7 +56,6 @@ paru -S \
     jq \
     kitty \
     kvantum \
-    lavat-git \
     lazydocker \
     lazygit \
     lf \
@@ -109,7 +107,7 @@ paru -S \
     qt5ct \
     qt6-wayland \
     qt6ct \
-    quickgui-bin \
+    quickemu \
     qview \
     ripgrep \
     rofi-calc \
