@@ -129,6 +129,7 @@ paru -S \
     tldr \
     transmission-gtk \
     udiskie \
+    ufw \
     unzip \
     upscayl-bin \
     ventoy-bin \
