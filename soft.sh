@@ -47,6 +47,7 @@ paru -S \
     greetd-tuigreet \
     grim \
     gvfs \
+    helix \
     helvum \
     hyprland \
     hyprpaper \
