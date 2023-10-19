@@ -114,7 +114,6 @@ paru -S \
     rofi-calc \
     rofi-emoji \
     rofi-lbonn-wayland-git \
-    rofi-rbw \
     shell-gpt \
     signal-desktop \
     slurp \
