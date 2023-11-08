@@ -3,7 +3,6 @@ paru -S \
     android-file-transfer \
     android-tools \
     ansible-lint \
-    anydesk-bin \
     aria2 \
     bat \
     bibata-cursor-theme \
@@ -11,7 +10,7 @@ paru -S \
     bluez-utils \
     brillo \
     btop \
-    bunjs-bin \
+    bun-bin \
     c-lolcat \
     cliphist \
     corectrl \
@@ -114,6 +113,7 @@ paru -S \
     rofi-calc \
     rofi-emoji \
     rofi-lbonn-wayland-git \
+    rustdesk-bin \
     shell-gpt \
     signal-desktop \
     slurp \
