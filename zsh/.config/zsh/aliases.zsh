@@ -1,6 +1,6 @@
 alias bt='bluetoothctl'
-alias c.='codium .'
-alias c='codium'
+alias c.='codium . >/dev/null 2>&1'
+alias c='codium >/dev/null 2>&1'
 alias cat='bat -pp'
 alias d='cd ~/dotfiles/'
 alias dev='pnpm run dev --host'
