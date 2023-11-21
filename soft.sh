@@ -24,7 +24,6 @@ paru -S \
     downgrade \
     dragon-drop \
     dunst \
-    easyeffects \
     exfatprogs \
     eza \
     fd \
@@ -53,6 +52,7 @@ paru -S \
     hyprpicker \
     imagemagick \
     inkscape \
+    jamesdsp \
     jq \
     kitty \
     kvantum \
