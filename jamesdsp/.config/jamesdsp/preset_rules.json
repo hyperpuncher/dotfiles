@@ -1,0 +1,17 @@
+[
+    {
+        "deviceId": "alsa_output.usb-FiiO_FiiO_BTR3K_ABCDEF0123456789-00.analog-stereo",
+        "deviceName": "Sennheiser PC38X",
+        "preset": "Sennheiser PC38X"
+    },
+    {
+        "deviceId": "bluez_output.AC_12_2F_0B_3B_DA.1",
+        "deviceName": "Soundcore Life Q30",
+        "preset": "Soundcore Q30"
+    },
+    {
+        "deviceId": "bluez_output.00_F3_9F_6F_FB_43.1",
+        "deviceName": "AirPods Pro",
+        "preset": "AirPods Pro"
+    }
+]
