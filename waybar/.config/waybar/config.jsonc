@@ -77,7 +77,7 @@
       "headset": "",
       "default": ["", ""]
     },
-    "ignored-sinks": ["Easy Effects Sink"]
+    "ignored-sinks": ["JamesDSP Sink"]
   },
   "custom/media": {
     "tooltip": false,
