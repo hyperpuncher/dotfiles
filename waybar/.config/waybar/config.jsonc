@@ -105,17 +105,17 @@
     "interval": 2,
     "exec": "brillo 2>/dev/null | cut -d '.' -f 1"
   },
-  "custom/vpn": {
-    "tooltip": false,
-    "format": "VPN ",
-    "exec": "echo '0'",
-    "exec-if": "test -d /proc/sys/net/ipv4/conf/*vpn",
-    "interval": 5
-  },
   "custom/weather": {
     "tooltip": false,
     "format": "{}°C 󰖕",
     "exec": "curl -s 'https://api.open-meteo.com/v1/forecast?latitude=53.90&longitude=27.57&current_weather=true&temperature_2m' | jq '.current_weather.temperature' | xargs printf '%.0f'",
     "interval": 1800
+  },
+  "custom/vpn": {
+    "format": "{}",
+    "exec": "test -d /proc/sys/net/ipv4/conf/*vpn && echo 'VPN ' || echo 'VPN '",
+    "interval": 5,
+    "tooltip": false,
+    "on-click": "$HOME/.config/waybar/scripts/vpn.sh"
   }
 }
