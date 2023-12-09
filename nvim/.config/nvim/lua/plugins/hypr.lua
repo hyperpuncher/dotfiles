@@ -56,6 +56,9 @@ return {
                 "astro-language-server",
                 "black",
                 "eslint_d",
+                "gofumpt",
+                "goimports",
+                "gopls",
                 "isort",
                 "marksman",
                 "prettier",
@@ -65,6 +68,7 @@ return {
                 "rustywind",
                 "shellcheck",
                 "shfmt",
+                "staticcheck",
                 "svelte-language-server",
                 "tailwindcss-language-server",
             },
@@ -250,19 +254,19 @@ return {
         },
     },
 
-    {
-        "jackMort/ChatGPT.nvim",
-        enabled = false,
-        event = "VeryLazy",
-        config = function()
-            require("chatgpt").setup()
-        end,
-        dependencies = {
-            "MunifTanjim/nui.nvim",
-            "nvim-lua/plenary.nvim",
-            "nvim-telescope/telescope.nvim",
-        },
-    },
+    -- {
+    --     "jackMort/ChatGPT.nvim",
+    --     enabled = false,
+    --     event = "VeryLazy",
+    --     config = function()
+    --         require("chatgpt").setup()
+    --     end,
+    --     dependencies = {
+    --         "MunifTanjim/nui.nvim",
+    --         "nvim-lua/plenary.nvim",
+    --         "nvim-telescope/telescope.nvim",
+    --     },
+    -- },
 
     {
         "theRealCarneiro/hyprland-vim-syntax",
