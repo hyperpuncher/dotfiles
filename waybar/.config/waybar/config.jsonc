@@ -5,12 +5,11 @@
   // "width": 1280, // Waybar width
   // "spacing": 4, // Gaps between modules (4px)
 
-  "modules-left": ["hyprland/workspaces"],
+  "modules-left": ["tray"],
   "modules-center": ["custom/media"],
   "modules-right": [
     "custom/vpn",
     "custom/brightness",
-    // "bluetooth",
     "pulseaudio",
     "temperature",
     "cpu",
@@ -20,6 +19,10 @@
     // "custom/weather",
     "clock"
   ],
+  "tray": {
+    "icon-size": 19,
+    "spacing": 10
+  },
   "hyprland/workspaces": {
     "format": "{icon}",
     "format-icons": {
