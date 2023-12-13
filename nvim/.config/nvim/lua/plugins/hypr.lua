@@ -75,39 +75,6 @@ return {
         },
     },
 
-    -- {
-    --     "nvimtools/none-ls.nvim",
-    --     opts = function()
-    --         local nls = require("null-ls")
-    --         return {
-    --             sources = {
-    --                 nls.builtins.diagnostics.eslint_d,
-    --                 nls.builtins.formatting.prettierd,
-    --                 nls.builtins.formatting.prettier.with({
-    --                     filetypes = { "svelte" },
-    --                     extra_filetypes = { "svelte" },
-    --                 }),
-    --                 nls.builtins.formatting.rustywind,
-
-    --                 nls.builtins.diagnostics.shellcheck,
-
-    --                 -- python
-    --                 nls.builtins.diagnostics.ruff,
-    --                 nls.builtins.formatting.black,
-    --                 nls.builtins.formatting.isort.with({
-    --                     extra_args = { "--profile", "black" },
-    --                 }),
-
-    --                 -- shell
-    --                 nls.builtins.formatting.shfmt,
-
-    --                 -- go
-    --                 nls.builtins.formatting.golines,
-    --             },
-    --         }
-    --     end,
-    -- },
-
     {
         "nvim-neo-tree/neo-tree.nvim",
         opts = {
@@ -254,20 +221,6 @@ return {
         },
     },
 
-    -- {
-    --     "jackMort/ChatGPT.nvim",
-    --     enabled = false,
-    --     event = "VeryLazy",
-    --     config = function()
-    --         require("chatgpt").setup()
-    --     end,
-    --     dependencies = {
-    --         "MunifTanjim/nui.nvim",
-    --         "nvim-lua/plenary.nvim",
-    --         "nvim-telescope/telescope.nvim",
-    --     },
-    -- },
-
     {
         "theRealCarneiro/hyprland-vim-syntax",
         dependencies = { "nvim-treesitter/nvim-treesitter" },
@@ -281,15 +234,12 @@ return {
 
     { "RRethy/vim-illuminate", enabled = false, },
 
-    { "ThePrimeagen/harpoon",  enabled = false },
-
     { 'Mofiqul/dracula.nvim' },
 
     {
         "LazyVim/LazyVim",
         opts = {
             colorscheme = "dracula"
-            -- colorscheme = "catppuccin",
         },
     },
 }
