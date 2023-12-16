@@ -90,7 +90,8 @@ element-icon {
 window {
     padding:          5;
     background-color: var(background);
-    border:           0;
+    border:           2;
+    border-color:     #cccccc;
 }
 mainbox {
     padding: 0;
@@ -173,6 +174,5 @@ textbox-prompt-colon {
     text-color: inherit;
 }
 window {
-  width: 100%;
-  y-offset: -37px;
+  width: 25%;
 }
