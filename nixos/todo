@@ -11,3 +11,13 @@ ddcci-driver-linux-dkms
 gammastep
 
 dirstat-rs
+
+
+virtualisation.docker.enable = true;
+users.users.igor.extraGroups = [ "docker" ];
+virtualisation.docker.rootless = {
+  enable = true;
+  setSocketVariable = true;
+};
+
+boot.extraModulePackages = [ config.boot.kernelPackages.exfat-nofuse ];
