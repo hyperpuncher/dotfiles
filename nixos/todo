@@ -11,6 +11,9 @@ ddcci-driver-linux-dkms
 gammastep
 
 dirstat-rs
+davinci-resolve
+
+gaming
 
 
 virtualisation.docker.enable = true;

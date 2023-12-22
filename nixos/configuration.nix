@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   nixpkgs.config.permittedInsecurePackages = [
@@ -65,6 +65,11 @@
     packages = with pkgs; [ ];
   };
 
+  # home-manager = {
+  #   specialArgs = { inherit inputs; };
+  #   users = { "igor" = import ./home.nix; };
+  # };
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
@@ -104,28 +109,28 @@
   # $ nix search wget
   environment.systemPackages = with pkgs;
     [
-      android-file-transfer
-      android-tools
+      # android-file-transfer
+      # android-tools
       aria
       bat
       bibata-cursors
       btop
-      bun
+      # bun
       cliphist
-      corectrl
+      # corectrl
       dash
       ddcutil
       dunst
       eza
       fd
-      ffmpeg
+      # ffmpeg
       firefox
       fnm
-      font-manager
+      # font-manager
       fx
       fzf
       gdu
-      gimp
+      # gimp
       git
       glow
       gnome.file-roller
@@ -136,14 +141,14 @@
       gvfs
       hyprpicker
       imagemagick
-      inkscape
+      # inkscape
       jamesdsp
       jq
       kitty
       lazydocker
       lazygit
       lf
-      libreoffice-fresh
+      # libreoffice-fresh
       libsForQt5.qt5.qtwayland
       libsForQt5.qt5ct
       losslesscut-bin
@@ -151,7 +156,7 @@
       moar
       mpv
       mtpfs
-      mumble
+      # mumble
       nasc
       networkmanagerapplet
       nfs-utils
@@ -159,9 +164,9 @@
       nodejs
       nvtop
       nwg-look
-      obs-studio
-      obsidian
-      ocrmypdf
+      # obs-studio
+      # obsidian
+      # ocrmypdf
       papirus-folders
       papirus-icon-theme
       parallel
@@ -170,36 +175,36 @@
       polkit_gnome
       procs
       pulsemixer
-      qemu
+      # qemu
       qrencode
       qt6.qtimageformats
       qt6.qtwayland
       qt6Packages.qt6ct
       qt6Packages.qtstyleplugin-kvantum
-      quickemu
+      # quickemu
       qview
       ripgrep
       rofi-calc
       rofi-wayland
-      rustdesk
-      shell_gpt
+      # rustdesk
+      # shell_gpt
       slurp
       solaar
-      solvespace
+      # solvespace
       speedtest-go
-      spotify
+      # spotify
       stow
-      sunshine
+      # sunshine
       swaybg
-      telegram-desktop
+      # telegram-desktop
       tlrc
       transmission_4
       udiskie
-      ungoogled-chromium
+      # ungoogled-chromium
       unzip
-      upscayl
-      ventoy
-      vial
+      # upscayl
+      # ventoy
+      # vial
       vscodium
       waybar
       wget
@@ -213,7 +218,7 @@
       xfce.thunar-volman
       xorg.xhost
       yarn
-      yt-dlp
+      # yt-dlp
       zip
       zoxide
     ];
