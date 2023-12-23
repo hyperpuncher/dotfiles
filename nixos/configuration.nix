@@ -42,6 +42,14 @@
   hardware.bluetooth.powerOnBoot = true;
   services.blueman.enable = true;
 
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+  };
+
   # Set your time zone.
   time.timeZone = "Europe/Minsk";
 
@@ -73,11 +81,6 @@
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [ ];
   };
-
-  # home-manager = {
-  #   specialArgs = { inherit inputs; };
-  #   users = { "igor" = import ./home.nix; };
-  # };
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -177,8 +180,6 @@
       # obs-studio
       # obsidian
       # ocrmypdf
-      papirus-folders
-      papirus-icon-theme
       parallel
       pavucontrol
       pfetch-rs
@@ -231,6 +232,17 @@
       # yt-dlp
       zip
       zoxide
+
+      (colloid-gtk-theme.override {
+        themeVariants = [ "pink" ];
+        colorVariants = [ "dark" ];
+        sizeVariants = [ "compact" ];
+        tweaks = [ "black" "normal" ];
+      })
+
+      (papirus-icon-theme.override {
+        color = "pink";
+      })
     ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -268,7 +280,7 @@
     EDITOR = "nvim";
     HISTORY_IGNORE = "(ls|la|cd|cd ..|cd -|cd -|z|z ..|z -|lg|d)";
     MANPAGER = "nvim + Man!";
-    PAGER = "moar - style dracula - no-linenumbers";
+    PAGER = "moar -style dracula -no-linenumbers";
     PF_INFO = "ascii title os de kernel pkgs memory";
     TERM = "xterm-kitty";
     VISUAL = "nvim";

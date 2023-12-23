@@ -6,6 +6,19 @@
   home.username = "igor";
   home.homeDirectory = "/home/igor";
 
+  gtk = {
+    enable = true;
+
+    cursorTheme.package = pkgs.bibata-cursors;
+    cursorTheme.name = "bibata-cursors";
+
+    theme.package = pkgs.colloid-gtk-theme;
+    theme.name = "colloid-gtk-theme";
+
+    iconTheme.package = pkgs.papirus-icon-theme;
+    iconTheme.name = "papirus-icon-theme";
+  };
+
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
   # introduces backwards incompatible changes.
