@@ -262,6 +262,23 @@
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+  environment.variables = {
+    BAT_THEME = "Dracula";
+    BROWSER = "firefox";
+    EDITOR = "nvim";
+    HISTORY_IGNORE = "(ls|la|cd|cd ..|cd -|cd -|z|z ..|z -|lg|d)";
+    MANPAGER = "nvim + Man!";
+    PAGER = "moar - style dracula - no-linenumbers";
+    PF_INFO = "ascii title os de kernel pkgs memory";
+    TERM = "xterm-kitty";
+    VISUAL = "nvim";
+
+    XDG_CACHE_HOME = "$HOME/.cache";
+    XDG_CONFIG_HOME = "$HOME/.config";
+    XDG_DATA_HOME = "$HOME/.local/share";
+    XDG_STATE_HOME = "$HOME/.local/state";
+  };
+
   #ZSH
   users.defaultUserShell = pkgs.zsh;
   programs.zsh = {
