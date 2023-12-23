@@ -72,4 +72,18 @@
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+
+  # programs.zsh = {
+  #   enable = true;
+
+  #   zplug = {
+  #     enable = true;
+  #     plugins = [
+  #       { name = "zsh-users/zsh-autosuggestions"; }
+  #       { name = "zsh-users/zsh-history-substring-search"; }
+  #       { name = "zsh-users/zsh-syntax-highlighting"; }
+  #       { name = "romkatv/powerlevel10k"; }
+  #     ];
+  #   };
+  # };
 }

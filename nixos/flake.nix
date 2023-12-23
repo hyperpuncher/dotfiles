@@ -2,26 +2,24 @@
   description = "Glorious flake";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-unstable";
-
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, ... } @ inputs:
     let
-      system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
+      inherit (self) outputs;
     in
     {
-      nixosConfigurations.igor = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs; };
-        modules = [
-          ./configuration.nix
-          inputs.home-manager.nixosModules.default
-        ];
+      # Available through 'nixos-rebuild --flake .#your-hostname'
+      nixosConfigurations = {
+        # FIXME replace with your hostname
+        nixos = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs outputs; };
+          # > Our main nixos configuration file <
+          modules = [ ./configuration.nix ];
+        };
       };
     };
 }
