@@ -1,6 +1,5 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
+# man configuration.nix(5)
+# nixos-help
 
 { config, pkgs, inputs, outputs, ... }:
 
@@ -11,7 +10,6 @@
 
   imports =
     [
-      # Include the results of the hardware scan.
       ./hardware-configuration.nix
       inputs.home-manager.nixosModules.home-manager
     ];
@@ -19,12 +17,10 @@
   home-manager = {
     extraSpecialArgs = { inherit inputs outputs; };
     users = {
-      # Import your home-manager configuration
       igor = import ./home.nix;
     };
   };
 
-  # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs;
     [
@@ -34,7 +30,6 @@
       # android-tools
       aria
       bat
-      btop
       brillo
       # bun
       cliphist
@@ -42,18 +37,15 @@
       dash
       # davinci-resolve
       ddcutil
-      dunst
       eza
       fd
       # ffmpeg
-      firefox
       fnm
       # font-manager
       fx
       fzf
       gdu
       # gimp
-      git
       glow
       gnome.file-roller
       gnome.gnome-disk-utility
@@ -66,10 +58,8 @@
       # inkscape
       jamesdsp
       jq
-      kitty
       lazydocker
       lazygit
-      lf
       # libreoffice-fresh
       libsForQt5.qt5.qtwayland
       libsForQt5.qt5ct
@@ -92,7 +82,7 @@
       parallel
       pavucontrol
       pfetch-rs
-      polkit_gnome
+      # polkit_gnome
       procs
       pulsemixer
       # qemu
@@ -105,7 +95,6 @@
       qview
       ripgrep
       rofi-calc
-      rofi-wayland
       # rustdesk
       # shell_gpt
       slurp
@@ -125,8 +114,6 @@
       # upscayl
       # ventoy
       # vial
-      vscodium
-      waybar
       wget
       wireguard-tools
       wl-clipboard
@@ -141,91 +128,186 @@
       # yt-dlp
       zip
       zoxide
+
+      vscodium
+      # (vscodium.override {
+      #   commandLineArgs = "--enable-features=UseOzonePlatform,WaylandWindowDecorations --ozone-platform=wayland";
+      # })
     ];
 
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  programs = {
+    hyprland.enable = true;
 
-  networking.hostName = "nixos"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+    neovim = {
+      enable = true;
+      defaultEditor = true;
+    };
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+    firefox.enable = true;
 
-  # Enable networking
-  networking.networkmanager.enable = true;
+    zsh = {
+      enable = true;
+      autosuggestions.enable = true;
 
-  hardware.bluetooth.enable = true;
-  hardware.bluetooth.powerOnBoot = true;
-  services.blueman.enable = true;
+      setOptions = [
+        "HIST_IGNORE_ALL_DUPS"
+        "AUTO_CD"
+        "EMACS"
+      ];
 
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
+      shellInit = "pfetch";
+
+      syntaxHighlighting = {
+        enable = true;
+        styles = {
+          "alias" = "fg=#50FA7B";
+          "arg0" = "fg=#F8F8F2";
+          "assign" = "fg=#F8F8F2";
+          "autodirectory" = "fg=#FFB86C,italic";
+          "back-dollar-quoted-argument" = "fg=#FF79C6";
+          "back-double-quoted-argument" = "fg=#FF79C6";
+          "back-quoted-argument-delimiter" = "fg=#FF79C6";
+          "back-quoted-argument-unclosed" = "fg=#FF5555";
+          "back-quoted-argument" = "fg=#BD93F9";
+          "builtin" = "fg=#8BE9FD";
+          "command-substitution-delimiter-quoted" = "fg=#F1FA8C";
+          "command-substitution-delimiter-unquoted" = "fg=#F8F8F2";
+          "command-substitution-delimiter" = "fg=#F8F8F2";
+          "command-substitution-quoted" = "fg=#F1FA8C";
+          "command" = "fg=#50FA7B";
+          "commandseparator" = "fg=#FF79C6";
+          "comment" = "fg=#6272A4";
+          "cursor" = "standout";
+          "default" = "fg=#F8F8F2";
+          "dollar-double-quoted-argument" = "fg=#F8F8F2";
+          "dollar-quoted-argument-unclosed" = "fg=#FF5555";
+          "dollar-quoted-argument" = "fg=#F8F8F2";
+          "double-hyphen-option" = "fg=#FFB86C";
+          "double-quoted-argument-unclosed" = "fg=#FF5555";
+          "double-quoted-argument" = "fg=#F1FA8C";
+          "function" = "fg=#50FA7B";
+          "global-alias" = "fg=#50FA7B";
+          "globbing" = "fg=#F8F8F2";
+          "hashed-command" = "fg=#8BE9FD";
+          "history-expansion" = "fg=#BD93F9";
+          "named-fd" = "fg=#F8F8F2";
+          "numeric-fd" = "fg=#F8F8F2";
+          "path" = "fg=#F8F8F2";
+          "path_pathseparator" = "fg=#FF79C6";
+          "path_prefix" = "fg=#F8F8F2";
+          "path_prefix_pathseparator" = "fg=#FF79C6";
+          "precommand" = "fg=#50FA7B,italic";
+          "process-substitution-delimiter" = "fg=#F8F8F2";
+          "rc-quote" = "fg=#F1FA8C";
+          "redirection" = "fg=#F8F8F2";
+          "reserved-word" = "fg=#8BE9FD";
+          "single-hyphen-option" = "fg=#FFB86C";
+          "single-quoted-argument-unclosed" = "fg=#FF5555";
+          "single-quoted-argument" = "fg=#F1FA8C";
+          "suffix-alias" = "fg=#50FA7B";
+          "unknown-token" = "fg=#FF5555";
+        };
+      };
+    };
+
+    # Some programs need SUID wrappers, can be configured further or are
+    # started in user sessions.
+    # mtr.enable = true;
+    # gnupg.agent = {
+    #   enable = true;
+    #   enableSSHSupport = true;
+    # };
   };
 
-  hardware.i2c.enable = true;
-  boot.extraModulePackages = [ config.boot.kernelPackages.ddcci-driver ];
-  boot.kernelModules = [ "ddcci_backlight" ];
-
-  # Set your time zone.
-  time.timeZone = "Europe/Minsk";
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "en_IE.UTF-8";
-    LC_IDENTIFICATION = "en_IE.UTF-8";
-    LC_MEASUREMENT = "en_IE.UTF-8";
-    LC_MONETARY = "en_IE.UTF-8";
-    LC_NAME = "en_IE.UTF-8";
-    LC_NUMERIC = "en_IE.UTF-8";
-    LC_PAPER = "en_IE.UTF-8";
-    LC_TELEPHONE = "en_IE.UTF-8";
-    LC_TIME = "en_IE.UTF-8";
+  hardware = {
+    bluetooth.enable = true;
+    bluetooth.powerOnBoot = true;
+    i2c.enable = true;
   };
 
-  # Configure keymap in X11
-  services.xserver = {
-    layout = "us";
-    xkbVariant = "";
-  };
+  services = {
+    openssh.enable = true;
+    blueman.enable = true;
+    pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+    };
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.igor = {
-    isNormalUser = true;
-    description = "igor";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [ ];
-  };
+    # Configure keymap in X11
+    xserver = {
+      layout = "us";
+      xkbVariant = "";
+    };
 
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-  };
-
-  programs.hyprland.enable = true;
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
-
-  services.greetd = {
-    enable = true;
-    settings = {
-      default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --window-padding 2 --asterisks --remember --remember-session --time --width 50 --cmd Hyprland";
-        user = "greeter";
+    greetd = {
+      enable = true;
+      settings = {
+        default_session = {
+          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --window-padding 2 --asterisks --remember --remember-session --time --width 50 --cmd Hyprland";
+          user = "greeter";
+        };
       };
     };
   };
 
+  boot = {
+    loader.systemd-boot.enable = true;
+    loader.efi.canTouchEfiVariables = true;
+    extraModulePackages = [ config.boot.kernelPackages.ddcci-driver ];
+    kernelModules = [ "ddcci_backlight" ];
+  };
+
+  networking = {
+    hostName = "nixos";
+
+    networkmanager.enable = true;
+
+    # Configure network proxy if necessary
+    # proxy.default = "http://user:password@proxy:port/";
+    # proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+
+    # Open ports in the firewall.
+    # firewall.allowedTCPPorts = [ ... ];
+    # firewall.allowedUDPPorts = [ ... ];
+    # Or disable the firewall altogether.
+    # firewall.enable = false;
+  };
+
+  # Hands out realtime scheduling priority to user processes on demand
+  security.rtkit.enable = true;
+  # security.polkit.enable = true;
+
+  time.timeZone = "Europe/Minsk";
+
+  i18n = {
+    defaultLocale = "en_US.UTF-8";
+    extraLocaleSettings = {
+      LC_ADDRESS = "en_IE.UTF-8";
+      LC_IDENTIFICATION = "en_IE.UTF-8";
+      LC_MEASUREMENT = "en_IE.UTF-8";
+      LC_MONETARY = "en_IE.UTF-8";
+      LC_NAME = "en_IE.UTF-8";
+      LC_NUMERIC = "en_IE.UTF-8";
+      LC_PAPER = "en_IE.UTF-8";
+      LC_TELEPHONE = "en_IE.UTF-8";
+      LC_TIME = "en_IE.UTF-8";
+    };
+  };
+
+  users = {
+    defaultUserShell = pkgs.zsh;
+
+    users.igor = {
+      isNormalUser = true;
+      description = "igor";
+      extraGroups = [ "networkmanager" "wheel" ];
+      packages = with pkgs; [ ];
+    };
+  };
+
+  nixpkgs.config.allowUnfree = true;
 
   fonts = {
     packages = with pkgs; [
@@ -259,57 +341,31 @@
     style = "adwaita-dark";
   };
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "23.11"; # Did you read the comment?
+  system.stateVersion = "23.11";
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  environment.variables = {
-    BAT_THEME = "Dracula";
-    BROWSER = "firefox";
-    EDITOR = "nvim";
-    HISTORY_IGNORE = "(ls|la|cd|cd ..|cd -|cd -|z|z ..|z -|lg|d)";
-    MANPAGER = "nvim + Man!";
-    PAGER = "moar -style dracula -no-linenumbers";
-    PF_INFO = "ascii title os de kernel pkgs memory";
-    TERM = "xterm-kitty";
-    VISUAL = "nvim";
+  environment = {
+    sessionVariables = {
+      BROWSER = "firefox";
+      EDITOR = "nvim";
+      NIXOS_OZONE_WL = "1";
+      VISUAL = "nvim";
 
-    XDG_CACHE_HOME = "$HOME/.cache";
-    XDG_CONFIG_HOME = "$HOME/.config";
-    XDG_DATA_HOME = "$HOME/.local/share";
-    XDG_STATE_HOME = "$HOME/.local/state";
-  };
+      XDG_CACHE_HOME = "$HOME/.cache";
+      XDG_CONFIG_HOME = "$HOME/.config";
+      XDG_DATA_HOME = "$HOME/.local/share";
+      XDG_STATE_HOME = "$HOME/.local/state";
+    };
 
-  #ZSH
-  users.defaultUserShell = pkgs.zsh;
-  programs.zsh = {
-    enable = true;
-    autosuggestions.enable = true;
+    variables = {
+      BAT_THEME = "Dracula";
+      HISTORY_IGNORE = "(ls|la|cd|cd ..|cd -|cd -|z|z ..|z -|lg|d)";
+      MANPAGER = "nvim + Man!";
+      PAGER = "moar -style dracula -no-linenumbers";
+      PF_INFO = "ascii title os de kernel pkgs memory";
+      TERM = "xterm-kitty";
+    };
 
     shellAliases = {
       bt = "bluetoothctl";
@@ -345,64 +401,24 @@
       wgup = "sudo wg-quick up";
     };
 
-    setOptions = [
-      "HIST_IGNORE_ALL_DUPS"
-      "AUTO_CD"
-      "EMACS"
-    ];
-
-    shellInit = "pfetch";
-
-    syntaxHighlighting = {
-      enable = true;
-      styles = {
-        "alias" = "fg=#50FA7B";
-        "arg0" = "fg=#F8F8F2";
-        "assign" = "fg=#F8F8F2";
-        "autodirectory" = "fg=#FFB86C,italic";
-        "back-dollar-quoted-argument" = "fg=#FF79C6";
-        "back-double-quoted-argument" = "fg=#FF79C6";
-        "back-quoted-argument-delimiter" = "fg=#FF79C6";
-        "back-quoted-argument-unclosed" = "fg=#FF5555";
-        "back-quoted-argument" = "fg=#BD93F9";
-        "builtin" = "fg=#8BE9FD";
-        "command-substitution-delimiter-quoted" = "fg=#F1FA8C";
-        "command-substitution-delimiter-unquoted" = "fg=#F8F8F2";
-        "command-substitution-delimiter" = "fg=#F8F8F2";
-        "command-substitution-quoted" = "fg=#F1FA8C";
-        "command" = "fg=#50FA7B";
-        "commandseparator" = "fg=#FF79C6";
-        "comment" = "fg=#6272A4";
-        "cursor" = "standout";
-        "default" = "fg=#F8F8F2";
-        "dollar-double-quoted-argument" = "fg=#F8F8F2";
-        "dollar-quoted-argument-unclosed" = "fg=#FF5555";
-        "dollar-quoted-argument" = "fg=#F8F8F2";
-        "double-hyphen-option" = "fg=#FFB86C";
-        "double-quoted-argument-unclosed" = "fg=#FF5555";
-        "double-quoted-argument" = "fg=#F1FA8C";
-        "function" = "fg=#50FA7B";
-        "global-alias" = "fg=#50FA7B";
-        "globbing" = "fg=#F8F8F2";
-        "hashed-command" = "fg=#8BE9FD";
-        "history-expansion" = "fg=#BD93F9";
-        "named-fd" = "fg=#F8F8F2";
-        "numeric-fd" = "fg=#F8F8F2";
-        "path" = "fg=#F8F8F2";
-        "path_pathseparator" = "fg=#FF79C6";
-        "path_prefix" = "fg=#F8F8F2";
-        "path_prefix_pathseparator" = "fg=#FF79C6";
-        "precommand" = "fg=#50FA7B,italic";
-        "process-substitution-delimiter" = "fg=#F8F8F2";
-        "rc-quote" = "fg=#F1FA8C";
-        "redirection" = "fg=#F8F8F2";
-        "reserved-word" = "fg=#8BE9FD";
-        "single-hyphen-option" = "fg=#FFB86C";
-        "single-quoted-argument-unclosed" = "fg=#FF5555";
-        "single-quoted-argument" = "fg=#F1FA8C";
-        "suffix-alias" = "fg=#50FA7B";
-        "unknown-token" = "fg=#FF5555";
-      };
+    etc = {
+      "wireplumber/main.lua.d/51-pc38x-rename.lua".text = ''
+        rule = {
+          matches = {
+            {
+              { "node.name", "equals", "alsa_output.usb-FiiO_FiiO_BTR3K_ABCDEF0123456789-00.analog-stereo" },
+            }
+          },
+          apply_properties = {
+            ["device.description"] = "Sennheiser PC38X",
+            ["device.nick"] = "Sennheiser PC38X",
+            ["node.description"] = "Sennheiser PC38X",
+            ["node.nick"] = "Sennheiser PC38X",
+          },
+        }
+        
+        table.insert(alsa_monitor.rules, rule)
+      '';
     };
   };
 }
