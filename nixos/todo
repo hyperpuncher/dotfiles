@@ -1,14 +1,5 @@
 
-zsh-autosuggestions
-zsh-history-substring-search
-zsh-syntax-highlighting
 zsh-theme-powerlevel10k-git
-
-
-
-brillo
-ddcci-driver-linux-dkms
-gammastep
 
 dirstat-rs
 

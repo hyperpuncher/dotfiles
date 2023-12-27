@@ -6,17 +6,49 @@
   home.username = "igor";
   home.homeDirectory = "/home/igor";
 
+  home.pointerCursor = {
+    gtk.enable = true;
+    package = pkgs.bibata-cursors;
+    name = "Bibata-Modern-Classic";
+    size = 24;
+  };
+
   gtk = {
     enable = true;
 
-    cursorTheme.package = pkgs.bibata-cursors;
-    cursorTheme.name = "bibata-cursors";
+    theme = {
+      package =
+        (pkgs.colloid-gtk-theme.override {
+          themeVariants = [ "pink" ];
+          colorVariants = [ "dark" ];
+          sizeVariants = [ "compact" ];
+          tweaks = [ "black" "normal" ];
+        });
+      name = "Colloid-Pink-Dark-Compact";
+    };
 
-    theme.package = pkgs.colloid-gtk-theme;
-    theme.name = "colloid-gtk-theme";
+    iconTheme = {
+      package =
+        (pkgs.papirus-icon-theme.override {
+          color = "pink";
+        });
+      name = "Papirus-Dark";
+    };
 
-    iconTheme.package = pkgs.papirus-icon-theme;
-    iconTheme.name = "papirus-icon-theme";
+    font = {
+      name = "JetBrainsMono Nerd Font";
+      size = 10;
+    };
+
+  };
+
+  services.gammastep = {
+    enable = true;
+    provider = "manual";
+    latitude = 53.9;
+    longitude = 27.57;
+    temperature.day = 6500;
+    temperature.night = 2500;
   };
 
   # This value determines the Home Manager release that your configuration is
@@ -85,18 +117,4 @@
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
-
-  # programs.zsh = {
-  #   enable = true;
-
-  #   zplug = {
-  #     enable = true;
-  #     plugins = [
-  #       { name = "zsh-users/zsh-autosuggestions"; }
-  #       { name = "zsh-users/zsh-history-substring-search"; }
-  #       { name = "zsh-users/zsh-syntax-highlighting"; }
-  #       { name = "romkatv/powerlevel10k"; }
-  #     ];
-  #   };
-  # };
 }
