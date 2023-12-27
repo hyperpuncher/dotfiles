@@ -24,28 +24,45 @@
   # $ nix search wget
   environment.systemPackages = with pkgs;
     [
-      qgnomeplatform
-      qgnomeplatform-qt6
       # android-file-transfer
       # android-tools
+      # bun
+      # corectrl
+      # davinci-resolve
+      # ffmpeg
+      # font-manager
+      # gimp
+      # inkscape
+      # libreoffice-fresh
+      # mumble
+      # obs-studio
+      # obsidian
+      # ocrmypdf
+      # polkit_gnome
+      # qemu
+      # quickemu
+      # rustdesk
+      # shell_gpt
+      # solvespace
+      # spotify
+      # sunshine
+      # telegram-desktop
+      # ungoogled-chromium
+      # upscayl
+      # ventoy
+      # vial
+      # yt-dlp
       aria
       bat
-      brillo
-      # bun
       cliphist
-      # corectrl
       dash
-      # davinci-resolve
       ddcutil
       eza
       fd
-      # ffmpeg
       fnm
-      # font-manager
       fx
       fzf
       gdu
-      # gimp
       glow
       gnome.file-roller
       gnome.gnome-disk-utility
@@ -55,12 +72,10 @@
       gvfs
       hyprpicker
       imagemagick
-      # inkscape
       jamesdsp
       jq
       lazydocker
       lazygit
-      # libreoffice-fresh
       libsForQt5.qt5.qtwayland
       libsForQt5.qt5ct
       losslesscut-bin
@@ -68,7 +83,6 @@
       moar
       mpv
       mtpfs
-      # mumble
       nasc
       networkmanagerapplet
       nfs-utils
@@ -76,44 +90,32 @@
       nodejs
       nvtop
       nwg-look
-      # obs-studio
-      # obsidian
-      # ocrmypdf
       parallel
       pavucontrol
       pfetch-rs
-      # polkit_gnome
+      playerctl
       procs
       pulsemixer
-      # qemu
+      qgnomeplatform
+      qgnomeplatform-qt6
       qrencode
       qt6.qtimageformats
       qt6.qtwayland
       qt6Packages.qt6ct
       qt6Packages.qtstyleplugin-kvantum
-      # quickemu
       qview
       ripgrep
       rofi-calc
-      # rustdesk
-      # shell_gpt
       slurp
       solaar
-      # solvespace
       speedtest-go
-      # spotify
       stow
-      # sunshine
       swaybg
-      # telegram-desktop
       tlrc
       transmission_4
       udiskie
-      # ungoogled-chromium
       unzip
-      # upscayl
-      # ventoy
-      # vial
+      vscodium
       wget
       wireguard-tools
       wl-clipboard
@@ -125,14 +127,8 @@
       xfce.thunar-volman
       xorg.xhost
       yarn
-      # yt-dlp
       zip
       zoxide
-
-      vscodium
-      # (vscodium.override {
-      #   commandLineArgs = "--enable-features=UseOzonePlatform,WaylandWindowDecorations --ozone-platform=wayland";
-      # })
     ];
 
   programs = {
@@ -222,6 +218,7 @@
   hardware = {
     bluetooth.enable = true;
     bluetooth.powerOnBoot = true;
+    brillo.enable = true;
     i2c.enable = true;
   };
 
@@ -277,7 +274,8 @@
 
   # Hands out realtime scheduling priority to user processes on demand
   security.rtkit.enable = true;
-  # security.polkit.enable = true;
+
+  sound.mediaKeys.enable = true;
 
   time.timeZone = "Europe/Minsk";
 
@@ -302,7 +300,7 @@
     users.igor = {
       isNormalUser = true;
       description = "igor";
-      extraGroups = [ "networkmanager" "wheel" ];
+      extraGroups = [ "networkmanager" "wheel" "video" "i2c" ];
       packages = with pkgs; [ ];
     };
   };
@@ -416,7 +414,67 @@
             ["node.nick"] = "Sennheiser PC38X",
           },
         }
-        
+        table.insert(alsa_monitor.rules, rule)
+      '';
+
+      "wireplumber/main.lua.d/51-mic-rename.lua".text = ''
+        rule = {
+          matches = {
+            {
+              { "node.name", "equals", "alsa_input.pci-0000_09_00.4.analog-stereo" },
+            }
+          },
+          apply_properties = {
+            ["node.description"] = "Mic",
+            ["node.nick"] = "Mic",
+          },
+        }
+        table.insert(alsa_monitor.rules, rule)
+      '';
+
+      "wireplumber/main.lua.d/51-alsa-disable.lua".text = ''
+        rule = {
+          matches = {
+              -- display home
+              {
+                  { "device.name", "equals", "alsa_card.pci-0000_07_00.1" },
+              },
+              {
+                  { "node.name", "equals", "alsa_output.pci-0000_09_00.4.iec958-stereo" },
+              },
+              -- display work
+              {
+                  { "device.name", "equals", "alsa_card.pci-0000_07_00.1.3" },
+              },
+              -- system card work
+              {
+                  { "device.name", "equals", "alsa_card.pci-0000_07_00.6" },
+              }
+          },
+          apply_properties = {
+              ["node.disabled"] = true,
+              ["device.disabled"] = true,
+          },
+        }
+        table.insert(alsa_monitor.rules, rule)
+      '';
+
+      "wireplumber/main.lua.d/51-system-card-renam.lua".text = ''
+        rule = {
+            matches = {
+                {
+                    { "device.name", "equals", "alsa_card.pci-0000_09_00.4" },
+                },
+                {
+                    { "device.name", "equals", "alsa_card.pci-0000_07_00.6" },
+                }
+
+            },
+            apply_properties = {
+                ["device.description"] = "System Card",
+                ["device.nick"] = "System Card",
+            },
+        }
         table.insert(alsa_monitor.rules, rule)
       '';
     };

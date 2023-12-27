@@ -37,6 +37,8 @@
       exec-once = [
         "waybar"
         "jamesdsp -t"
+        "blueman-applet"
+        "nm-applet"
 
         "wl-paste --type text --watch cliphist store" #Stores only text data
         "wl-paste --type image --watch cliphist store" #Stores only image data
@@ -74,6 +76,16 @@
         "$mod, J, togglesplit, # dwindle"
         "$mod, F, fullscreen"
         "$mod SHIFT, F, togglefloating"
+
+        ", XF86MonBrightnessDown, exec, brillo -q -U 5"
+        ", XF86MonBrightnessUp, exec, brillo -q -A 5"
+
+        ", XF86AudioPlay, exec, playerctl play-pause"
+        ", XF86AudioNext, exec, playerctl next"
+        ", XF86AudioPrev, exec, playerctl previous"
+
+        ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_SINK@ 5%-"
+        ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_SINK@ 5%+"
       ];
 
       misc = {
@@ -113,6 +125,7 @@
       theme = "Monokai Soda";
       settings = {
         confirm_os_window_close = 0;
+        enable_audio_bell = false;
         window_margin_width = 5;
       };
       keybindings = {
