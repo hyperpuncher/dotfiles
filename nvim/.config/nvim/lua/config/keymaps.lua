@@ -18,7 +18,6 @@ end
 -- local mark = require("harpoon.mark")
 -- local ui = require("harpoon.ui")
 
-map("n", "q", "")
 map("n", "<C-d>", "<C-d>zz")
 map("n", "<C-u>", "<C-u>zz")
 map("n", "n", "nzz")
