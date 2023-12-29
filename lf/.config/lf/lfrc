@@ -13,9 +13,10 @@ set shell sh
 set shellopts '-eu'
 set sortby ext
 
-set previewer ~/.config/lf/lf_kitty_preview
-set cleaner ~/.config/lf/lf_kitty_clean
-
+set previewer ctpv
+set cleaner ctpvclear
+&ctpv -s $id
+&ctpvquit $id
 
 map <enter> shell
 # show the result of execution of previous commands
