@@ -234,7 +234,16 @@ return {
 
     { "RRethy/vim-illuminate", enabled = false, },
 
-    { 'Mofiqul/dracula.nvim' },
+    {
+        'Mofiqul/dracula.nvim',
+        opts = {
+            colors = {
+                bg = "#1A1A1A",
+            },
+        },
+
+
+    },
 
     {
         "LazyVim/LazyVim",
