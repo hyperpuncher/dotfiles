@@ -11,13 +11,6 @@ local config = {
     front_end = "OpenGL",
     window_close_confirmation = "NeverPrompt",
 
-    window_padding = {
-        left = '1cell',
-        right = '1cell',
-        top = '0.5cell',
-        bottom = 0,
-    },
-
     keys = {
         {
             key = "c",
