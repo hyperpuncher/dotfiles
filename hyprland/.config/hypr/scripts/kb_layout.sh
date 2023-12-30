@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 active_window_class=""
 previous_window_class=""
 
