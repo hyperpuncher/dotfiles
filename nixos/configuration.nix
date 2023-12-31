@@ -22,114 +22,115 @@
   };
 
   # $ nix search wget
-  environment.systemPackages = with pkgs;
-    [
-      # android-file-transfer
-      # android-tools
-      # bun
-      # corectrl
-      # davinci-resolve
-      # ffmpeg
-      # font-manager
-      # gimp
-      # inkscape
-      # libreoffice-fresh
-      # mumble
-      # obs-studio
-      # obsidian
-      # ocrmypdf
-      # polkit_gnome
-      # qemu
-      # quickemu
-      # rustdesk
-      # shell_gpt
-      # solvespace
-      # spotify
-      # sunshine
-      # telegram-desktop
-      # ungoogled-chromium
-      # upscayl
-      # ventoy
-      # vial
-      # yt-dlp
-      aria
-      bat
-      cliphist
-      dash
-      ddcutil
-      eza
-      fd
-      fnm
-      fx
-      fzf
-      gdu
-      glow
-      gnome.file-roller
-      gnome.gnome-disk-utility
-      gnome.gnome-keyring
-      gparted
-      grim
-      gvfs
-      hyprpicker
-      imagemagick
-      jamesdsp
-      jq
-      lazydocker
-      lazygit
-      libsForQt5.qt5.qtwayland
-      libsForQt5.qt5ct
-      losslesscut-bin
-      man
-      moar
-      mpv
-      mtpfs
-      nasc
-      networkmanagerapplet
-      nfs-utils
-      nodePackages.pnpm
-      nodejs
-      nvtop
-      nwg-look
-      parallel
-      pavucontrol
-      pfetch-rs
-      playerctl
-      procs
-      pulsemixer
-      qgnomeplatform
-      qgnomeplatform-qt6
-      qrencode
-      qt6.qtimageformats
-      qt6.qtwayland
-      qt6Packages.qt6ct
-      qt6Packages.qtstyleplugin-kvantum
-      qview
-      ripgrep
-      rofi-calc
-      slurp
-      solaar
-      speedtest-go
-      stow
-      swaybg
-      tlrc
-      transmission_4
-      udiskie
-      unzip
-      vscodium
-      wget
-      wireguard-tools
-      wl-clipboard
-      wl-screenrec
-      wtype
-      xdragon
-      xfce.thunar
-      xfce.thunar-archive-plugin
-      xfce.thunar-volman
-      xorg.xhost
-      yarn
-      zip
-      zoxide
-    ];
+  environment.systemPackages = with pkgs; [
+    # android-file-transfer
+    # android-tools
+    # bun
+    # corectrl
+    # davinci-resolve
+    # ffmpeg
+    # font-manager
+    # gimp
+    # inkscape
+    # libreoffice-fresh
+    # mumble
+    # obs-studio
+    # obsidian
+    # ocrmypdf
+    # polkit_gnome
+    # qemu
+    # quickemu
+    # rustdesk
+    # shell_gpt
+    # solvespace
+    # spotify
+    # sunshine
+    # telegram-desktop
+    # ungoogled-chromium
+    # upscayl
+    # ventoy
+    # vial
+    # yt-dlp
+    aria
+    atool
+    bat
+    chafa
+    clang
+    cliphist
+    dash
+    ddcutil
+    eza
+    fd
+    ffmpegthumbnailer
+    fnm
+    fx
+    fzf
+    gdu
+    glow
+    gnome.file-roller
+    gnome.gnome-disk-utility
+    gnome.gnome-keyring
+    gparted
+    grim
+    gvfs
+    hyprpicker
+    imagemagick
+    jamesdsp
+    jq
+    lazydocker
+    lazygit
+    libsForQt5.qt5.qtwayland
+    libsForQt5.qt5ct
+    losslesscut-bin
+    man
+    moar
+    mpv
+    mtpfs
+    nasc
+    networkmanagerapplet
+    nfs-utils
+    nodePackages.pnpm
+    nodejs
+    nvtop
+    nwg-look
+    parallel
+    pavucontrol
+    pfetch-rs
+    playerctl
+    procs
+    pulsemixer
+    qgnomeplatform
+    qgnomeplatform-qt6
+    qrencode
+    qt6.qtimageformats
+    qt6.qtwayland
+    qt6Packages.qt6ct
+    qt6Packages.qtstyleplugin-kvantum
+    qview
+    ripgrep
+    rofi-calc
+    slurp
+    solaar
+    speedtest-go
+    stow
+    swaybg
+    tlrc
+    transmission_4
+    unzip
+    wget
+    wireguard-tools
+    wl-clipboard
+    wl-screenrec
+    wtype
+    xdragon
+    xfce.thunar
+    xfce.thunar-archive-plugin
+    xfce.thunar-volman
+    xorg.xhost
+    yarn
+    zip
+    zoxide
+  ];
 
   programs = {
     hyprland.enable = true;
@@ -223,8 +224,10 @@
   };
 
   services = {
-    openssh.enable = true;
     blueman.enable = true;
+    openssh.enable = true;
+    udisks2.enable = true;
+
     pipewire = {
       enable = true;
       alsa.enable = true;
@@ -361,6 +364,7 @@
       HISTORY_IGNORE = "(ls|la|cd|cd ..|cd -|cd -|z|z ..|z -|lg|d)";
       MANPAGER = "nvim + Man!";
       PAGER = "moar -style dracula -no-linenumbers";
+      PF_ASCII = "linux";
       PF_INFO = "ascii title os de kernel pkgs memory";
       TERM = "xterm-kitty";
     };
@@ -459,7 +463,7 @@
         table.insert(alsa_monitor.rules, rule)
       '';
 
-      "wireplumber/main.lua.d/51-system-card-renam.lua".text = ''
+      "wireplumber/main.lua.d/51-system-card-rename.lua".text = ''
         rule = {
             matches = {
                 {

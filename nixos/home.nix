@@ -45,6 +45,14 @@
         "wl-paste -p --watch wl-copy -pc" #Disable middle click paste
       ];
 
+      general = {
+        gaps_in = -1;
+        gaps_out = 0;
+        border_size = 2;
+        col.active_border = rgb (ffffff);
+        col.inactive_border = rgb (262626);
+      };
+
       windowrule = [
         "float, ^(blueman-manager)$"
         "float, ^(com\.github.parnold_x\.nasc)$"
@@ -66,7 +74,7 @@
 
       bind = [
         "$mod, ESCAPE, exec, ~/.config/rofi/scripts/power_menu.sh"
-        "$mod, RETURN, exec, kitty"
+        "$mod, RETURN, exec, wezterm"
         "$mod, E, exec, thunar"
         "$mod, B, exec, firefox"
         "$mod, K, exec, hyprctl kill"
@@ -86,6 +94,15 @@
 
         ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_SINK@ 5%-"
         ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_SINK@ 5%+"
+
+        # Clipboard
+        "$mod, V, exec, cliphist list | rofi -dmenu -p 'clipboard' -display-columns 2 | cliphist decode | wl-copy"
+
+      ];
+
+      bindm = [
+        "$mod, mouse:272, movewindow"
+        "$mod, mouse:273, resizewindow"
       ];
 
       misc = {
@@ -111,6 +128,7 @@
       enable = true;
       userName = "hyperpuncher";
       userEmail = "39203616+hyperpuncher@users.noreply.github.com";
+      difftastic.enable = true;
       extraConfig = {
         credential.helper = "${
           pkgs.git.override { withLibsecret = true; }
@@ -144,6 +162,7 @@
             color_scheme = 'Monokai Soda',
             default_cursor_style = "BlinkingBar",
             enable_tab_bar = false,
+            enable_wayland = false,
             font = wezterm.font 'JetBrainsMono Nerd Font',
             font_size = 14,
             freetype_load_flags = 'NO_HINTING',
@@ -185,6 +204,38 @@
 
         return config
       '';
+    };
+
+    vscode = {
+      enable = true;
+      package = pkgs.vscodium;
+      extensions = with pkgs.vscode-extensions; [
+        jnoortheen.nix-ide
+        sumneko.lua
+        asvetliakov.vscode-neovim
+      ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+        {
+          name = "aura-theme";
+          publisher = "DaltonMenezes";
+          version = "latest";
+          sha256 = "sha256-r6pPpvJ1AZsM0RYF+xHsZ4b4QTszN+wELr1SENsUDFA=";
+        }
+      ];
+
+      userSettings = {
+
+        "editor.fontFamily" = "JetBrainsMono Nerd Font";
+        "editor.fontLigatures" = true;
+        "editor.fontSize" = 18;
+        "extensions.experimental.affinity" = {
+          "asvetliakov.vscode-neovim" = 1;
+        };
+        "nix.enableLanguageServer" = true;
+        "window.menuBarVisibility" = "hidden";
+        "window.titleBarStyle" = "custom";
+        "workbench.colorTheme" = "Aura Dark";
+
+      };
     };
 
     waybar = {
@@ -589,28 +640,12 @@
         shell = "sh";
         shellopts = "-eu";
         sortby = "ext";
-
-        # cleaner = pkgs.writeShellScript "cl.sh" ''
-        #   #!/usr/bin/env bash
-
-        #   kitty +kitten icat --clear --stdin no --silent --transfer-mode file < /dev/null > /dev/tty
-        # '';
       };
-      previewer.source = pkgs.writeShellScript "pv.sh" ''
-        #!/usr/bin/env bash
-        
-        file=$1
-        w=$2
-        h=$3
-        x=$4
-        y=$5
-
-        if [[ "$( file -Lb --mime-type "$file")" =~ ^image ]]; then
-            kitty +kitten icat --silent --stdin no --transfer-mode file --place "''${w}x''${h}@''${x}x''${y}" "$file" < /dev/null > /dev/tty
-            exit 1
-        fi
-
-        bat --color always "$file"
+      previewer.source = "${pkgs.ctpv}/bin/ctpv";
+      extraConfig = ''
+        &${pkgs.ctpv}/bin/ctpv -s $id
+        cmd on-quit %${pkgs.ctpv}/bin/ctpv -e $id
+        set cleaner ${pkgs.ctpv}/bin/ctpvclear
       '';
     };
 
@@ -634,6 +669,8 @@
   };
 
   services = {
+    udiskie.enable = true;
+
     dunst = {
       enable = true;
     };
