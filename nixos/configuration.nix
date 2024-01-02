@@ -366,7 +366,7 @@
       PAGER = "moar -style dracula -no-linenumbers";
       PF_ASCII = "linux";
       PF_INFO = "ascii title os de kernel pkgs memory";
-      TERM = "xterm-kitty";
+      TERM = "wezterm";
     };
 
     shellAliases = {

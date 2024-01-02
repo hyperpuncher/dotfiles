@@ -2,7 +2,7 @@ export BROWSER=firefox
 export EDITOR=nvim
 export PAGER='moar -style dracula -no-linenumbers'
 export MANPAGER='nvim +Man!'
-export TERM=xterm-kitty
+export TERM=wezterm
 export VISUAL=nvim
 
 export XDG_CACHE_HOME="$HOME/.cache"
