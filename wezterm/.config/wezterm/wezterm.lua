@@ -32,7 +32,13 @@ local config = {
         {
             key = "v",
             mods = "CTRL",
-            action = wezterm.action({ PasteFrom = "Clipboard" }),
+            action = wezterm.action_callback(function(window, pane)
+                if pane:get_foreground_process_name() ~= "/usr/bin/nvim" then
+                    window:perform_action(wezterm.action({ PasteFrom = "Clipboard" }), pane)
+                else
+                    window:perform_action(wezterm.action.SendKey({ key = "v", mods = "CTRL" }), pane)
+                end
+            end),
         },
     },
 
