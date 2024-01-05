@@ -90,7 +90,7 @@ element-icon {
 window {
     padding:          5;
     background-color: var(background);
-    border:           2;
+    border:           1;
     border-color:     #cccccc;
 }
 mainbox {
