@@ -33,6 +33,7 @@ else
     opt.timeoutlen = 500
     opt.undofile = true
     opt.updatetime = 200
+    opt.splitright = true
 
     local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
     if not vim.loop.fs_stat(lazypath) then
@@ -86,6 +87,7 @@ else
                         "javascript",
                         "json",
                         "jsonc",
+                        "lua",
                         "markdown",
                         "nix",
                         "python",
@@ -121,6 +123,19 @@ else
                     end,
                 },
             },
+            config = function()
+                require("telescope").setup({
+                    pickers = {
+                        buffers = {
+                            mappings = {
+                                i = {
+                                    ["<c-d>"] = "delete_buffer",
+                                },
+                            },
+                        },
+                    },
+                })
+            end,
         },
 
         {
@@ -161,6 +176,7 @@ else
                             filetype_names = {
                                 lazy = "lazy ",
                                 oil = "oil ",
+                                lspinfo = "lsp ",
                             },
                             symbols = {
                                 modified = " ●",
@@ -183,21 +199,8 @@ else
                 colors = {
                     bg = bg_color,
                     menu = bg_color,
-                    black = "#ff0000",
                 },
                 italic_comment = true,
-                overrides = function(colors)
-                    return {
-                        DiagnosticUnderlineError = { underline = true, sp = colors.red },
-                        DiagnosticUnderlineWarn = { underline = true, sp = colors.yellow },
-                        DiagnosticUnderlineInfo = { underline = true, sp = colors.cyan },
-                        DiagnosticUnderlineHint = { underline = true, sp = colors.cyan },
-                        LspDiagnosticsUnderlineError = { fg = colors.red, underline = true },
-                        LspDiagnosticsUnderlineWarning = { fg = colors.yellow, underline = true },
-                        LspDiagnosticsUnderlineInformation = { fg = colors.cyan, underline = true },
-                        LspDiagnosticsUnderlineHint = { fg = colors.cyan, underline = true },
-                    }
-                end,
             },
         },
 
@@ -327,8 +330,6 @@ else
             },
         },
 
-        { "echasnovski/mini.pairs", opts = {} },
-
         {
             "echasnovski/mini.indentscope",
             opts = {
@@ -369,20 +370,28 @@ else
         },
 
         {
-            "Exafunction/codeium.nvim",
-            dependencies = {
-                "nvim-lua/plenary.nvim",
-                "hrsh7th/nvim-cmp",
-            },
-            opts = {},
-        },
-
-        {
             "NvChad/nvim-colorizer.lua",
             opts = {
                 user_default_options = {
                     tailwind = true,
                 },
+            },
+        },
+
+        { "smjonas/inc-rename.nvim", opts = {} },
+
+        {
+            "kylechui/nvim-surround",
+            version = "*", -- Use for stability; omit to use `main` branch for the latest features
+            event = "VeryLazy",
+            opts = {},
+        },
+
+        {
+            "windwp/nvim-autopairs",
+            event = "InsertEnter",
+            opts = {
+                map_bs = false,
             },
         },
     }, {
@@ -397,11 +406,21 @@ else
         command = "set formatoptions-=cro",
     })
 
-    map("n", "<leader>f", require("telescope.builtin").find_files)
-    map("n", "<leader>g", require("telescope.builtin").git_files)
-    map("n", "<leader>w", require("telescope.builtin").live_grep)
-    map("n", "<leader>r", require("telescope.builtin").oldfiles)
-    map("n", "<leader><space>", require("telescope.builtin").buffers)
+    local telescope_fn = require("telescope.builtin")
+
+    map("n", "<leader>f", telescope_fn.find_files)
+    map("n", "<leader>g", telescope_fn.git_files)
+    map("n", "<leader>w", telescope_fn.live_grep)
+    map("n", "<leader>r", telescope_fn.oldfiles)
+    map("n", "<leader><space>", telescope_fn.buffers)
+    map("n", "<leader>cw", function()
+        local word = vim.fn.expand("<cword>")
+        telescope_fn.grep_string({ search = word })
+    end)
+    map("n", "<leader>cW", function()
+        local word = vim.fn.expand("<cWORD>")
+        telescope_fn.grep_string({ search = word })
+    end)
 
     map("n", "<MiddleMouse>", "<Nop>")
     map("i", "<MiddleMouse>", "<Nop>")
@@ -425,17 +444,19 @@ else
     map("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
     map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
-    map("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+    map("n", "-", "<CMD>Oil<CR>")
 
-    map("n", "U", cmd.UndotreeToggle)
+    map("n", "<leader>u", ":UndotreeShow<CR><C-w>h", { silent = true })
 
-    map("v", "<A-j>", ":m '>+1<CR>gv=gv")
-    map("v", "<A-k>", ":m '<-2<CR>gv=gv")
+    map("v", "<A-j>", ":m '>+1<CR>gv=gv", { silent = true })
+    map("v", "<A-k>", ":m '<-2<CR>gv=gv", { silent = true })
 
-    map("n", "<leader>l", ":Lazy<CR>")
+    map("n", "<leader>l", ":Lazy<CR>", { silent = true })
 
-    map("n", "<S-l>", ":bnext<CR>")
-    map("n", "<S-h>", ":bprevious<CR>")
+    map("n", "<S-l>", ":bnext<CR>", { silent = true })
+    map("n", "<S-h>", ":bprevious<CR>", { silent = true })
+
+    map("n", "<leader>rn", ":IncRename ")
 
     --  This function gets run when an LSP connects to a particular buffer.
     local on_attach = function(_, bufnr)
@@ -449,12 +470,12 @@ else
 
         nmap("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
 
-        nmap("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
-        nmap("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
-        nmap("gI", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
-        nmap("<leader>D", require("telescope.builtin").lsp_type_definitions, "Type [D]efinition")
-        nmap("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
-        nmap("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
+        nmap("gd", telescope_fn.lsp_definitions, "[G]oto [D]efinition")
+        nmap("gr", telescope_fn.lsp_references, "[G]oto [R]eferences")
+        nmap("gI", telescope_fn.lsp_implementations, "[G]oto [I]mplementation")
+        nmap("<leader>D", telescope_fn.lsp_type_definitions, "Type [D]efinition")
+        nmap("<leader>ds", telescope_fn.lsp_document_symbols, "[D]ocument [S]ymbols")
+        nmap("<leader>ws", telescope_fn.lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
 
         nmap("K", vim.lsp.buf.hover, "Hover Documentation")
     end
@@ -497,7 +518,6 @@ else
                 mode = "symbol",
                 maxwidth = 50,
                 ellipsis_char = "...",
-                symbol_map = { Codeium = "" },
             }),
         },
         view = {
@@ -521,37 +541,13 @@ else
             completeopt = "menu,menuone,noinsert",
         },
         mapping = cmp.mapping.preset.insert({
-            ["<C-n>"] = cmp.mapping.select_next_item(),
-            ["<C-p>"] = cmp.mapping.select_prev_item(),
-            ["<C-Space>"] = cmp.mapping.complete({}),
-            ["<CR>"] = cmp.mapping.confirm({
-                behavior = cmp.ConfirmBehavior.Replace,
-                select = true,
-            }),
-            ["<Tab>"] = cmp.mapping(function(fallback)
-                if cmp.visible() then
-                    cmp.select_next_item()
-                elseif luasnip.expand_or_locally_jumpable() then
-                    luasnip.expand_or_jump()
-                else
-                    fallback()
-                end
-            end, { "i", "s" }),
+            ["<CR>"] = cmp.mapping.confirm(),
         }),
         sources = {
             { name = "nvim_lsp" },
             { name = "nvim_lua" },
-            { name = "codeium" },
-            { name = "luasnip" },
             { name = "path" },
-            { name = "buffer" },
-        },
-    })
-
-    -- `/` cmdline setup.
-    cmp.setup.cmdline("/", {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = {
+            { name = "luasnip" },
             { name = "buffer" },
         },
     })
@@ -562,16 +558,16 @@ else
         sources = cmp.config.sources({
             { name = "path" },
         }, {
-            {
-                name = "cmdline",
-                option = {
-                    ignore_cmds = { "Man", "!" },
-                },
-            },
+            { name = "cmdline" },
         }),
     })
 
     cmp.config.formatting = {
         format = require("tailwindcss-colorizer-cmp").formatter,
     }
+
+    vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "single" })
+    vim.lsp.handlers["textDocument/signatureHelp"] =
+        vim.lsp.with(vim.lsp.handlers.signature_help, { border = "single" })
+    vim.diagnostic.config({ float = { border = "single" } })
 end
