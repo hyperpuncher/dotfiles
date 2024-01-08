@@ -18,6 +18,7 @@ else
     opt.ignorecase = true
     opt.mouse = "a"
     opt.number = true
+    opt.pumheight = 10 -- Maximum number of entries in a popup
     opt.relativenumber = true
     opt.scrolloff = 15
     opt.shiftwidth = 4
@@ -27,13 +28,13 @@ else
     opt.smartindent = true
     opt.softtabstop = 4
     opt.spell = false
+    opt.splitright = true
     opt.swapfile = false
     opt.tabstop = 4
     opt.termguicolors = true
     opt.timeoutlen = 500
     opt.undofile = true
     opt.updatetime = 200
-    opt.splitright = true
 
     local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
     if not vim.loop.fs_stat(lazypath) then
@@ -88,6 +89,7 @@ else
                         "json",
                         "jsonc",
                         "lua",
+                        "make",
                         "markdown",
                         "nix",
                         "python",
@@ -98,6 +100,7 @@ else
                         "typescript",
                         "yaml",
                     },
+                    auto_install = true,
                     highlight = { enable = true },
                     indent = { enable = true },
                     incremental_selection = {
@@ -215,10 +218,13 @@ else
                         },
                     },
                 },
+
                 {
                     "williamboman/mason-lspconfig.nvim",
                     opts = { ensure_installed = vim.tbl_keys(servers) },
                 },
+
+                { "j-hui/fidget.nvim", opts = {} },
             },
         },
 
@@ -243,6 +249,20 @@ else
                         "notify",
                         "toggleterm",
                         "lazyterm",
+                    },
+                },
+            },
+            dependencies = {
+                {
+                    "echasnovski/mini.indentscope",
+                    opts = {
+                        symbol = "│",
+                        draw = {
+                            delay = 0,
+                            animation = function()
+                                return 0
+                            end,
+                        },
                     },
                 },
             },
@@ -286,32 +306,19 @@ else
             end,
         },
 
-        { "mbbill/undotree" },
-
         {
-            -- Autocompletion
             "hrsh7th/nvim-cmp",
             dependencies = {
                 "hrsh7th/cmp-buffer",
                 "hrsh7th/cmp-cmdline",
-                "hrsh7th/cmp-path",
+                "hrsh7th/cmp-nvim-lsp",
                 "hrsh7th/cmp-nvim-lua",
-
-                -- Snippet Engine & its associated nvim-cmp source
+                "hrsh7th/cmp-path",
+                "hrsh7th/cmp-path",
+                "onsails/lspkind.nvim",
                 "L3MON4D3/LuaSnip",
                 "saadparwaiz1/cmp_luasnip",
-
-                -- Adds LSP completion capabilities
-                "hrsh7th/cmp-nvim-lsp",
-                "hrsh7th/cmp-path",
-
-                -- Adds a number of user-friendly snippets
                 "rafamadriz/friendly-snippets",
-
-                -- Icon support
-                "onsails/lspkind.nvim",
-
-                -- Tailwind
                 "roobert/tailwindcss-colorizer-cmp.nvim",
             },
         },
@@ -326,19 +333,6 @@ else
                 mappings = {
                     comment_line = "<C-/>",
                     comment_visual = "<C-/>",
-                },
-            },
-        },
-
-        {
-            "echasnovski/mini.indentscope",
-            opts = {
-                symbol = "│",
-                draw = {
-                    delay = 0,
-                    animation = function()
-                        return 0
-                    end,
                 },
             },
         },
@@ -365,11 +359,6 @@ else
         },
 
         {
-            "rmagatti/auto-session",
-            opts = {},
-        },
-
-        {
             "NvChad/nvim-colorizer.lua",
             opts = {
                 user_default_options = {
@@ -378,11 +367,9 @@ else
             },
         },
 
-        { "smjonas/inc-rename.nvim", opts = {} },
-
         {
             "kylechui/nvim-surround",
-            version = "*", -- Use for stability; omit to use `main` branch for the latest features
+            version = "*",
             event = "VeryLazy",
             opts = {},
         },
@@ -394,6 +381,16 @@ else
                 map_bs = false,
             },
         },
+
+        { "rmagatti/auto-session",          opts = {} },
+
+        { "smjonas/inc-rename.nvim",        opts = {} },
+
+        { "hiphish/rainbow-delimiters.nvim" },
+
+        { "mbbill/undotree" },
+
+        { "Exafunction/codeium.nvim",       opts = {} },
     }, {
         ui = {
             border = "single",
@@ -413,6 +410,8 @@ else
     map("n", "<leader>w", telescope_fn.live_grep)
     map("n", "<leader>r", telescope_fn.oldfiles)
     map("n", "<leader><space>", telescope_fn.buffers)
+    map("n", "<leader>h", telescope_fn.help_tags)
+    map("n", "<leader>d", telescope_fn.diagnostics)
     map("n", "<leader>cw", function()
         local word = vim.fn.expand("<cword>")
         telescope_fn.grep_string({ search = word })
@@ -458,6 +457,11 @@ else
 
     map("n", "<leader>rn", ":IncRename ")
 
+    -- Diagnostic keymaps
+    map("n", "<leader>pd", vim.diagnostic.goto_prev)
+    map("n", "<leader>nd", vim.diagnostic.goto_next)
+    map("n", "<leader>e", vim.diagnostic.open_float)
+
     --  This function gets run when an LSP connects to a particular buffer.
     local on_attach = function(_, bufnr)
         local nmap = function(keys, func, desc)
@@ -474,8 +478,6 @@ else
         nmap("gr", telescope_fn.lsp_references, "[G]oto [R]eferences")
         nmap("gI", telescope_fn.lsp_implementations, "[G]oto [I]mplementation")
         nmap("<leader>D", telescope_fn.lsp_type_definitions, "Type [D]efinition")
-        nmap("<leader>ds", telescope_fn.lsp_document_symbols, "[D]ocument [S]ymbols")
-        nmap("<leader>ws", telescope_fn.lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
 
         nmap("K", vim.lsp.buf.hover, "Hover Documentation")
     end
@@ -518,6 +520,7 @@ else
                 mode = "symbol",
                 maxwidth = 50,
                 ellipsis_char = "...",
+                symbol_map = { Codeium = "" },
             }),
         },
         view = {
@@ -544,11 +547,15 @@ else
             ["<CR>"] = cmp.mapping.confirm(),
         }),
         sources = {
+            { name = "codeium" },
             { name = "nvim_lsp" },
             { name = "nvim_lua" },
             { name = "path" },
             { name = "luasnip" },
             { name = "buffer" },
+        },
+        experimental = {
+            ghost_text = true,
         },
     })
 
@@ -558,7 +565,7 @@ else
         sources = cmp.config.sources({
             { name = "path" },
         }, {
-            { name = "cmdline" },
+            { name = "cmdline", keyword_length = 3 },
         }),
     })
 
