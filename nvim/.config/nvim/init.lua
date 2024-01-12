@@ -283,11 +283,16 @@ else
                         fmt.gofumpt,
                         fmt.shfmt,
                         fmt.nixpkgs_fmt,
+                        fmt.prettierd.with({
+                            extra_filetypes = { "astro", "svelte" },
+                        }),
 
                         lint.ruff,
                         lint.golangci_lint,
                         lint.shellcheck,
                         lint.staticcheck,
+                        lint.statix,
+                        lint.deadnix,
                     },
 
                     on_attach = function(client, bufnr)
@@ -314,7 +319,6 @@ else
                 "hrsh7th/cmp-nvim-lsp",
                 "hrsh7th/cmp-nvim-lua",
                 "hrsh7th/cmp-path",
-                "hrsh7th/cmp-path",
                 "onsails/lspkind.nvim",
                 "L3MON4D3/LuaSnip",
                 "saadparwaiz1/cmp_luasnip",
@@ -324,15 +328,10 @@ else
         },
 
         {
-            "echasnovski/mini.comment",
-            version = false,
+            "numToStr/Comment.nvim",
             opts = {
-                options = {
-                    ignore_blank_line = true,
-                },
-                mappings = {
-                    comment_line = "<C-/>",
-                    comment_visual = "<C-/>",
+                toggler = {
+                    line = "<C-/>",
                 },
             },
         },
@@ -390,7 +389,11 @@ else
 
         { "mbbill/undotree" },
 
-        { "Exafunction/codeium.nvim",       opts = {} },
+        {
+            "Exafunction/codeium.nvim",
+            enabled = false,
+            opts = {},
+        },
     }, {
         ui = {
             border = "single",
@@ -447,8 +450,8 @@ else
 
     map("n", "<leader>u", ":UndotreeShow<CR><C-w>h", { silent = true })
 
-    map("v", "<A-j>", ":m '>+1<CR>gv=gv", { silent = true })
-    map("v", "<A-k>", ":m '<-2<CR>gv=gv", { silent = true })
+    map("v", "J", ":m '>+1<CR>gv=gv", { silent = true })
+    map("v", "K", ":m '<-2<CR>gv=gv", { silent = true })
 
     map("n", "<leader>l", ":Lazy<CR>", { silent = true })
 
