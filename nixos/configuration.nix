@@ -12,6 +12,7 @@
     [
       ./hardware-configuration.nix
       inputs.home-manager.nixosModules.home-manager
+      inputs.nixvim.nixosModules.nixvim
     ];
 
   home-manager = {
@@ -51,6 +52,7 @@
     # ventoy
     # vial
     # yt-dlp
+    # git-leaks
     aria
     atool
     bat
@@ -135,13 +137,162 @@
   programs = {
     hyprland.enable = true;
 
-    neovim = {
+    nixvim = {
       enable = true;
-      defaultEditor = true;
+
+      colorscheme = "dracula";
+
+      globals.mapleader = " ";
+
+      options = {
+        breakindent = true;
+        clipboard = "unnamedplus";
+        completeopt = "menuone,noselect";
+        expandtab = true;
+        hlsearch = false;
+        ignorecase = true;
+        mouse = "a";
+        number = true;
+        pumheight = 10;
+        relativenumber = true;
+        scrolloff = 15;
+        shiftwidth = 4;
+        showmode = false;
+        signcolumn = "yes";
+        smartcase = true;
+        smartindent = true;
+        softtabstop = 4;
+        spell = false;
+        splitright = true;
+        swapfile = false;
+        tabstop = 4;
+        termguicolors = true;
+        timeoutlen = 500;
+        undofile = true;
+        updatetime = 200;
+      };
+
+      plugins = {
+        comment-nvim = {
+          enable = true;
+          toggler = {
+            line = "<C-/>";
+          };
+        };
+
+        gitsigns = {
+          enable = true;
+          signs = {
+            add = { text = "+"; };
+            change = { text = "~"; };
+            delete = { text = "_"; };
+            topdelete = { text = "‾"; };
+            changedelete = { text = "~"; };
+          };
+        };
+
+        indent-blankline = {
+          enable = true;
+          indent = {
+            char = "│";
+          };
+          scope = {
+            showStart = false;
+          };
+        };
+
+        lsp-format.enable = true;
+
+        lualine = {
+          enable = true;
+          globalstatus = true;
+        };
+
+        luasnip.enable = true;
+        nvim-cmp.enable = true;
+        oil.enable = true;
+        telescope.enable = true;
+
+        treesitter = {
+          enable = true;
+          indent = true;
+        };
+
+        rainbow-delimiters.enable = false;
+
+        lsp = {
+          enable = true;
+          servers = {
+            rnix-lsp.enable = true;
+          };
+        };
+
+        none-ls = {
+          enable = true;
+          sources = {
+            formatting = {
+              nixpkgs_fmt.enable = true;
+              prettier.enable = true;
+              shfmt.enable = true;
+              stylua.enable = true;
+            };
+
+            diagnostics = {
+              deadnix.enable = true;
+              golangci_lint.enable = true;
+              shellcheck.enable = true;
+              staticcheck.enable = true;
+              statix.enable = true;
+            };
+          };
+        };
+
+      };
+
+      extraPlugins = with pkgs.vimPlugins; [
+        dracula-nvim
+      ];
+
+      extraConfigLuaPre = ''
+        require("dracula").setup({
+            colors = {
+                bg = "#1A1A1A",
+                menu = "#1A1A1A",
+            },
+            italic_comment = true,
+        })
+      '';
+
+      keymaps = [
+        {
+          mode = "n";
+          key = "<C-s>";
+          action = ":w<CR>";
+        }
+        {
+          mode = [ "i" "v" ];
+          key = "<C-s>";
+          action = "<Esc>:w<CR>";
+        }
+      ];
     };
 
     yazi = {
       enable = true;
+      settings.yazi = {
+        manager = {
+          layout = [ 0 2 3 ];
+          sort_by = "natural";
+          sort_sensitive = false;
+          sort_reverse = false;
+          show_hidden = true;
+        };
+
+        preview = {
+          max_width = 2000;
+          max_height = 2000;
+        };
+      };
     };
 
     firefox.enable = true;

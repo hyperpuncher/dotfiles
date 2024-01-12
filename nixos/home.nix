@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   home = {
@@ -48,9 +48,9 @@
       general = {
         gaps_in = -1;
         gaps_out = 0;
-        border_size = 2;
-        col.active_border = rgb (ffffff);
-        col.inactive_border = rgb (262626);
+        border_size = 1;
+        "col.active_border" = "rgb(ffffff)";
+        "col.inactive_border" = "rgb(262626)";
       };
 
       windowrule = [
@@ -58,6 +58,7 @@
         "float, ^(com\.github.parnold_x\.nasc)$"
         "float, ^(quickgui)$"
         "float, title:^(File Operation Progress)$"
+        "pseudo, ^(info.mumble.Mumble)$"
         "tile, ^(qemu-system-x86_64)$"
         "workspace 3 silent, title:^(Telegram.*)$"
       ];
@@ -65,10 +66,7 @@
       input = {
         kb_layout = "us,ru";
         kb_options = "grp:rctrl_toggle";
-
         follow_mouse = 1;
-
-        repeat_rate = 35;
         repeat_delay = 450;
       };
 
@@ -155,25 +153,22 @@
     wezterm = {
       enable = true;
       extraConfig = ''
-        local wezterm = require 'wezterm'
+        local wezterm = require("wezterm")
         local config = {
 
+            enable_wayland = false,
             animation_fps = 30,
-            color_scheme = 'Monokai Soda',
+            color_scheme = "Monokai Soda",
             default_cursor_style = "BlinkingBar",
             enable_tab_bar = false,
-            enable_wayland = false,
-            font = wezterm.font 'JetBrainsMono Nerd Font',
+            font = wezterm.font("JetBrainsMono Nerd Font"),
             font_size = 14,
-            freetype_load_flags = 'NO_HINTING',
+            freetype_load_flags = "NO_HINTING",
             front_end = "OpenGL",
             window_close_confirmation = "NeverPrompt",
 
-            window_padding = {
-                left = '1cell',
-                right = '1cell',
-                top = '0.5cell',
-                bottom = 0,
+            colors = {
+                cursor_fg = "black",
             },
 
             keys = {
@@ -183,21 +178,31 @@
                     action = wezterm.action_callback(function(window, pane)
                         local has_selection = window:get_selection_text_for_pane(pane) ~= ""
                         if has_selection then
-                            window:perform_action(
-                                wezterm.action { CopyTo = "ClipboardAndPrimarySelection" },
-                                pane)
+                            window:perform_action(wezterm.action({ CopyTo = "ClipboardAndPrimarySelection" }), pane)
                             window:perform_action("ClearSelection", pane)
                         else
-                            window:perform_action(
-                                wezterm.action { SendKey = { key = "c", mods = "CTRL" } },
-                                pane)
+                            window:perform_action(wezterm.action({ SendKey = { key = "c", mods = "CTRL" } }), pane)
                         end
-                    end)
+                    end),
                 },
                 {
                     key = "v",
                     mods = "CTRL",
-                    action = wezterm.action { PasteFrom = "Clipboard" },
+                    action = wezterm.action_callback(function(window, pane)
+                        if pane:get_foreground_process_name() ~= "/usr/bin/nvim" then
+                            window:perform_action(wezterm.action({ PasteFrom = "Clipboard" }), pane)
+                        else
+                            window:perform_action(wezterm.action.SendKey({ key = "v", mods = "CTRL" }), pane)
+                        end
+                    end),
+                },
+            },
+
+            mouse_bindings = {
+                {
+                    event = { Down = { streak = 1, button = "Middle" } },
+                    mods = "NONE",
+                    action = wezterm.action.Nop,
                 },
             },
         }
@@ -206,37 +211,37 @@
       '';
     };
 
-    vscode = {
+    /* vscode = {
       enable = true;
       package = pkgs.vscodium;
       extensions = with pkgs.vscode-extensions; [
-        jnoortheen.nix-ide
-        sumneko.lua
-        asvetliakov.vscode-neovim
+      jnoortheen.nix-ide
+      sumneko.lua
+      asvetliakov.vscode-neovim
       ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-        {
-          name = "aura-theme";
-          publisher = "DaltonMenezes";
-          version = "latest";
-          sha256 = "sha256-r6pPpvJ1AZsM0RYF+xHsZ4b4QTszN+wELr1SENsUDFA=";
-        }
+      {
+      name = "aura-theme";
+      publisher = "DaltonMenezes";
+      version = "latest";
+      sha256 = "sha256-r6pPpvJ1AZsM0RYF+xHsZ4b4QTszN+wELr1SENsUDFA=";
+      }
       ];
 
       userSettings = {
 
-        "editor.fontFamily" = "JetBrainsMono Nerd Font";
-        "editor.fontLigatures" = true;
-        "editor.fontSize" = 18;
-        "extensions.experimental.affinity" = {
-          "asvetliakov.vscode-neovim" = 1;
-        };
-        "nix.enableLanguageServer" = true;
-        "window.menuBarVisibility" = "hidden";
-        "window.titleBarStyle" = "custom";
-        "workbench.colorTheme" = "Aura Dark";
+      "editor.fontFamily" = "JetBrainsMono Nerd Font";
+      "editor.fontLigatures" = true;
+      "editor.fontSize" = 18;
+      "extensions.experimental.affinity" = {
+      "asvetliakov.vscode-neovim" = 1;
+      };
+      "nix.enableLanguageServer" = true;
+      "window.menuBarVisibility" = "hidden";
+      "window.titleBarStyle" = "custom";
+      "workbench.colorTheme" = "Aura Dark";
 
       };
-    };
+      }; */
 
     waybar = {
       enable = true;
