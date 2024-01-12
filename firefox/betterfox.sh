@@ -1,4 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env sh
 
-curl https://raw.githubusercontent.com/yokoffing/Betterfox/main/user.js -o ~/.mozilla/firefox/*.default-release/user.js &&
-    cat ~/dotfiles/firefox/user.js >>~/.mozilla/firefox/*.default-release/user.js
+CONFIG=$(
+	cd ~/.mozilla/firefox/*default-release &&
+		pwd || exit
+)/test.js
+
+curl https://raw.githubusercontent.com/yokoffing/Betterfox/main/user.js >"$CONFIG" &&
+	cat ~/dotfiles/firefox/user.js >>"$CONFIG"
