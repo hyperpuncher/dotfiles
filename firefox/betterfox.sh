@@ -3,7 +3,7 @@
 CONFIG=$(
 	cd ~/.mozilla/firefox/*default-release &&
 		pwd || exit
-)/test.js
+)/user.js
 
 curl https://raw.githubusercontent.com/yokoffing/Betterfox/main/user.js >"$CONFIG" &&
 	cat ~/dotfiles/firefox/user.js >>"$CONFIG"
