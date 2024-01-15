@@ -51,6 +51,7 @@ else
 
     local servers = {
         astro = {},
+        bashls = {},
         gopls = {},
         lua_ls = {
             Lua = {
@@ -93,6 +94,7 @@ else
                         "markdown",
                         "nix",
                         "python",
+                        "rasi",
                         "rust",
                         "sql",
                         "svelte",
@@ -291,7 +293,6 @@ else
                         lint.golangci_lint,
                         lint.shellcheck,
                         lint.staticcheck,
-                        lint.statix,
                         lint.deadnix,
                     },
 
