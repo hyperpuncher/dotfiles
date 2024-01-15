@@ -2,16 +2,29 @@
     {
         "deviceId": "alsa_output.usb-FiiO_FiiO_BTR3K_ABCDEF0123456789-00.analog-stereo",
         "deviceName": "Sennheiser PC38X",
-        "preset": "Sennheiser PC38X"
+        "preset": "Sennheiser PC38X",
+        "routeId": "*",
+        "routeName": "<any output route>"
     },
     {
         "deviceId": "bluez_output.AC_12_2F_0B_3B_DA.1",
         "deviceName": "Soundcore Life Q30",
-        "preset": "Soundcore Q30"
+        "preset": "Soundcore Q30",
+        "routeId": "*",
+        "routeName": "<any output route>"
     },
     {
         "deviceId": "bluez_output.00_F3_9F_6F_FB_43.1",
         "deviceName": "AirPods Pro",
-        "preset": "AirPods Pro"
+        "preset": "AirPods Pro",
+        "routeId": "*",
+        "routeName": "<any output route>"
+    },
+    {
+        "deviceId": "bluez_card.E8_EE_CC_30_3E_62",
+        "deviceName": "Soundcore Space Q45",
+        "preset": "Soundcore Q45",
+        "routeId": "*",
+        "routeName": "<any output route>"
     }
 ]
