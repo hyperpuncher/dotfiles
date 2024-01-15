@@ -6,24 +6,13 @@
     homeDirectory = "/home/igor";
     stateVersion = "23.11";
     packages = [ ];
-
-    # Home Manager is pretty good at managing dotfiles. The primary way to manage
-    # plain files is through 'home.file'.
-    file = {
-      # # Building this configuration will create a copy of 'dotfiles/screenrc' in
-      # # the Nix store. Activating the configuration will then make '~/.screenrc' a
-      # # symlink to the Nix store copy.
-      # ".screenrc".source = dotfiles/screenrc;
-
-      # # You can also set the file content immediately.
-      # ".gradle/gradle.properties".text = ''
-      #   org.gradle.console=verbose
-      #   org.gradle.daemon.idletimeout=3600000
-      # '';
-    };
-
     sessionVariables = {
       # EDITOR = "emacs";
+    };
+    file = {
+      ".zshrc".source = ../zsh/.zshrc;
+      ".zshenv".source = ../zsh/.zshenv;
+      ".p10k.zsh".source = ../zsh/.p10k.zsh;
     };
   };
 
@@ -70,6 +59,29 @@
         repeat_delay = 450;
       };
 
+      decoration = {
+        blur = {
+          size = 2;
+          passes = 2;
+        };
+
+        shadow_range = 10;
+        shadow_offset = "3 4";
+        "col.shadow" = "rgba(00000060)";
+        "col.shadow_inactive" = "rgba(00000000)";
+      };
+
+      animations = {
+        bezier = "myBezier, 0.05, 0.9, 0.1, 1.0";
+        animation = [
+          "windows, 1, 4, myBezier"
+          "windowsOut, 1, 7, default"
+          "border, 1, 5, default"
+          "fade, 1, 3, default"
+          "workspaces, 0, 2, default"
+        ];
+      };
+
       bind = [
         "$mod, ESCAPE, exec, ~/.config/rofi/scripts/power_menu.sh"
         "$mod, RETURN, exec, wezterm"
@@ -82,6 +94,34 @@
         "$mod, J, togglesplit, # dwindle"
         "$mod, F, fullscreen"
         "$mod SHIFT, F, togglefloating"
+
+        "$mod, h, movefocus, l"
+        "$mod, l, movefocus, r"
+        "$mod, k, movefocus, u"
+        "$mod, j, movefocus, d"
+
+
+        "$mod, g, workspace, 1"
+        "$mod, c, workspace, 2"
+        "$mod, t, workspace, 3"
+        "$mod, s, workspace, 4"
+        "$mod, r, workspace, 5"
+        "$mod, a, workspace, 6"
+        "$mod, z, workspace, 7"
+        "$mod, 8, workspace, 8"
+        "$mod, 9, workspace, 9"
+        "$mod, 0, workspace, 10"
+
+        "$mod SHIFT, g, movetoworkspacesilent, 1"
+        "$mod SHIFT, c, movetoworkspacesilent, 2"
+        "$mod SHIFT, t, movetoworkspacesilent, 3"
+        "$mod SHIFT, s, movetoworkspacesilent, 4"
+        "$mod SHIFT, r, movetoworkspacesilent, 5"
+        "$mod SHIFT, a, movetoworkspacesilent, 6"
+        "$mod SHIFT, z, movetoworkspacesilent, 7"
+        "$mod SHIFT, 8, movetoworkspacesilent, 8"
+        "$mod SHIFT, 9, movetoworkspacesilent, 9"
+        "$mod SHIFT, 0, movetoworkspacesilent, 10"
 
         ", XF86MonBrightnessDown, exec, brillo -q -U 5"
         ", XF86MonBrightnessUp, exec, brillo -q -A 5"
@@ -156,11 +196,12 @@
         local wezterm = require("wezterm")
         local config = {
 
-            enable_wayland = false,
             animation_fps = 30,
+            audible_bell = "Disabled",
             color_scheme = "Monokai Soda",
             default_cursor_style = "BlinkingBar",
             enable_tab_bar = false,
+            enable_wayland = false,
             font = wezterm.font("JetBrainsMono Nerd Font"),
             font_size = 14,
             freetype_load_flags = "NO_HINTING",
@@ -620,6 +661,11 @@
       font = "JetBrainsMono NF 14";
       location = "center";
       plugins = [ pkgs.rofi-calc ];
+      theme = {
+        window = {
+          width = "25%";
+        };
+      };
       extraConfig = {
         modes = "drun";
         fixed-num-lines = false;
@@ -678,6 +724,19 @@
 
     dunst = {
       enable = true;
+      settings = {
+        global = {
+          width = "(0, 300)";
+          offset = "30x30";
+          frame_color = "#ffffff";
+          font = "CaskaydiaCove NF 10";
+          icon_theme = "Papirus-Dark";
+        };
+        urgency_normal = {
+          background = "#ffffff";
+          foreground = "#0f0f0f";
+        };
+      };
     };
 
     gammastep = {
@@ -695,20 +754,20 @@
 
     theme = {
       package =
-        (pkgs.colloid-gtk-theme.override {
+        pkgs.colloid-gtk-theme.override {
           themeVariants = [ "pink" ];
           colorVariants = [ "dark" ];
           sizeVariants = [ "compact" ];
           tweaks = [ "black" "normal" ];
-        });
+        };
       name = "Colloid-Pink-Dark-Compact";
     };
 
     iconTheme = {
       package =
-        (pkgs.papirus-icon-theme.override {
+        pkgs.papirus-icon-theme.override {
           color = "pink";
-        });
+        };
       name = "Papirus-Dark";
     };
 

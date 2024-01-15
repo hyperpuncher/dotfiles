@@ -9,7 +9,7 @@
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, home-manager, ... } @ inputs:
+  outputs = { self, nixpkgs, ... } @ inputs:
     let
       inherit (self) outputs;
     in
