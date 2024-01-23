@@ -30,7 +30,7 @@ zstyle ':z4h:direnv:success' notify 'yes'
 zstyle ':z4h:ssh:example-hostname1'   enable 'yes'
 zstyle ':z4h:ssh:*.example-hostname2' enable 'no'
 # The default value if none of the overrides above match the hostname.
-zstyle ':z4h:ssh:*'                   enable 'yes'
+zstyle ':z4h:ssh:*'                   enable 'no'
 
 # Send these files over to the remote host when connecting over SSH to the
 # enabled hosts.
@@ -65,7 +65,6 @@ export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 export GOPATH="$XDG_DATA_HOME/go"
 export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc"
-export HISTFILE="$XDG_STATE_HOME/zsh/history"
 export LESSHISTFILE="$XDG_CACHE_HOME/less/history"
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
 export PARALLEL_HOME="$XDG_CONFIG_HOME/parallel"
@@ -130,6 +129,7 @@ alias ssh_racknerd='ssh user@172.245.180.243'
 alias stow='stow --no-folding -Rv'
 alias sv='sudoedit'
 alias udiskmount='udisksctl mount -b'
+alias update='sudo nixos-rebuild switch --flake .'
 alias v.='nvim .'
 alias v='nvim'
 alias wgdown='basename /proc/sys/net/ipv4/conf/*vpn | xargs sudo wg-quick down'
