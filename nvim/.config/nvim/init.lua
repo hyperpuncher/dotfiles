@@ -413,7 +413,7 @@ else
     map("n", "<leader>g", telescope_fn.git_files)
     map("n", "<leader>w", telescope_fn.live_grep)
     map("n", "<leader>r", telescope_fn.oldfiles)
-    map("n", "<leader><space>", telescope_fn.buffers)
+    map("n", "<leader>b", telescope_fn.buffers)
     map("n", "<leader>h", telescope_fn.help_tags)
     map("n", "<leader>d", telescope_fn.diagnostics)
     map("n", "<leader>cw", function()
@@ -458,6 +458,7 @@ else
 
     map("n", "<S-l>", ":bnext<CR>", { silent = true })
     map("n", "<S-h>", ":bprevious<CR>", { silent = true })
+    map("n", "<leader>x", ":bd<CR>")
 
     map("n", "<leader>rn", ":IncRename ")
 
