@@ -243,6 +243,7 @@
           enable = true;
           sources = {
             formatting = {
+              gofumpt.enable = true;
               nixpkgs_fmt.enable = true;
               prettier.enable = true;
               shfmt.enable = true;
@@ -283,19 +284,47 @@
             group = highlight_group,
             pattern = "*",
         })
+
+        local telescope_fn = require("telescope.builtin")
+
       '';
 
       keymaps = [
-        {
-          mode = "n";
-          key = "<C-s>";
-          action = ":w<CR>";
-        }
-        {
-          mode = [ "i" "v" ];
-          key = "<C-s>";
-          action = "<Esc>:w<CR>";
-        }
+        { key = ";"; action = ":"; }
+
+        { mode = "n"; key = "<C-s>"; action = ":w<CR>"; }
+        { mode = [ "i" "v" ]; key = "<C-s>"; action = "<Esc>:w<CR>"; }
+
+        { mode = [ "n" "i" ]; key = "<MiddleMouse>"; action = "<Nop>"; }
+        { mode = [ "n" "i" "v" ]; key = "<RightMouse>"; action = "<Nop>"; }
+        { mode = [ "n" "i" "v" ]; key = "<S-RightMouse>"; action = "<Nop>"; }
+
+        { mode = "n"; key = "<C-d>"; action = "0<C-d>zz"; }
+        { mode = "n"; key = "<C-u>"; action = "0<C-u>zz"; }
+        { mode = "n"; key = "G"; action = "0Gzz"; }
+        { mode = "n"; key = "N"; action = "Nzz"; }
+        { mode = "n"; key = "n"; action = "nzz"; }
+        { mode = [ "n" "v" ]; key = "<Space>"; action = "<Nop>"; }
+        { mode = "n"; key = "<C-a>"; action = "ggVG"; }
+        { mode = [ "i" "c" ]; key = "<C-v>"; action = "<C-R><C-R>+"; }
+
+        { mode = "n"; key = "k"; action = "v:count == 0 ? 'gk' : 'k'"; options.silent = true; options.expr = true; }
+        { mode = "n"; key = "j"; action = "v:count == 0 ? 'gj' : 'j'"; options.silent = true; options.expr = true; }
+
+        { mode = "n"; key = "-"; action = "<CMD>Oil<CR>"; }
+
+        { mode = "n"; key = "<leader>u"; action = ":UndotreeShow<CR><C-w>h"; options.silent = true; }
+
+        { mode = "v"; key = "J"; action = ":m '>+1<CR>gv=gv"; options.silent = true; }
+        { mode = "v"; key = "K"; action = ":m '<-2<CR>gv=gv"; options.silent = true; }
+
+        { mode = "n"; key = "<leader>l"; action = ":Lazy<CR>"; options.silent = true; }
+
+        { mode = "n"; key = "<S-l>"; action = ":bnext<CR>"; options.silent = true; }
+        { mode = "n"; key = "<S-h>"; action = ":bprevious<CR>"; options.silent = true; }
+        { mode = "n"; key = "<leader>x"; action = ":bd<CR>"; }
+
+        { mode = "n"; key = "<leader>rn"; action = ":IncRename "; }
       ];
     };
 
@@ -428,17 +457,18 @@
 
   fonts = {
     packages = with pkgs; [
+      corefonts
       inter
+      iosevka
       noto-fonts
       noto-fonts-cjk
       noto-fonts-emoji
+      ubuntu_font_family
 
       (nerdfonts.override {
         fonts = [
           "CascadiaCode"
-          "JetBrainsMono"
-          "Iosevka"
-          "UbuntuMono"
+          "IosevkaTerm"
         ];
       })
     ];

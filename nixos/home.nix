@@ -83,7 +83,7 @@
       };
 
       bind = [
-        "$mod, ESCAPE, exec, ~/.config/rofi/scripts/power_menu.sh"
+        "$mod, ESCAPE, exec, ~/dotfiles/rofi/.config/rofi/scripts/power_menu.sh"
         "$mod, RETURN, exec, wezterm"
         "$mod, E, exec, thunar"
         "$mod, B, exec, firefox"
@@ -660,11 +660,6 @@
       font = "Inter Display 15";
       location = "center";
       plugins = [ pkgs.rofi-calc ];
-      theme = {
-        window = {
-          width = "25%";
-        };
-      };
       extraConfig = {
         modes = "drun";
         fixed-num-lines = false;
@@ -739,11 +734,10 @@
       };
     };
 
-    gammastep = {
+    wlsunset = {
       enable = true;
-      provider = "manual";
-      latitude = 53.9;
-      longitude = 27.57;
+      latitude = "53.9";
+      longitude = "27.6";
       temperature.day = 6500;
       temperature.night = 2500;
     };
