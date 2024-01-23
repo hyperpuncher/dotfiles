@@ -428,6 +428,7 @@
 
   fonts = {
     packages = with pkgs; [
+      inter
       noto-fonts
       noto-fonts-cjk
       noto-fonts-emoji
@@ -436,6 +437,7 @@
         fonts = [
           "CascadiaCode"
           "JetBrainsMono"
+          "Iosevka"
           "UbuntuMono"
         ];
       })
@@ -445,9 +447,9 @@
       hinting.enable = false;
       subpixel.rgba = "rgb";
       defaultFonts = {
-        sansSerif = [ "JetBrainsMono Nerd Font" ];
-        serif = [ "JetBrainsMono Nerd Font" ];
-        monospace = [ "JetBrainsMono Nerd Font" ];
+        sansSerif = [ "Inter Display" ];
+        serif = [ "Inter Display" ];
+        monospace = [ "Iosevka Nerd Font" ];
       };
     };
   };

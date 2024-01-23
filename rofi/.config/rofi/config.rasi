@@ -1,6 +1,6 @@
 configuration {
 	modes: "drun";
-	font: "JetBrainsMono NF 14";
+	font: "Inter Display 15";
 	location: 0;
 /*	yoffset: 0;*/
 /*	xoffset: 0;*/

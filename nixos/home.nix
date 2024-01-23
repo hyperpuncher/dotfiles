@@ -176,7 +176,7 @@
 
     kitty = {
       enable = true;
-      font.name = "JetBrainsMono Nerd Font";
+      font.name = "Iosevka Nerd Font";
       font.size = 14;
       theme = "Monokai Soda";
       settings = {
@@ -202,10 +202,9 @@
             default_cursor_style = "BlinkingBar",
             enable_tab_bar = false,
             enable_wayland = false,
-            font = wezterm.font("JetBrainsMono Nerd Font"),
-            font_size = 14,
+            font = wezterm.font("Iosevka Nerd Font"),
+            font_size = 15,
             freetype_load_flags = "NO_HINTING",
-            front_end = "OpenGL",
             window_close_confirmation = "NeverPrompt",
 
             colors = {
@@ -425,7 +424,7 @@
 
       style = ''
         * {
-          font-family: "CaskaydiaCove NF", "JetBrainsMono NF", sans-serif;
+          font-family: "CaskaydiaCove NF", sans-serif;
           font-size: 16px;
         }
 
@@ -658,7 +657,7 @@
     rofi = {
       enable = true;
       package = pkgs.rofi-wayland;
-      font = "JetBrainsMono NF 14";
+      font = "Inter Display 15";
       location = "center";
       plugins = [ pkgs.rofi-calc ];
       theme = {
@@ -728,8 +727,9 @@
         global = {
           width = "(0, 300)";
           offset = "30x30";
-          frame_color = "#ffffff";
-          font = "CaskaydiaCove NF 10";
+          frame_width = 1;
+          frame_color = "#000000";
+          font = "Inter Display 10";
           icon_theme = "Papirus-Dark";
         };
         urgency_normal = {
@@ -772,8 +772,8 @@
     };
 
     font = {
-      name = "JetBrainsMono Nerd Font";
-      size = 10;
+      name = "Inter Display";
+      size = 11;
     };
   };
 

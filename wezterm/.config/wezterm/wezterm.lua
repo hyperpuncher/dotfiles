@@ -5,10 +5,9 @@ local config = {
     color_scheme = "Monokai Soda",
     default_cursor_style = "BlinkingBar",
     enable_tab_bar = false,
-    font = wezterm.font("JetBrainsMono Nerd Font"),
-    font_size = 14,
+    font = wezterm.font("Iosevka Nerd Font"),
+    font_size = 15,
     freetype_load_flags = "NO_HINTING",
-    front_end = "OpenGL",
     window_close_confirmation = "NeverPrompt",
 
     colors = {
