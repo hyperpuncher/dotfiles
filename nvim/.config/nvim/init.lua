@@ -425,8 +425,9 @@ else
         telescope_fn.grep_string({ search = word })
     end)
 
-    map("n", "<MiddleMouse>", "<Nop>")
-    map("i", "<MiddleMouse>", "<Nop>")
+    map("n", ";", ":")
+
+    map({ "n", "i" }, "<MiddleMouse>", "<Nop>")
     map({ "n", "i", "v" }, "<RightMouse>", "<Nop>")
     map({ "n", "i", "v" }, "<S-RightMouse>", "<Nop>")
 
@@ -441,8 +442,6 @@ else
 
     map("n", "<C-s>", ":w<CR>")
     map({ "i", "v" }, "<C-s>", "<Esc>:w<CR>")
-
-    map("n", ";q", ":qa!<CR>")
 
     map("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
     map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
