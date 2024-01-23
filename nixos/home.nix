@@ -202,7 +202,7 @@
             default_cursor_style = "BlinkingBar",
             enable_tab_bar = false,
             enable_wayland = false,
-            font = wezterm.font("Iosevka Nerd Font"),
+            font = wezterm.font("IosevkaTerm Nerd Font"),
             font_size = 15,
             freetype_load_flags = "NO_HINTING",
             window_close_confirmation = "NeverPrompt",
