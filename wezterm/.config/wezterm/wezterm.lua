@@ -7,12 +7,9 @@ local config = {
     enable_tab_bar = false,
     font = wezterm.font("IosevkaTerm Nerd Font"),
     font_size = 15,
+    force_reverse_video_cursor = true,
     freetype_load_flags = "NO_HINTING",
     window_close_confirmation = "NeverPrompt",
-
-    colors = {
-        cursor_fg = "black",
-    },
 
     keys = {
         {
