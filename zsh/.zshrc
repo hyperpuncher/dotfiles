@@ -54,7 +54,7 @@ export BROWSER=firefox
 export EDITOR=nvim
 export PAGER='moar -style dracula -no-linenumbers'
 export MANPAGER='nvim +Man!'
-export TERM=wezterm
+export TERM=xterm-256color
 export VISUAL=nvim
 export BAT_THEME="Dracula"
 
