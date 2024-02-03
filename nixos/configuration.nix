@@ -1,6 +1,3 @@
-# man configuration.nix(5)
-# nixos-help
-
 { config, pkgs, inputs, outputs, ... }:
 
 {
@@ -48,6 +45,7 @@
     # ventoy
     # vial
     # yt-dlp
+    age
     aria
     atool
     bat
@@ -56,29 +54,32 @@
     cliphist
     dash
     ddcutil
+    dua
     eza
     fd
     ffmpegthumbnailer
     fnm
     fx
     fzf
-    gdu
     glow
     gnome.file-roller
     gnome.gnome-disk-utility
     gnome.gnome-keyring
     gparted
+    gradience
     grim
     gvfs
     hyprpicker
     imagemagick
     jamesdsp
     jq
+    kicad-small
     lazydocker
     lazygit
     libsForQt5.qt5.qtwayland
     libsForQt5.qt5ct
     localsend
+    logiops
     losslesscut-bin
     man
     moar
@@ -108,6 +109,7 @@
     ripgrep
     rofi-calc
     slurp
+    soft-serve
     solaar
     speedtest-go
     stow
@@ -332,7 +334,7 @@
       enable = true;
       settings.yazi = {
         manager = {
-          layout = [ 0 2 3 ];
+          ratio = [ 0 2 3 ];
           sort_by = "natural";
           sort_sensitive = false;
           sort_reverse = false;
@@ -418,6 +420,14 @@
     # firewall.allowedUDPPorts = [ ... ];
     # Or disable the firewall altogether.
     firewall.enable = false;
+  };
+
+  virtualisation = {
+    podman = {
+      enable = true;
+      dockerCompat = true;
+      defaultNetwork.settings.dns_enabled = true;
+    };
   };
 
   # Hands out realtime scheduling priority to user processes on demand

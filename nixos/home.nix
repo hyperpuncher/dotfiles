@@ -6,9 +6,6 @@
     homeDirectory = "/home/igor";
     stateVersion = "23.11";
     packages = [ ];
-    sessionVariables = {
-      # EDITOR = "emacs";
-    };
     file = {
       ".zshrc".source = ../zsh/.zshrc;
       ".zshenv".source = ../zsh/.zshenv;
@@ -57,6 +54,15 @@
         kb_options = "grp:rctrl_toggle";
         follow_mouse = 1;
         repeat_delay = 450;
+        accel_profile = flat;
+      };
+
+      "device:bastard-keyboards-charybdis-mini-(3x6)-pro-micro-1" = {
+        sensitivity = 1.0;
+      };
+
+      "device:logitech-ergo-m575" = {
+        sensitivity = -0.2;
       };
 
       decoration = {
@@ -65,10 +71,10 @@
           passes = 2;
         };
 
-        shadow_range = 10;
-        shadow_offset = "3 4";
-        "col.shadow" = "rgba(00000060)";
-        "col.shadow_inactive" = "rgba(00000000)";
+        shadow_range = 60;
+        shadow_render_power = 4;
+        shadow_offset = "0 13";
+        "col.shadow" = "rgba(00000075)";
       };
 
       animations = {
@@ -174,22 +180,6 @@
       };
     };
 
-    kitty = {
-      enable = true;
-      font.name = "Iosevka Nerd Font";
-      font.size = 14;
-      theme = "Monokai Soda";
-      settings = {
-        confirm_os_window_close = 0;
-        enable_audio_bell = false;
-        window_margin_width = 5;
-      };
-      keybindings = {
-        "ctrl+c" = "copy_or_interrupt";
-        "ctrl+v" = "paste_from_clipboard";
-      };
-    };
-
     wezterm = {
       enable = true;
       extraConfig = ''
@@ -201,15 +191,11 @@
             color_scheme = "Monokai Soda",
             default_cursor_style = "BlinkingBar",
             enable_tab_bar = false,
-            enable_wayland = false,
             font = wezterm.font("IosevkaTerm Nerd Font"),
             font_size = 15,
+            force_reverse_video_cursor = true,
             freetype_load_flags = "NO_HINTING",
             window_close_confirmation = "NeverPrompt",
-
-            colors = {
-                cursor_fg = "black",
-            },
 
             keys = {
                 {
@@ -250,38 +236,6 @@
         return config
       '';
     };
-
-    /* vscode = {
-      enable = true;
-      package = pkgs.vscodium;
-      extensions = with pkgs.vscode-extensions; [
-      jnoortheen.nix-ide
-      sumneko.lua
-      asvetliakov.vscode-neovim
-      ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-      {
-      name = "aura-theme";
-      publisher = "DaltonMenezes";
-      version = "latest";
-      sha256 = "sha256-r6pPpvJ1AZsM0RYF+xHsZ4b4QTszN+wELr1SENsUDFA=";
-      }
-      ];
-
-      userSettings = {
-
-      "editor.fontFamily" = "JetBrainsMono Nerd Font";
-      "editor.fontLigatures" = true;
-      "editor.fontSize" = 18;
-      "extensions.experimental.affinity" = {
-      "asvetliakov.vscode-neovim" = 1;
-      };
-      "nix.enableLanguageServer" = true;
-      "window.menuBarVisibility" = "hidden";
-      "window.titleBarStyle" = "custom";
-      "workbench.colorTheme" = "Aura Dark";
-
-      };
-      }; */
 
     waybar = {
       enable = true;
@@ -657,41 +611,16 @@
     rofi = {
       enable = true;
       package = pkgs.rofi-wayland;
-      font = "Inter Display 15";
+      font = "Iosevka Nerd Font 15";
       location = "center";
       plugins = [ pkgs.rofi-calc ];
+      theme = "~/dotfiles/rofi/.config/rofi/theme.rasi";
       extraConfig = {
         modes = "drun";
         fixed-num-lines = false;
         show-icons = true;
         kb-cancel = "Escape,MousePrimary";
       };
-    };
-
-    lf = {
-      enable = true;
-      settings = {
-        cursorpreviewfmt = "";
-        drawbox = true;
-        hidden = true;
-        icons = true;
-        ifs = "\n";
-        info = [ "size" "time" ];
-        mouse = true;
-        ratios = [ 1 2 ];
-        statfmt = "\033[35m %s| \033[34m %t| \033[36m %l| \033[0m";
-        rulerfmt = "%a  |%p  |\033[7;31m %m \033[0m  |\033[7;33m %c \033[0m  |\033[7;35m %s \033[0m  |\033[7;34m %f | \033[35m %d | \033[0m %i/%t";
-        scrolloff = 10;
-        shell = "sh";
-        shellopts = "-eu";
-        sortby = "ext";
-      };
-      previewer.source = "${pkgs.ctpv}/bin/ctpv";
-      extraConfig = ''
-        &${pkgs.ctpv}/bin/ctpv -s $id
-        cmd on-quit %${pkgs.ctpv}/bin/ctpv -e $id
-        set cleaner ${pkgs.ctpv}/bin/ctpvclear
-      '';
     };
 
     mangohud = {
@@ -747,14 +676,8 @@
     enable = true;
 
     theme = {
-      package =
-        pkgs.colloid-gtk-theme.override {
-          themeVariants = [ "pink" ];
-          colorVariants = [ "dark" ];
-          sizeVariants = [ "compact" ];
-          tweaks = [ "black" "normal" ];
-        };
-      name = "Colloid-Pink-Dark-Compact";
+      package = pkgs.adw-gtk3;
+      name = "adw-gtk3-dark";
     };
 
     iconTheme = {
@@ -767,7 +690,7 @@
 
     font = {
       name = "Inter Display";
-      size = 11;
+      size = 11.5;
     };
   };
 
