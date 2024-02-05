@@ -16,51 +16,31 @@
   };
 
   environment.systemPackages = with pkgs; [
-    # android-file-transfer
-    # android-tools
-    # bun
-    # corectrl
     # davinci-resolve
-    # ffmpeg
-    # font-manager
-    # gimp
-    # git-leaks
-    # inkscape
-    # libreoffice-fresh
-    # mumble
-    # obs-studio
-    # obsidian
-    # ocrmypdf
-    # polkit_gnome
-    # qemu
-    # quickemu
-    # rustdesk
-    # shell_gpt
-    # solvespace
-    # spotify
-    # sunshine
-    # telegram-desktop
-    # ungoogled-chromium
-    # upscayl
-    # ventoy
-    # vial
-    # yt-dlp
     age
+    android-file-transfer
+    android-tools
     aria
     atool
     bat
+    bun
     chafa
     clang
     cliphist
+    corectrl
     dash
     ddcutil
     dua
     eza
     fd
+    ffmpeg
     ffmpegthumbnailer
     fnm
+    font-manager
     fx
     fzf
+    gimp
+    gitleaks
     glow
     gnome.file-roller
     gnome.gnome-disk-utility
@@ -71,11 +51,13 @@
     gvfs
     hyprpicker
     imagemagick
+    inkscape
     jamesdsp
     jq
     kicad-small
     lazydocker
     lazygit
+    libreoffice-fresh
     libsForQt5.qt5.qtwayland
     libsForQt5.qt5ct
     localsend
@@ -85,6 +67,7 @@
     moar
     mpv
     mtpfs
+    mumble
     nasc
     networkmanagerapplet
     nfs-utils
@@ -92,12 +75,16 @@
     nodejs
     nvtop
     nwg-look
+    obs-studio
+    ocrmypdf
     parallel
     pavucontrol
     pfetch-rs
     playerctl
+    polkit_gnome
     procs
     pulsemixer
+    qemu
     qgnomeplatform
     qgnomeplatform-qt6
     qrencode
@@ -105,18 +92,29 @@
     qt6.qtwayland
     qt6Packages.qt6ct
     qt6Packages.qtstyleplugin-kvantum
+    quickemu
     qview
     ripgrep
     rofi-calc
+    rustdesk
+    shell_gpt
     slurp
     soft-serve
     solaar
+    solvespace
     speedtest-go
+    spotify
     stow
+    sunshine
     swaybg
+    telegram-desktop
     tlrc
     transmission_4
+    ungoogled-chromium
     unzip
+    upscayl
+    ventoy
+    vial
     wget
     wireguard-tools
     wl-clipboard
@@ -128,6 +126,7 @@
     xfce.thunar-volman
     xorg.xhost
     yarn
+    yt-dlp
     zip
     zoxide
   ];
@@ -388,9 +387,9 @@
     };
 
     # Configure keymap in X11
-    xserver = {
+    xserver.xkb = {
       layout = "us";
-      xkbVariant = "";
+      variant = "";
     };
 
     greetd = {

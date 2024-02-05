@@ -54,7 +54,7 @@
         kb_options = "grp:rctrl_toggle";
         follow_mouse = 1;
         repeat_delay = 450;
-        accel_profile = flat;
+        accel_profile = "flat";
       };
 
       "device:bastard-keyboards-charybdis-mini-(3x6)-pro-micro-1" = {
@@ -71,10 +71,10 @@
           passes = 2;
         };
 
-        shadow_range = 60;
-        shadow_render_power = 4;
-        shadow_offset = "0 13";
-        "col.shadow" = "rgba(00000075)";
+        shadow_range = 50;
+        shadow_render_power = 2;
+        shadow_offset = "0 15";
+        "col.shadow" = "rgba(00000050)";
       };
 
       animations = {
@@ -611,7 +611,7 @@
     rofi = {
       enable = true;
       package = pkgs.rofi-wayland;
-      font = "Iosevka Nerd Font 15";
+      font = "Iosevka 15";
       location = "center";
       plugins = [ pkgs.rofi-calc ];
       theme = "~/dotfiles/rofi/.config/rofi/theme.rasi";
