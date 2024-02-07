@@ -17,6 +17,9 @@
 
   environment.systemPackages = with pkgs; [
     # davinci-resolve
+    lm_sensors
+    vulkan-tools
+    adw-gtk3
     age
     android-file-transfer
     android-tools
@@ -48,7 +51,6 @@
     gparted
     gradience
     grim
-    gvfs
     hyprpicker
     imagemagick
     inkscape
@@ -60,6 +62,7 @@
     libreoffice-fresh
     libsForQt5.qt5.qtwayland
     libsForQt5.qt5ct
+    libva-utils
     localsend
     logiops
     losslesscut-bin
@@ -121,9 +124,6 @@
     wl-screenrec
     wtype
     xdragon
-    xfce.thunar
-    xfce.thunar-archive-plugin
-    xfce.thunar-volman
     xorg.xhost
     yarn
     yt-dlp
@@ -133,6 +133,14 @@
 
   programs = {
     hyprland.enable = true;
+
+    thunar = {
+      enable = true;
+      plugins = with pkgs.xfce; [
+        thunar-archive-plugin
+        thunar-volman
+      ];
+    };
 
     nixvim = {
       enable = true;
@@ -369,13 +377,17 @@
 
   hardware = {
     bluetooth.enable = true;
-    bluetooth.powerOnBoot = true;
     brillo.enable = true;
     i2c.enable = true;
+
+    opengl.extraPackages = with pkgs; [
+      rocmPackages.clr.icd
+    ];
   };
 
   services = {
     blueman.enable = true;
+    gvfs.enable = true;
     openssh.enable = true;
     udisks2.enable = true;
 
@@ -401,6 +413,8 @@
         };
       };
     };
+
+    udev.packages = with pkgs; [ via ];
   };
 
   boot = {
@@ -408,6 +422,7 @@
     loader.efi.canTouchEfiVariables = true;
     extraModulePackages = [ config.boot.kernelPackages.ddcci-driver ];
     kernelModules = [ "ddcci_backlight" ];
+    kernelPackages = pkgs.linuxPackages_latest;
   };
 
   networking = {
@@ -488,7 +503,7 @@
       defaultFonts = {
         sansSerif = [ "Inter Display" ];
         serif = [ "Inter Display" ];
-        monospace = [ "Iosevka Nerd Font" ];
+        monospace = [ "Iosevka" ];
       };
     };
   };
@@ -504,6 +519,10 @@
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   environment = {
+    sessionVariables = {
+      NIXOS_OZONE_WL = "1";
+    };
+
     etc = {
       "wireplumber/main.lua.d/51-pc38x-rename.lua".text = ''
         rule = {

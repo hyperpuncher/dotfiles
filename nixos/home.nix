@@ -21,10 +21,12 @@
       monitor = ",preferred,auto,auto";
 
       exec-once = [
+        "swaybg -i ~/Pictures/wp.png -m fill"
         "waybar"
-        "jamesdsp -t"
+        # "jamesdsp -t"
         "blueman-applet"
         "nm-applet"
+        "~/dotfiles/hyprland/.config/hypr/scripts/kb_layout.sh"
 
         "wl-paste --type text --watch cliphist store" #Stores only text data
         "wl-paste --type image --watch cliphist store" #Stores only image data
@@ -58,7 +60,7 @@
       };
 
       "device:bastard-keyboards-charybdis-mini-(3x6)-pro-micro-1" = {
-        sensitivity = 1.0;
+        sensitivity = 0.8;
       };
 
       "device:logitech-ergo-m575" = {
@@ -142,6 +144,10 @@
         # Clipboard
         "$mod, V, exec, cliphist list | rofi -dmenu -p 'clipboard' -display-columns 2 | cliphist decode | wl-copy"
 
+        # Screenshot
+        "$mod, comma, exec, grim - | wl-copy"
+        "$mod, slash, exec, grim -g \"$(slurp)\" - | wl-copy"
+
       ];
 
       bindm = [
@@ -195,6 +201,7 @@
             font_size = 15,
             force_reverse_video_cursor = true,
             freetype_load_flags = "NO_HINTING",
+            front_end = "WebGpu",
             window_close_confirmation = "NeverPrompt",
 
             keys = {
@@ -302,7 +309,7 @@
           temperature = {
             tooltip = false;
             # "thermal-zone" = 1;
-            hwmon-path = "/sys/class/hwmon/hwmon2/temp1_input";
+            hwmon-path = "/sys/class/hwmon/hwmon3/temp1_input";
             critical-threshold = 80;
             # "format-critical" = "{temperatureC}°C {icon}";
             format = "{temperatureC}°C {icon}";
@@ -676,7 +683,6 @@
     enable = true;
 
     theme = {
-      package = pkgs.adw-gtk3;
       name = "adw-gtk3-dark";
     };
 
