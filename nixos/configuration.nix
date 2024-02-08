@@ -17,10 +17,9 @@
 
   environment.systemPackages = with pkgs; [
     # davinci-resolve
-    lm_sensors
-    vulkan-tools
     adw-gtk3
     age
+    alacritty
     android-file-transfer
     android-tools
     aria
@@ -51,6 +50,7 @@
     gparted
     gradience
     grim
+    gum
     hyprpicker
     imagemagick
     inkscape
@@ -63,6 +63,7 @@
     libsForQt5.qt5.qtwayland
     libsForQt5.qt5ct
     libva-utils
+    lm_sensors
     localsend
     logiops
     losslesscut-bin
@@ -118,6 +119,7 @@
     upscayl
     ventoy
     vial
+    vulkan-tools
     wget
     wireguard-tools
     wl-clipboard
@@ -222,7 +224,7 @@
           sections = {
             lualine_a = [ "mode" ];
             lualine_b = [ "" ];
-            # lualine_c = [ "" ];
+            lualine_c = [ "buffers" ];
             lualine_x = [ "" ];
             lualine_y = [ "" ];
             lualine_z = [ "location" ];
@@ -233,13 +235,13 @@
         nvim-cmp.enable = true;
         oil.enable = true;
         telescope.enable = true;
+        auto-session.enable = true;
+        rainbow-delimiters.enable = true;
 
         treesitter = {
           enable = true;
           indent = true;
         };
-
-        rainbow-delimiters.enable = false;
 
         lsp = {
           enable = true;
@@ -294,8 +296,6 @@
             pattern = "*",
         })
 
-        local telescope_fn = require("telescope.builtin")
-
       '';
 
       keymaps = [
@@ -334,6 +334,15 @@
         { mode = "n"; key = "<leader>x"; action = ":bd<CR>"; }
 
         { mode = "n"; key = "<leader>rn"; action = ":IncRename "; }
+
+        { mode = "n"; key = "<leader>f"; action = "require('telescope.builtin').find_files"; lua = true; }
+        { mode = "n"; key = "<leader>g"; action = "require('telescope.builtin').git_files"; lua = true; }
+        { mode = "n"; key = "<leader>w"; action = "require('telescope.builtin').live_grep"; lua = true; }
+        { mode = "n"; key = "<leader>r"; action = "require('telescope.builtin').oldfiles"; lua = true; }
+        { mode = "n"; key = "<leader>b"; action = "require('telescope.builtin').buffers"; lua = true; }
+        { mode = "n"; key = "<leader>h"; action = "require('telescope.builtin').help_tags"; lua = true; }
+        { mode = "n"; key = "<leader>d"; action = "require('telescope.builtin').diagnostics"; lua = true; }
+
       ];
     };
 

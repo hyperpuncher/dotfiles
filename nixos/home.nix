@@ -94,7 +94,7 @@
         "$mod, ESCAPE, exec, ~/dotfiles/rofi/.config/rofi/scripts/power_menu.sh"
         "$mod, RETURN, exec, wezterm"
         "$mod, E, exec, thunar"
-        "$mod, B, exec, firefox"
+        "$mod, B, exec, chromium"
         "$mod, K, exec, hyprctl kill"
         "$mod, D, exec, rofi -show drun -display-drun 'Apps'"
         "$mod, Q, killactive,"
@@ -192,16 +192,13 @@
         local wezterm = require("wezterm")
         local config = {
 
-            animation_fps = 30,
             audible_bell = "Disabled",
             color_scheme = "Monokai Soda",
-            default_cursor_style = "BlinkingBar",
             enable_tab_bar = false,
             font = wezterm.font("IosevkaTerm Nerd Font"),
             font_size = 15,
             force_reverse_video_cursor = true,
             freetype_load_flags = "NO_HINTING",
-            front_end = "WebGpu",
             window_close_confirmation = "NeverPrompt",
 
             keys = {
@@ -265,20 +262,11 @@
             "memory"
             "disk"
             "hyprland/language"
-            # "custom/weather"
             "clock"
           ];
           tray = {
             icon-size = 19;
             spacing = 10;
-          };
-          "hyprland/workspaces" = {
-            format = "{icon}";
-            format-icons = {
-              active = "";
-              default = "";
-            };
-            on-click = "activate";
           };
           clock = {
             tooltip-format = "<tt><small>{calendar}</small></tt>";
@@ -360,25 +348,11 @@
             format-en = "EN";
             format-ru = "RU";
           };
-          "wlr/taskbar" = {
-            format = "{icon}";
-            icon-size = 18;
-            tooltip = false;
-            on-click = "activate";
-            on-click-middle = "close";
-            ignore-list = [ "Spotify" ];
-          };
           "custom/brightness" = {
             tooltip = false;
             format = "{}%  ";
             interval = 2;
             exec = "brillo 2>/dev/null | cut -d '.' -f 1";
-          };
-          "custom/weather" = {
-            tooltip = false;
-            format = "{}°C 󰖕";
-            exec = "curl -s 'https:#api.open-meteo.com/v1/forecast?latitude=53.90&longitude=27.57&current_weather=true&temperature_2m' | jq '.current_weather.temperature' | xargs printf '%.0f'";
-            interval = 1800;
           };
         };
       };
@@ -661,17 +635,18 @@
           frame_width = 1;
           frame_color = "#000000";
           font = "Inter Display 10";
-          icon_theme = "Papirus-Dark";
         };
         urgency_normal = {
           background = "#ffffff";
           foreground = "#0f0f0f";
         };
       };
+      iconTheme.package = pkgs.papirus-icon-theme;
+      iconTheme.name = "Papirus";
     };
 
     wlsunset = {
-      enable = true;
+      enable = false;
       latitude = "53.9";
       longitude = "27.6";
       temperature.day = 6500;
