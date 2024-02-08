@@ -6,7 +6,6 @@ kb_names="bastard-keyboards-charybdis-mini-(3x6)-pro-micro hyperpuncher-kanariyo
 
 active_keyboard=""
 
-en_layout_apps="code-url-handler codium-url-handler kitty firefox obsidian beekeeper-studio qemu-system-x86_64 com.github.parnold_x.nasc org.wezfurlong.wezterm"
 ru_layout_apps="org.telegram.desktop"
 
 for name in ${kb_names}; do
@@ -19,14 +18,13 @@ done
 while true; do
 	active_window_class=$(hyprctl activewindow | grep "class" | awk '{print $2}')
 	if [ "$active_window_class" != "$previous_window_class" ]; then
-		case " $en_layout_apps " in
-		*" $active_window_class "*)
-			hyprctl switchxkblayout "$active_keyboard" 0
-			;;
-		esac
 		case " $ru_layout_apps " in
+
 		*" $active_window_class "*)
 			hyprctl switchxkblayout "$active_keyboard" 1
+			;;
+		*)
+			hyprctl switchxkblayout "$active_keyboard" 0
 			;;
 		esac
 		previous_window_class="$active_window_class"
