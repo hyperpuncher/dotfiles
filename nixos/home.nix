@@ -60,7 +60,7 @@
       };
 
       "device:bastard-keyboards-charybdis-mini-(3x6)-pro-micro-1" = {
-        sensitivity = 0.8;
+        sensitivity = 1.0;
       };
 
       "device:logitech-ergo-m575" = {
@@ -94,7 +94,7 @@
         "$mod, ESCAPE, exec, ~/dotfiles/rofi/.config/rofi/scripts/power_menu.sh"
         "$mod, RETURN, exec, wezterm"
         "$mod, E, exec, thunar"
-        "$mod, B, exec, chromium"
+        "$mod, B, exec, brave"
         "$mod, K, exec, hyprctl kill"
         "$mod, D, exec, rofi -show drun -display-drun 'Apps'"
         "$mod, Q, killactive,"
@@ -145,8 +145,8 @@
         "$mod, V, exec, cliphist list | rofi -dmenu -p 'clipboard' -display-columns 2 | cliphist decode | wl-copy"
 
         # Screenshot
-        "$mod, comma, exec, grim - | wl-copy"
-        "$mod, slash, exec, grim -g \"$(slurp)\" - | wl-copy"
+        "$mod, comma, exec, grim"
+        "$mod, slash, exec, grim -g \"$(slurp)\""
 
       ];
 

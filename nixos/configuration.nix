@@ -25,6 +25,7 @@
     aria
     atool
     bat
+    brave
     bun
     chafa
     clang
@@ -86,6 +87,7 @@
     pfetch-rs
     playerctl
     polkit_gnome
+    prettierd
     procs
     pulsemixer
     qemu
@@ -113,8 +115,7 @@
     swaybg
     telegram-desktop
     tlrc
-    transmission_4
-    ungoogled-chromium
+    transmission_4-gtk
     unzip
     upscayl
     ventoy
@@ -237,6 +238,7 @@
         telescope.enable = true;
         auto-session.enable = true;
         rainbow-delimiters.enable = true;
+        fidget.enable = true;
 
         treesitter = {
           enable = true;
@@ -256,7 +258,7 @@
             formatting = {
               gofumpt.enable = true;
               nixpkgs_fmt.enable = true;
-              prettier.enable = true;
+              # prettier.enable = true;
               shfmt.enable = true;
               stylua.enable = true;
             };
@@ -268,6 +270,14 @@
               staticcheck.enable = true;
               statix.enable = true;
             };
+          };
+
+          extraOptions = {
+            sources.__raw = ''{
+              require("null-ls").builtins.formatting.prettierd.with({
+                  extra_filetypes = { "astro", "svelte" },
+              }),
+            },'';
           };
         };
 
@@ -363,8 +373,6 @@
         };
       };
     };
-
-    firefox.enable = true;
 
     steam = {
       enable = false;
