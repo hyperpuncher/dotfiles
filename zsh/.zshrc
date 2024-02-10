@@ -50,7 +50,7 @@ path=(~/bin $path)
 
 # Export environment variables.
 export GPG_TTY=$TTY
-export BROWSER=firefox
+export BROWSER=brave
 export EDITOR=nvim
 export PAGER='moar -style dracula -no-linenumbers'
 export MANPAGER='nvim +Man!'
