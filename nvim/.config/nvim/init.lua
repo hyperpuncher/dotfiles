@@ -86,6 +86,7 @@ else
                         "css",
                         "go",
                         "html",
+                        "hyprlang",
                         "javascript",
                         "json",
                         "jsonc",
@@ -114,6 +115,9 @@ else
                     },
                 })
             end,
+            vim.filetype.add({
+                pattern = { [".*/hyprland%.conf"] = "hyprlang" },
+            }),
         },
 
         {
