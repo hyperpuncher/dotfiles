@@ -25,6 +25,7 @@
     aria
     atool
     bat
+    blender
     brave
     bun
     chafa

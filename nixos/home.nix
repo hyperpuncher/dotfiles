@@ -16,6 +16,14 @@
   wayland.windowManager.hyprland = {
     enable = true;
     settings = {
+      env = [
+        "QT_QPA_PLATFORM,wayland;xcb"
+        "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
+        "XDG_CURRENT_DESKTOP,Hyprland"
+        "XDG_SESSION_DESKTOP,Hyprland"
+        "LIBVA_DRIVER_NAME,radeonsi"
+      ];
+
       "$mod" = "SUPER";
 
       monitor = ",preferred,auto,auto";
