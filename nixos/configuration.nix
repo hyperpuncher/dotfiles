@@ -26,12 +26,14 @@
     atool
     bat
     blender
+    blender-hip
     brave
     bun
     chafa
     cinnamon.nemo
     cinnamon.nemo-fileroller
     clang
+    clinfo
     cliphist
     corectrl
     dash
@@ -243,6 +245,7 @@
         lsp = {
           enable = true;
           servers = {
+            pyright.enable = true;
             rnix-lsp.enable = true;
           };
         };
@@ -251,9 +254,9 @@
           enable = true;
           sources = {
             formatting = {
+              black.enable = true;
               gofumpt.enable = true;
               nixpkgs_fmt.enable = true;
-              # prettier.enable = true;
               shfmt.enable = true;
               stylua.enable = true;
             };

@@ -59,6 +59,10 @@
         "workspace 3 silent, title:^(Telegram.*)$"
       ];
 
+      windowrulev2 = [
+        "nomaximizerequest, class:(blender)"
+      ];
+
       input = {
         kb_layout = "us,ru";
         kb_options = "grp:rctrl_toggle";
