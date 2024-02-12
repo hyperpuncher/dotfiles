@@ -29,6 +29,8 @@
     brave
     bun
     chafa
+    cinnamon.nemo
+    cinnamon.nemo-fileroller
     clang
     cliphist
     corectrl
@@ -137,14 +139,6 @@
 
   programs = {
     hyprland.enable = true;
-
-    thunar = {
-      enable = true;
-      plugins = with pkgs.xfce; [
-        thunar-archive-plugin
-        thunar-volman
-      ];
-    };
 
     nixvim = {
       enable = true;

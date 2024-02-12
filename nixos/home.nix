@@ -101,7 +101,7 @@
       bind = [
         "$mod, ESCAPE, exec, ~/dotfiles/rofi/.config/rofi/scripts/power_menu.sh"
         "$mod, RETURN, exec, wezterm"
-        "$mod, E, exec, thunar"
+        "$mod, E, exec, nemo"
         "$mod, B, exec, brave"
         "$mod, K, exec, hyprctl kill"
         "$mod, D, exec, rofi -show drun -display-drun 'Apps'"
