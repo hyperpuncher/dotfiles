@@ -194,7 +194,7 @@ require("lazy").setup({
                 },
                 lualine_x = {},
                 lualine_y = {},
-                lualine_z = { "location" },
+                lualine_z = { "progress", "location" },
             },
         },
         dependencies = { "nvim-tree/nvim-web-devicons" },
