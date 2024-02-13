@@ -178,6 +178,15 @@
       };
 
       plugins = {
+
+        auto-session.enable = true;
+        fidget.enable = true;
+        lspkind.enable = true;
+        luasnip.enable = true;
+        oil.enable = true;
+        rainbow-delimiters.enable = true;
+        telescope.enable = true;
+
         comment-nvim = {
           enable = true;
           toggler = {
@@ -225,28 +234,39 @@
             lualine_c = [ "buffers" ];
             lualine_x = [ "" ];
             lualine_y = [ "" ];
-            lualine_z = [ "location" ];
+            lualine_z = [ "progress" "location" ];
           };
         };
-
-        luasnip.enable = true;
-        nvim-cmp.enable = true;
-        oil.enable = true;
-        telescope.enable = true;
-        auto-session.enable = true;
-        rainbow-delimiters.enable = true;
-        fidget.enable = true;
 
         treesitter = {
           enable = true;
           indent = true;
         };
 
+        nvim-cmp = {
+          enable = true;
+          sources = [
+            { name = "nvim-lsp"; }
+            { name = "nvim-lua"; }
+            { name = "path"; }
+            { name = "cmdline"; }
+            { name = "buffer"; }
+          ];
+        };
+
         lsp = {
           enable = true;
           servers = {
+            astro.enable = true;
+            bashls.enable = true;
+            gopls.enable = true;
+            lua-ls.enable = true;
             pyright.enable = true;
             rnix-lsp.enable = true;
+            rust-analyzer.enable = true;
+            svelte.enable = true;
+            tailwindcss.enable = true;
+            tsserver.enable = true;
           };
         };
 
