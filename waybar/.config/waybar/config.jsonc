@@ -58,9 +58,9 @@
   },
   "temperature": {
     "tooltip": false,
-    "hwmon-path": "/sys/class/hwmon/hwmon3/temp1_input",
+    "hwmon-path": "/sys/class/hwmon/hwmon3/temp3_input",
     "critical-threshold": 80,
-    // "format-critical": "{temperatureC}°C {icon}",
+    "format-critical": "{temperatureC}°C {icon}",
     "format": "{temperatureC}°C {icon}",
     "format-icons": [""]
   },
