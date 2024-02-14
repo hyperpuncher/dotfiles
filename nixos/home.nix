@@ -160,7 +160,7 @@
 
         # Screenshot
         "$mod, comma, exec, grim"
-        "$mod, slash, exec, grim -g \"$(slurp)\""
+        "$mod, slash, exec, grim -g \"$(slurp -d -w 0 -c FFFFFF -F Iosevka)\""
 
       ];
 

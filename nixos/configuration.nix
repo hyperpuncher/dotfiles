@@ -35,6 +35,7 @@
     clang
     clinfo
     cliphist
+    cmake
     corectrl
     dash
     ddcutil
@@ -53,6 +54,7 @@
     gnome.file-roller
     gnome.gnome-disk-utility
     gnome.gnome-keyring
+    gnumake
     gparted
     gradience
     grim
@@ -81,6 +83,7 @@
     nasc
     networkmanagerapplet
     nfs-utils
+    ninja
     nodePackages.pnpm
     nodejs
     nvtop
@@ -485,7 +488,8 @@
       enable = true;
       settings = {
         default_session = {
-          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --window-padding 2 --asterisks --remember --remember-session --time --width 50 --cmd Hyprland";
+          # command = "${pkgs.greetd.tuigreet}/bin/tuigreet --window-padding 2 --asterisks --remember --remember-session --time --width 50 --cmd Hyprland";
+          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --window-padding 2 --asterisks --remember --remember-session --time --width 80 --cmd /home/igor/projects/result/bin/Hyprland";
           user = "greeter";
         };
       };
