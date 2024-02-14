@@ -259,6 +259,7 @@
           servers = {
             astro.enable = true;
             bashls.enable = true;
+            clangd.enable = true;
             gopls.enable = true;
             lua-ls.enable = true;
             pyright.enable = true;

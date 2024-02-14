@@ -50,6 +50,7 @@ vim.opt.rtp:prepend(lazypath)
 local servers = {
     astro = {},
     bashls = {},
+    clangd = {},
     gopls = {},
     lua_ls = {
         Lua = {
@@ -282,6 +283,7 @@ require("lazy").setup({
 
             null_ls.setup({
                 sources = {
+                    fmt.clang_format,
                     fmt.stylua,
                     fmt.ruff,
                     fmt.gofumpt,
