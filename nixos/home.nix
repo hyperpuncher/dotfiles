@@ -63,6 +63,8 @@
         "nomaximizerequest, class:(blender)"
       ];
 
+      xwayland.force_zero_scaling = true;
+
       input = {
         kb_layout = "us,ru";
         kb_options = "grp:rctrl_toggle";
