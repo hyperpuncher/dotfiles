@@ -231,7 +231,22 @@
           sections = {
             lualine_a = [ "mode" ];
             lualine_b = [ "" ];
-            lualine_c = [ "buffers" ];
+            lualine_c = [{
+              name = "buffers";
+              extraConfig = {
+                mode = 2;
+                "buffers_color" = {
+                  active = {
+                    bg = "#1A1A1A";
+                  };
+                };
+                symbols = {
+                  modified = " ●";
+                  alternate_file = "";
+                  directory = "";
+                };
+              };
+            }];
             lualine_x = [ "" ];
             lualine_y = [ "" ];
             lualine_z = [ "progress" "location" ];
@@ -252,6 +267,27 @@
             { name = "cmdline"; }
             { name = "buffer"; }
           ];
+
+          completion = {
+            completeopt = "menu,menuone,noinsert";
+          };
+
+          mapping = {
+            "<CR>" = "cmp.mapping.confirm()";
+            "<Tab>" = {
+              modes = [ "i" "s" ];
+              action = "cmp.mapping.select_next_item()";
+            };
+          };
+
+          window = {
+            completion = {
+              border = "single";
+            };
+            documentation = {
+              border = "single";
+            };
+          };
         };
 
         lsp = {
@@ -264,7 +300,11 @@
             lua-ls.enable = true;
             pyright.enable = true;
             rnix-lsp.enable = true;
-            rust-analyzer.enable = true;
+            rust-analyzer = {
+              enable = true;
+              installCargo = true;
+              installRustc = true;
+            };
             svelte.enable = true;
             tailwindcss.enable = true;
             tsserver.enable = true;
