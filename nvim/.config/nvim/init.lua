@@ -268,6 +268,9 @@ require("lazy").setup({
                             return 0
                         end,
                     },
+                    options = {
+                        border = "top",
+                    },
                 },
             },
         },
