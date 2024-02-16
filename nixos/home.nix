@@ -162,6 +162,9 @@
         "$mod, comma, exec, grim"
         "$mod, slash, exec, grim -g \"$(slurp -d -w 0 -c FFFFFF -F Iosevka)\""
 
+        # Calculator
+        "$mod, quoteright, exec, rofi -show calc -modi calc -no-show-match -no-sort -no-persist-history"
+
       ];
 
       bindm = [
