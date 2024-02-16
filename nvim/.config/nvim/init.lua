@@ -68,6 +68,7 @@ local servers = {
     rust_analyzer = {},
     svelte = {},
     tailwindcss = {},
+    yamlls = {},
 }
 
 require("lazy").setup({
