@@ -64,7 +64,7 @@
     inkscape
     jamesdsp
     jq
-    kicad-small
+    kicad
     lazydocker
     lazygit
     libreoffice-fresh
@@ -215,6 +215,7 @@
           };
           scope = {
             showStart = false;
+            showEnd = false;
           };
         };
 
@@ -272,14 +273,18 @@
           ];
 
           completion = {
-            completeopt = "menu,menuone,noinsert";
+            completeopt = "menu,menuone,noinsert,noselect";
           };
 
           mapping = {
-            "<CR>" = "cmp.mapping.confirm()";
-            "<Tab>" = {
+            "<CR>" = "cmp.mapping.confirm({ select = false })";
+            "<Down>" = {
               modes = [ "i" "s" ];
               action = "cmp.mapping.select_next_item()";
+            };
+            "<Up>" = {
+              modes = [ "i" "s" ];
+              action = "cmp.mapping.select_prev_item()";
             };
           };
 
@@ -453,6 +458,8 @@
     };
 
     dconf.enable = true;
+
+    nix-ld.enable = true;
   };
 
   hardware = {
