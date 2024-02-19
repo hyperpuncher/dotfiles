@@ -59,6 +59,7 @@
     gradience
     grim
     gum
+    hyperfine
     hyprpicker
     imagemagick
     inkscape
@@ -90,6 +91,7 @@
     nwg-look
     obs-studio
     ocrmypdf
+    p7zip
     parallel
     pavucontrol
     pfetch-rs
@@ -496,7 +498,7 @@
       settings = {
         default_session = {
           # command = "${pkgs.greetd.tuigreet}/bin/tuigreet --window-padding 2 --asterisks --remember --remember-session --time --width 50 --cmd Hyprland";
-          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --window-padding 2 --asterisks --remember --remember-session --time --width 80 --cmd /home/igor/projects/result/bin/Hyprland";
+          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --window-padding 2 --asterisks --remember --remember-session --time --width 50 --cmd /home/igor/projects/result/bin/Hyprland";
           user = "greeter";
         };
       };
@@ -508,7 +510,7 @@
   boot = {
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
-    extraModulePackages = [ config.boot.kernelPackages.ddcci-driver ];
+    extraModulePackages = with config.boot.kernelPackages; [ apfs ddcci-driver ];
     kernelModules = [ "ddcci_backlight" ];
     kernelPackages = pkgs.linuxPackages_latest;
   };
