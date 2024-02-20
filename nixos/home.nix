@@ -314,7 +314,7 @@
           temperature = {
             tooltip = false;
             # "thermal-zone" = 1;
-            hwmon-path = "/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon1/temp1_input";
+            hwmon-path = "/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon2/temp1_input";
             critical-threshold = 80;
             # "format-critical" = "{temperatureC}°C {icon}";
             format = "{temperatureC}°C {icon}";

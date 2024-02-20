@@ -17,6 +17,7 @@
 
   environment.systemPackages = with pkgs; [
     # davinci-resolve
+    openai-whisper-cpp
     adw-gtk3
     age
     alacritty
