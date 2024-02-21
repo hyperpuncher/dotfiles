@@ -361,6 +361,7 @@
         require("dracula").setup({
             colors = {
                 bg = "#1A1A1A",
+                black = "#FFFFFF"
                 menu = "#1A1A1A",
             },
             italic_comment = true,
