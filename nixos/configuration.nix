@@ -311,6 +311,7 @@
             lua-ls.enable = true;
             pyright.enable = true;
             rnix-lsp.enable = true;
+            ruff-lsp.enable = true;
             rust-analyzer = {
               enable = true;
               installCargo = true;
@@ -336,7 +337,6 @@
             diagnostics = {
               deadnix.enable = true;
               golangci_lint.enable = true;
-              shellcheck.enable = true;
               staticcheck.enable = true;
               statix.enable = true;
             };
