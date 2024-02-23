@@ -17,7 +17,13 @@
 
   environment.systemPackages = with pkgs; [
     # davinci-resolve
-    openai-whisper-cpp
+    stylua
+    shfmt
+    gofumpt
+    nixpkgs-fmt
+    golangci-lint
+    go-tools
+
     adw-gtk3
     age
     alacritty
@@ -92,6 +98,7 @@
     nwg-look
     obs-studio
     ocrmypdf
+    openai-whisper-cpp
     p7zip
     parallel
     pavucontrol
@@ -129,9 +136,11 @@
     transmission_4-gtk
     unzip
     upscayl
+    upx
     ventoy
     vial
     vulkan-tools
+    wails
     wget
     wireguard-tools
     wl-clipboard
@@ -222,7 +231,26 @@
           };
         };
 
-        lsp-format.enable = true;
+        conform-nvim = {
+          enable = true;
+          formattersByFt = {
+            lua = [ "stylua" ];
+            nix = [ "nixpkgs-fmt" ];
+            go = [ "gofumpt" ];
+            sh = [ "shfmt" ];
+          };
+          formatOnSave = {
+            timeoutMs = 500;
+            lspFallback = true;
+          };
+        };
+
+        lint = {
+          enable = true;
+          lintersByFt = {
+            go = [ "golangci_lint" "staticcheck" ];
+          };
+        };
 
         lualine = {
           enable = true;
@@ -323,34 +351,6 @@
           };
         };
 
-        none-ls = {
-          enable = true;
-          sources = {
-            formatting = {
-              black.enable = true;
-              gofumpt.enable = true;
-              nixpkgs_fmt.enable = true;
-              shfmt.enable = true;
-              stylua.enable = true;
-            };
-
-            diagnostics = {
-              deadnix.enable = true;
-              golangci_lint.enable = true;
-              staticcheck.enable = true;
-              statix.enable = true;
-            };
-          };
-
-          extraOptions = {
-            sources.__raw = ''{
-              require("null-ls").builtins.formatting.prettierd.with({
-                  extra_filetypes = { "astro", "svelte" },
-              }),
-            },'';
-          };
-        };
-
       };
 
       extraPlugins = with pkgs.vimPlugins; [
@@ -361,7 +361,7 @@
         require("dracula").setup({
             colors = {
                 bg = "#1A1A1A",
-                black = "#FFFFFF"
+                black = "#FFFFFF",
                 menu = "#1A1A1A",
             },
             italic_comment = true,
