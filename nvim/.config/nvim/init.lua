@@ -52,15 +52,7 @@ local servers = {
 	bashls = {},
 	clangd = {},
 	gopls = {},
-	lua_ls = {
-		Lua = {
-			diagnostics = {
-				globals = {
-					"vim",
-				},
-			},
-		},
-	},
+	lua_ls = { Lua = { diagnostics = { globals = { "vim" } } } },
 	rnix = {},
 	tsserver = {},
 	marksman = {},
@@ -71,6 +63,24 @@ local servers = {
 	tailwindcss = {},
 	yamlls = {},
 }
+
+local formatters = {
+	"biome",
+	"gofumpt",
+	"nixpkgs-fmt",
+	"prettierd",
+	"shfmt",
+	"stylua",
+}
+
+local linters = {
+	"golangci-lint",
+	"staticcheck",
+}
+
+local ensure_installed = vim.tbl_keys(servers)
+vim.list_extend(ensure_installed, formatters)
+vim.list_extend(ensure_installed, linters)
 
 require("lazy").setup({
 
@@ -175,6 +185,7 @@ require("lazy").setup({
 		opts = {
 			colors = {
 				bg = bg_color,
+				black = "white",
 				menu = bg_color,
 			},
 			italic_comment = true,
@@ -189,9 +200,14 @@ require("lazy").setup({
 				opts = { ui = { border = "single" } },
 			},
 
+			{ "williamboman/mason-lspconfig.nvim" },
+
 			{
-				"williamboman/mason-lspconfig.nvim",
-				opts = { ensure_installed = vim.tbl_keys(servers) },
+				"WhoIsSethDaniel/mason-tool-installer.nvim",
+				opts = {
+					ensure_installed = ensure_installed,
+					auto_update = true,
+				},
 			},
 
 			{ "j-hui/fidget.nvim", opts = {} },
@@ -206,7 +222,7 @@ require("lazy").setup({
 					formatters_by_ft = {
 						astro = { "prettierd" },
 						go = { "gofumpt" },
-						javascript = { "prettierd" },
+						javascript = { "biome" },
 						lua = { "stylua" },
 						nix = { "nixpkgs-fmt" },
 						sh = { "shfmt" },
@@ -219,10 +235,13 @@ require("lazy").setup({
 				"mfussenegger/nvim-lint",
 				opts = {
 					linters_by_ft = {
-						go = { "golangci_lint", "staticcheck" },
-						nix = { "deadnix" },
+						go = { "golangci-lint", "staticcheck" },
 					},
+					events = { "BufWritePost", "BufReadPost", "InsertLeave" },
 				},
+				config = function()
+					require("lint").try_lint()
+				end,
 			},
 		},
 	},
@@ -495,7 +514,7 @@ cmp.setup({
 		end,
 	},
 	completion = {
-		completeopt = "menu,menuone,noinsert",
+		completeopt = "menu,menuone,noinsert,noselect",
 	},
 	mapping = cmp.mapping.preset.insert({
 		["<CR>"] = cmp.mapping.confirm(),
