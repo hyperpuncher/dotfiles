@@ -17,12 +17,15 @@
 
   environment.systemPackages = with pkgs; [
     # davinci-resolve
-    stylua
-    shfmt
-    gofumpt
-    nixpkgs-fmt
-    golangci-lint
+
+    biome
     go-tools
+    gofumpt
+    golangci-lint
+    nixpkgs-fmt
+    prettierd
+    shfmt
+    stylua
 
     adw-gtk3
     age
@@ -171,6 +174,7 @@
         expandtab = true;
         hlsearch = false;
         ignorecase = true;
+        inccommand = "split";
         mouse = "a";
         number = true;
         pumheight = 10;
@@ -234,10 +238,14 @@
         conform-nvim = {
           enable = true;
           formattersByFt = {
+            astro = [ "prettierd" ];
+            go = [ "gofumpt" ];
+            javascript = [ "biome" ];
             lua = [ "stylua" ];
             nix = [ "nixpkgs-fmt" ];
-            go = [ "gofumpt" ];
             sh = [ "shfmt" ];
+            svelte = [ "prettierd" ];
+            yaml = [ "prettierd" ];
           };
           formatOnSave = {
             timeoutMs = 500;
@@ -388,6 +396,11 @@
         { mode = [ "n" "i" ]; key = "<MiddleMouse>"; action = "<Nop>"; }
         { mode = [ "n" "i" "v" ]; key = "<RightMouse>"; action = "<Nop>"; }
         { mode = [ "n" "i" "v" ]; key = "<S-RightMouse>"; action = "<Nop>"; }
+
+        { mode = "n"; key = "<C-h>"; action = "<C-w><C-h>"; }
+        { mode = "n"; key = "<C-j>"; action = "<C-w><C-j>"; }
+        { mode = "n"; key = "<C-k>"; action = "<C-w><C-k>"; }
+        { mode = "n"; key = "<C-l>"; action = "<C-w><C-l>"; }
 
         { mode = "n"; key = "<C-d>"; action = "0<C-d>zz"; }
         { mode = "n"; key = "<C-u>"; action = "0<C-u>zz"; }

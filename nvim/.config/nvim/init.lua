@@ -14,6 +14,7 @@ opt.completeopt = "menuone,noselect"
 opt.expandtab = true
 opt.hlsearch = false
 opt.ignorecase = true
+opt.inccommand = "split"
 opt.mouse = "a"
 opt.number = true
 opt.pumheight = 10 -- Maximum number of entries in a popup
@@ -399,6 +400,11 @@ map("n", ";", ":")
 map({ "n", "i" }, "<MiddleMouse>", "<Nop>")
 map({ "n", "i", "v" }, "<RightMouse>", "<Nop>")
 map({ "n", "i", "v" }, "<S-RightMouse>", "<Nop>")
+
+map("n", "<C-h>", "<C-w><C-h>")
+map("n", "<C-j>", "<C-w><C-j>")
+map("n", "<C-k>", "<C-w><C-k>")
+map("n", "<C-l>", "<C-w><C-l>")
 
 map("n", "<C-d>", "0<C-d>zz")
 map("n", "<C-u>", "0<C-u>zz")
