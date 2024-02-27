@@ -54,14 +54,15 @@ local servers = {
 	clangd = {},
 	gopls = {},
 	lua_ls = { Lua = { diagnostics = { globals = { "vim" } } } },
-	rnix = {},
-	tsserver = {},
 	marksman = {},
+	openscad_lsp = {},
 	pyright = {},
+	rnix = {},
 	ruff_lsp = {},
 	rust_analyzer = {},
 	svelte = {},
 	tailwindcss = {},
+	tsserver = {},
 	yamlls = {},
 }
 
