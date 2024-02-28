@@ -77,7 +77,6 @@ local formatters = {
 
 local linters = {
 	"golangci-lint",
-	"staticcheck",
 }
 
 local ensure_installed = vim.tbl_keys(servers)
@@ -237,7 +236,7 @@ require("lazy").setup({
 				"mfussenegger/nvim-lint",
 				opts = {
 					linters_by_ft = {
-						go = { "golangci-lint", "staticcheck" },
+						go = { "golangci-lint" },
 					},
 					events = { "BufWritePost", "BufReadPost", "InsertLeave" },
 				},
