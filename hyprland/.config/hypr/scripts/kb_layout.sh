@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env dash
 active_window_class=""
 previous_window_class=""
 
