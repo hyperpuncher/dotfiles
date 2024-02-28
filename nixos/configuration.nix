@@ -51,6 +51,7 @@
     ddcutil
     dua
     eza
+    f3d
     fd
     ffmpeg
     ffmpegthumbnailer
@@ -65,6 +66,7 @@
     gnome.gnome-disk-utility
     gnome.gnome-keyring
     gnumake
+    go
     gparted
     gradience
     grim
@@ -102,6 +104,7 @@
     obs-studio
     ocrmypdf
     openai-whisper-cpp
+    openscad-unstable
     p7zip
     parallel
     pavucontrol
@@ -128,6 +131,7 @@
     slurp
     soft-serve
     solaar
+    solvespace
     solvespace
     speedtest-go
     spotify
@@ -170,7 +174,7 @@
       options = {
         breakindent = true;
         clipboard = "unnamedplus";
-        completeopt = "menuone,noselect";
+        completeopt = "menu,menuone,noinsert";
         expandtab = true;
         hlsearch = false;
         ignorecase = true;
@@ -256,7 +260,7 @@
         lint = {
           enable = true;
           lintersByFt = {
-            go = [ "golangci_lint" "staticcheck" ];
+            go = [ "golangcilint" ];
           };
         };
 
@@ -304,36 +308,29 @@
         nvim-cmp = {
           enable = true;
           sources = [
-            { name = "nvim-lsp"; }
+            { name = "nvim_lsp"; }
             { name = "nvim-lua"; }
             { name = "path"; }
             { name = "cmdline"; }
             { name = "buffer"; }
           ];
 
-          completion = {
-            completeopt = "menu,menuone,noinsert,noselect";
-          };
-
           mapping = {
-            "<CR>" = "cmp.mapping.confirm({ select = false })";
-            "<Down>" = {
+            "<C-Space>" = "cmp.mapping.complete()";
+            "<C-n>" = {
               modes = [ "i" "s" ];
               action = "cmp.mapping.select_next_item()";
             };
-            "<Up>" = {
+            "<C-p>" = {
               modes = [ "i" "s" ];
               action = "cmp.mapping.select_prev_item()";
             };
+            "<C-y>" = "cmp.mapping.confirm({ select = true })";
           };
 
           window = {
-            completion = {
-              border = "single";
-            };
-            documentation = {
-              border = "single";
-            };
+            completion.border = "single";
+            documentation.border = "single";
           };
         };
 
