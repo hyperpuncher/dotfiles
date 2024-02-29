@@ -228,6 +228,7 @@ require("lazy").setup({
 						nix = { "nixpkgs-fmt" },
 						sh = { "shfmt" },
 						svelte = { "prettierd" },
+						yaml = { "prettierd" },
 					},
 				},
 			},
