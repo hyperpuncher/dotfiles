@@ -345,14 +345,6 @@ require("lazy").setup({
 		opts = {},
 	},
 
-	{
-		"windwp/nvim-autopairs",
-		event = "InsertEnter",
-		opts = {
-			map_bs = false,
-		},
-	},
-
 	{ "rmagatti/auto-session", opts = {} },
 
 	{ "smjonas/inc-rename.nvim", opts = {} },
@@ -365,6 +357,13 @@ require("lazy").setup({
 		"Exafunction/codeium.nvim",
 		enabled = false,
 		opts = {},
+	},
+
+	{
+		"folke/zen-mode.nvim",
+		opts = {
+			window = { backdrop = 1 },
+		},
 	},
 }, {
 	ui = {
@@ -441,6 +440,8 @@ map("n", "<leader>rn", ":IncRename ")
 map("n", "<leader>pd", vim.diagnostic.goto_prev)
 map("n", "<leader>nd", vim.diagnostic.goto_next)
 map("n", "<leader>e", vim.diagnostic.open_float)
+
+map("n", "<leader>z", ":ZenMode<CR>", { silent = true })
 
 --  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(_, bufnr)
@@ -521,10 +522,10 @@ cmp.setup({
 		end,
 	},
 	completion = {
-		completeopt = "menu,menuone,noinsert,noselect",
+		completeopt = "menu,menuone,noinsert",
 	},
 	mapping = cmp.mapping.preset.insert({
-		["<CR>"] = cmp.mapping.confirm(),
+		["<C-y>"] = cmp.mapping.confirm(),
 	}),
 	sources = {
 		{ name = "codeium" },
