@@ -29,6 +29,7 @@
 
     adw-gtk3
     age
+    foot
     alacritty
     android-file-transfer
     android-tools
@@ -78,6 +79,7 @@
     jamesdsp
     jq
     kicad
+    kikit
     lazydocker
     lazygit
     libreoffice-fresh
@@ -109,11 +111,13 @@
     parallel
     pavucontrol
     pfetch-rs
+    pipx
     playerctl
     polkit_gnome
     prettierd
     procs
     pulsemixer
+    python3
     qemu
     qgnomeplatform
     qgnomeplatform-qt6
@@ -157,6 +161,7 @@
     xorg.xhost
     yarn
     yt-dlp
+    obsidian
     zip
     zoxide
   ];
@@ -209,6 +214,7 @@
         oil.enable = true;
         rainbow-delimiters.enable = true;
         telescope.enable = true;
+        codeium-vim.enable = true;
 
         comment-nvim = {
           enable = true;
@@ -307,10 +313,14 @@
 
         nvim-cmp = {
           enable = true;
+
+          snippet.expand = "luasnip";
+
           sources = [
-            { name = "nvim_lsp"; }
-            { name = "nvim-lua"; }
+            # { name = "codeium"; }
+            { name = "nvim-lsp"; }
             { name = "path"; }
+            { name = "luasnip"; }
             { name = "cmdline"; }
             { name = "buffer"; }
           ];
@@ -509,8 +519,7 @@
       enable = true;
       settings = {
         default_session = {
-          # command = "${pkgs.greetd.tuigreet}/bin/tuigreet --window-padding 2 --asterisks --remember --remember-session --time --width 50 --cmd Hyprland";
-          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --window-padding 2 --asterisks --remember --remember-session --time --width 50 --cmd /home/igor/projects/result/bin/Hyprland";
+          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --window-padding 2 --asterisks --remember --remember-session --time --width 50 --cmd Hyprland";
           user = "greeter";
         };
       };
@@ -618,91 +627,101 @@
 
   system.stateVersion = "23.11";
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix = {
+    optimise.automatic = true;
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 14d";
+    };
+    settings = {
+      experimental-features = [ "nix-command" "flakes" ];
+    };
+  };
 
   environment = {
     sessionVariables = {
       NIXOS_OZONE_WL = "1";
     };
 
-    etc = {
-      "wireplumber/main.lua.d/51-pc38x-rename.lua".text = ''
-        rule = {
-          matches = {
-            {
-              { "node.name", "equals", "alsa_output.usb-FiiO_FiiO_BTR3K_ABCDEF0123456789-00.analog-stereo" },
-            }
-          },
-          apply_properties = {
-            ["device.description"] = "Sennheiser PC38X",
-            ["device.nick"] = "Sennheiser PC38X",
-            ["node.description"] = "Sennheiser PC38X",
-            ["node.nick"] = "Sennheiser PC38X",
-          },
-        }
-        table.insert(alsa_monitor.rules, rule)
-      '';
-
-      "wireplumber/main.lua.d/51-mic-rename.lua".text = ''
-        rule = {
-          matches = {
-            {
-              { "node.name", "equals", "alsa_input.pci-0000_09_00.4.analog-stereo" },
-            }
-          },
-          apply_properties = {
-            ["node.description"] = "Mic",
-            ["node.nick"] = "Mic",
-          },
-        }
-        table.insert(alsa_monitor.rules, rule)
-      '';
-
-      "wireplumber/main.lua.d/51-alsa-disable.lua".text = ''
-        rule = {
-          matches = {
-              -- display home
-              {
-                  { "device.name", "equals", "alsa_card.pci-0000_07_00.1" },
-              },
-              {
-                  { "node.name", "equals", "alsa_output.pci-0000_09_00.4.iec958-stereo" },
-              },
-              -- display work
-              {
-                  { "device.name", "equals", "alsa_card.pci-0000_07_00.1.3" },
-              },
-              -- system card work
-              {
-                  { "device.name", "equals", "alsa_card.pci-0000_07_00.6" },
-              }
-          },
-          apply_properties = {
-              ["node.disabled"] = true,
-              ["device.disabled"] = true,
-          },
-        }
-        table.insert(alsa_monitor.rules, rule)
-      '';
-
-      "wireplumber/main.lua.d/51-system-card-rename.lua".text = ''
-        rule = {
-            matches = {
-                {
-                    { "device.name", "equals", "alsa_card.pci-0000_09_00.4" },
-                },
-                {
-                    { "device.name", "equals", "alsa_card.pci-0000_07_00.6" },
-                }
-
-            },
-            apply_properties = {
-                ["device.description"] = "System Card",
-                ["device.nick"] = "System Card",
-            },
-        }
-        table.insert(alsa_monitor.rules, rule)
-      '';
-    };
+    # etc = {
+    #   "wireplumber/main.lua.d/51-pc38x-rename.lua".text = ''
+    #     rule = {
+    #       matches = {
+    #         {
+    #           { "node.name", "equals", "alsa_output.usb-FiiO_FiiO_BTR3K_ABCDEF0123456789-00.analog-stereo" },
+    #         }
+    #       },
+    #       apply_properties = {
+    #         ["device.description"] = "Sennheiser PC38X",
+    #         ["device.nick"] = "Sennheiser PC38X",
+    #         ["node.description"] = "Sennheiser PC38X",
+    #         ["node.nick"] = "Sennheiser PC38X",
+    #       },
+    #     }
+    #     table.insert(alsa_monitor.rules, rule)
+    #   '';
+    #
+    #   "wireplumber/main.lua.d/51-mic-rename.lua".text = ''
+    #     rule = {
+    #       matches = {
+    #         {
+    #           { "node.name", "equals", "alsa_input.pci-0000_09_00.4.analog-stereo" },
+    #         }
+    #       },
+    #       apply_properties = {
+    #         ["node.description"] = "Mic",
+    #         ["node.nick"] = "Mic",
+    #       },
+    #     }
+    #     table.insert(alsa_monitor.rules, rule)
+    #   '';
+    #
+    #   "wireplumber/main.lua.d/51-alsa-disable.lua".text = ''
+    #     rule = {
+    #       matches = {
+    #           -- display home
+    #           {
+    #               { "device.name", "equals", "alsa_card.pci-0000_07_00.1" },
+    #           },
+    #           {
+    #               { "node.name", "equals", "alsa_output.pci-0000_09_00.4.iec958-stereo" },
+    #           },
+    #           -- display work
+    #           {
+    #               { "device.name", "equals", "alsa_card.pci-0000_07_00.1.3" },
+    #           },
+    #           -- system card work
+    #           {
+    #               { "device.name", "equals", "alsa_card.pci-0000_07_00.6" },
+    #           }
+    #       },
+    #       apply_properties = {
+    #           ["node.disabled"] = true,
+    #           ["device.disabled"] = true,
+    #       },
+    #     }
+    #     table.insert(alsa_monitor.rules, rule)
+    #   '';
+    #
+    #   "wireplumber/main.lua.d/51-system-card-rename.lua".text = ''
+    #     rule = {
+    #         matches = {
+    #             {
+    #                 { "device.name", "equals", "alsa_card.pci-0000_09_00.4" },
+    #             },
+    #             {
+    #                 { "device.name", "equals", "alsa_card.pci-0000_07_00.6" },
+    #             }
+    #
+    #         },
+    #         apply_properties = {
+    #             ["device.description"] = "System Card",
+    #             ["device.nick"] = "System Card",
+    #         },
+    #     }
+    #     table.insert(alsa_monitor.rules, rule)
+    #   '';
+    # };
   };
 }
