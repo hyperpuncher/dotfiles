@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, outputs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   imports =
@@ -9,7 +9,7 @@
     ];
 
   home-manager = {
-    extraSpecialArgs = { inherit inputs outputs; };
+    extraSpecialArgs = { inherit inputs; };
     users = {
       igor = import ./home.nix;
     };
@@ -311,36 +311,32 @@
           indent = true;
         };
 
-        nvim-cmp = {
+        cmp = {
           enable = true;
 
-          snippet.expand = "luasnip";
+          settings = {
 
-          sources = [
-            # { name = "codeium"; }
-            { name = "nvim-lsp"; }
-            { name = "path"; }
-            { name = "luasnip"; }
-            { name = "cmdline"; }
-            { name = "buffer"; }
-          ];
+            snippet.expand = "luasnip";
 
-          mapping = {
-            "<C-Space>" = "cmp.mapping.complete()";
-            "<C-n>" = {
-              modes = [ "i" "s" ];
-              action = "cmp.mapping.select_next_item()";
+            sources = [
+              { name = "nvim-lsp"; }
+              { name = "path"; }
+              { name = "luasnip"; }
+              { name = "cmdline"; }
+              { name = "buffer"; }
+            ];
+
+            mapping = {
+              "<C-Space>" = "cmp.mapping.complete()";
+              "<C-n>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
+              "<C-p>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
+              "<C-y>" = "cmp.mapping.confirm({ select = true })";
             };
-            "<C-p>" = {
-              modes = [ "i" "s" ];
-              action = "cmp.mapping.select_prev_item()";
-            };
-            "<C-y>" = "cmp.mapping.confirm({ select = true })";
-          };
 
-          window = {
-            completion.border = "single";
-            documentation.border = "single";
+            window = {
+              completion.border = "single";
+              documentation.border = "single";
+            };
           };
         };
 
@@ -352,8 +348,8 @@
             clangd.enable = true;
             gopls.enable = true;
             lua-ls.enable = true;
+            nil_ls.enable = true;
             pyright.enable = true;
-            rnix-lsp.enable = true;
             ruff-lsp.enable = true;
             rust-analyzer = {
               enable = true;
@@ -584,7 +580,6 @@
       isNormalUser = true;
       description = "igor";
       extraGroups = [ "networkmanager" "wheel" "video" "i2c" ];
-      packages = with pkgs; [ ];
     };
   };
 
@@ -628,6 +623,7 @@
   system.stateVersion = "23.11";
 
   nix = {
+    package = pkgs.nixVersions.unstable;
     optimise.automatic = true;
     gc = {
       automatic = true;
@@ -636,6 +632,12 @@
     };
     settings = {
       experimental-features = [ "nix-command" "flakes" ];
+      substituters = [
+        "https://nix-community.cachix.org"
+      ];
+      trusted-public-keys = [
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      ];
     };
   };
 

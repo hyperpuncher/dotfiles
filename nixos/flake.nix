@@ -10,17 +10,12 @@
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, ... } @ inputs:
-    let
-      inherit (self) outputs;
-    in
-    {
-      # Available through 'nixos-rebuild --flake .#your-hostname'
-      nixosConfigurations = {
-        nixos = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs outputs; };
-          modules = [ ./configuration.nix ];
-        };
-      };
+  outputs = { self, nixpkgs, ... } @ inputs: {
+    # Available through 'nixos-rebuild --flake .#your-hostname'
+    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      specialArgs = { inherit inputs; };
+      modules = [ ./configuration.nix ];
     };
+  };
 }
