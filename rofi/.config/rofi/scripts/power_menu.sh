@@ -1,15 +1,15 @@
-#!/bin/sh
+#!/usr/bin/env dash
 
-choice=$(printf "Shutdown\nReboot\nLogout" | rofi -dmenu -i -p "Power")
-
-case $choice in
-"Shutdown")
-	cliphist wipe && systemctl poweroff
+case $1 in
+"shutdown")
+	rm ~/.cache/cliphist/db && systemctl poweroff
 	;;
-"Reboot")
+"reboot")
 	systemctl reboot
 	;;
-"Logout")
-	hyprctl dispatch exit 0
+"logout")
+	hyprctl dispatch exit
 	;;
 esac
+
+printf "shutdown\nreboot\nlogout"
