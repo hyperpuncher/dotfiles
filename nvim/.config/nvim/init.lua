@@ -438,6 +438,10 @@ map("n", "<leader>x", ":bd<CR>")
 
 map("n", "<leader>rn", ":IncRename ")
 
+-- Increase and decrease ints
+map("n", "<C-S-a>", "<C-a>")
+map("n", "<C-S-x>", "<C-x>")
+
 -- Diagnostic keymaps
 map("n", "<leader>pd", vim.diagnostic.goto_prev)
 map("n", "<leader>nd", vim.diagnostic.goto_next)

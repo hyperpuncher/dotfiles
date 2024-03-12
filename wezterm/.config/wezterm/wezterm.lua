@@ -34,6 +34,11 @@ local config = {
 				end
 			end),
 		},
+		{
+			key = "x",
+			mods = "SHIFT|CTRL",
+			action = wezterm.action.DisableDefaultAssignment,
+		},
 	},
 
 	mouse_bindings = {
