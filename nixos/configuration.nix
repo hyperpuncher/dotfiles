@@ -29,7 +29,6 @@
 
     adw-gtk3
     age
-    foot
     alacritty
     android-file-transfer
     android-tools
@@ -58,6 +57,7 @@
     ffmpegthumbnailer
     fnm
     font-manager
+    foot
     fx
     fzf
     gimp
@@ -104,6 +104,7 @@
     nvtop
     nwg-look
     obs-studio
+    obsidian
     ocrmypdf
     openai-whisper-cpp
     openscad-unstable
@@ -121,6 +122,7 @@
     qemu
     qgnomeplatform
     qgnomeplatform-qt6
+    qmk
     qrencode
     qt6.qtimageformats
     qt6.qtwayland
@@ -161,7 +163,6 @@
     xorg.xhost
     yarn
     yt-dlp
-    obsidian
     zip
     zoxide
   ];

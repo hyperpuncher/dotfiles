@@ -98,7 +98,7 @@
       };
 
       bind = [
-        "$mod, ESCAPE, exec, ~/dotfiles/rofi/.config/rofi/scripts/power_menu.sh"
+        "$mod, ESCAPE, exec, rofi -show power_menu -modes 'power_menu:~/dotfiles/rofi/.config/rofi/scripts/power_menu.sh'"
         "$mod, RETURN, exec, wezterm"
         "$mod, E, exec, nemo"
         "$mod, B, exec, brave"
@@ -138,22 +138,16 @@
         "$mod SHIFT, 9, movetoworkspacesilent, 9"
         "$mod SHIFT, 0, movetoworkspacesilent, 10"
 
-        ", XF86MonBrightnessDown, exec, brillo -q -U 5"
-        ", XF86MonBrightnessUp, exec, brillo -q -A 5"
-
         ", XF86AudioPlay, exec, playerctl play-pause"
         ", XF86AudioNext, exec, playerctl next"
         ", XF86AudioPrev, exec, playerctl previous"
 
-        ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_SINK@ 5%-"
-        ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_SINK@ 5%+"
-
         # Clipboard
-        "$mod, V, exec, cliphist list | rofi -dmenu -p 'clipboard' -display-columns 2 | cliphist decode | wl-copy"
+        "$mod, V, exec, rofi -modi clipboard:~/dotfiles/rofi/.config/rofi/scripts/cliphist-rofi-img -show clipboard -show-icons -theme ~/dotfiles/rofi/.config/rofi/clipboard.rasi"
 
         # Screenshot
-        "$mod, comma, exec, grim"
-        "$mod, slash, exec, grim -g \"$(slurp -d -w 1 -F Iosevka)\""
+        "$mod, comma, exec, img=~/Pictures/screenshot_$(date +%Y-%m-%d_%Hh%Mm%Ss).png && grim $img && wl-copy < $img"
+        "$mod, slash, exec, img=~/Pictures/screenshot_$(date +%Y-%m-%d_%Hh%Mm%Ss).png && grim -g \"$(slurp -d -w 1 -F \"Iosevka Nerd Font\")\" $img && wl-copy < $img"
 
         # Calculator
         "$mod, quoteright, exec, rofi -show calc -modi calc -no-show-match -no-sort -no-persist-history"
@@ -163,6 +157,14 @@
       bindm = [
         "$mod, mouse:272, movewindow"
         "$mod, mouse:273, resizewindow"
+      ];
+
+      binde = [
+        ", XF86MonBrightnessDown, exec, brillo -q -U 5"
+        ", XF86MonBrightnessUp, exec, brillo -q -A 5"
+
+        ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_SINK@ 5%-"
+        ", XF86AudioRaiseVolume, exec, wpctl set-volume -l 1.5 @DEFAULT_SINK@ 5%+"
       ];
 
       misc = {
@@ -637,7 +639,7 @@
       package = pkgs.rofi-wayland;
       font = "Iosevka 15";
       location = "center";
-      plugins = [ pkgs.rofi-calc ];
+      # plugins = [ pkgs.rofi-calc ];
       theme = "~/dotfiles/rofi/.config/rofi/theme.rasi";
       extraConfig = {
         modes = "drun";
