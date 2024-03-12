@@ -220,10 +220,12 @@ require("lazy").setup({
 						timeout_ms = 500,
 						lsp_fallback = true,
 					},
+					notify_on_error = false,
 					formatters_by_ft = {
 						astro = { "prettierd" },
 						go = { "gofumpt" },
 						javascript = { "biome" },
+						json = { "biome" },
 						lua = { "stylua" },
 						nix = { "nixpkgs_fmt" },
 						sh = { "shfmt" },
