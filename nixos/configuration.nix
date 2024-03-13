@@ -252,8 +252,9 @@
             astro = [ "prettierd" ];
             go = [ "gofumpt" ];
             javascript = [ "biome" ];
+            json = [ "biome" ];
             lua = [ "stylua" ];
-            nix = [ "nixpkgs-fmt" ];
+            nix = [ "nixpkgs_fmt" ];
             sh = [ "shfmt" ];
             svelte = [ "prettierd" ];
             yaml = [ "prettierd" ];
@@ -441,6 +442,10 @@
         { mode = "n"; key = "<leader>h"; action = "require('telescope.builtin').help_tags"; lua = true; }
         { mode = "n"; key = "<leader>d"; action = "require('telescope.builtin').diagnostics"; lua = true; }
 
+        # Increase and decrease ints
+        { mode = "n"; key = "<C-S-a>"; action = "<C-a>"; }
+        { mode = "n"; key = "<C-S-x>"; action = "<C-x>"; }
+
       ];
     };
 
@@ -530,7 +535,7 @@
     loader.efi.canTouchEfiVariables = true;
     extraModulePackages = with config.boot.kernelPackages; [ apfs ddcci-driver ];
     kernelModules = [ "ddcci_backlight" ];
-    kernelPackages = pkgs.linuxPackages_latest;
+    # kernelPackages = pkgs.linuxPackages_latest;
   };
 
   networking = {

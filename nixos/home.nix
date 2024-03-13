@@ -143,7 +143,7 @@
         ", XF86AudioPrev, exec, playerctl previous"
 
         # Clipboard
-        "$mod, V, exec, rofi -modi clipboard:~/dotfiles/rofi/.config/rofi/scripts/cliphist-rofi-img -show clipboard -show-icons -theme ~/dotfiles/rofi/.config/rofi/clipboard.rasi"
+        "$mod, V, exec, rofi -modi clipboard:~/dotfiles/rofi/.config/rofi/scripts/cliphist-rofi-img -show clipboard -show-icons"
 
         # Screenshot
         "$mod, comma, exec, img=~/Pictures/screenshot_$(date +%Y-%m-%d_%Hh%Mm%Ss).png && grim $img && wl-copy < $img"
@@ -235,6 +235,11 @@
       enable = true;
       extraConfig = ''
         local wezterm = require("wezterm")
+
+        function basename(s)
+          return string.gsub(s, '(.*[/\\])(.*)', '%2')
+        end
+
         local config = {
 
             audible_bell = "Disabled",
@@ -264,12 +269,17 @@
                     key = "v",
                     mods = "CTRL",
                     action = wezterm.action_callback(function(window, pane)
-                        if pane:get_foreground_process_name() ~= "/usr/bin/nvim" then
+                        if basename(pane:get_foreground_process_name()) ~= "nvim" then
                             window:perform_action(wezterm.action({ PasteFrom = "Clipboard" }), pane)
                         else
                             window:perform_action(wezterm.action.SendKey({ key = "v", mods = "CTRL" }), pane)
                         end
                     end),
+                },
+                {
+                    key = "x",
+                    mods = "SHIFT|CTRL",
+                    action = wezterm.action.DisableDefaultAssignment,
                 },
             },
 
