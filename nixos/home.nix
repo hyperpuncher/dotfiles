@@ -164,7 +164,7 @@
         ", XF86MonBrightnessUp, exec, brillo -q -A 5"
 
         ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_SINK@ 5%-"
-        ", XF86AudioRaiseVolume, exec, wpctl set-volume -l 1.5 @DEFAULT_SINK@ 5%+"
+        ", XF86AudioRaiseVolume, exec, wpctl set-volume -l 1.2 @DEFAULT_SINK@ 5%+"
       ];
 
       misc = {
@@ -353,7 +353,7 @@
             tooltip = false;
             # "thermal-zone" = 1;
             hwmon-path = "/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon2/temp1_input";
-            critical-threshold = 80;
+            critical-threshold = 90;
             # "format-critical" = "{temperatureC}°C {icon}";
             format = "{temperatureC}°C {icon}";
             format-icons = [ "" ];
