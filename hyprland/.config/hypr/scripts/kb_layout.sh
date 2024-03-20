@@ -16,7 +16,7 @@ for name in ${kb_names}; do
 done
 
 while true; do
-	active_window_class=$(hyprctl activewindow | grep "class" | awk '{print $2}')
+	active_window_class=$(hyprctl activewindow -j | jq -r '.class')
 	if [ "$active_window_class" != "$previous_window_class" ]; then
 		case " $ru_layout_apps " in
 
