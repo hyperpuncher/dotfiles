@@ -504,11 +504,37 @@
     openssh.enable = true;
     udisks2.enable = true;
 
+    syncthing = {
+      enable = true;
+      user = "igor";
+      dataDir = "/home/igor/Sync";
+      configDir = "/home/igor/.config/syncthing";
+    };
+
     pipewire = {
       enable = true;
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
+      # wireplumber.extraConfig."51-disable-suspend" = ''
+      #   alsa_monitor.rules = {
+      #       {
+      #           matches = {
+      #               {
+      #                   -- Matches all sources.
+      #                   { "node.name", "matches", "alsa_input.*" },
+      #               },
+      #               {
+      #                   -- Matches all sinks.
+      #                   { "node.name", "matches", "alsa_output.*" },
+      #               },
+      #           },
+      #           apply_properties = {
+      #               ["session.suspend-timeout-seconds"] = 0,
+      #           },
+      #       },
+      #   }
+      # '';
     };
 
     # Configure keymap in X11

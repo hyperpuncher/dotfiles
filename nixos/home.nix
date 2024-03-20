@@ -29,6 +29,7 @@
       monitor = ",preferred,auto,auto";
 
       exec-once = [
+        "mpv ~/dotfiles/sounds/ubuntu.opus"
         "swaybg -i ~/Pictures/wp.png -m fill"
         "waybar"
         # "jamesdsp -t"
@@ -686,14 +687,15 @@
       settings = {
         global = {
           width = "(0, 300)";
-          offset = "30x30";
+          offset = "20x20";
           frame_width = 1;
-          frame_color = "#000000";
+          frame_color = "#000000e6";
           font = "Inter Display 10";
+          corner_radius = 5;
         };
         urgency_normal = {
-          background = "#ffffff";
-          foreground = "#0f0f0f";
+          background = "#ffffffe6";
+          foreground = "#0f0f0fe6";
         };
       };
       iconTheme.package = pkgs.papirus-icon-theme;
