@@ -8,6 +8,7 @@ local config = {
 	force_reverse_video_cursor = true,
 	freetype_load_flags = "NO_HINTING",
 	window_close_confirmation = "NeverPrompt",
+	window_background_opacity = 0.9,
 
 	keys = {
 		{

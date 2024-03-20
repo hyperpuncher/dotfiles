@@ -190,6 +190,7 @@ require("lazy").setup({
 				menu = bg_color,
 			},
 			italic_comment = true,
+			transparent_bg = true,
 		},
 	},
 
