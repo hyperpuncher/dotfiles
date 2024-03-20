@@ -356,9 +356,14 @@ require("lazy").setup({
 	{ "mbbill/undotree" },
 
 	{
-		"Exafunction/codeium.nvim",
-		enabled = false,
-		opts = {},
+		"Exafunction/codeium.vim",
+		event = "BufEnter",
+		config = function()
+			vim.g.codeium_disable_bindings = 1
+			map("i", "<C-'>", function()
+				return vim.fn["codeium#Accept"]()
+			end, { expr = true, silent = true })
+		end,
 	},
 
 	{
