@@ -1,33 +1,37 @@
 #!/usr/bin/env dash
-active_window_class=""
-previous_window_class=""
 
 kb_names="bastard-keyboards-charybdis-mini-(3x6)-pro-micro hyperpuncher-kanariyoi"
 
-active_keyboard=""
-
 ru_layout_apps="org.telegram.desktop"
 
+devices=$(hyprctl devices)
+
 for name in ${kb_names}; do
-	if hyprctl devices -j | jq -e '.keyboards[].name' | grep -q "$name"; then
+	if echo "$devices" | grep -q "$name"; then
 		active_keyboard="$name"
 		break
 	fi
 done
 
-while true; do
-	active_window_class=$(hyprctl activewindow -j | jq -r '.class')
-	if [ "$active_window_class" != "$previous_window_class" ]; then
-		case " $ru_layout_apps " in
+handle() {
+	case $1 in
+	activewindow\>*)
+		activewindow=$(echo "$1" | sed -n 's/^activewindow>>\([^,]*\).*/\1/p')
 
-		*" $active_window_class "*)
-			hyprctl switchxkblayout "$active_keyboard" 1
+		case "$ru_layout_apps" in
+		*"$activewindow"*)
+			layout=1
 			;;
 		*)
-			hyprctl switchxkblayout "$active_keyboard" 0
+			layout=0
 			;;
 		esac
-		previous_window_class="$active_window_class"
-	fi
-	sleep 0.2
-done
+
+		echo "switchxkblayout $active_keyboard $layout" | socat - UNIX-CONNECT:/tmp/hypr/"$HYPRLAND_INSTANCE_SIGNATURE"/.socket.sock
+
+		;;
+	esac
+}
+
+socat -U - UNIX-CONNECT:/tmp/hypr/"$HYPRLAND_INSTANCE_SIGNATURE"/.socket2.sock |
+	while read -r line; do handle "$line"; done
