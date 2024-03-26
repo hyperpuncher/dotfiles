@@ -17,6 +17,7 @@
 
   environment.systemPackages = with pkgs; [
     # davinci-resolve
+    # pipx
 
     biome
     go-tools
@@ -27,6 +28,7 @@
     shfmt
     stylua
 
+    _7zz
     adw-gtk3
     age
     alacritty
@@ -101,18 +103,16 @@
     ninja
     nodePackages.pnpm
     nodejs
-    nvtop
+    nvtopPackages.full
     nwg-look
     obs-studio
     obsidian
     ocrmypdf
     openai-whisper-cpp
     openscad-unstable
-    p7zip
     parallel
     pavucontrol
     pfetch-rs
-    pipx
     playerctl
     polkit_gnome
     prettierd
@@ -135,6 +135,7 @@
     rustdesk
     shell_gpt
     slurp
+    socat
     soft-serve
     solaar
     solvespace
@@ -165,6 +166,7 @@
     yt-dlp
     zip
     zoxide
+
   ];
 
   programs = {
@@ -217,10 +219,12 @@
         telescope.enable = true;
         codeium-vim.enable = true;
 
-        comment-nvim = {
+        comment = {
           enable = true;
-          toggler = {
-            line = "<C-/>";
+          settings = {
+            toggler = {
+              line = "<C-/>";
+            };
           };
         };
 
@@ -237,12 +241,12 @@
 
         indent-blankline = {
           enable = true;
-          indent = {
-            char = "│";
-          };
-          scope = {
-            showStart = false;
-            showEnd = false;
+          settings = {
+            indent.char = "│";
+            scope = {
+              show_start = false;
+              show_end = false;
+            };
           };
         };
 
@@ -336,8 +340,8 @@
             };
 
             window = {
-              completion.border = "single";
-              documentation.border = "single";
+              completion.border = "rounded";
+              documentation.border = "rounded";
             };
           };
         };

@@ -102,7 +102,7 @@
         "$mod, ESCAPE, exec, rofi -show power_menu -modes 'power_menu:~/dotfiles/rofi/.config/rofi/scripts/power_menu.sh'"
         "$mod, RETURN, exec, wezterm"
         "$mod, E, exec, nemo"
-        "$mod, B, exec, brave"
+        "$mod, B, exec, brave --disable-features=HardwareMediaKeyHandling"
         "$mod, K, exec, hyprctl kill"
         "$mod, D, exec, rofi -show drun -display-drun 'Apps'"
         "$mod, Q, killactive,"
@@ -696,6 +696,7 @@
         urgency_normal = {
           background = "#ffffffe6";
           foreground = "#0f0f0fe6";
+          timeout = 5;
         };
       };
       iconTheme.package = pkgs.papirus-icon-theme;
