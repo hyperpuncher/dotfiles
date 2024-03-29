@@ -1,6 +1,6 @@
 #!/usr/bin/env dash
 
-kb_names="bastard-keyboards-charybdis-mini-(3x6)-pro-micro hyperpuncher-kanariyoi"
+kb_names="bastard-keyboards-charybdis-mini-(3x6)-pro-micro-keyboard hyperpuncher-kanariyoi-keyboard"
 
 ru_layout_apps="org.telegram.desktop"
 
