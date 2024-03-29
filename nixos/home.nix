@@ -100,7 +100,7 @@
 
       bind = [
         "$mod, ESCAPE, exec, rofi -show power_menu -modes 'power_menu:~/dotfiles/rofi/.config/rofi/scripts/power_menu.sh'"
-        "$mod, RETURN, exec, wezterm"
+        "$mod, RETURN, exec, foot"
         "$mod, E, exec, nemo"
         "$mod, B, exec, brave --disable-features=HardwareMediaKeyHandling"
         "$mod, K, exec, hyprctl kill"
@@ -153,6 +153,9 @@
         # Calculator
         "$mod, quoteright, exec, rofi -show calc -modi calc -no-show-match -no-sort -no-persist-history"
 
+        # Color Picker
+        "$mod CTRL, c, exec, hyprpicker -a"
+
       ];
 
       bindm = [
@@ -179,11 +182,39 @@
   programs = {
     home-manager.enable = true;
 
+    alacritty = {
+      enable = true;
+      settings = {
+        import = [ "~/dotfiles/alacritty/.config/alacritty/monokai_charcoal.toml" ];
+        font = {
+          size = 14;
+          normal.family = "IosevkaTerm Nerd Font";
+          normal.style = "Regular";
+          bold.family = "IosevkaTerm Nerd Font";
+          bold.style = "Bold";
+          italic.family = "IosevkaTerm Nerd Font";
+          italic.style = "Italic";
+        };
+        window = {
+          dynamic_padding = true;
+          padding.x = 7;
+          padding.y = 5;
+          opacity = 0.9;
+        };
+      };
+    };
+
     btop = {
       enable = true;
       settings = {
         color_theme = "dracula";
+        proc_filter_kernel = true;
+        proc_gradient = false;
+        rounded_corners = false;
         shown_boxes = "cpu proc";
+        theme_background = false;
+        update_ms = 1000;
+        vim_keys = true;
       };
     };
 
@@ -204,31 +235,32 @@
       settings = {
         main = {
           term = "xterm-256color";
-          font = "IosevkaTerm Nerd Font:size=15";
-        };
-        cursor = {
-          color = "282a36 f8f8f2";
+          font = "IosevkaTerm Nerd Font:size=14";
+          pad = "7x4";
         };
         colors = {
-          foreground = "f8f8f2";
-          background = "282a36";
-          regular0 = "000000";
-          regular1 = "ff5555";
-          regular2 = "50fa7b";
-          regular3 = "f1fa8c";
-          regular4 = "bd93f9";
-          regular5 = "ff79c6";
-          regular6 = "8be9fd";
-          regular7 = "bfbfbf";
-          bright0 = "4d4d4d";
-          bright1 = "ff6e67";
-          bright2 = "5af78e";
-          bright3 = "f4f99d";
-          bright4 = "caa9fa";
-          bright5 = "ff92d0";
-          bright6 = "9aedfe";
-          bright7 = "e6e6e6";
+          alpha = 0.9;
+          foreground = "d9d9d9";
+          background = "191919";
+          regular0 = "1a1a1a";
+          regular1 = "f4005f";
+          regular2 = "98e024";
+          regular3 = "fa8419";
+          regular4 = "9d65ff";
+          regular5 = "f4005f";
+          regular6 = "58d1eb";
+          regular7 = "c4c5b5";
+          bright0 = "625e4c";
+          bright1 = "f4005f";
+          bright2 = "98e024";
+          bright3 = "e0d561";
+          bright4 = "9d65ff";
+          bright5 = "f4005f";
+          bright6 = "58d1eb";
+          bright7 = "f6f6ef";
         };
+        tweak.box-drawing-base-thickness = 0.02;
+        scrollback.indicator-position = "none";
       };
     };
 
@@ -246,11 +278,13 @@
             audible_bell = "Disabled",
             color_scheme = "Monokai Soda",
             enable_tab_bar = false,
+            enable_wayland = false,
             font = wezterm.font("IosevkaTerm Nerd Font"),
-            font_size = 15,
+            font_size = 21,
             force_reverse_video_cursor = true,
             freetype_load_flags = "NO_HINTING",
             window_close_confirmation = "NeverPrompt",
+            window_background_opacity = 0.9,
 
             keys = {
                 {
@@ -352,10 +386,9 @@
           };
           temperature = {
             tooltip = false;
-            # "thermal-zone" = 1;
-            hwmon-path = "/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon2/temp1_input";
+            hwmon-path-abs = "/sys/devices/pci0000:00/0000:00:18.3/hwmon";
+            input-filename = "temp1_input";
             critical-threshold = 90;
-            # "format-critical" = "{temperatureC}°C {icon}";
             format = "{temperatureC}°C {icon}";
             format-icons = [ "" ];
           };

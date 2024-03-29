@@ -31,7 +31,6 @@
     _7zz
     adw-gtk3
     age
-    alacritty
     android-file-transfer
     android-tools
     aria
@@ -54,12 +53,12 @@
     dua
     eza
     f3d
+    fastfetch
     fd
     ffmpeg
     ffmpegthumbnailer
     fnm
     font-manager
-    foot
     fx
     fzf
     gimp
@@ -179,7 +178,7 @@
 
       globals.mapleader = " ";
 
-      options = {
+      opts = {
         breakindent = true;
         clipboard = "unnamedplus";
         completeopt = "menu,menuone,noinsert";
@@ -230,12 +229,14 @@
 
         gitsigns = {
           enable = true;
-          signs = {
-            add = { text = "+"; };
-            change = { text = "~"; };
-            delete = { text = "_"; };
-            topdelete = { text = "‾"; };
-            changedelete = { text = "~"; };
+          settings = {
+            signs = {
+              add = { text = "+"; };
+              change = { text = "~"; };
+              delete = { text = "_"; };
+              topdelete = { text = "‾"; };
+              changedelete = { text = "~"; };
+            };
           };
         };
 
@@ -382,6 +383,7 @@
                 menu = "#1A1A1A",
             },
             italic_comment = true,
+            transparent_bg = true,
         })
     
         vim.api.nvim_set_hl(0, "YankHighlight", { fg = "black", bg = "white" })
@@ -646,6 +648,7 @@
         sansSerif = [ "Inter Display" ];
         serif = [ "Inter Display" ];
         monospace = [ "Iosevka" ];
+        emoji = [ "Noto Color Emoji" ];
       };
     };
   };
