@@ -1,33 +1,21 @@
 #!/usr/bin/env dash
 
-kb_names="bastard-keyboards-charybdis-mini-(3x6)-pro-micro-keyboard hyperpuncher-kanariyoi-keyboard"
-
 ru_layout_apps="org.telegram.desktop"
 
-devices=$(hyprctl devices)
-
-for name in ${kb_names}; do
-	if echo "$devices" | grep -q "$name"; then
-		active_keyboard="$name"
-		break
-	fi
-done
+keyboard=$(hyprctl devices | grep keyboard)
 
 handle() {
 	case $1 in
 	activewindow\>*)
 		activewindow=$(echo "$1" | sed -n 's/^activewindow>>\([^,]*\).*/\1/p')
 
-		case "$ru_layout_apps" in
-		*"$activewindow"*)
-			layout=1
-			;;
-		*)
-			layout=0
-			;;
-		esac
+		layout=0
 
-		echo "switchxkblayout $active_keyboard $layout" | socat - UNIX-CONNECT:/tmp/hypr/"$HYPRLAND_INSTANCE_SIGNATURE"/.socket.sock
+		if echo "$activewindow" | grep -qE "$ru_layout_apps"; then
+			layout=1
+		fi
+
+		echo "switchxkblayout $keyboard $layout" | socat - UNIX-CONNECT:/tmp/hypr/"$HYPRLAND_INSTANCE_SIGNATURE"/.socket.sock
 
 		;;
 	esac
