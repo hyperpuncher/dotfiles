@@ -54,6 +54,7 @@
     dua
     eza
     f3d
+    fastfetch
     fd
     ffmpeg
     ffmpegthumbnailer
@@ -230,12 +231,14 @@
 
         gitsigns = {
           enable = true;
-          signs = {
-            add = { text = "+"; };
-            change = { text = "~"; };
-            delete = { text = "_"; };
-            topdelete = { text = "‾"; };
-            changedelete = { text = "~"; };
+          settings = {
+            signs = {
+              add = { text = "+"; };
+              change = { text = "~"; };
+              delete = { text = "_"; };
+              topdelete = { text = "‾"; };
+              changedelete = { text = "~"; };
+            };
           };
         };
 
@@ -382,6 +385,7 @@
                 menu = "#1A1A1A",
             },
             italic_comment = true,
+            transparent_bg = true,
         })
     
         vim.api.nvim_set_hl(0, "YankHighlight", { fg = "black", bg = "white" })

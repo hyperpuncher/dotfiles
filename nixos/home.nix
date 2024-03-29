@@ -183,7 +183,13 @@
       enable = true;
       settings = {
         color_theme = "dracula";
+        proc_filter_kernel = true;
+        proc_gradient = false;
+        rounded_corners = false;
         shown_boxes = "cpu proc";
+        theme_background = false;
+        update_ms = 1000;
+        vim_keys = true;
       };
     };
 
@@ -246,11 +252,13 @@
             audible_bell = "Disabled",
             color_scheme = "Monokai Soda",
             enable_tab_bar = false,
+            enable_wayland = false,
             font = wezterm.font("IosevkaTerm Nerd Font"),
-            font_size = 15,
+            font_size = 21,
             force_reverse_video_cursor = true,
             freetype_load_flags = "NO_HINTING",
             window_close_confirmation = "NeverPrompt",
+            window_background_opacity = 0.9,
 
             keys = {
                 {
@@ -352,10 +360,9 @@
           };
           temperature = {
             tooltip = false;
-            # "thermal-zone" = 1;
-            hwmon-path = "/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon2/temp1_input";
+            hwmon-path-abs = "/sys/devices/pci0000:00/0000:00:18.3/hwmon";
+            input-filename = "temp1_input";
             critical-threshold = 90;
-            # "format-critical" = "{temperatureC}°C {icon}";
             format = "{temperatureC}°C {icon}";
             format-icons = [ "" ];
           };
