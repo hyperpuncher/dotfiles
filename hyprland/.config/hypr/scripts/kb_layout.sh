@@ -2,7 +2,9 @@
 
 ru_layout_apps="org.telegram.desktop"
 
-keyboard=$(hyprctl devices | grep keyboard)
+kb_names="bastard-keyboards-charybdis-mini-\(3x6\)-pro-micro$|hyperpuncher-kanariyoi-keyboard"
+
+keyboard=$(hyprctl devices | grep -Eo "$kb_names")
 
 handle() {
 	case $1 in
