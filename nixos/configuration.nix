@@ -31,7 +31,6 @@
     _7zz
     adw-gtk3
     age
-    alacritty
     android-file-transfer
     android-tools
     aria
@@ -60,7 +59,6 @@
     ffmpegthumbnailer
     fnm
     font-manager
-    foot
     fx
     fzf
     gimp
@@ -180,7 +178,7 @@
 
       globals.mapleader = " ";
 
-      options = {
+      opts = {
         breakindent = true;
         clipboard = "unnamedplus";
         completeopt = "menu,menuone,noinsert";
@@ -650,6 +648,7 @@
         sansSerif = [ "Inter Display" ];
         serif = [ "Inter Display" ];
         monospace = [ "Iosevka" ];
+        emoji = [ "Noto Color Emoji" ];
       };
     };
   };
