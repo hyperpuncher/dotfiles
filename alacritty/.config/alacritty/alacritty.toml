@@ -18,3 +18,4 @@ style = "Italic"
 [window]
 padding.x = 7
 dynamic_padding = true
+opacity = 0.9
