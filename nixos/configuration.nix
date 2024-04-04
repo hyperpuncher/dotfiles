@@ -16,8 +16,11 @@
   };
 
   environment.systemPackages = with pkgs; [
+
+    # blender-hip
     # davinci-resolve
     # pipx
+    # rustdesk
 
     biome
     go-tools
@@ -36,8 +39,6 @@
     aria
     atool
     bat
-    blender
-    blender-hip
     brave
     bun
     chafa
@@ -79,7 +80,7 @@
     inkscape
     jamesdsp
     jq
-    kicad
+    kicad-small
     kikit
     lazydocker
     lazygit
@@ -114,6 +115,7 @@
     pfetch-rs
     playerctl
     polkit_gnome
+    poppler_utils
     prettierd
     procs
     pulsemixer
@@ -131,7 +133,6 @@
     qview
     ripgrep
     rofi-calc
-    rustdesk
     shell_gpt
     slurp
     socat

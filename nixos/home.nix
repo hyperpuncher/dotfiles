@@ -51,7 +51,7 @@
       };
 
       windowrule = [
-        "float, ^(blueman-manager)$"
+        "float, ^(.blueman-manager-wrapped)$"
         "float, ^(com\.github.parnold_x\.nasc)$"
         "float, ^(quickgui)$"
         "float, title:^(File Operation Progress)$"
@@ -236,7 +236,7 @@
         main = {
           term = "xterm-256color";
           font = "IosevkaTerm Nerd Font:size=14";
-          pad = "7x4";
+          pad = "7x4 center";
         };
         colors = {
           alpha = 0.9;
@@ -261,6 +261,7 @@
         };
         tweak.box-drawing-base-thickness = 0.02;
         scrollback.indicator-position = "none";
+        url.launch = "brave \${url}";
       };
     };
 
