@@ -368,6 +368,10 @@
             tailwindcss.enable = true;
             tsserver.enable = true;
           };
+
+          keymaps.lspBuf = {
+            K = "hover";
+          };
         };
 
       };
@@ -379,9 +383,12 @@
       extraConfigLuaPre = ''
         require("dracula").setup({
             colors = {
-                bg = "#1A1A1A",
-                black = "#FFFFFF",
-                menu = "#1A1A1A",
+                -- black = "#FFFFFF",
+                -- bg = "#1A1A1A",
+                -- menu = "#1A1A1A",
+                black = "None",
+                bg = "None",
+                menu = "None",
             },
             italic_comment = true,
             transparent_bg = true,
@@ -397,6 +404,9 @@
             pattern = "*",
         })
 
+        vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
+        vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
+        vim.diagnostic.config({ float = { border = "rounded" } })
       '';
 
       keymaps = [
