@@ -199,7 +199,7 @@ require("lazy").setup({
 		dependencies = {
 			{
 				"williamboman/mason.nvim",
-				opts = { ui = { border = "single" } },
+				opts = { ui = { border = "rounded" } },
 			},
 
 			{ "williamboman/mason-lspconfig.nvim" },
@@ -375,7 +375,7 @@ require("lazy").setup({
 	},
 }, {
 	ui = {
-		border = "single",
+		border = "rounded",
 	},
 })
 
@@ -521,11 +521,11 @@ cmp.setup({
 	},
 	window = {
 		completion = cmp.config.window.bordered({
-			border = "single",
+			border = "rounded",
 			winhighlight = "Normal:CmpPmenu,CursorLine:PmenuSel,Search:None",
 		}),
 		documentation = cmp.config.window.bordered({
-			border = "single",
+			border = "rounded",
 		}),
 	},
 	snippet = {
@@ -566,6 +566,6 @@ cmp.config.formatting = {
 	format = require("tailwindcss-colorizer-cmp").formatter,
 }
 
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "single" })
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "single" })
-vim.diagnostic.config({ float = { border = "single" } })
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
+vim.diagnostic.config({ float = { border = "rounded" } })
