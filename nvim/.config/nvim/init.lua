@@ -363,12 +363,12 @@ require("lazy").setup({
 	{
 		"Exafunction/codeium.vim",
 		event = "BufEnter",
-		config = function()
-			vim.g.codeium_disable_bindings = 1
-			map("i", "<C-'>", function()
-				return vim.fn["codeium#Accept"]()
-			end, { expr = true, silent = true })
-		end,
+		-- config = function()
+		-- 	vim.g.codeium_disable_bindings = 1
+		-- 	map("i", "<C-'>", function()
+		-- 		return vim.fn["codeium#Accept"]()
+		-- 	end, { expr = true, silent = true })
+		-- end,
 	},
 
 	{
@@ -551,9 +551,9 @@ cmp.setup({
 		{ name = "luasnip" },
 		{ name = "buffer" },
 	},
-	experimental = {
-		ghost_text = true,
-	},
+	-- experimental = {
+	-- 	ghost_text = true,
+	-- },
 })
 
 -- `:` cmdline setup.
