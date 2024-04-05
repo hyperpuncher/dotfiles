@@ -19,8 +19,7 @@
 
     # blender-hip
     # davinci-resolve
-    # pipx
-    # rustdesk
+    # taskell
 
     biome
     go-tools
@@ -113,6 +112,7 @@
     parallel
     pavucontrol
     pfetch-rs
+    pipx
     playerctl
     polkit_gnome
     poppler_utils
@@ -133,6 +133,7 @@
     qview
     ripgrep
     rofi-calc
+    rustdesk
     shell_gpt
     slurp
     socat
@@ -211,13 +212,20 @@
       plugins = {
 
         auto-session.enable = true;
+        cmp-buffer.enable = true;
+        cmp-cmdline.enable = true;
+        cmp-nvim-lsp.enable = true;
+        cmp-path.enable = true;
+        cmp_luasnip.enable = true;
+        codeium-vim.enable = true;
         fidget.enable = true;
+        friendly-snippets.enable = true;
         lspkind.enable = true;
         luasnip.enable = true;
+        nvim-colorizer.enable = true;
         oil.enable = true;
         rainbow-delimiters.enable = true;
         telescope.enable = true;
-        codeium-vim.enable = true;
 
         comment = {
           enable = true;
@@ -298,7 +306,8 @@
                 mode = 2;
                 "buffers_color" = {
                   active = {
-                    bg = "#1A1A1A";
+                    # bg = "#1A1A1A";
+                    bg = "None";
                   };
                 };
                 symbols = {
@@ -323,11 +332,16 @@
           enable = true;
 
           settings = {
+            completion.completeopt = "menu,menuone,noinsert";
 
-            snippet.expand = "luasnip";
+            snippet.expand = ''
+              function(args)
+                  require('luasnip').lsp_expand(args.body)
+              end
+            '';
 
             sources = [
-              { name = "nvim-lsp"; }
+              { name = "nvim_lsp"; }
               { name = "path"; }
               { name = "luasnip"; }
               { name = "cmdline"; }

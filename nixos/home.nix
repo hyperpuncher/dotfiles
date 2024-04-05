@@ -36,6 +36,7 @@
         "blueman-applet"
         "nm-applet"
         "~/dotfiles/hyprland/.config/hypr/scripts/kb_layout.sh"
+        "telegram-desktop"
 
         "wl-paste --type text --watch cliphist store" #Stores only text data
         "wl-paste --type image --watch cliphist store" #Stores only image data
