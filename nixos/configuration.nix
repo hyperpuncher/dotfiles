@@ -355,6 +355,7 @@
             bashls.enable = true;
             clangd.enable = true;
             gopls.enable = true;
+            htmx.enable = true;
             lua-ls.enable = true;
             nil_ls.enable = true;
             pyright.enable = true;

@@ -53,6 +53,7 @@ local servers = {
 	bashls = {},
 	clangd = {},
 	gopls = {},
+	htmx = {},
 	lua_ls = { Lua = { diagnostics = { globals = { "vim" } } } },
 	marksman = {},
 	nil_ls = {},
