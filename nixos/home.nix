@@ -10,6 +10,8 @@
       ".zshrc".source = ../zsh/.zshrc;
       ".zshenv".source = ../zsh/.zshenv;
       ".p10k.zsh".source = ../zsh/.p10k.zsh;
+
+      ".config/hypr/hypridle.conf".source = ../hyprland/.config/hypr/hypridle.conf;
     };
   };
 
@@ -35,6 +37,7 @@
         # "jamesdsp -t"
         "blueman-applet"
         "nm-applet"
+        "hypridle"
         "~/dotfiles/hyprland/.config/hypr/scripts/kb_layout.sh"
         "telegram-desktop"
 

@@ -74,6 +74,7 @@
     grim
     gum
     hyperfine
+    hypridle
     hyprpicker
     imagemagick
     inkscape
@@ -384,8 +385,15 @@
             tsserver.enable = true;
           };
 
-          keymaps.lspBuf = {
-            K = "hover";
+          keymaps = {
+            diagnostic = {
+              "<leader>pd" = "goto_prev";
+              "<leader>nd" = "goto_next";
+              "<leader>e" = "open_float";
+            };
+            lspBuf = {
+              K = "hover";
+            };
           };
         };
 
