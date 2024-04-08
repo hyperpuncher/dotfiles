@@ -76,7 +76,7 @@
       "headphone": "",
       "hands-free": "",
       "headset": "",
-      "default": ["", ""]
+      "default": ["", " "]
     },
     "ignored-sinks": ["JamesDSP Sink"]
   },
