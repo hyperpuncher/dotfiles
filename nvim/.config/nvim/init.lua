@@ -233,6 +233,7 @@ require("lazy").setup({
 						javascript = { "biome" },
 						json = { "biome" },
 						lua = { "stylua" },
+						markdown = { "prettierd" },
 						nix = { "nixpkgs_fmt" },
 						sh = { "shfmt" },
 						svelte = { "prettierd" },
