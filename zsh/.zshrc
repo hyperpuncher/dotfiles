@@ -76,7 +76,7 @@ export PNPM_HOME="$XDG_DATA_HOME/pnpm"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 export WINEPREFIX="$XDG_DATA_HOME/wine"
 
-export PATH=$PATH:$HOME/.local/bin:$CARGO_HOME/bin:$PNPM_HOME:$XDG_DATA_HOME/npm/bin:/usr/local/go/bin:$HOME/.local/share/go/bin
+export PATH=$PATH:$HOME/.local/bin:$CARGO_HOME/bin:$PNPM_HOME:$XDG_DATA_HOME/npm/bin:$GOPATH/bin
 
 # Source additional local files if they exist.
 z4h source ~/.env.zsh
