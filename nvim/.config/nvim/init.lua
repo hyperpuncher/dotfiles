@@ -74,6 +74,7 @@ local formatters = {
 	"prettierd",
 	"shfmt",
 	"stylua",
+	"templ",
 }
 
 local linters = {
@@ -235,6 +236,7 @@ require("lazy").setup({
 						nix = { "nixpkgs_fmt" },
 						sh = { "shfmt" },
 						svelte = { "prettierd" },
+						templ = { "templ" },
 						yaml = { "prettierd" },
 					},
 				},
