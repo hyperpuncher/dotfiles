@@ -527,10 +527,8 @@ luasnip.config.setup({})
 cmp.setup({
 	formatting = {
 		format = lspkind.cmp_format({
-			mode = "symbol",
 			maxwidth = 50,
 			ellipsis_char = "...",
-			symbol_map = { Codeium = "" },
 		}),
 	},
 	view = {
@@ -557,7 +555,6 @@ cmp.setup({
 		["<C-y>"] = cmp.mapping.confirm(),
 	}),
 	sources = {
-		{ name = "codeium" },
 		{ name = "nvim_lsp" },
 		{ name = "nvim_lua" },
 		{ name = "path" },
