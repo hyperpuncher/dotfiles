@@ -161,7 +161,8 @@ require("lazy").setup({
 						"buffers",
 						mode = 2,
 						buffers_color = {
-							active = { bg = bg_color },
+							-- active = { bg = bg_color },
+							active = { bg = "None" },
 						},
 						filetype_names = {
 							lazy = "lazy ",
