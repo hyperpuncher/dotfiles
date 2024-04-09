@@ -246,14 +246,21 @@ require("lazy").setup({
 
 			{
 				"mfussenegger/nvim-lint",
-				opts = {
-					linters_by_ft = {
-						go = { "golangci-lint" },
-					},
-					events = { "BufWritePost", "BufReadPost", "InsertLeave" },
-				},
 				config = function()
-					require("lint").try_lint()
+					local lint = require("lint")
+					lint.linters_by_ft = {
+						go = { "golangcilint" },
+					}
+
+					-- Create autocommand which carries out the actual linting
+					-- on the specified events.
+					local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
+					vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
+						group = lint_augroup,
+						callback = function()
+							require("lint").try_lint()
+						end,
+					})
 				end,
 			},
 		},
