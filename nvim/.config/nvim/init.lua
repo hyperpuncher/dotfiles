@@ -53,6 +53,7 @@ local servers = {
 	bashls = {},
 	clangd = {},
 	gopls = {},
+	html = {},
 	htmx = {},
 	lua_ls = { Lua = { diagnostics = { globals = { "vim" } } } },
 	marksman = {},
@@ -63,6 +64,7 @@ local servers = {
 	rust_analyzer = {},
 	svelte = {},
 	tailwindcss = {},
+	templ = {},
 	tsserver = {},
 	yamlls = {},
 }
@@ -588,6 +590,7 @@ cmp.config.formatting = {
 	format = require("tailwindcss-colorizer-cmp").formatter,
 }
 
+vim.filetype.add({ extension = { templ = "templ" } })
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
 vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
 vim.diagnostic.config({ float = { border = "rounded" } })
