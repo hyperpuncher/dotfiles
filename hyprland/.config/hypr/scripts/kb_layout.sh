@@ -1,8 +1,8 @@
 #!/usr/bin/env dash
 
-ru_layout_apps="org.telegram.desktop"
+ru_layout_apps="org.telegram.desktop|Signal"
 
-kb_names="bastard-keyboards-charybdis-mini-\(3x6\)-pro-micro$|hyperpuncher-kanariyoi-keyboard"
+kb_names="bastard-keyboards-charybdis-mini-\(3x6\)-pro-micro$|hyperpuncher-kanariyoi-keyboard|hyperpuncher-noob$"
 
 keyboard=$(hyprctl devices | grep -Eo "$kb_names")
 
