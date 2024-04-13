@@ -329,9 +329,21 @@ require("lazy").setup({
 
 	{
 		"numToStr/Comment.nvim",
-		opts = {
-			toggler = {
-				line = "<C-/>",
+		config = function()
+			require("Comment").setup({
+				pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
+				toggler = { line = "<C-/>" },
+			})
+		end,
+		dependencies = {
+			"JoosepAlviste/nvim-ts-context-commentstring",
+			opts = {
+				languages = {
+					templ = {
+						__default = "// %s",
+						component_declaration = "<!-- %s -->",
+					},
+				},
 			},
 		},
 	},
