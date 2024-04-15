@@ -148,41 +148,40 @@ require("lazy").setup({
 
 	{
 		"nvim-lualine/lualine.nvim",
-		opts = {
-			options = {
-				component_separators = "",
-				section_separators = "",
-				globalstatus = true,
-				disabled_filetypes = { statusline = { "dashboard", "alpha", "starter", "veil" } },
-			},
-			sections = {
-				lualine_a = { "mode" },
-				lualine_b = {},
-				lualine_c = {
-					{
-						"buffers",
-						mode = 2,
-						buffers_color = {
-							-- active = { bg = bg_color },
-							active = { bg = "None" },
-						},
-						filetype_names = {
-							lazy = "lazy ",
-							oil = "oil ",
-							lspinfo = "lsp ",
-						},
-						symbols = {
-							modified = " ●",
-							alternate_file = "",
-							directory = "",
-						},
-					},
+		config = function()
+			local custom_dracula = require("lualine.themes.dracula")
+
+			custom_dracula.normal.b.bg = bg_color
+			custom_dracula.insert.b.bg = bg_color
+			custom_dracula.visual.b.bg = bg_color
+			custom_dracula.replace.b.bg = bg_color
+			custom_dracula.command.b.bg = bg_color
+			custom_dracula.inactive.b.bg = bg_color
+			custom_dracula.normal.c.bg = bg_color
+			custom_dracula.insert.c.bg = bg_color
+			custom_dracula.visual.c.bg = bg_color
+			custom_dracula.replace.c.bg = bg_color
+			custom_dracula.command.c.bg = bg_color
+			custom_dracula.inactive.c.bg = bg_color
+
+			require("lualine").setup({
+				options = {
+					component_separators = "",
+					section_separators = "",
+					globalstatus = true,
+					theme = custom_dracula,
 				},
-				lualine_x = {},
-				lualine_y = {},
-				lualine_z = { "progress", "location" },
-			},
-		},
+				sections = {
+					lualine_a = { "mode" },
+					lualine_b = { "filename" },
+					lualine_c = {},
+					lualine_x = {},
+					lualine_y = { { "diagnostics", colored = false } },
+					lualine_z = { "progress", "location" },
+				},
+			})
+		end,
+
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 	},
 
@@ -199,6 +198,7 @@ require("lazy").setup({
 			},
 			italic_comment = true,
 			transparent_bg = true,
+			lualine_bg_color = bg_color,
 		},
 	},
 
