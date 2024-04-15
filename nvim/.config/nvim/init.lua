@@ -393,8 +393,6 @@ require("lazy").setup({
 
 	{ "hiphish/rainbow-delimiters.nvim" },
 
-	{ "mbbill/undotree" },
-
 	{
 		"Exafunction/codeium.vim",
 		event = "BufEnter",
@@ -480,7 +478,6 @@ map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 map("n", "-", "<CMD>Oil<CR>")
 
-map("n", "<leader>u", ":UndotreeShow<CR><C-w>h", { silent = true })
 
 map("v", "J", ":m '>+1<CR>gv=gv", { silent = true })
 map("v", "K", ":m '<-2<CR>gv=gv", { silent = true })
