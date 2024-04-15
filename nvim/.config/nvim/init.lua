@@ -420,6 +420,24 @@ require("lazy").setup({
 			height_ratio = 0.8,
 		},
 	},
+
+	{
+		"folke/trouble.nvim",
+		branch = "dev", -- IMPORTANT!
+		keys = {
+			{
+				"<leader>d",
+				"<cmd>Trouble diagnostics toggle<cr>",
+				desc = "Diagnostics (Trouble)",
+			},
+			{
+				"<leader>q",
+				"<cmd>Trouble qflist toggle<cr>",
+				desc = "Quickfix List (Trouble)",
+			},
+		},
+		opts = {},
+	},
 }, {
 	ui = {
 		border = "rounded",
@@ -437,10 +455,8 @@ local telescope_fn = require("telescope.builtin")
 map("n", "<leader>f", telescope_fn.find_files)
 map("n", "<leader>g", telescope_fn.git_files)
 map("n", "<leader>w", telescope_fn.live_grep)
-map("n", "<leader>r", telescope_fn.oldfiles)
 map("n", "<leader>b", telescope_fn.buffers)
 map("n", "<leader>h", telescope_fn.help_tags)
-map("n", "<leader>d", telescope_fn.diagnostics)
 map("n", "<leader>cw", function()
 	local word = vim.fn.expand("<cword>")
 	telescope_fn.grep_string({ search = word })
@@ -477,7 +493,6 @@ map("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 map("n", "-", "<CMD>Oil<CR>")
-
 
 map("v", "J", ":m '>+1<CR>gv=gv", { silent = true })
 map("v", "K", ":m '<-2<CR>gv=gv", { silent = true })
