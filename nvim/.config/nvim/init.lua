@@ -220,7 +220,17 @@ require("lazy").setup({
 				},
 			},
 
-			{ "j-hui/fidget.nvim", opts = {} },
+			{
+				"j-hui/fidget.nvim",
+				opts = {
+					notification = {
+						window = {
+							winblend = 0,
+							border = "rounded",
+						},
+					},
+				},
+			},
 
 			{
 				"stevearc/conform.nvim",
