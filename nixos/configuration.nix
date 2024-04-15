@@ -19,6 +19,7 @@
 
     # blender-hip
     # davinci-resolve
+    # obsidian
     # taskell
 
     biome
@@ -106,7 +107,6 @@
     nvtopPackages.full
     nwg-look
     obs-studio
-    obsidian
     ocrmypdf
     openai-whisper-cpp
     openscad-unstable
@@ -136,6 +136,7 @@
     rofi-calc
     rustdesk
     shell_gpt
+    signal-desktop
     slurp
     socat
     soft-serve
@@ -162,6 +163,7 @@
     wl-clipboard
     wl-screenrec
     wtype
+    xdg-utils
     xdragon
     xorg.xhost
     yarn
@@ -177,7 +179,12 @@
     nixvim = {
       enable = true;
 
-      colorscheme = "dracula";
+      colorschemes = {
+        dracula = {
+          enable = true;
+          package = pkgs.vimPlugins.dracula-nvim;
+        };
+      };
 
       globals.mapleader = " ";
 
@@ -195,7 +202,7 @@
         relativenumber = true;
         scrolloff = 15;
         shiftwidth = 4;
-        showmode = false;
+        # showmode = false;
         signcolumn = "yes";
         smartcase = true;
         smartindent = true;
@@ -210,6 +217,13 @@
         updatetime = 200;
       };
 
+      highlight = {
+        YankHighlight = {
+          fg = "black";
+          bg = "white";
+        };
+      };
+
       plugins = {
 
         auto-session.enable = true;
@@ -219,20 +233,66 @@
         cmp-path.enable = true;
         cmp_luasnip.enable = true;
         codeium-vim.enable = true;
-        fidget.enable = true;
         friendly-snippets.enable = true;
         lspkind.enable = true;
         luasnip.enable = true;
         nvim-colorizer.enable = true;
         oil.enable = true;
         rainbow-delimiters.enable = true;
-        telescope.enable = true;
+        indent-o-matic.enable = true;
+
+        fidget = {
+          enable = true;
+          notification.window = {
+            winblend = 0;
+            border = "rounded";
+          };
+        };
+
+        telescope = {
+          enable = true;
+          settings = {
+            pickers = {
+              find_files = {
+                theme = "dropdown";
+                previewer = false;
+              };
+              git_files = {
+                theme = "dropdown";
+                previewer = false;
+              };
+            };
+          };
+        };
+
+        harpoon = {
+          enable = true;
+          keymaps = {
+            addFile = "<leader>a";
+            toggleQuickMenu = "<leader>b";
+            navFile = {
+              "1" = "<leader>j";
+              "2" = "<leader>k";
+              "3" = "<leader>l";
+              "4" = "<leader>h";
+            };
+          };
+        };
 
         comment = {
           enable = true;
           settings = {
-            toggler = {
-              line = "<C-/>";
+            toggler = { line = "<C-/>"; };
+            pre_hook = "require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook()";
+          };
+        };
+
+        ts-context-commentstring = {
+          enable = true;
+          languages = {
+            templ = {
+              __default = "// %s";
+              component_declaration = "<!-- %s -->";
             };
           };
         };
@@ -243,7 +303,7 @@
             signs = {
               add = { text = "+"; };
               change = { text = "~"; };
-              delete = { text = "_"; };
+              delete = { text = "-"; };
               topdelete = { text = "‾"; };
               changedelete = { text = "~"; };
             };
@@ -270,8 +330,10 @@
             json = [ "biome" ];
             lua = [ "stylua" ];
             nix = [ "nixpkgs_fmt" ];
+            markdown = [ "prettierd" ];
             sh = [ "shfmt" ];
             svelte = [ "prettierd" ];
+            templ = [ "templ" ];
             yaml = [ "prettierd" ];
           };
           formatOnSave = {
@@ -284,43 +346,6 @@
           enable = true;
           lintersByFt = {
             go = [ "golangcilint" ];
-          };
-        };
-
-        lualine = {
-          enable = true;
-          globalstatus = true;
-          componentSeparators = {
-            left = "";
-            right = "";
-          };
-          sectionSeparators = {
-            left = "";
-            right = "";
-          };
-          sections = {
-            lualine_a = [ "mode" ];
-            lualine_b = [ "" ];
-            lualine_c = [{
-              name = "buffers";
-              extraConfig = {
-                mode = 2;
-                "buffers_color" = {
-                  active = {
-                    # bg = "#1A1A1A";
-                    bg = "None";
-                  };
-                };
-                symbols = {
-                  modified = " ●";
-                  alternate_file = "";
-                  directory = "";
-                };
-              };
-            }];
-            lualine_x = [ "" ];
-            lualine_y = [ "" ];
-            lualine_z = [ "progress" "location" ];
           };
         };
 
@@ -370,8 +395,10 @@
             bashls.enable = true;
             clangd.enable = true;
             gopls.enable = true;
+            html.enable = true;
             htmx.enable = true;
             lua-ls.enable = true;
+            marksman.enable = true;
             nil_ls.enable = true;
             pyright.enable = true;
             ruff-lsp.enable = true;
@@ -382,6 +409,7 @@
             };
             svelte.enable = true;
             tailwindcss.enable = true;
+            templ.enable = true;
             tsserver.enable = true;
           };
 
@@ -400,7 +428,7 @@
       };
 
       extraPlugins = with pkgs.vimPlugins; [
-        dracula-nvim
+        nvim-web-devicons
       ];
 
       extraConfigLuaPre = ''
@@ -416,8 +444,7 @@
             italic_comment = true,
             transparent_bg = true,
         })
-    
-        vim.api.nvim_set_hl(0, "YankHighlight", { fg = "black", bg = "white" })
+
         local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
         vim.api.nvim_create_autocmd("TextYankPost", {
             callback = function()
@@ -427,6 +454,7 @@
             pattern = "*",
         })
 
+        vim.filetype.add({ extension = { templ = "templ" } })
         vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
         vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
         vim.diagnostic.config({ float = { border = "rounded" } })
@@ -461,12 +489,8 @@
 
         { mode = "n"; key = "-"; action = "<CMD>Oil<CR>"; }
 
-        { mode = "n"; key = "<leader>u"; action = ":UndotreeShow<CR><C-w>h"; options.silent = true; }
-
         { mode = "v"; key = "J"; action = ":m '>+1<CR>gv=gv"; options.silent = true; }
         { mode = "v"; key = "K"; action = ":m '<-2<CR>gv=gv"; options.silent = true; }
-
-        { mode = "n"; key = "<leader>l"; action = ":Lazy<CR>"; options.silent = true; }
 
         { mode = "n"; key = "<S-l>"; action = ":bnext<CR>"; options.silent = true; }
         { mode = "n"; key = "<S-h>"; action = ":bprevious<CR>"; options.silent = true; }
@@ -477,8 +501,6 @@
         { mode = "n"; key = "<leader>f"; action = "require('telescope.builtin').find_files"; lua = true; }
         { mode = "n"; key = "<leader>g"; action = "require('telescope.builtin').git_files"; lua = true; }
         { mode = "n"; key = "<leader>w"; action = "require('telescope.builtin').live_grep"; lua = true; }
-        { mode = "n"; key = "<leader>r"; action = "require('telescope.builtin').oldfiles"; lua = true; }
-        { mode = "n"; key = "<leader>b"; action = "require('telescope.builtin').buffers"; lua = true; }
         { mode = "n"; key = "<leader>h"; action = "require('telescope.builtin').help_tags"; lua = true; }
         { mode = "n"; key = "<leader>d"; action = "require('telescope.builtin').diagnostics"; lua = true; }
 

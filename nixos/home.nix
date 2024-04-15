@@ -107,7 +107,7 @@
         "$mod, RETURN, exec, foot"
         "$mod, E, exec, nemo"
         "$mod, B, exec, brave --disable-features=HardwareMediaKeyHandling"
-        "$mod, K, exec, hyprctl kill"
+        "$mod, X, exec, hyprctl kill"
         "$mod, D, exec, rofi -show drun -display-drun 'Apps'"
         "$mod, Q, killactive,"
         "$mod, P, pseudo, # dwindle"
@@ -228,6 +228,7 @@
       userEmail = "39203616+hyperpuncher@users.noreply.github.com";
       difftastic.enable = true;
       extraConfig = {
+        init.defaultBranch = "main";
         credential.helper = "${
           pkgs.git.override { withLibsecret = true; }
         }/bin/git-credential-libsecret";
