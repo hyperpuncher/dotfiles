@@ -507,8 +507,8 @@ map("n", "<C-S-a>", "<C-a>")
 map("n", "<C-S-x>", "<C-x>")
 
 -- Diagnostic keymaps
-map("n", "<leader>pd", vim.diagnostic.goto_prev)
-map("n", "<leader>nd", vim.diagnostic.goto_next)
+map("n", "[d", vim.diagnostic.goto_prev)
+map("n", "]d", vim.diagnostic.goto_next)
 map("n", "<leader>e", vim.diagnostic.open_float)
 
 map("n", "<leader>z", ":ZenMode<CR>", { silent = true })
