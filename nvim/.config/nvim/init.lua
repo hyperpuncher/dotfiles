@@ -113,6 +113,18 @@ require("lazy").setup({
 
 	{
 		"nvim-telescope/telescope.nvim",
+		opts = {
+			pickers = {
+				find_files = {
+					theme = "dropdown",
+					previewer = false,
+				},
+				git_files = {
+					theme = "dropdown",
+					previewer = false,
+				},
+			},
+		},
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			{
@@ -123,11 +135,6 @@ require("lazy").setup({
 				end,
 			},
 		},
-		config = function()
-			require("telescope").setup({
-				pickers = { buffers = { mappings = { i = { ["<c-d>"] = "delete_buffer" } } } },
-			})
-		end,
 	},
 
 	{
@@ -415,7 +422,6 @@ local telescope_fn = require("telescope.builtin")
 map("n", "<leader>f", telescope_fn.find_files)
 map("n", "<leader>g", telescope_fn.git_files)
 map("n", "<leader>w", telescope_fn.live_grep)
-map("n", "<leader>b", telescope_fn.buffers)
 map("n", "<leader>h", telescope_fn.help_tags)
 map("n", "<leader>cw", function()
 	local word = vim.fn.expand("<cword>")
