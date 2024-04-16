@@ -405,6 +405,9 @@ require("lazy").setup({
 		},
 		opts = {},
 	},
+
+	{ "Darazaki/indent-o-matic", opts = {} },
+
 	{
 		"ThePrimeagen/harpoon",
 		branch = "harpoon2",
