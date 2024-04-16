@@ -21,7 +21,7 @@ opt.pumheight = 10 -- Maximum number of entries in a popup
 opt.relativenumber = true
 opt.scrolloff = 15
 opt.shiftwidth = 4
-opt.showmode = false
+-- opt.showmode = false
 opt.signcolumn = "yes"
 opt.smartcase = true
 opt.smartindent = true
@@ -147,45 +147,6 @@ require("lazy").setup({
 	},
 
 	{
-		"nvim-lualine/lualine.nvim",
-		config = function()
-			local custom_dracula = require("lualine.themes.dracula")
-
-			custom_dracula.normal.b.bg = bg_color
-			custom_dracula.insert.b.bg = bg_color
-			custom_dracula.visual.b.bg = bg_color
-			custom_dracula.replace.b.bg = bg_color
-			custom_dracula.command.b.bg = bg_color
-			custom_dracula.inactive.b.bg = bg_color
-			custom_dracula.normal.c.bg = bg_color
-			custom_dracula.insert.c.bg = bg_color
-			custom_dracula.visual.c.bg = bg_color
-			custom_dracula.replace.c.bg = bg_color
-			custom_dracula.command.c.bg = bg_color
-			custom_dracula.inactive.c.bg = bg_color
-
-			require("lualine").setup({
-				options = {
-					component_separators = "",
-					section_separators = "",
-					globalstatus = true,
-					theme = custom_dracula,
-				},
-				sections = {
-					lualine_a = { "mode" },
-					lualine_b = { "filename" },
-					lualine_c = {},
-					lualine_x = {},
-					lualine_y = { { "diagnostics", colored = false } },
-					lualine_z = { "progress", "location" },
-				},
-			})
-		end,
-
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-	},
-
-	{
 		"Mofiqul/dracula.nvim",
 		opts = {
 			colors = {
@@ -198,7 +159,6 @@ require("lazy").setup({
 			},
 			italic_comment = true,
 			transparent_bg = true,
-			lualine_bg_color = bg_color,
 		},
 	},
 
