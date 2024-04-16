@@ -405,6 +405,11 @@ require("lazy").setup({
 		},
 		opts = {},
 	},
+	{
+		"ThePrimeagen/harpoon",
+		branch = "harpoon2",
+		dependencies = { "nvim-lua/plenary.nvim" },
+	},
 }, {
 	ui = {
 		border = "rounded",
@@ -430,6 +435,33 @@ end)
 map("n", "<leader>cW", function()
 	local word = vim.fn.expand("<cWORD>")
 	telescope_fn.grep_string({ search = word })
+end)
+
+local harpoon = require("harpoon")
+
+map("n", "<leader>a", function()
+	harpoon:list():add()
+end)
+map("n", "<leader>b", function()
+	harpoon.ui:toggle_quick_menu(harpoon:list())
+end)
+map("n", "<leader>j", function()
+	harpoon:list():select(1)
+end)
+map("n", "<leader>k", function()
+	harpoon:list():select(2)
+end)
+map("n", "<leader>l", function()
+	harpoon:list():select(3)
+end)
+map("n", "<leader>;", function()
+	harpoon:list():select(4)
+end)
+map("n", "H", function()
+	harpoon:list():prev()
+end)
+map("n", "L", function()
+	harpoon:list():next()
 end)
 
 map("n", ";", ":")
@@ -463,10 +495,6 @@ map("n", "-", "<CMD>Oil<CR>")
 map("v", "J", ":m '>+1<CR>gv=gv", { silent = true })
 map("v", "K", ":m '<-2<CR>gv=gv", { silent = true })
 
-map("n", "<leader>l", ":Lazy<CR>", { silent = true })
-
-map("n", "<S-l>", ":bnext<CR>", { silent = true })
-map("n", "<S-h>", ":bprevious<CR>", { silent = true })
 map("n", "<leader>x", ":bd<CR>")
 
 map("n", "<leader>rn", ":IncRename ")
