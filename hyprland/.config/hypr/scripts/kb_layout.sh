@@ -1,6 +1,6 @@
 #!/usr/bin/env dash
 
-ru_layout_apps="org.telegram.desktop|Signal"
+ru_layout_apps="org.telegram.desktop|signal"
 
 kb_names="bastard-keyboards-charybdis-mini-\(3x6\)-pro-micro$|hyperpuncher-kanariyoi-keyboard|hyperpuncher-noob-keyboard"
 
@@ -13,7 +13,7 @@ handle() {
 
 		layout=0
 
-		if echo "$activewindow" | grep -qE "$ru_layout_apps"; then
+		if echo "$activewindow" | grep -iqE "$ru_layout_apps"; then
 			layout=1
 		fi
 
