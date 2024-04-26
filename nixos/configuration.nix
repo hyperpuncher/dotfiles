@@ -19,17 +19,21 @@
 
     # blender-hip
     # davinci-resolve
-    # obsidian
+    obsidian
     # taskell
 
     biome
     go-tools
     gofumpt
     golangci-lint
+    nodePackages.fixjson
     nixpkgs-fmt
     prettierd
+    rustywind
     shfmt
     stylua
+
+    nodePackages.jsonlint
 
     _7zz
     adw-gtk3
@@ -75,6 +79,7 @@
     grim
     gum
     hyperfine
+    hyprcursor
     hypridle
     hyprpicker
     imagemagick
@@ -115,6 +120,7 @@
     pfetch-rs
     pipx
     playerctl
+    podman-tui
     polkit_gnome
     poppler_utils
     prettierd
@@ -174,6 +180,11 @@
   ];
 
   programs = {
+    nh = {
+      enable = true;
+      flake = "/home/igor/dotfiles/nixos";
+    };
+
     hyprland.enable = true;
 
     nixvim = {
@@ -276,6 +287,8 @@
               "3" = "<leader>l";
               "4" = "<leader>h";
             };
+            navPrev = "H";
+            navNext = "L";
           };
         };
 
@@ -314,9 +327,22 @@
           enable = true;
           settings = {
             indent.char = "│";
-            scope = {
-              show_start = false;
-              show_end = false;
+            scope.enabled = false;
+          };
+        };
+
+        mini = {
+          enable = true;
+          modules = {
+            indentscope = {
+              symbol = "│";
+              draw = {
+                delay = 0;
+                animation = config.nixvim.helpers.mkRaw ''
+                  function() return 0 end
+                '';
+              };
+              options.border = "top";
             };
           };
         };
@@ -324,16 +350,16 @@
         conform-nvim = {
           enable = true;
           formattersByFt = {
-            astro = [ "prettierd" ];
+            astro = [ "prettierd" "rustywind" ];
             go = [ "gofumpt" ];
             javascript = [ "biome" ];
-            json = [ "biome" ];
+            json = [ "fixjson" "biome" ];
             lua = [ "stylua" ];
             nix = [ "nixpkgs_fmt" ];
             markdown = [ "prettierd" ];
             sh = [ "shfmt" ];
-            svelte = [ "prettierd" ];
-            templ = [ "templ" ];
+            svelte = [ "prettierd" "rustywind" ];
+            templ = [ "templ" "rustywind" ];
             yaml = [ "prettierd" ];
           };
           formatOnSave = {
@@ -346,6 +372,7 @@
           enable = true;
           lintersByFt = {
             go = [ "golangcilint" ];
+            json = [ "jsonlint" ];
           };
         };
 
@@ -492,8 +519,6 @@
         { mode = "v"; key = "J"; action = ":m '>+1<CR>gv=gv"; options.silent = true; }
         { mode = "v"; key = "K"; action = ":m '<-2<CR>gv=gv"; options.silent = true; }
 
-        { mode = "n"; key = "<S-l>"; action = ":bnext<CR>"; options.silent = true; }
-        { mode = "n"; key = "<S-h>"; action = ":bprevious<CR>"; options.silent = true; }
         { mode = "n"; key = "<leader>x"; action = ":bd<CR>"; }
 
         { mode = "n"; key = "<leader>rn"; action = ":IncRename "; }

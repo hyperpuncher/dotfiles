@@ -24,6 +24,8 @@
         "XDG_CURRENT_DESKTOP,Hyprland"
         "XDG_SESSION_DESKTOP,Hyprland"
         "LIBVA_DRIVER_NAME,radeonsi"
+        "HYPRCURSOR_THEME,HyprBibataModernClassicSVG"
+        "HYPRCURSOR_SIZE,24"
       ];
 
       "$mod" = "SUPER";
@@ -99,6 +101,7 @@
           "border, 1, 5, default"
           "fade, 1, 3, default"
           "workspaces, 0, 2, default"
+          "layers, 1, 1.5, default, default"
         ];
       };
 
@@ -106,7 +109,7 @@
         "$mod, ESCAPE, exec, rofi -show power_menu -modes 'power_menu:~/dotfiles/rofi/.config/rofi/scripts/power_menu.sh'"
         "$mod, RETURN, exec, foot"
         "$mod, E, exec, nemo"
-        "$mod, B, exec, brave --disable-features=HardwareMediaKeyHandling"
+        "$mod, B, exec, brave --disable-features=HardwareMediaKeyHandling --ozone-platform=wayland"
         "$mod, X, exec, hyprctl kill"
         "$mod, D, exec, rofi -show drun -display-drun 'Apps'"
         "$mod, Q, killactive,"
