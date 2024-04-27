@@ -71,6 +71,7 @@ local servers = {
 
 local formatters = {
 	"biome",
+	"fixjson",
 	"gofumpt",
 	"nixpkgs-fmt",
 	"prettierd",
@@ -82,6 +83,7 @@ local formatters = {
 
 local linters = {
 	"golangci-lint",
+	"jsonlint",
 }
 
 local ensure_installed = vim.tbl_keys(servers)
@@ -210,7 +212,7 @@ require("lazy").setup({
 						css = { "prettierd" },
 						go = { "gofumpt" },
 						javascript = { "biome", "rustywind" },
-						json = { "biome" },
+						json = { "fixjson", "biome" },
 						lua = { "stylua" },
 						markdown = { "prettierd" },
 						nix = { "nixpkgs_fmt" },
@@ -228,6 +230,7 @@ require("lazy").setup({
 					local lint = require("lint")
 					lint.linters_by_ft = {
 						go = { "golangcilint" },
+						json = { "jsonlint" },
 					}
 
 					-- Create autocommand which carries out the actual linting
