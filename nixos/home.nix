@@ -26,6 +26,7 @@
         "LIBVA_DRIVER_NAME,radeonsi"
         "HYPRCURSOR_THEME,HyprBibataModernClassicSVG"
         "HYPRCURSOR_SIZE,24"
+        "XCURSOR_SIZE,24"
       ];
 
       "$mod" = "SUPER";
@@ -87,9 +88,10 @@
           passes = 2;
         };
 
-        shadow_range = 50;
+        shadow_range = 30;
         shadow_render_power = 2;
-        shadow_offset = "0 15";
+        shadow_offset = "0 5";
+        shadow_scale = 0.99;
         "col.shadow" = "rgba(00000050)";
       };
 
@@ -732,7 +734,7 @@
           offset = "20x20";
           frame_width = 1;
           frame_color = "#000000e6";
-          font = "Inter Display 10";
+          font = "Inter 10";
           corner_radius = 5;
         };
         urgency_normal = {
@@ -770,8 +772,8 @@
     };
 
     font = {
-      name = "Inter Display";
-      size = 11.5;
+      name = "Inter";
+      size = 11;
     };
   };
 

@@ -40,6 +40,7 @@
     age
     android-file-transfer
     android-tools
+    android-studio
     aria
     atool
     bat
@@ -62,6 +63,7 @@
     fd
     ffmpeg
     ffmpegthumbnailer
+    flutter
     fnm
     font-manager
     fx
@@ -351,6 +353,7 @@
           enable = true;
           formattersByFt = {
             astro = [ "prettierd" "rustywind" ];
+            dart = [ "dart_format" ];
             go = [ "gofumpt" ];
             javascript = [ "biome" ];
             json = [ "fixjson" "biome" ];
@@ -698,7 +701,7 @@
     users.igor = {
       isNormalUser = true;
       description = "igor";
-      extraGroups = [ "networkmanager" "wheel" "video" "i2c" ];
+      extraGroups = [ "networkmanager" "wheel" "video" "i2c" "kvm" ];
     };
   };
 
@@ -726,8 +729,8 @@
       hinting.enable = false;
       subpixel.rgba = "rgb";
       defaultFonts = {
-        sansSerif = [ "Inter Display" ];
-        serif = [ "Inter Display" ];
+        sansSerif = [ "Inter" ];
+        serif = [ "Inter" ];
         monospace = [ "Iosevka" ];
         emoji = [ "Noto Color Emoji" ];
       };
