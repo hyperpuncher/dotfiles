@@ -39,11 +39,12 @@
     adw-gtk3
     age
     android-file-transfer
-    android-tools
     android-studio
+    android-tools
     aria
     atool
     bat
+    beekeeper-studio
     brave
     bun
     chafa
@@ -92,9 +93,12 @@
     kikit
     lazydocker
     lazygit
+    libheif
     libreoffice-fresh
+    libsForQt5.kimageformats
     libsForQt5.qt5.qtwayland
     libsForQt5.qt5ct
+    libsForQt5.qtstyleplugin-kvantum
     libva-utils
     lm_sensors
     localsend
@@ -143,6 +147,7 @@
     ripgrep
     rofi-calc
     rustdesk
+    sd
     shell_gpt
     signal-desktop
     slurp
