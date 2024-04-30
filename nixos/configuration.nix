@@ -39,11 +39,12 @@
     adw-gtk3
     age
     android-file-transfer
-    android-tools
     android-studio
+    android-tools
     aria
     atool
     bat
+    beekeeper-studio
     brave
     bun
     chafa
@@ -92,6 +93,7 @@
     kikit
     lazydocker
     lazygit
+    libheif
     libreoffice-fresh
     libsForQt5.qt5.qtwayland
     libsForQt5.qt5ct
