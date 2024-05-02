@@ -50,7 +50,7 @@
       ];
 
       general = {
-        gaps_in = -1;
+        # gaps_in = -1;
         gaps_out = 0;
         border_size = 1;
         "col.active_border" = "rgb(ffffff)";
