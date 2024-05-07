@@ -19,15 +19,15 @@
 
     # blender-hip
     # davinci-resolve
-    obsidian
+    # font-manager
     # taskell
 
     biome
     go-tools
     gofumpt
     golangci-lint
-    nodePackages.fixjson
     nixpkgs-fmt
+    nodePackages.fixjson
     prettierd
     rustywind
     shfmt
@@ -66,7 +66,6 @@
     ffmpegthumbnailer
     flutter
     fnm
-    font-manager
     fx
     fzf
     gimp
@@ -91,6 +90,7 @@
     jq
     kicad-small
     kikit
+    krita
     lazydocker
     lazygit
     libheif
@@ -118,6 +118,7 @@
     nvtopPackages.full
     nwg-look
     obs-studio
+    obsidian
     ocrmypdf
     openai-whisper-cpp
     openscad-unstable
@@ -148,7 +149,7 @@
     rofi-calc
     rustdesk
     sd
-    shell_gpt
+    shell-gpt
     signal-desktop
     slurp
     socat
@@ -751,7 +752,6 @@
   system.stateVersion = "23.11";
 
   nix = {
-    package = pkgs.nixVersions.unstable;
     optimise.automatic = true;
     gc = {
       automatic = true;

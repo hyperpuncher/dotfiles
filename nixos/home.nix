@@ -366,7 +366,7 @@
             "clock"
           ];
           tray = {
-            icon-size = 19;
+            icon-size = 15;
             spacing = 10;
           };
           clock = {
@@ -388,11 +388,11 @@
             on-click-right = "systemctl stop bluetooth.service";
           };
           memory = {
-            format = "{}% ";
+            format = "{}%  ";
           };
           disk = {
             interval = 30;
-            format = "{percentage_used}% ";
+            format = "{percentage_used}%  ";
             path = "/";
           };
           temperature = {
