@@ -17,11 +17,11 @@ handle() {
 			layout=1
 		fi
 
-		echo "switchxkblayout $keyboard $layout" | socat - UNIX-CONNECT:/tmp/hypr/"$HYPRLAND_INSTANCE_SIGNATURE"/.socket.sock
+		echo "switchxkblayout $keyboard $layout" | socat - UNIX-CONNECT:"$XDG_RUNTIME_DIR"/hypr/"$HYPRLAND_INSTANCE_SIGNATURE"/.socket.sock
 
 		;;
 	esac
 }
 
-socat -U - UNIX-CONNECT:/tmp/hypr/"$HYPRLAND_INSTANCE_SIGNATURE"/.socket2.sock |
+socat -U - UNIX-CONNECT:"$XDG_RUNTIME_DIR"/hypr/"$HYPRLAND_INSTANCE_SIGNATURE"/.socket2.sock |
 	while read -r line; do handle "$line"; done
