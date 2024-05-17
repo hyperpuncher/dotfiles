@@ -87,7 +87,9 @@
     imagemagick
     inkscape
     jamesdsp
+    jdk
     jq
+    kalker
     kicad-small
     kikit
     krita
@@ -115,7 +117,7 @@
     ninja
     nodePackages.pnpm
     nodejs
-    nvtopPackages.full
+    nvtopPackages.amd
     nwg-look
     obs-studio
     obsidian
