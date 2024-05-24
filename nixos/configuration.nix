@@ -41,6 +41,7 @@
     android-file-transfer
     android-studio
     android-tools
+    arduino-cli
     aria
     atool
     bat
@@ -108,6 +109,7 @@
     losslesscut-bin
     man
     moar
+    # mods
     mpv
     mtpfs
     mumble
@@ -157,7 +159,6 @@
     socat
     soft-serve
     solaar
-    solvespace
     solvespace
     speedtest-go
     spotify
@@ -365,6 +366,7 @@
             go = [ "gofumpt" ];
             javascript = [ "biome" ];
             json = [ "fixjson" "biome" ];
+            ino = [ "clang-format" ];
             lua = [ "stylua" ];
             nix = [ "nixpkgs_fmt" ];
             markdown = [ "prettierd" ];
@@ -431,7 +433,10 @@
           servers = {
             astro.enable = true;
             bashls.enable = true;
-            clangd.enable = true;
+            clangd = {
+              enable = true;
+              filetypes = [ "c" "cpp" "arduino" "h" "hpp" "cc" "hh" "cxx" "hxx" ];
+            };
             gopls.enable = true;
             html.enable = true;
             htmx.enable = true;
@@ -709,7 +714,7 @@
     users.igor = {
       isNormalUser = true;
       description = "igor";
-      extraGroups = [ "networkmanager" "wheel" "video" "i2c" "kvm" ];
+      extraGroups = [ "networkmanager" "wheel" "video" "i2c" "kvm" "uucp" "dialout" ];
     };
   };
 

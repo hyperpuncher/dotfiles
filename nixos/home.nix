@@ -42,6 +42,7 @@
         "nm-applet"
         "hypridle"
         "~/dotfiles/hyprland/.config/hypr/scripts/kb_layout.sh"
+        "~/projects/arduino/autobrightness/autobrightness"
         "telegram-desktop"
 
         "wl-paste --type text --watch cliphist store" #Stores only text data
@@ -173,8 +174,10 @@
       ];
 
       binde = [
-        ", XF86MonBrightnessDown, exec, brillo -q -U 5"
-        ", XF86MonBrightnessUp, exec, brillo -q -A 5"
+        # ", XF86MonBrightnessDown, exec, brillo -q -U 5"
+        # ", XF86MonBrightnessUp, exec, brillo -q -A 5"
+        ", XF86MonBrightnessDown, exec, ddcutil --skip-ddc-checks --noverify -b 6 setvcp 10 - 5"
+        ", XF86MonBrightnessUp, exec, ddcutil --skip-ddc-checks --noverify -b 6 setvcp 10 + 5"
 
         ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_SINK@ 5%-"
         ", XF86AudioRaiseVolume, exec, wpctl set-volume -l 1.2 @DEFAULT_SINK@ 5%+"
