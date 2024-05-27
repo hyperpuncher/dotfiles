@@ -51,7 +51,6 @@
       ];
 
       general = {
-        # gaps_in = -1;
         gaps_out = 0;
         border_size = 1;
         "col.active_border" = "rgb(ffffff)";
@@ -134,9 +133,6 @@
         "$mod, r, workspace, 5"
         "$mod, a, workspace, 6"
         "$mod, z, workspace, 7"
-        "$mod, 8, workspace, 8"
-        "$mod, 9, workspace, 9"
-        "$mod, 0, workspace, 10"
 
         "$mod SHIFT, g, movetoworkspacesilent, 1"
         "$mod SHIFT, c, movetoworkspacesilent, 2"
@@ -145,9 +141,6 @@
         "$mod SHIFT, r, movetoworkspacesilent, 5"
         "$mod SHIFT, a, movetoworkspacesilent, 6"
         "$mod SHIFT, z, movetoworkspacesilent, 7"
-        "$mod SHIFT, 8, movetoworkspacesilent, 8"
-        "$mod SHIFT, 9, movetoworkspacesilent, 9"
-        "$mod SHIFT, 0, movetoworkspacesilent, 10"
 
         ", XF86AudioPlay, exec, playerctl play-pause"
         ", XF86AudioNext, exec, playerctl next"
@@ -159,9 +152,6 @@
         # Screenshot
         "$mod, comma, exec, img=~/Pictures/screenshot_$(date +%Y-%m-%d_%Hh%Mm%Ss).png && grim $img && wl-copy < $img"
         "$mod, slash, exec, img=~/Pictures/screenshot_$(date +%Y-%m-%d_%Hh%Mm%Ss).png && grim -g \"$(slurp -d -w 1 -F \"Iosevka Nerd Font\")\" $img && wl-copy < $img"
-
-        # Calculator
-        "$mod, quoteright, exec, rofi -show calc -modi calc -no-show-match -no-sort -no-persist-history"
 
         # Color Picker
         "$mod CTRL, c, exec, hyprpicker -a"
@@ -697,7 +687,6 @@
       package = pkgs.rofi-wayland;
       font = "Iosevka 15";
       location = "center";
-      # plugins = [ pkgs.rofi-calc ];
       theme = "~/dotfiles/rofi/.config/rofi/theme.rasi";
       extraConfig = {
         modes = "drun";
@@ -708,7 +697,7 @@
     };
 
     mangohud = {
-      enable = true;
+      enable = false;
       settings = {
         cpu_stats = true;
         cpu_temp = true;

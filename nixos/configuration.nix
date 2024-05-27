@@ -39,7 +39,6 @@
     adw-gtk3
     age
     android-file-transfer
-    android-studio
     android-tools
     arduino-cli
     aria
@@ -109,7 +108,7 @@
     losslesscut-bin
     man
     moar
-    # mods
+    mods
     mpv
     mtpfs
     mumble
@@ -128,7 +127,6 @@
     openscad-unstable
     parallel
     pavucontrol
-    pfetch-rs
     pipx
     playerctl
     podman-tui
@@ -150,7 +148,6 @@
     quickemu
     qview
     ripgrep
-    rofi-calc
     rustdesk
     sd
     shell-gpt
@@ -577,7 +574,7 @@
       dedicatedServer.openFirewall = true;
     };
 
-    gamemode.enable = true;
+    gamemode.enable = false;
 
     zsh.enable = true;
 
@@ -780,85 +777,5 @@
     sessionVariables = {
       NIXOS_OZONE_WL = "1";
     };
-
-    # etc = {
-    #   "wireplumber/main.lua.d/51-pc38x-rename.lua".text = ''
-    #     rule = {
-    #       matches = {
-    #         {
-    #           { "node.name", "equals", "alsa_output.usb-FiiO_FiiO_BTR3K_ABCDEF0123456789-00.analog-stereo" },
-    #         }
-    #       },
-    #       apply_properties = {
-    #         ["device.description"] = "Sennheiser PC38X",
-    #         ["device.nick"] = "Sennheiser PC38X",
-    #         ["node.description"] = "Sennheiser PC38X",
-    #         ["node.nick"] = "Sennheiser PC38X",
-    #       },
-    #     }
-    #     table.insert(alsa_monitor.rules, rule)
-    #   '';
-    #
-    #   "wireplumber/main.lua.d/51-mic-rename.lua".text = ''
-    #     rule = {
-    #       matches = {
-    #         {
-    #           { "node.name", "equals", "alsa_input.pci-0000_09_00.4.analog-stereo" },
-    #         }
-    #       },
-    #       apply_properties = {
-    #         ["node.description"] = "Mic",
-    #         ["node.nick"] = "Mic",
-    #       },
-    #     }
-    #     table.insert(alsa_monitor.rules, rule)
-    #   '';
-    #
-    #   "wireplumber/main.lua.d/51-alsa-disable.lua".text = ''
-    #     rule = {
-    #       matches = {
-    #           -- display home
-    #           {
-    #               { "device.name", "equals", "alsa_card.pci-0000_07_00.1" },
-    #           },
-    #           {
-    #               { "node.name", "equals", "alsa_output.pci-0000_09_00.4.iec958-stereo" },
-    #           },
-    #           -- display work
-    #           {
-    #               { "device.name", "equals", "alsa_card.pci-0000_07_00.1.3" },
-    #           },
-    #           -- system card work
-    #           {
-    #               { "device.name", "equals", "alsa_card.pci-0000_07_00.6" },
-    #           }
-    #       },
-    #       apply_properties = {
-    #           ["node.disabled"] = true,
-    #           ["device.disabled"] = true,
-    #       },
-    #     }
-    #     table.insert(alsa_monitor.rules, rule)
-    #   '';
-    #
-    #   "wireplumber/main.lua.d/51-system-card-rename.lua".text = ''
-    #     rule = {
-    #         matches = {
-    #             {
-    #                 { "device.name", "equals", "alsa_card.pci-0000_09_00.4" },
-    #             },
-    #             {
-    #                 { "device.name", "equals", "alsa_card.pci-0000_07_00.6" },
-    #             }
-    #
-    #         },
-    #         apply_properties = {
-    #             ["device.description"] = "System Card",
-    #             ["device.nick"] = "System Card",
-    #         },
-    #     }
-    #     table.insert(alsa_monitor.rules, rule)
-    #   '';
-    # };
   };
 }
