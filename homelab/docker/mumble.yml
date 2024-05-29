@@ -1,0 +1,19 @@
+services:
+  mumble-server:
+    image: mumblevoip/mumble-server:latest
+    container_name: mumble-server
+    hostname: mumble-server
+    restart: on-failure
+    ports:
+      - 64738:64738
+      - 64738:64738/udp
+    environment:
+      - MUMBLE_CUSTOM_CONFIG_FILE=/docker/config/mumble
+      - MUMBLE_CONFIG_SERVER_PASSWORD=${MUMBLE_SERVER_PASSWORD}
+      - MUMBLE_CONFIG_BANDWIDTH=192000
+      - MUMBLE_CONFIG_USERS=15
+      - MUMBLE_CONFIG_REGISTERNAME=PK Boiare
+    volumes:
+      - /docker/config/mumble:/config
+    env_file:
+      - .env
