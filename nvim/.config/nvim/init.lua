@@ -51,7 +51,7 @@ vim.opt.rtp:prepend(lazypath)
 local servers = {
 	astro = {},
 	bashls = {},
-	clangd = {},
+	clangd = { filetypes = { "c", "cpp", "arduino", "h", "hpp" } },
 	gopls = {},
 	html = {},
 	htmx = {},
@@ -209,8 +209,12 @@ require("lazy").setup({
 					notify_on_error = false,
 					formatters_by_ft = {
 						astro = { "prettierd", "rustywind" },
+						c = { "clang-format" },
+						cpp = { "clang-format" },
 						css = { "prettierd" },
+						dart = { "dart_format" },
 						go = { "gofumpt" },
+						ino = { "clang-format" },
 						javascript = { "biome", "rustywind" },
 						json = { "fixjson", "biome" },
 						lua = { "stylua" },
