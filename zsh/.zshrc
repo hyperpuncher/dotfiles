@@ -78,6 +78,8 @@ export WINEPREFIX="$XDG_DATA_HOME/wine"
 
 export PATH=$PATH:$HOME/.local/bin:$CARGO_HOME/bin:$PNPM_HOME:$XDG_DATA_HOME/npm/bin:$GOPATH/bin
 
+export SOPS_AGE_RECIPIENTS=age1tnkh972ad6ddm6grzmjjnlcq90247r36ywq220y3ytnkw9aqwcsqzwxxu4
+
 # Source additional local files if they exist.
 z4h source ~/.env.zsh
 
@@ -101,8 +103,6 @@ function md() { [[ $# == 1 ]] && mkdir -p -- "$1" && cd -- "$1" }
 compdef _directories md
 
 alias bt='bluetoothctl'
-alias c.='codium . >/dev/null 2>&1'
-alias c='codium >/dev/null 2>&1'
 alias cat='bat -pp'
 alias d='cd ~/dotfiles/'
 alias dev='pnpm run dev --host'
@@ -115,7 +115,7 @@ alias i='paru -S'
 alias lg='lazygit'
 alias ll='eza -a --icons --group-directories-first -s ext --long'
 alias ls='eza -a --icons --group-directories-first -s ext'
-alias lsblk='lsblk -o NAME,MODEL,SIZE,FSTYPE,MOUNTPOINT,FSUSE% | rg -v SWAP'
+alias lsblk='lsblk -o NAME,MODEL,SIZE,FSTYPE,MOUNTPOINTS,FSUSE%'
 alias lt='eza -T -L=2 -a --icons --group-directories-first'
 alias mkdir='mkdir -p'
 alias n='cd ~/projects/newtonlabs'
@@ -132,6 +132,7 @@ alias ssh-homelab='ssh igor@192.168.31.104'
 alias ssh-kodi='ssh root@192.168.31.26'
 alias ssh-printer='ssh igor@192.168.31.94'
 alias ssh-racknerd='ssh root@172.245.180.243'
+alias ssh-tv='ssh root@192.168.31.81'
 alias stow='stow --no-folding -Rv'
 alias sv='sudoedit'
 alias udiskmount='udisksctl mount -b'
