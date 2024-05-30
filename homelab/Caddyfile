@@ -14,7 +14,11 @@ files.hyperpp.xyz {
 
 proxmox.hyperpp.xyz {
 	import local_check
-	reverse_proxy 192.168.31.151:8006
+	reverse_proxy 192.168.31.151:8006 {
+		transport http {
+			tls_insecure_skip_verify
+		}
+	}
 }
 
 syncthing.hyperpp.xyz {
