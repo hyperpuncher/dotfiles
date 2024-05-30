@@ -5,18 +5,16 @@
 
   environment.systemPackages = with pkgs; [
     aria
+    chafa
     atool
     bat
     btop
-    chafa
     clang
     dua
     eza
     fd
-    fx
     fzf
     jq
-    lazygit
     man
     moar
     podman-tui
@@ -27,10 +25,16 @@
     stow
     tlrc
     unzip
+    _7zz
     wget
     wireguard-tools
     zip
     zoxide
+  ];
+
+  systemd.tmpfiles.rules = [
+    "d /root/containers 0770 root root -"
+    "d /root/downloads 0770 root root -"
   ];
 
   virtualisation = {
@@ -38,22 +42,13 @@
       enable = true;
       dockerCompat = true;
       defaultNetwork.settings.dns_enabled = true;
-      extraPackages = [ pkgs.zfs ];
-    };
-
-    containers.storage.settings = {
-      storage = {
-        driver = "zfs";
-        graphroot = "/var/lib/containers/storage";
-        runroot = "/run/containers/storage";
-      };
     };
 
     oci-containers.containers = {
 
       qbittorrent = {
         image = "lscr.io/linuxserver/qbittorrent:latest";
-        user = "1000:100";
+        # user = "1000:1000";
 
         environment = {
           TZ = "Europe/Minsk";
@@ -61,8 +56,8 @@
         };
 
         volumes = [
-          "/home/igor/containers/qbittorrent/config:/config"
-          "/home/igor/Downloads:/downloads"
+          "/root/containers:/config"
+          "/root/downloads:/downloads"
         ];
 
         ports = [
@@ -85,6 +80,7 @@
         manager = {
           ratio = [ 0 2 3 ];
           sort_by = "natural";
+          sort_dir_first = true;
           sort_sensitive = false;
           sort_reverse = false;
           show_hidden = true;
@@ -146,15 +142,14 @@
 
     users.root.password = "nixos";
 
-    users.igor = {
-      isNormalUser = true;
-      description = "igor";
-      password = "asdf";
-      extraGroups = [ "networkmanager" "wheel" "podman" ];
-      packages = with pkgs; [ ];
-      home = "/home/igor";
-      createHome = true;
-    };
+    # users.igor = {
+    #   isNormalUser = true;
+    #   description = "igor";
+    #   password = "asdf";
+    #   extraGroups = [ "networkmanager" "wheel" "podman" ];
+    #   home = "/home/igor";
+    #   createHome = true;
+    # };
   };
 
   nix.gc = {
@@ -163,7 +158,7 @@
     options = "--delete-older-than 7d";
   };
 
-  system.stateVersion = "23.11";
+  system.stateVersion = "24.05";
 
   nixpkgs.config.allowUnfree = true;
 
