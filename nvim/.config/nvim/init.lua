@@ -220,6 +220,7 @@ require("lazy").setup({
 						lua = { "stylua" },
 						markdown = { "prettierd" },
 						nix = { "nixpkgs_fmt" },
+						python = { "ruff_format", "ruff_organize_imports" },
 						sh = { "shfmt" },
 						svelte = { "prettierd", "rustywind" },
 						templ = { "templ", "rustywind" },
