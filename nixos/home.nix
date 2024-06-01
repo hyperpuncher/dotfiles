@@ -12,6 +12,7 @@
       ".p10k.zsh".source = ../zsh/.p10k.zsh;
 
       ".config/hypr/hypridle.conf".source = ../hyprland/.config/hypr/hypridle.conf;
+      ".config/mpv/mpv.conf".source = ../mpv/.config/mpv/mpv.conf;
     };
   };
 

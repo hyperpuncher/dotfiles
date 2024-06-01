@@ -17,10 +17,7 @@
 
   environment.systemPackages = with pkgs; [
 
-    # blender-hip
     # davinci-resolve
-    # font-manager
-    # taskell
 
     biome
     go-tools
@@ -44,7 +41,9 @@
     aria
     atool
     bat
+    bc
     beekeeper-studio
+    blender-hip
     brave
     bun
     chafa
@@ -58,6 +57,7 @@
     dash
     ddcutil
     dua
+    exiftool
     eza
     f3d
     fastfetch
@@ -66,6 +66,7 @@
     ffmpegthumbnailer
     flutter
     fnm
+    font-manager
     fx
     fzf
     gimp
@@ -132,7 +133,6 @@
     podman-tui
     polkit_gnome
     poppler_utils
-    prettierd
     procs
     pulsemixer
     python3
@@ -657,6 +657,7 @@
   };
 
   boot = {
+    initrd.kernelModules = [ "amdgpu" ];
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
     extraModulePackages = with config.boot.kernelPackages; [ apfs ddcci-driver ];
