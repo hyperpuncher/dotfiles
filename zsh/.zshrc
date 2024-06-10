@@ -103,6 +103,7 @@ function md() { [[ $# == 1 ]] && mkdir -p -- "$1" && cd -- "$1" }
 compdef _directories md
 
 alias bt='bluetoothctl'
+alias drop='dragon-drop -x -a'
 alias cat='bat -pp'
 alias d='cd ~/dotfiles/'
 alias dev='pnpm run dev --host'
