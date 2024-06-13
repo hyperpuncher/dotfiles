@@ -35,7 +35,7 @@
       monitor = ",preferred,auto,auto";
 
       exec-once = [
-        "mpv ~/dotfiles/sounds/ubuntu.opus"
+        "mpv --loop=no ~/dotfiles/sounds/ubuntu.opus"
         "swaybg -i ~/Pictures/wp.png -m fill"
         "waybar"
         # "jamesdsp -t"
@@ -48,7 +48,7 @@
 
         "wl-paste --type text --watch cliphist store" #Stores only text data
         "wl-paste --type image --watch cliphist store" #Stores only image data
-        "wl-paste -p --watch wl-copy -pc" #Disable middle click paste
+        # "wl-paste -p --watch wl-copy -pc" #Disable middle click paste
       ];
 
       general = {

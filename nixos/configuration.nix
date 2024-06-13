@@ -17,8 +17,6 @@
 
   environment.systemPackages = with pkgs; [
 
-    # davinci-resolve
-
     biome
     go-tools
     gofumpt
@@ -57,6 +55,7 @@
     dash
     ddcutil
     dua
+    dune3d
     exiftool
     eza
     f3d
@@ -554,7 +553,7 @@
       settings.yazi = {
         manager = {
           ratio = [ 0 2 3 ];
-          sort_by = "natural";
+          sort_by = "extension";
           sort_dir_first = true;
           sort_sensitive = false;
           sort_reverse = false;
