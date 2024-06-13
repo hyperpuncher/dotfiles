@@ -421,6 +421,24 @@ require("lazy").setup({
 		branch = "harpoon2",
 		dependencies = { "nvim-lua/plenary.nvim" },
 	},
+
+	{
+		"codethread/qmk.nvim",
+		config = function()
+			---@type qmk.UserConfig
+			local conf = {
+				name = "ikiosuru",
+				layout = {
+					"x x x x x x _ x x x x x x",
+					"x x x x x x _ x x x x x x",
+					"x x x x x x _ x x x x x x",
+					"_ _ _ x x x _ x x x _ _ _",
+				},
+				variant = "zmk",
+			}
+			require("qmk").setup(conf)
+		end,
+	},
 }, {
 	ui = {
 		border = "rounded",
