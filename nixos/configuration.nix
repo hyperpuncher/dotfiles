@@ -360,12 +360,13 @@
             astro = [ "prettierd" "rustywind" ];
             dart = [ "dart_format" ];
             go = [ "gofumpt" ];
+            ino = [ "clang-format" ];
             javascript = [ "biome" ];
             json = [ "fixjson" "biome" ];
-            ino = [ "clang-format" ];
             lua = [ "stylua" ];
-            nix = [ "nixpkgs_fmt" ];
             markdown = [ "prettierd" ];
+            nix = [ "nixpkgs_fmt" ];
+            python = [ "ruff_format" "ruff_organize_imports" ];
             sh = [ "shfmt" ];
             svelte = [ "prettierd" "rustywind" ];
             templ = [ "templ" "rustywind" ];
@@ -440,7 +441,7 @@
             marksman.enable = true;
             nil_ls.enable = true;
             pyright.enable = true;
-            ruff-lsp.enable = true;
+            ruff.enable = true;
             rust-analyzer = {
               enable = true;
               installCargo = true;
