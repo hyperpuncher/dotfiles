@@ -370,7 +370,6 @@ require("lazy").setup({
 	{
 		"Exafunction/codeium.vim",
 		event = "BufEnter",
-		version = "1.8.37",
 		-- config = function()
 		-- 	vim.g.codeium_disable_bindings = 1
 		-- 	map("i", "<C-'>", function()
