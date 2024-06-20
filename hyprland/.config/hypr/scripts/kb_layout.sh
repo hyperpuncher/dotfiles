@@ -2,7 +2,7 @@
 
 ru_layout_apps="org.telegram.desktop|signal"
 
-kb_names="bastard-keyboards-charybdis-mini-\(3x6\)-pro-micro$|hyperpuncher-kanariyoi-keyboard|hyperpuncher-noob-keyboard"
+kb_names="ikiosuru-keyboard$|bastard-keyboards-charybdis-mini-\(3x6\)-pro-micro$|hyperpuncher-kanariyoi-keyboard|hyperpuncher-noob-keyboard"
 
 keyboard=$(hyprctl devices | grep -Eo "$kb_names")
 
