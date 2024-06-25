@@ -2,9 +2,9 @@
 
 ru_layout_apps="org.telegram.desktop|signal"
 
-kb_names="ikiosuru-keyboard$|bastard-keyboards-charybdis-mini-\(3x6\)-pro-micro$|hyperpuncher-kanariyoi-keyboard|hyperpuncher-noob-keyboard"
-
-keyboard=$(hyprctl devices | grep -Eo "$kb_names")
+kb_names="zmk-project-ikiosuru-keyboard
+bastard-keyboards-charybdis-mini-(3x6)-pro-micro
+hyperpuncher-noob-keyboard"
 
 handle() {
 	case $1 in
@@ -17,7 +17,9 @@ handle() {
 			layout=1
 		fi
 
-		echo "switchxkblayout $keyboard $layout" | socat - UNIX-CONNECT:"$XDG_RUNTIME_DIR"/hypr/"$HYPRLAND_INSTANCE_SIGNATURE"/.socket.sock
+		for keyboard in $kb_names; do
+			echo "switchxkblayout $keyboard $layout" | socat - UNIX-CONNECT:"$XDG_RUNTIME_DIR"/hypr/"$HYPRLAND_INSTANCE_SIGNATURE"/.socket.sock
+		done
 
 		;;
 	esac
