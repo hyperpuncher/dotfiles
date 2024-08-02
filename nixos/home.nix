@@ -80,7 +80,7 @@
 
       device = {
         name = "bastard-keyboards-charybdis-mini-(3x6)-pro-micro-1";
-        sensitivity = 1.0;
+        sensitivity = 0.2;
       };
 
       decoration = {
@@ -112,7 +112,7 @@
         "$mod, ESCAPE, exec, rofi -show power_menu -modes 'power_menu:~/dotfiles/rofi/.config/rofi/scripts/power_menu.sh'"
         "$mod, RETURN, exec, foot"
         "$mod, E, exec, nemo"
-        "$mod, B, exec, brave --disable-features=HardwareMediaKeyHandling --ozone-platform=wayland"
+        "$mod, B, exec, brave"
         "$mod, X, exec, hyprctl kill"
         "$mod, D, exec, rofi -show drun -display-drun 'Apps'"
         "$mod, Q, killactive,"
@@ -167,8 +167,8 @@
       binde = [
         # ", XF86MonBrightnessDown, exec, brillo -q -U 5"
         # ", XF86MonBrightnessUp, exec, brillo -q -A 5"
-        ", XF86MonBrightnessDown, exec, ddcutil --skip-ddc-checks --noverify -b 6 setvcp 10 - 5"
-        ", XF86MonBrightnessUp, exec, ddcutil --skip-ddc-checks --noverify -b 6 setvcp 10 + 5"
+        ", XF86MonBrightnessDown, exec, ddcutil --skip-ddc-checks --noverify setvcp 10 - 5"
+        ", XF86MonBrightnessUp, exec, ddcutil --skip-ddc-checks --noverify setvcp 10 + 5"
 
         ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_SINK@ 5%-"
         ", XF86AudioRaiseVolume, exec, wpctl set-volume -l 1.2 @DEFAULT_SINK@ 5%+"

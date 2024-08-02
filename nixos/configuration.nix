@@ -30,6 +30,7 @@
 
     nodePackages.jsonlint
 
+    # rustdesk
     _7zz
     adw-gtk3
     age
@@ -45,8 +46,6 @@
     brave
     bun
     chafa
-    cinnamon.nemo
-    cinnamon.nemo-fileroller
     clang
     clinfo
     cliphist
@@ -56,13 +55,14 @@
     ddcutil
     dua
     dune3d
+    exhibit
     exiftool
     eza
-    f3d
     fastfetch
     fd
     ffmpeg
     ffmpegthumbnailer
+    file-roller
     flutter
     fnm
     font-manager
@@ -71,9 +71,8 @@
     gimp
     gitleaks
     glow
-    gnome.file-roller
-    gnome.gnome-disk-utility
-    gnome.gnome-keyring
+    gnome-disk-utility
+    gnome-keyring
     gnumake
     go
     gparted
@@ -91,7 +90,6 @@
     jq
     kalker
     kicad-small
-    kikit
     krita
     lazydocker
     lazygit
@@ -113,6 +111,8 @@
     mtpfs
     mumble
     nasc
+    nemo
+    nemo-fileroller
     networkmanagerapplet
     nfs-utils
     ninja
@@ -125,6 +125,7 @@
     ocrmypdf
     openai-whisper-cpp
     openscad-unstable
+    orca-slicer
     parallel
     pavucontrol
     pipx
@@ -132,6 +133,7 @@
     podman-tui
     polkit_gnome
     poppler_utils
+    postgresql
     procs
     pulsemixer
     python3
@@ -147,7 +149,6 @@
     quickemu
     qview
     ripgrep
-    rustdesk
     sd
     shell-gpt
     signal-desktop
@@ -181,6 +182,7 @@
     xorg.xhost
     yarn
     yt-dlp
+    zed-editor
     zip
     zoxide
 
@@ -345,7 +347,7 @@
               symbol = "│";
               draw = {
                 delay = 0;
-                animation = config.nixvim.helpers.mkRaw ''
+                animation = config.lib.nixvim.mkRaw ''
                   function() return 0 end
                 '';
               };
@@ -388,7 +390,7 @@
 
         treesitter = {
           enable = true;
-          indent = true;
+          settings.indent.enable = true;
         };
 
         cmp = {
@@ -439,7 +441,7 @@
             htmx.enable = true;
             lua-ls.enable = true;
             marksman.enable = true;
-            nil_ls.enable = true;
+            nil-ls.enable = true;
             pyright.enable = true;
             ruff.enable = true;
             rust-analyzer = {
@@ -536,11 +538,11 @@
 
         { mode = "n"; key = "<leader>rn"; action = ":IncRename "; }
 
-        { mode = "n"; key = "<leader>f"; action = "require('telescope.builtin').find_files"; lua = true; }
-        { mode = "n"; key = "<leader>g"; action = "require('telescope.builtin').git_files"; lua = true; }
-        { mode = "n"; key = "<leader>w"; action = "require('telescope.builtin').live_grep"; lua = true; }
-        { mode = "n"; key = "<leader>h"; action = "require('telescope.builtin').help_tags"; lua = true; }
-        { mode = "n"; key = "<leader>d"; action = "require('telescope.builtin').diagnostics"; lua = true; }
+        { mode = "n"; key = "<leader>f"; action.__raw = "require('telescope.builtin').find_files"; lua = true; }
+        { mode = "n"; key = "<leader>g"; action.__raw = "require('telescope.builtin').git_files"; lua = true; }
+        { mode = "n"; key = "<leader>w"; action.__raw = "require('telescope.builtin').live_grep"; lua = true; }
+        { mode = "n"; key = "<leader>h"; action.__raw = "require('telescope.builtin').help_tags"; lua = true; }
+        { mode = "n"; key = "<leader>d"; action.__raw = "require('telescope.builtin').diagnostics"; lua = true; }
 
         # Increase and decrease ints
         { mode = "n"; key = "<C-S-a>"; action = "<C-a>"; }
@@ -593,7 +595,7 @@
     brillo.enable = true;
     i2c.enable = true;
 
-    opengl.extraPackages = with pkgs; [
+    graphics.extraPackages = with pkgs; [
       rocmPackages.clr.icd
     ];
   };
@@ -603,6 +605,18 @@
     gvfs.enable = true;
     openssh.enable = true;
     udisks2.enable = true;
+
+    resolved = {
+      enable = true;
+      extraConfig = ''
+        [Resolve]
+        DNS=45.90.28.0#nixos-7dd828.dns.nextdns.io
+        DNS=2a07:a8c0::#nixos-7dd828.dns.nextdns.io
+        DNS=45.90.30.0#nixos-7dd828.dns.nextdns.io
+        DNS=2a07:a8c1::#nixos-7dd828.dns.nextdns.io
+        DNSOverTLS=yes
+      '';
+    };
 
     syncthing = {
       enable = true;
@@ -686,8 +700,6 @@
 
   # Hands out realtime scheduling priority to user processes on demand
   security.rtkit.enable = true;
-
-  sound.mediaKeys.enable = true;
 
   time.timeZone = "Europe/Minsk";
 
