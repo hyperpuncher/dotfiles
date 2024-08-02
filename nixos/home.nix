@@ -80,7 +80,7 @@
 
       device = {
         name = "bastard-keyboards-charybdis-mini-(3x6)-pro-micro-1";
-        sensitivity = 1.0;
+        sensitivity = 0.2;
       };
 
       decoration = {
@@ -112,7 +112,7 @@
         "$mod, ESCAPE, exec, rofi -show power_menu -modes 'power_menu:~/dotfiles/rofi/.config/rofi/scripts/power_menu.sh'"
         "$mod, RETURN, exec, foot"
         "$mod, E, exec, nemo"
-        "$mod, B, exec, brave --disable-features=HardwareMediaKeyHandling --ozone-platform=wayland"
+        "$mod, B, exec, brave"
         "$mod, X, exec, hyprctl kill"
         "$mod, D, exec, rofi -show drun -display-drun 'Apps'"
         "$mod, Q, killactive,"
@@ -167,8 +167,8 @@
       binde = [
         # ", XF86MonBrightnessDown, exec, brillo -q -U 5"
         # ", XF86MonBrightnessUp, exec, brillo -q -A 5"
-        ", XF86MonBrightnessDown, exec, ddcutil --skip-ddc-checks --noverify -b 6 setvcp 10 - 5"
-        ", XF86MonBrightnessUp, exec, ddcutil --skip-ddc-checks --noverify -b 6 setvcp 10 + 5"
+        ", XF86MonBrightnessDown, exec, ddcutil --skip-ddc-checks --noverify setvcp 10 - 5"
+        ", XF86MonBrightnessUp, exec, ddcutil --skip-ddc-checks --noverify setvcp 10 + 5"
 
         ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_SINK@ 5%-"
         ", XF86AudioRaiseVolume, exec, wpctl set-volume -l 1.2 @DEFAULT_SINK@ 5%+"
@@ -267,73 +267,6 @@
         scrollback.indicator-position = "none";
         url.launch = "brave \${url}";
       };
-    };
-
-    wezterm = {
-      enable = true;
-      extraConfig = ''
-        local wezterm = require("wezterm")
-
-        function basename(s)
-          return string.gsub(s, '(.*[/\\])(.*)', '%2')
-        end
-
-        local config = {
-
-            audible_bell = "Disabled",
-            color_scheme = "Monokai Soda",
-            enable_tab_bar = false,
-            enable_wayland = false,
-            font = wezterm.font("IosevkaTerm Nerd Font"),
-            font_size = 21,
-            force_reverse_video_cursor = true,
-            freetype_load_flags = "NO_HINTING",
-            window_close_confirmation = "NeverPrompt",
-            window_background_opacity = 0.9,
-
-            keys = {
-                {
-                    key = "c",
-                    mods = "CTRL",
-                    action = wezterm.action_callback(function(window, pane)
-                        local has_selection = window:get_selection_text_for_pane(pane) ~= ""
-                        if has_selection then
-                            window:perform_action(wezterm.action({ CopyTo = "ClipboardAndPrimarySelection" }), pane)
-                            window:perform_action("ClearSelection", pane)
-                        else
-                            window:perform_action(wezterm.action({ SendKey = { key = "c", mods = "CTRL" } }), pane)
-                        end
-                    end),
-                },
-                {
-                    key = "v",
-                    mods = "CTRL",
-                    action = wezterm.action_callback(function(window, pane)
-                        if basename(pane:get_foreground_process_name()) ~= "nvim" then
-                            window:perform_action(wezterm.action({ PasteFrom = "Clipboard" }), pane)
-                        else
-                            window:perform_action(wezterm.action.SendKey({ key = "v", mods = "CTRL" }), pane)
-                        end
-                    end),
-                },
-                {
-                    key = "x",
-                    mods = "SHIFT|CTRL",
-                    action = wezterm.action.DisableDefaultAssignment,
-                },
-            },
-
-            mouse_bindings = {
-                {
-                    event = { Down = { streak = 1, button = "Middle" } },
-                    mods = "NONE",
-                    action = wezterm.action.Nop,
-                },
-            },
-        }
-
-        return config
-      '';
     };
 
     waybar = {
