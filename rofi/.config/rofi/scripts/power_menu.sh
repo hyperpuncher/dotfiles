@@ -2,10 +2,10 @@
 
 case $1 in
 "shutdown")
-	rm ~/.cache/cliphist/db && systemctl poweroff
+	rm ~/.cache/cliphist/db && halt -p
 	;;
 "reboot")
-	systemctl reboot
+	reboot
 	;;
 "logout")
 	hyprctl dispatch exit
