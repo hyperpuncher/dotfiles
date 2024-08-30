@@ -103,7 +103,7 @@
   "custom/brightness": {
     "tooltip": false,
     "format": "{}%  ",
-    "interval": 60,
+    "interval": 30,
     // "exec": "brillo 2>/dev/null | cut -d '.' -f 1"
     "exec": "ddcutil --skip-ddc-checks -t -b 8 getvcp 10 2>/dev/null | awk '{print $4}'"
   },
