@@ -70,6 +70,7 @@
     gimp
     gitleaks
     glow
+    gnome-calculator
     gnome-disk-utility
     gnome-keyring
     gnumake
@@ -87,12 +88,12 @@
     jamesdsp
     jdk
     jq
-    kalker
     kicad-small
     krita
     lazydocker
     lazygit
     libheif
+    libqalculate
     libreoffice-fresh
     libsForQt5.kimageformats
     libsForQt5.qt5.qtwayland
@@ -109,7 +110,6 @@
     mpv
     mtpfs
     mumble
-    nasc
     nemo
     nemo-fileroller
     networkmanagerapplet
@@ -134,6 +134,7 @@
     poppler_utils
     postgresql
     procs
+    progress
     pulsemixer
     python3
     qemu
@@ -358,25 +359,26 @@
 
         conform-nvim = {
           enable = true;
-          formattersByFt = {
-            astro = [ "prettierd" "rustywind" ];
-            dart = [ "dart_format" ];
-            go = [ "gofumpt" ];
-            ino = [ "clang-format" ];
-            javascript = [ "biome" ];
-            json = [ "fixjson" "biome" ];
-            lua = [ "stylua" ];
-            markdown = [ "prettierd" ];
-            nix = [ "nixpkgs_fmt" ];
-            python = [ "ruff_format" "ruff_organize_imports" ];
-            sh = [ "shfmt" ];
-            svelte = [ "prettierd" "rustywind" ];
-            templ = [ "templ" "rustywind" ];
-            yaml = [ "prettierd" ];
-          };
-          formatOnSave = {
-            timeoutMs = 500;
-            lspFallback = true;
+          settings = {
+            format_on_save = {
+              lsp_format = "fallback";
+            };
+            formatters_by_ft = {
+              astro = [ "prettierd" "rustywind" ];
+              dart = [ "dart_format" ];
+              go = [ "gofumpt" ];
+              ino = [ "clang-format" ];
+              javascript = [ "biome" ];
+              json = [ "fixjson" "biome" ];
+              lua = [ "stylua" ];
+              markdown = [ "prettierd" ];
+              nix = [ "nixpkgs_fmt" ];
+              python = [ "ruff_format" "ruff_organize_imports" ];
+              sh = [ "shfmt" ];
+              svelte = [ "prettierd" "rustywind" ];
+              templ = [ "templ" "rustywind" ];
+              yaml = [ "prettierd" ];
+            };
           };
         };
 
