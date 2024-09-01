@@ -130,6 +130,7 @@ alias rebuild='sudo nixos-rebuild switch --flake ~/dotfiles/nixos/ --quiet --qui
 alias rg='rg --hidden --no-ignore --no-messages'
 alias rmf='rm -rf'
 alias ssh-butterbot='ssh root@192.168.31.75'
+alias ssh-coolify='ssh igor@192.168.31.84'
 alias ssh-homelab='ssh igor@192.168.31.104'
 alias ssh-kodi='ssh root@192.168.31.26'
 alias ssh-printer='ssh igor@192.168.31.19'
