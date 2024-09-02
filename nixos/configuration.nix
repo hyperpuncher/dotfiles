@@ -27,6 +27,7 @@
     rustywind
     shfmt
     stylua
+    taplo
 
     nodePackages.jsonlint
 
@@ -377,6 +378,7 @@
               sh = [ "shfmt" ];
               svelte = [ "prettierd" "rustywind" ];
               templ = [ "templ" "rustywind" ];
+              toml = [ "taplo" ];
               yaml = [ "prettierd" ];
             };
           };

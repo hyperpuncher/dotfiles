@@ -79,6 +79,7 @@ local formatters = {
 	"shfmt",
 	"stylua",
 	"templ",
+	"taplo",
 }
 
 local linters = {
@@ -224,6 +225,7 @@ require("lazy").setup({
 						sh = { "shfmt" },
 						svelte = { "prettierd", "rustywind" },
 						templ = { "templ", "rustywind" },
+						toml = { "taplo" },
 						yaml = { "prettierd" },
 					},
 				},
