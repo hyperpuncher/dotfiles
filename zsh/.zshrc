@@ -32,6 +32,7 @@ zstyle ':z4h:ssh:example-hostname1'   enable 'yes'
 zstyle ':z4h:ssh:*.example-hostname2' enable 'no'
 
 zstyle ':z4h:ssh:192.168.31.104' enable 'yes'
+zstyle ':z4h:ssh:192.168.31.84' enable 'yes'
 
 # The default value if none of the overrides above match the hostname.
 zstyle ':z4h:ssh:*'                   enable 'no'
