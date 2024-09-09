@@ -164,6 +164,7 @@
     stow
     sunshine
     swaybg
+    swayosd
     telegram-desktop
     tlrc
     transmission_4-gtk
