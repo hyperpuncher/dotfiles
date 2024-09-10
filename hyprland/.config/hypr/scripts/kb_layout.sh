@@ -13,7 +13,7 @@ handle() {
 			layout=1
 		fi
 
-		echo "switchxkblayout all $layout" | socat - UNIX-CONNECT:"$XDG_RUNTIME_DIR"/hypr/"$HYPRLAND_INSTANCE_SIGNATURE"/.socket.sock
+		echo "switchxkblayout current $layout" | socat - UNIX-CONNECT:"$XDG_RUNTIME_DIR"/hypr/"$HYPRLAND_INSTANCE_SIGNATURE"/.socket.sock
 
 		;;
 	esac
