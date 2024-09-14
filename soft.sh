@@ -1,155 +1,343 @@
 #!/bin/bash
 paru -S \
+    7-zip-full \
+    adw-gtk-theme \
+    age \
+    alacritty \
+    amd-ucode \
     android-file-transfer \
     android-tools \
+    ansible \
     ansible-lint \
+    arduino-cli \
     aria2 \
+    assimp \
+    atool \
+    autotiling-rs \
+    base \
+    base-devel \
+    bash-language-server \
     bat \
+    bc \
+    beekeeper-studio-bin \
+    bfg \
     bibata-cursor-theme \
+    bind \
+    blender \
     blueman \
     bluez-utils \
+    brave-beta-bin \
+    brave-bin \
     brillo \
     btop \
+    btrfs-progs \
+    buildah \
     bun-bin \
-    c-lolcat \
+    cargo-watch \
+    ccache \
+    cemu-bin \
+    chafa \
+    chainner-bin \
+    clang \
+    clinfo \
     cliphist \
     corectrl \
+    csvlens \
     dashbinsh \
+    davinci-resolve-studio \
+    dbus-broker \
     ddcci-driver-linux-dkms \
     ddcutil \
-    dirstat-rs-git \
-    dkms \
-    docker \
+    delve \
+    devtools \
+    difftastic \
+    docker-buildx \
     docker-compose \
     downgrade \
     dragon-drop \
+    dua-cli \
     dunst \
     exfatprogs \
+    expac \
+    extra-cmake-modules \
     eza \
+    f3d \
+    fastfetch \
     fd \
     ffmpeg \
-    figlet-fonts-extra \
+    ffmpegthumbnailer \
     file-roller \
     firefox \
     fnm \
     font-manager \
+    foot \
+    freecad \
+    freerouting \
+    fx \
     fzf \
-    gammastep \
-    gdu \
+    gamemode \
     gimp-devel \
+    git \
     github-cli \
+    gitleaks \
     glow \
+    gnome-calculator \
     gnome-disk-utility \
     gnome-keyring \
+    gofumpt \
+    golangci-lint-bin \
+    gopls \
     gparted \
+    gradience \
     greetd-tuigreet \
     grim \
+    gst-plugin-pipewire \
+    gtk-engine-murrine \
+    gum \
     gvfs \
-    helix \
+    gvfs-smb \
+    handlr-regex \
     helvum \
-    hyprland \
-    hyprpaper \
+    heroic-games-launcher-bin \
+    hip-runtime-amd \
+    hyperfine \
+    hypridle \
+    hyprland-git \
     hyprpicker \
     imagemagick \
     inkscape \
-    jamesdsp \
+    inter-font \
+    jamesdsp-pipewire-bin \
+    jdk-openjdk \
     jq \
-    kitty \
+    kicad \
+    kimageformats5 \
+    krita \
     kvantum \
+    kvantum-qt5 \
     lazydocker \
     lazygit \
-    lf \
+    lazysql \
+    lib32-gamemode \
+    lib32-libva-mesa-driver \
+    lib32-mesa \
+    lib32-opencl-rusticl-mesa \
+    lib32-pipewire \
+    libpulse \
+    libqalculate \
     libreoffice-fresh \
+    libva-mesa-driver \
+    libva-utils \
+    linux \
+    linux-firmware \
     linux-headers \
+    linux-lts \
+    linux-lts-headers \
+    llvm \
+    lnav \
+    localsend-bin \
     losslesscut-bin \
+    lua-jsregexp \
+    lua-language-server \
     man-db \
+    mangohud \
+    mediainfo \
     moar \
+    mods \
     mpv \
     mtpfs \
     mumble \
-    nasc \
-    ncspot-bin \
+    nemo \
+    nemo-fileroller \
+    nemo-preview \
+    neovim \
+    network-manager-applet \
+    networkmanager \
     nfs-utils \
+    nixpacks \
+    nixpkgs-fmt \
+    nmap \
+    noto-fonts \
+    noto-fonts-cjk \
+    noto-fonts-emoji \
     npm \
+    nsz \
     nvtop \
     nwg-look \
+    oatmeal-bin \
+    obinskit \
     obs-studio \
     obsidian \
     ocrmypdf \
+    ollama-rocm \
+    ondsel-es-appimage \
+    opencl-clhpp \
+    opencl-rusticl-mesa \
+    openmp \
+    openscad \
+    openssh \
     orca-slicer-bin \
     pacman-contrib \
     papirus-folders-git \
     papirus-icon-theme \
-    parallel \
+    paru \
     pavucontrol \
-    pfetch-rs-bin \
+    pbzip2 \
+    pcbdraw \
+    pdfarranger \
+    pigz \
+    pipewire \
+    pipewire-alsa \
+    pipewire-jack \
+    pipewire-pulse \
+    plzip \
     pnpm \
+    podlet \
+    podman \
+    podman-docker \
+    podman-tui \
     polkit-gnome \
+    postgresql \
+    prettierd \
     procs \
+    progress \
+    proton-ge-custom-bin \
+    protontricks \
+    prusa-slicer \
     pulsemixer \
     python-beautifulsoup4 \
     python-dotenv \
+    python-isort \
+    python-kikit \
+    python-mistune2 \
     python-numpy \
     python-pillow \
     python-pip \
     python-pipreqs \
     python-pipx \
     python-pynvim \
+    python-pypdf \
     python-pytelegrambotapi \
     python-requests \
     python-rich \
     python-setuptools \
     python-tabulate \
     python-wxpython \
-    qemu-full \
+    qemu-emulators-full \
+    qmk \
+    qrencode \
     qt5-imageformats \
     qt5-wayland \
     qt5ct \
     qt6-wayland \
     qt6ct \
     quickemu \
-    qview \
+    qview-git \
+    r2modman-bin \
+    railwayapp-cli \
+    rebuild-detector \
+    retroarch \
+    retroarch-assets-ozone \
     ripgrep \
-    rofi-calc \
-    rofi-emoji \
-    rofi-lbonn-wayland-git \
+    rocm-hip-runtime \
+    rocm-opencl-runtime \
+    rofi-wayland \
+    rpi-imager \
     rustdesk-bin \
-    shell-gpt \
+    rustup \
+    sbctl \
+    sc-im \
+    screen \
+    sd \
+    shadowsocks-rust \
+    shellcheck \
+    sidequest-bin \
+    sidequestlite-bin \
     signal-desktop \
+    skate \
     slurp \
-    solaar \
+    soft-serve \
     solvespace \
+    sops \
+    sox \
     speedtest-go \
-    spotify-edge \
+    spirv-headers \
+    spotify \
+    sshfs \
+    staticcheck \
+    steam \
+    stow \
+    stylua \
+    sunshine \
+    svelte-language-server \
+    sway \
+    swaybg \
+    syncthing \
+    syncthing-gtk \
+    tailwindcss-bin \
+    tailwindcss-language-server \
+    taplo-cli \
+    taskell \
     telegram-desktop \
-    thorium-browser-bin \
-    thunar \
-    thunar-archive-plugin \
-    thunar-volman \
-    tldr \
+    tern \
+    testdisk \
+    tinygo \
+    tlrc-bin \
+    tmux \
     transmission-gtk \
+    trash-cli \
+    tree-sitter-cli \
+    tt-bin \
+    ttf-cascadia-code-nerd \
+    ttf-iosevka-nerd \
+    ttf-iosevkaterm-nerd \
+    ttf-ms-win11-auto \
+    ttf-nunito \
+    ttf-roboto \
+    ttf-rubik-vf \
+    ttf-ubuntu-font-family \
+    ttf-ubuntu-mono-nerd \
+    typescript-language-server \
     udiskie \
     ufw \
+    unarchiver \
     unzip \
     upscayl-bin \
+    upx \
+    uv \
     ventoy-bin \
     vial-appimage \
-    visual-studio-code-bin \
-    vscodium-bin \
+    video-trimmer \
+    virt-manager \
+    vscode-html-languageserver \
+    vulkan-radeon \
+    vulkan-tools \
     waybar \
+    web-os-dev-manager-bin \
     wget \
+    wine-mono \
+    winetricks \
     wireguard-tools \
+    wireplumber \
     wl-clipboard \
-    wl-screenrec-git \
+    wl-screenrec \
+    wlsunset \
+    wluma \
     wtype \
+    xdg-desktop-portal-gtk \
     xdg-desktop-portal-hyprland \
-    xdg-ninja \
+    xorg-server-xvfb \
     xorg-xhost \
+    xray \
+    yaml-language-server \
     yarn \
+    yaru-gtk-theme \
+    yazi \
     yt-dlp \
+    yuzu-mainline-bin \
+    zed \
     zip \
     zoxide \
     zsh-autosuggestions \
     zsh-history-substring-search \
-    zsh-syntax-highlighting \
-    zsh-theme-powerlevel10k-git
+    zsh-syntax-highlighting
