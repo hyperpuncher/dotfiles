@@ -209,7 +209,19 @@ require("lazy").setup({
 				opts = { ui = { border = "rounded" } },
 			},
 
-			{ "williamboman/mason-lspconfig.nvim" },
+			{
+				"williamboman/mason-lspconfig.nvim",
+				config = function()
+					local group = vim.api.nvim_create_augroup("__env", { clear = true })
+					vim.api.nvim_create_autocmd("BufEnter", {
+						pattern = ".env",
+						group = group,
+						callback = function(args)
+							vim.diagnostic.disable(args.buf)
+						end,
+					})
+				end,
+			},
 
 			{
 				"WhoIsSethDaniel/mason-tool-installer.nvim",
