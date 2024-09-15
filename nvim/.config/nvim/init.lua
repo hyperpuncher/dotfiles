@@ -117,18 +117,46 @@ require("lazy").setup({
 
 	{
 		"nvim-telescope/telescope.nvim",
-		opts = {
-			pickers = {
-				find_files = {
-					theme = "dropdown",
-					previewer = false,
+		config = function()
+			local telescope = require("telescope")
+			local telescopeConfig = require("telescope.config")
+
+			-- Clone the default Telescope configuration
+			local vimgrep_arguments = { unpack(telescopeConfig.values.vimgrep_arguments) }
+
+			table.insert(vimgrep_arguments, "--hidden")
+			table.insert(vimgrep_arguments, "-u")
+			table.insert(vimgrep_arguments, "--glob")
+			table.insert(vimgrep_arguments, "!**/.git/*")
+			table.insert(vimgrep_arguments, "--glob")
+			table.insert(vimgrep_arguments, "!**/node_modules/*")
+
+			telescope.setup({
+				defaults = {
+					vimgrep_arguments = vimgrep_arguments,
 				},
-				git_files = {
-					theme = "dropdown",
-					previewer = false,
+				pickers = {
+					find_files = {
+						find_command = {
+							"rg",
+							"-u",
+							"--files",
+							"--hidden",
+							"--glob",
+							"!**/.git/*",
+							"--glob",
+							"!**/node_modules/*",
+						},
+						theme = "dropdown",
+						previewer = false,
+					},
+					git_files = {
+						theme = "dropdown",
+						previewer = false,
+					},
 				},
-			},
-		},
+			})
+		end,
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			{
@@ -149,6 +177,9 @@ require("lazy").setup({
 				["<CR>"] = "actions.select",
 				["-"] = "actions.parent",
 				["<C-c>"] = "actions.close",
+			},
+			view_options = {
+				show_hidden = true,
 			},
 		},
 		dependencies = { "nvim-tree/nvim-web-devicons" },
