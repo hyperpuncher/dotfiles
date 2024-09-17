@@ -266,6 +266,7 @@ require("lazy").setup({
 						nix = { "nixpkgs_fmt" },
 						python = { "ruff_format", "ruff_organize_imports" },
 						sh = { "shfmt" },
+						sql = { "pg_format" },
 						svelte = { "prettierd", "rustywind" },
 						templ = { "templ", "rustywind" },
 						toml = { "taplo" },
