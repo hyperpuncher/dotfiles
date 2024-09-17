@@ -151,3 +151,4 @@ setopt auto_menu  # require an extra TAB press to open the completion menu
 
 eval "$(fnm env --use-on-cd)"
 eval "$(zoxide init zsh)"
+eval "$(direnv hook zsh)"
