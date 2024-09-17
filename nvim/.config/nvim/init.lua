@@ -255,7 +255,7 @@ require("lazy").setup({
 						astro = { "prettierd", "rustywind" },
 						c = { "clang-format" },
 						cpp = { "clang-format" },
-						css = { "prettierd" },
+						css = { "biome" },
 						dart = { "dart_format" },
 						go = { "gofumpt" },
 						ino = { "clang-format" },
