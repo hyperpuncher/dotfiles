@@ -22,7 +22,7 @@ zstyle ':z4h:fzf-complete' recurse-dirs 'no'
 # zstyle ':z4h:fzf-complete' fzf-bindings tab:repeat
 
 # Enable direnv to automatically source .envrc files.
-zstyle ':z4h:direnv'         enable 'no'
+zstyle ':z4h:direnv'         enable 'yes'
 # Show "loading" and "unloading" notifications from direnv.
 zstyle ':z4h:direnv:success' notify 'yes'
 
@@ -151,4 +151,3 @@ setopt auto_menu  # require an extra TAB press to open the completion menu
 
 eval "$(fnm env --use-on-cd)"
 eval "$(zoxide init zsh)"
-eval "$(direnv hook zsh)"
