@@ -539,8 +539,6 @@ map("n", "L", function()
 	harpoon:list():next()
 end)
 
-map("n", ";", ":")
-
 map({ "n", "i" }, "<MiddleMouse>", "<Nop>")
 map({ "n", "i", "v" }, "<RightMouse>", "<Nop>")
 map({ "n", "i", "v" }, "<S-RightMouse>", "<Nop>")
