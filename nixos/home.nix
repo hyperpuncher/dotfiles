@@ -44,7 +44,6 @@
         "hypridle"
         "~/dotfiles/hyprland/.config/hypr/scripts/kb_layout.sh"
         "telegram-desktop"
-        "swayosd-server"
 
         "wl-paste --type text --watch cliphist store" #Stores only text data
         "wl-paste --type image --watch cliphist store" #Stores only image data
@@ -53,6 +52,7 @@
 
       general = {
         gaps_out = 0;
+        gaps_in = 5;
         border_size = 1;
         "col.active_border" = "rgb(ffffff)";
         "col.inactive_border" = "rgb(262626)";
@@ -170,8 +170,8 @@
         ", XF86MonBrightnessDown, exec, ddcutil --skip-ddc-checks --noverify setvcp 10 - 5"
         ", XF86MonBrightnessUp, exec, ddcutil --skip-ddc-checks --noverify setvcp 10 + 5"
 
-        ", XF86AudioLowerVolume, exec, swayosd-client --output-volume lower"
-        ", XF86AudioRaiseVolume, exec, swayosd-client --output-volume raise"
+        ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_SINK@ 5%-"
+        ", XF86AudioRaiseVolume, exec, wpctl set-volume -l 1.2 @DEFAULT_SINK@ 5%+"
       ];
 
       misc = {

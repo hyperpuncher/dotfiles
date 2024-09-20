@@ -31,6 +31,7 @@
 
     nodePackages.jsonlint
 
+    # openscad-unstable
     _7zz
     adw-gtk3
     age
@@ -53,6 +54,7 @@
     corectrl
     dash
     ddcutil
+    direnv
     dua
     dune3d
     exhibit
@@ -93,6 +95,7 @@
     krita
     lazydocker
     lazygit
+    lazysql
     libheif
     libqalculate
     libreoffice-fresh
@@ -124,7 +127,6 @@
     obsidian
     ocrmypdf
     openai-whisper-cpp
-    openscad-unstable
     orca-slicer
     parallel
     pavucontrol
@@ -462,7 +464,7 @@
             svelte.enable = true;
             tailwindcss.enable = true;
             templ.enable = true;
-            tsserver.enable = true;
+            ts-ls.enable = true;
           };
 
           keymaps = {
