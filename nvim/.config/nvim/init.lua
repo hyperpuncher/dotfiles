@@ -119,6 +119,7 @@ require("lazy").setup({
 		"nvim-telescope/telescope.nvim",
 		config = function()
 			local telescope = require("telescope")
+			local telescopeBuiltIn = require("telescope.builtin")
 			local telescopeConfig = require("telescope.config")
 
 			-- Clone the default Telescope configuration
@@ -156,7 +157,28 @@ require("lazy").setup({
 					},
 				},
 			})
+
+			-- We cache the results of "git rev-parse"
+			-- Process creation is expensive in Windows, so this reduces latency
+			local is_inside_work_tree = {}
+
+			telescopeBuiltIn.project_files = function()
+				local opts = {} -- define here if you want to define something
+
+				local cwd = vim.fn.getcwd()
+				if is_inside_work_tree[cwd] == nil then
+					vim.fn.system("git rev-parse --is-inside-work-tree")
+					is_inside_work_tree[cwd] = vim.v.shell_error == 0
+				end
+
+				if is_inside_work_tree[cwd] then
+					require("telescope.builtin").git_files(opts)
+				else
+					require("telescope.builtin").find_files(opts)
+				end
+			end
 		end,
+
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			{
@@ -500,7 +522,7 @@ autocmd("FileType", {
 local telescope_fn = require("telescope.builtin")
 
 map("n", "<leader>f", telescope_fn.find_files)
-map("n", "<leader>g", telescope_fn.git_files)
+map("n", "<leader>g", telescope_fn.project_files)
 map("n", "<leader>w", telescope_fn.live_grep)
 map("n", "<leader>h", telescope_fn.help_tags)
 map("n", "<leader>cw", function()
