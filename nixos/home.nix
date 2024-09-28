@@ -68,6 +68,10 @@
         "workspace 3 silent, title:^(Telegram.*)$"
       ];
 
+      windowrulev2 = [
+        "suppressevent maximize, class:^(blender)$"
+      ];
+
       xwayland.force_zero_scaling = true;
 
       input = {
