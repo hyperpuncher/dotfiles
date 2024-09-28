@@ -209,6 +209,7 @@ protontricks
 pulsemixer
 python-beautifulsoup4
 python-dotenv
+python-fake-bpy-module-latest
 python-isort
 python-kikit
 python-mistune2
