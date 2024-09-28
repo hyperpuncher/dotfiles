@@ -31,12 +31,12 @@
 
     nodePackages.jsonlint
 
-    # openscad-unstable
     _7zz
     adw-gtk3
     age
     android-file-transfer
     android-tools
+    appflowy
     arduino-cli
     aria
     atool
@@ -54,6 +54,7 @@
     corectrl
     dash
     ddcutil
+    deno
     direnv
     dua
     dune3d
@@ -114,6 +115,7 @@
     mpv
     mtpfs
     mumble
+    nekoray
     nemo
     nemo-fileroller
     networkmanagerapplet
@@ -127,6 +129,7 @@
     obsidian
     ocrmypdf
     openai-whisper-cpp
+    openscad-unstable
     orca-slicer
     parallel
     pavucontrol
@@ -259,12 +262,13 @@
         cmp_luasnip.enable = true;
         codeium-vim.enable = true;
         friendly-snippets.enable = true;
+        indent-o-matic.enable = true;
         lspkind.enable = true;
         luasnip.enable = true;
         nvim-colorizer.enable = true;
         oil.enable = true;
         rainbow-delimiters.enable = true;
-        indent-o-matic.enable = true;
+        web-devicons.enable = true;
 
         fidget = {
           enable = true;
