@@ -455,12 +455,12 @@
             gopls.enable = true;
             html.enable = true;
             htmx.enable = true;
-            lua-ls.enable = true;
+            lua_ls.enable = true;
             marksman.enable = true;
-            nil-ls.enable = true;
+            nil_ls.enable = true;
             pyright.enable = true;
             ruff.enable = true;
-            rust-analyzer = {
+            rust_analyzer = {
               enable = true;
               installCargo = true;
               installRustc = true;
@@ -468,7 +468,7 @@
             svelte.enable = true;
             tailwindcss.enable = true;
             templ.enable = true;
-            ts-ls.enable = true;
+            ts_ls.enable = true;
           };
 
           keymaps = {

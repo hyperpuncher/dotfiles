@@ -66,10 +66,9 @@
         "pseudo, ^(info.mumble.Mumble)$"
         "tile, ^(qemu-system-x86_64)$"
         "workspace 3 silent, title:^(Telegram.*)$"
-      ];
-
-      windowrulev2 = [
-        "suppressevent maximize, class:^(blender)$"
+        "move 445 265, ^(blender)$"
+        "suppressevent maximize, :^(blender)$"
+        "maxsize 1550 900, ^(blender)$"
       ];
 
       xwayland.force_zero_scaling = true;
