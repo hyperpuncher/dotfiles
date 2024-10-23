@@ -345,7 +345,7 @@
               headphone = "";
               hands-free = "";
               headset = "";
-              default = [ "" "" ];
+              default = [ " " " " ];
             };
             ignored-sinks = [ "JamesDSP Sink" ];
           };
@@ -381,8 +381,8 @@
           "custom/brightness" = {
             tooltip = false;
             format = "{}%  ";
-            interval = 2;
-            exec = "brillo 2>/dev/null | cut -d '.' -f 1";
+            interval = 60;
+            exec = "ddcutil --skip-ddc-checks -t -b 2 getvcp 10 2>/dev/null | awk '{print $4}'";
           };
         };
       };
