@@ -121,6 +121,7 @@
     networkmanagerapplet
     nfs-utils
     ninja
+    nmap
     nodePackages.pnpm
     nodejs
     nvtopPackages.amd
@@ -130,6 +131,7 @@
     ocrmypdf
     openai-whisper-cpp
     openscad-unstable
+    openssl
     orca-slicer
     parallel
     pavucontrol
@@ -156,6 +158,7 @@
     qview
     ripgrep
     rustdesk-flutter
+    rustup
     sd
     shell-gpt
     signal-desktop
@@ -188,6 +191,7 @@
     xdg-utils
     xdragon
     xorg.xhost
+    xray
     yarn
     yt-dlp
     zed-editor
@@ -378,6 +382,7 @@
               ino = [ "clang-format" ];
               javascript = [ "biome" ];
               json = [ "fixjson" "biome" ];
+              jsonc = [ "fixjson" "biome" ];
               lua = [ "stylua" ];
               markdown = [ "prettierd" ];
               nix = [ "nixpkgs_fmt" ];
@@ -756,7 +761,7 @@
       inter
       iosevka
       noto-fonts
-      noto-fonts-cjk
+      noto-fonts-cjk-sans
       noto-fonts-emoji
       rubik
       ubuntu_font_family
