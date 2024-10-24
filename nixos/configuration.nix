@@ -109,6 +109,7 @@
     localsend
     logiops
     losslesscut-bin
+    lua
     man
     moar
     mods
