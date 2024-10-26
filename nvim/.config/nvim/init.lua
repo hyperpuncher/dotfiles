@@ -569,7 +569,7 @@ map("n", "<C-a>", "ggVG")
 map({ "i", "c" }, "<C-v>", "<C-R><C-R>+")
 
 map("n", "<C-s>", ":w<CR>")
-map({ "i", "v" }, "<C-s>", "<Esc>:w<CR>")
+map({ "i", "v", "c" }, "<C-s>", "<Esc>:w<CR>")
 
 map("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
