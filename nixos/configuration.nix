@@ -37,6 +37,7 @@
     android-file-transfer
     android-tools
     appflowy
+    apple-cursor
     arduino-cli
     aria
     atool
@@ -53,6 +54,7 @@
     cmake
     corectrl
     dash
+    davinci-resolve
     ddcutil
     deno
     direnv
@@ -102,14 +104,13 @@
     libreoffice-fresh
     libsForQt5.kimageformats
     libsForQt5.qt5.qtwayland
-    libsForQt5.qt5ct
-    libsForQt5.qtstyleplugin-kvantum
     libva-utils
     lm_sensors
     localsend
     logiops
     losslesscut-bin
-    lua
+    luajit
+    luajitPackages.luarocks
     man
     moar
     mods
@@ -147,14 +148,10 @@
     pulsemixer
     python3
     qemu
-    qgnomeplatform
-    qgnomeplatform-qt6
     qmk
     qrencode
     qt6.qtimageformats
     qt6.qtwayland
-    qt6Packages.qt6ct
-    qt6Packages.qtstyleplugin-kvantum
     quickemu
     qview
     ripgrep
@@ -789,8 +786,7 @@
 
   qt = {
     enable = true;
-    platformTheme = "gnome";
-    style = "adwaita-dark";
+    platformTheme = "lxqt";
   };
 
   system.stateVersion = "23.11";

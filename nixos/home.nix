@@ -25,9 +25,9 @@
         "XDG_CURRENT_DESKTOP,Hyprland"
         "XDG_SESSION_DESKTOP,Hyprland"
         "LIBVA_DRIVER_NAME,radeonsi"
-        "HYPRCURSOR_THEME,HyprBibataModernClassicSVG"
-        "HYPRCURSOR_SIZE,24"
-        "XCURSOR_SIZE,24"
+        "HYPRCURSOR_THEME,macOS_hyprcursor"
+        "HYPRCURSOR_SIZE,32"
+        "XCURSOR_SIZE,32"
       ];
 
       "$mod" = "SUPER";
@@ -38,7 +38,6 @@
         "mpv --loop=no ~/dotfiles/sounds/ubuntu.opus"
         "swaybg -i ~/Pictures/wp.png -m fill"
         "waybar"
-        # "jamesdsp -t"
         "blueman-applet"
         "nm-applet"
         "hypridle"
@@ -154,8 +153,8 @@
         "$mod, V, exec, rofi -modi clipboard:~/dotfiles/rofi/.config/rofi/scripts/cliphist-rofi-img -show clipboard -show-icons"
 
         # Screenshot
-        "$mod, comma, exec, img=~/Pictures/screenshot_$(date +%Y-%m-%d_%Hh%Mm%Ss).png && grim $img && wl-copy < $img && dunstify 'Screenshot taken'"
-        "$mod, slash, exec, img=~/Pictures/screenshot_$(date +%Y-%m-%d_%Hh%Mm%Ss).png && grim -g \"$(slurp -d -w 1 -F \"Iosevka Nerd Font\")\" $img && wl-copy < $img && dunstify 'Screenshot taken'"
+        "$mod, comma, exec, img=~/Pictures/screenshot_$(date +%Y-%m-%d_%Hh%Mm%Ss).png && grim $img && wl-copy < $img && dunstify 'Screenshot saved'"
+        "$mod, slash, exec, img=~/Pictures/screenshot_$(date +%Y-%m-%d_%Hh%Mm%Ss).png && grim -g \"$(slurp -d -w 1 -F \"Iosevka Nerd Font\")\" $img && wl-copy < $img && dunstify 'Screenshot saved'"
 
         # Color Picker
         "$mod CTRL, c, exec, hyprpicker -a"
@@ -709,7 +708,7 @@
   home.pointerCursor = {
     gtk.enable = true;
     package = pkgs.bibata-cursors;
-    name = "Bibata-Modern-Classic";
-    size = 24;
+    name = "macOS";
+    size = 32;
   };
 }
