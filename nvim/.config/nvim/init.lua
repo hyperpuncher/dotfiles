@@ -455,16 +455,6 @@ require("lazy").setup({
 	},
 
 	{
-		"ellisonleao/glow.nvim",
-		cmd = "Glow",
-		opts = {
-			border = "rounded",
-			width_ratio = 0.8,
-			height_ratio = 0.8,
-		},
-	},
-
-	{
 		"folke/trouble.nvim",
 		keys = {
 			{
