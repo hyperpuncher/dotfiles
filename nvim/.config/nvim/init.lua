@@ -8,6 +8,8 @@ local bg_color = "#1A1A1A"
 
 vim.g.mapleader = " "
 
+vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+
 opt.breakindent = true
 opt.clipboard = "unnamedplus"
 opt.completeopt = "menuone,noselect"
