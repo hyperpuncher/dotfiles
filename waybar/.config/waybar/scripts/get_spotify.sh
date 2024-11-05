@@ -8,7 +8,7 @@ if [ -n "$playback_status" ]; then
 
 	if [ "$playback_status" = "Playing" ]; then
 		song_status=''
-	else
+	elif [ "$playback_status" = "Paused" ]; then
 		song_status=''
 	fi
 
