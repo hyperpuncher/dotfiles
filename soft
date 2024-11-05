@@ -7,6 +7,7 @@ android-file-transfer
 android-tools
 ansible
 ansible-lint
+apple_cursor
 arduino-cli
 aria2
 assimp
@@ -19,7 +20,6 @@ bat
 bc
 beekeeper-studio-bin
 bfg
-bibata-cursor-theme
 bind
 blender
 blueman
@@ -56,6 +56,7 @@ docker-compose
 downgrade
 dragon-drop
 dua-cli
+duf
 dunst
 exfatprogs
 expac
@@ -88,7 +89,6 @@ gofumpt
 golangci-lint-bin
 gopls
 gparted
-gradience
 greetd-tuigreet
 grim
 gst-plugin-pipewire
@@ -101,14 +101,18 @@ helvum
 heroic-games-launcher-bin
 hip-runtime-amd
 hyperfine
+hyprcursor
 hypridle
-hyprland-git
+hyprland
+hyprlang
 hyprpicker
-hyprutils-git
+hyprutils
+hyprwayland-scanner
 imagemagick
 inkscape
+inotify-tools
 inter-font
-jamesdsp-pipewire-bin
+jamesdsp-git
 jdk-openjdk
 jq
 kicad
@@ -137,9 +141,10 @@ linux-lts-headers
 llvm
 lnav
 localsend-bin
-losslesscut-bin
 lua-jsregexp
 lua-language-server
+lua-luv
+luarocks
 man-db
 mangohud
 mediainfo
@@ -178,7 +183,7 @@ opencl-rusticl-mesa
 openmp
 openscad
 openssh
-orca-slicer-bin
+orca-slicer-unstable-bin
 pacman-contrib
 papirus-folders-git
 papirus-icon-theme
@@ -329,7 +334,7 @@ wlsunset
 wluma
 wtype
 xdg-desktop-portal-gtk
-xdg-desktop-portal-hyprland-git
+xdg-desktop-portal-hyprland
 xorg-server-xvfb
 xorg-xhost
 xray
