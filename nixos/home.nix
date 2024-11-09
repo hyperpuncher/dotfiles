@@ -26,8 +26,8 @@
         "XDG_SESSION_DESKTOP,Hyprland"
         "LIBVA_DRIVER_NAME,radeonsi"
         "HYPRCURSOR_THEME,macOS_hyprcursor"
-        "HYPRCURSOR_SIZE,32"
-        "XCURSOR_SIZE,32"
+        "HYPRCURSOR_SIZE,28"
+        "XCURSOR_SIZE,28"
       ];
 
       "$mod" = "SUPER";
@@ -68,6 +68,11 @@
         "move 445 265, ^(blender)$"
         "suppressevent maximize, :^(blender)$"
         "maxsize 1550 900, ^(blender)$"
+      ];
+
+      windowrulev2 = [
+        "suppressevent maximize, class:^(blender)$"
+        "suppressevent fullscreen, class:^(com.interversehq.qView)$"
       ];
 
       xwayland.force_zero_scaling = true;
@@ -154,6 +159,7 @@
 
         # Screenshot
         "$mod, comma, exec, img=~/Pictures/screenshot_$(date +%Y-%m-%d_%Hh%Mm%Ss).png && grim $img && wl-copy < $img && dunstify 'Screenshot saved'"
+        "$mod, period, exec, img=~/Pictures/screenshot_$(date +%Y-%m-%d_%Hh%Mm%Ss).png && grim -g \"$(hyprctl -j activewindow | jq -r '. | \"\(.at[0]),\(.at[1]) \(.size[0] - 1)x\(.size[1])\"')\" $img && wl-copy < $img && dunstify 'Screenshot saved'"
         "$mod, slash, exec, img=~/Pictures/screenshot_$(date +%Y-%m-%d_%Hh%Mm%Ss).png && grim -g \"$(slurp -d -w 1 -F \"Iosevka Nerd Font\")\" $img && wl-copy < $img && dunstify 'Screenshot saved'"
 
         # Color Picker
@@ -709,6 +715,6 @@
     gtk.enable = true;
     package = pkgs.bibata-cursors;
     name = "macOS";
-    size = 32;
+    size = 28;
   };
 }
