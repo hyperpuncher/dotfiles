@@ -36,7 +36,6 @@
     age
     android-file-transfer
     android-tools
-    appflowy
     apple-cursor
     arduino-cli
     aria
@@ -68,7 +67,6 @@
     ffmpeg
     ffmpegthumbnailer
     file-roller
-    flutter
     fnm
     font-manager
     fx
@@ -95,7 +93,6 @@
     jdk
     jq
     kicad-small
-    krita
     lazydocker
     lazygit
     lazysql
@@ -107,7 +104,6 @@
     libva-utils
     lm_sensors
     localsend
-    logiops
     losslesscut-bin
     luajit
     luajitPackages.luarocks
@@ -116,8 +112,6 @@
     mods
     mpv
     mtpfs
-    mumble
-    nekoray
     nemo
     nemo-fileroller
     networkmanagerapplet
@@ -129,7 +123,6 @@
     nvtopPackages.amd
     nwg-look
     obs-studio
-    obsidian
     ocrmypdf
     openai-whisper-cpp
     openscad-unstable
@@ -163,20 +156,19 @@
     slurp
     socat
     soft-serve
-    solaar
     solvespace
     speedtest-go
     spotify
     stow
     sunshine
     swaybg
-    swayosd
     telegram-desktop
     tlrc
     transmission_4-gtk
     unzip
     upscayl
     upx
+    uv
     ventoy
     vial
     vulkan-tools
