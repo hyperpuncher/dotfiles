@@ -72,11 +72,9 @@ local servers = {
 }
 
 local formatters = {
-	"biome",
 	"fixjson",
 	"gofumpt",
 	"nixpkgs-fmt",
-	"prettierd",
 	"rustywind",
 	"shfmt",
 	"stylua",
@@ -269,34 +267,41 @@ require("lazy").setup({
 
 			{
 				"stevearc/conform.nvim",
-				opts = {
-					format_on_save = {
-						timeout_ms = 500,
-						lsp_fallback = true,
-					},
-					notify_on_error = false,
-					formatters_by_ft = {
-						astro = { "prettierd", "rustywind" },
-						c = { "clang-format" },
-						cpp = { "clang-format" },
-						css = { "biome" },
-						dart = { "dart_format" },
-						go = { "gofumpt" },
-						ino = { "clang-format" },
-						javascript = { "biome", "rustywind" },
-						json = { "fixjson", "biome" },
-						lua = { "stylua" },
-						markdown = { "prettierd" },
-						nix = { "nixpkgs_fmt" },
-						python = { "ruff_format", "ruff_organize_imports" },
-						sh = { "shfmt" },
-						sql = { "pg_format" },
-						svelte = { "prettierd", "rustywind" },
-						templ = { "templ", "rustywind" },
-						toml = { "taplo" },
-						yaml = { "prettierd" },
-					},
-				},
+				config = function()
+					require("conform").setup({
+						format_on_save = {
+							timeout_ms = 500,
+							lsp_fallback = true,
+						},
+						notify_on_error = false,
+						formatters = {
+							deno_fmt = { append_args = { "--indent-width=4" } },
+						},
+						formatters_by_ft = {
+							astro = { "deno_fmt", "rustywind" },
+							c = { "clang-format" },
+							cpp = { "clang-format" },
+							css = { "deno_fmt" },
+							dart = { "dart_format" },
+							go = { "gofumpt" },
+							ino = { "clang-format" },
+							javascript = { "deno_fmt", "rustywind" },
+							typescript = { "deno_fmt", "rustywind" },
+							json = { "fixjson", "deno_fmt" },
+							jsonc = { "fixjson", "deno_fmt" },
+							lua = { "stylua" },
+							markdown = { "deno_fmt" },
+							nix = { "nixpkgs_fmt" },
+							python = { "ruff_format", "ruff_organize_imports" },
+							sh = { "shfmt" },
+							sql = { "pg_format" },
+							svelte = { "deno_fmt", "rustywind" },
+							templ = { "templ", "rustywind" },
+							toml = { "taplo" },
+							yaml = { "deno_fmt" },
+						},
+					})
+				end,
 			},
 
 			{
@@ -442,17 +447,17 @@ require("lazy").setup({
 
 	{ "hiphish/rainbow-delimiters.nvim" },
 
-	{
-		"Exafunction/codeium.vim",
-		event = "BufEnter",
-		config = function()
-			vim.g.codeium_enabled = false
-			-- vim.g.codeium_disable_bindings = 1
-			-- map("i", "<C-'>", function()
-			-- 	return vim.fn["codeium#Accept"]()
-			-- end, { expr = true, silent = true })
-		end,
-	},
+	-- {
+	-- 	"Exafunction/codeium.vim",
+	-- 	event = "BufEnter",
+	-- 	config = function()
+	-- 		vim.g.codeium_enabled = false
+	-- 		-- vim.g.codeium_disable_bindings = 1
+	-- 		-- map("i", "<C-'>", function()
+	-- 		-- 	return vim.fn["codeium#Accept"]()
+	-- 		-- end, { expr = true, silent = true })
+	-- 	end,
+	-- },
 
 	{
 		"folke/zen-mode.nvim",
@@ -505,6 +510,11 @@ require("lazy").setup({
 		keys = {
 			{ "<leader>lg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
 		},
+	},
+
+	{
+		"supermaven-inc/supermaven-nvim",
+		opts = {},
 	},
 
 	{
@@ -621,6 +631,8 @@ map("n", "]d", vim.diagnostic.goto_next)
 map("n", "<leader>e", vim.diagnostic.open_float)
 
 map("n", "<leader>z", ":ZenMode<CR>", { silent = true })
+
+map("n", "<leader>ai", ":SupermavenToggle<CR>", { silent = true })
 
 --  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(_, bufnr)
