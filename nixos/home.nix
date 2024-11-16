@@ -96,11 +96,13 @@
           passes = 2;
         };
 
-        shadow_range = 30;
-        shadow_render_power = 2;
-        shadow_offset = "0 5";
-        shadow_scale = 0.99;
-        "col.shadow" = "rgba(00000050)";
+        shadow = {
+          range = 30;
+          render_power = 2;
+          offset = "0 5";
+          scale = 0.99;
+          color = "rgba(00000050)";
+        };
       };
 
       animations = {

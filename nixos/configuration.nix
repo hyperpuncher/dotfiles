@@ -17,13 +17,11 @@
 
   environment.systemPackages = with pkgs; [
 
-    biome
     go-tools
     gofumpt
     golangci-lint
     nixpkgs-fmt
     nodePackages.fixjson
-    prettierd
     rustywind
     shfmt
     stylua
@@ -256,7 +254,9 @@
         cmp_luasnip.enable = true;
         codeium-vim.enable = true;
         friendly-snippets.enable = true;
+        inc-rename.enable = true;
         indent-o-matic.enable = true;
+        lazygit.enable = true;
         lspkind.enable = true;
         luasnip.enable = true;
         nvim-colorizer.enable = true;
@@ -365,23 +365,27 @@
             format_on_save = {
               lsp_format = "fallback";
             };
+            formatters = {
+              deno_fmt.append_args = [ "--indent-width=4" ];
+            };
             formatters_by_ft = {
-              astro = [ "prettierd" "rustywind" ];
+              astro = [ "deno_fmt" "rustywind" ];
               dart = [ "dart_format" ];
               go = [ "gofumpt" ];
               ino = [ "clang-format" ];
-              javascript = [ "biome" ];
-              json = [ "fixjson" "biome" ];
-              jsonc = [ "fixjson" "biome" ];
+              javascript = [ "deno_fmt" ];
+              typescript = [ "deno_fmt" ];
+              json = [ "fixjson" "deno_fmt" ];
+              jsonc = [ "fixjson" "deno_fmt" ];
               lua = [ "stylua" ];
-              markdown = [ "prettierd" ];
+              markdown = [ "deno_fmt" ];
               nix = [ "nixpkgs_fmt" ];
               python = [ "ruff_format" "ruff_organize_imports" ];
               sh = [ "shfmt" ];
-              svelte = [ "prettierd" "rustywind" ];
+              svelte = [ "deno_fmt" "rustywind" ];
               templ = [ "templ" "rustywind" ];
               toml = [ "taplo" ];
-              yaml = [ "prettierd" ];
+              yaml = [ "deno_fmt" ];
             };
           };
         };
@@ -562,6 +566,8 @@
         # Increase and decrease ints
         { mode = "n"; key = "<C-S-a>"; action = "<C-a>"; }
         { mode = "n"; key = "<C-S-x>"; action = "<C-x>"; }
+
+        { mode = "n"; key = "<leader>lg"; action = "<cmd>LazyGit<CR>"; }
 
       ];
     };
