@@ -1,4 +1,4 @@
-import = ["~/.config/alacritty/monokai_charcoal.toml"]
+general.import = ["~/.config/alacritty/monokai_charcoal.toml"]
 
 [font]
 size = 15.0
