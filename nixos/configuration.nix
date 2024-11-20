@@ -29,6 +29,7 @@
 
     nodePackages.jsonlint
 
+    # kicad-small
     _7zz
     adw-gtk3
     age
@@ -51,7 +52,6 @@
     cmake
     corectrl
     dash
-    davinci-resolve
     ddcutil
     deno
     direnv
@@ -72,7 +72,6 @@
     gimp
     gitleaks
     glow
-    gnome-calculator
     gnome-disk-utility
     gnome-keyring
     gnumake
@@ -87,10 +86,8 @@
     hyprpicker
     imagemagick
     inkscape
-    jamesdsp
     jdk
     jq
-    kicad-small
     lazydocker
     lazygit
     lazysql
@@ -122,6 +119,7 @@
     nwg-look
     obs-studio
     ocrmypdf
+    odin
     openai-whisper-cpp
     openscad-unstable
     openssl
@@ -146,7 +144,6 @@
     quickemu
     qview
     ripgrep
-    rustdesk-flutter
     rustup
     sd
     shell-gpt
@@ -170,7 +167,6 @@
     ventoy
     vial
     vulkan-tools
-    wails
     wget
     wireguard-tools
     wl-clipboard
@@ -182,7 +178,6 @@
     xray
     yarn
     yt-dlp
-    zed-editor
     zip
     zoxide
 
@@ -252,7 +247,6 @@
         cmp-nvim-lsp.enable = true;
         cmp-path.enable = true;
         cmp_luasnip.enable = true;
-        codeium-vim.enable = true;
         friendly-snippets.enable = true;
         inc-rename.enable = true;
         indent-o-matic.enable = true;
@@ -457,6 +451,7 @@
             lua_ls.enable = true;
             marksman.enable = true;
             nil_ls.enable = true;
+            ols.enable = true;
             pyright.enable = true;
             ruff.enable = true;
             rust_analyzer = {
