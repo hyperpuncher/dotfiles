@@ -60,6 +60,7 @@ local servers = {
 	lua_ls = { Lua = { diagnostics = { globals = { "vim" } } } },
 	marksman = {},
 	nil_ls = {},
+	ols = {},
 	openscad_lsp = {},
 	pyright = {},
 	ruff = {},
@@ -447,18 +448,6 @@ require("lazy").setup({
 
 	{ "hiphish/rainbow-delimiters.nvim" },
 
-	-- {
-	-- 	"Exafunction/codeium.vim",
-	-- 	event = "BufEnter",
-	-- 	config = function()
-	-- 		vim.g.codeium_enabled = false
-	-- 		-- vim.g.codeium_disable_bindings = 1
-	-- 		-- map("i", "<C-'>", function()
-	-- 		-- 	return vim.fn["codeium#Accept"]()
-	-- 		-- end, { expr = true, silent = true })
-	-- 	end,
-	-- },
-
 	{
 		"folke/zen-mode.nvim",
 		opts = {
@@ -510,11 +499,6 @@ require("lazy").setup({
 		keys = {
 			{ "<leader>lg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
 		},
-	},
-
-	{
-		"supermaven-inc/supermaven-nvim",
-		opts = {},
 	},
 
 	{
@@ -631,8 +615,6 @@ map("n", "]d", vim.diagnostic.goto_next)
 map("n", "<leader>e", vim.diagnostic.open_float)
 
 map("n", "<leader>z", ":ZenMode<CR>", { silent = true })
-
-map("n", "<leader>ai", ":SupermavenToggle<CR>", { silent = true })
 
 --  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(_, bufnr)
