@@ -30,6 +30,7 @@
     nodePackages.jsonlint
 
     # kicad-small
+    # orca-slicer
     _7zz
     adw-gtk3
     age
@@ -123,7 +124,6 @@
     openai-whisper-cpp
     openscad-unstable
     openssl
-    orca-slicer
     parallel
     pavucontrol
     pipx
