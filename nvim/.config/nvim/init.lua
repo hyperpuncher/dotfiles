@@ -60,6 +60,7 @@ local servers = {
 	lua_ls = { Lua = { diagnostics = { globals = { "vim" } } } },
 	marksman = {},
 	nil_ls = {},
+	ols = {},
 	openscad_lsp = {},
 	pyright = {},
 	ruff = {},
