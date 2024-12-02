@@ -189,6 +189,11 @@
         disable_splash_rendering = true;
         vrr = 1;
       };
+
+      cursor = {
+        hide_on_key_press = true;
+        inactive_timeout = 3;
+      };
     };
   };
 

@@ -756,13 +756,8 @@
       noto-fonts-emoji
       rubik
       ubuntu_font_family
-
-      (nerdfonts.override {
-        fonts = [
-          "CascadiaCode"
-          "IosevkaTerm"
-        ];
-      })
+      nerd-fonts.caskaydia-cove
+      nerd-fonts.iosevka-term
     ];
 
     fontconfig = {
