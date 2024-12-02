@@ -5,7 +5,6 @@ alacritty
 amd-ucode
 android-file-transfer
 android-tools
-ansible
 ansible-lint
 apple_cursor
 arduino-cli
@@ -172,6 +171,7 @@ obinskit
 obs-studio
 obsidian
 ocrmypdf
+odin
 ollama-rocm
 ondsel-es-appimage
 opencl-clhpp
@@ -202,7 +202,6 @@ podman-docker
 podman-tui
 polkit-gnome
 postgresql
-prettierd
 procs
 progress
 proton-ge-custom-bin
@@ -248,6 +247,7 @@ rofi-wayland
 rpi-imager
 rustdesk-bin
 rustup
+rustywind
 sbctl
 sc-im
 screen
@@ -339,7 +339,6 @@ yaru-gtk-theme
 yazi
 yt-dlp
 yuzu-mainline-bin
-zed
 zip
 zoxide
 zsh-autosuggestions
