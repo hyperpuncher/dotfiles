@@ -692,7 +692,7 @@
     loader.efi.canTouchEfiVariables = true;
     extraModulePackages = with config.boot.kernelPackages; [ apfs ddcci-driver ];
     kernelModules = [ "ddcci_backlight" ];
-    # kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages_latest;
   };
 
   networking = {
