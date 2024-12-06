@@ -32,9 +32,7 @@ buildah
 bun-bin
 cargo-watch
 ccache
-cemu-bin
 chafa
-chainner-bin
 clang
 clinfo
 cliphist
@@ -81,7 +79,6 @@ git
 github-cli
 gitleaks
 glow
-gnome-calculator
 gnome-disk-utility
 gnome-keyring
 gofumpt
@@ -291,7 +288,6 @@ tmux
 transmission-gtk
 trash-cli
 tree-sitter-cli
-tt-bin
 ttf-cascadia-code-nerd
 ttf-iosevka-nerd
 ttf-iosevkaterm-nerd
@@ -311,7 +307,6 @@ upx
 uv
 ventoy-bin
 vial-appimage
-video-trimmer
 virt-manager
 vscode-html-languageserver
 vulkan-radeon
@@ -338,7 +333,6 @@ yarn
 yaru-gtk-theme
 yazi
 yt-dlp
-yuzu-mainline-bin
 zip
 zoxide
 zsh-autosuggestions
