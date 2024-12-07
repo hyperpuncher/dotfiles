@@ -297,6 +297,7 @@ require("lazy").setup({
 							sh = { "shfmt" },
 							sql = { "pg_format" },
 							svelte = { "deno_fmt", "rustywind" },
+							swift = { "swiftformat" },
 							templ = { "templ", "rustywind" },
 							toml = { "taplo" },
 							yaml = { "deno_fmt" },
