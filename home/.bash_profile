@@ -2,7 +2,7 @@ export BROWSER=firefox
 export EDITOR=nvim
 export PAGER='moar -style dracula -no-linenumbers'
 export MANPAGER='nvim +Man!'
-export TERM=wezterm
+export TERM=xterm-256color
 export VISUAL=nvim
 
 export XDG_CACHE_HOME="$HOME/.cache"
@@ -23,8 +23,7 @@ export PNPM_HOME="$XDG_DATA_HOME/pnpm"
 export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/pythonrc"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 export WINEPREFIX="$XDG_DATA_HOME/wine"
-export ZDOTDIR="$HOME/.config/zsh"
 
-export PATH=$PATH:$HOME/.local/bin:$CARGO_HOME/bin:$PNPM_HOME:$XDG_DATA_HOME/npm/bin:/usr/local/go/bin
+export PATH=$PATH:$HOME/.local/bin:$CARGO_HOME/bin:$PNPM_HOME:$XDG_DATA_HOME/npm/bin:$GOPATH/bin
 
 [[ -f ~/.bashrc ]] && . ~/.bashrc
