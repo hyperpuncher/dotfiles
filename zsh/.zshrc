@@ -33,6 +33,7 @@ zstyle ':z4h:ssh:*.example-hostname2' enable 'no'
 
 zstyle ':z4h:ssh:192.168.31.104' enable 'yes'
 zstyle ':z4h:ssh:192.168.31.84' enable 'yes'
+zstyle ':z4h:ssh:localhost' enable 'yes'
 
 # The default value if none of the overrides above match the hostname.
 zstyle ':z4h:ssh:*'                   enable 'no'
@@ -133,6 +134,7 @@ alias rmf='rm -rf'
 alias ssh-coolify='ssh igor@192.168.31.84'
 alias ssh-homelab='ssh igor@192.168.31.104'
 alias ssh-kodi='ssh root@192.168.31.26'
+alias ssh-mac='ssh -p 22220 igor@localhost'
 alias ssh-printer='ssh igor@192.168.31.19'
 alias ssh-proxmox='ssh root@192.168.31.151'
 alias ssh-racknerd='ssh root@172.245.180.243'
