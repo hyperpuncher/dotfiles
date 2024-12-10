@@ -73,7 +73,6 @@ local servers = {
 }
 
 local formatters = {
-	"fixjson",
 	"gofumpt",
 	"nixpkgs-fmt",
 	"rustywind",
@@ -288,8 +287,8 @@ require("lazy").setup({
 							ino = { "clang-format" },
 							javascript = { "deno_fmt", "rustywind" },
 							typescript = { "deno_fmt", "rustywind" },
-							json = { "fixjson", "deno_fmt" },
-							jsonc = { "fixjson", "deno_fmt" },
+							json = { "deno_fmt" },
+							jsonc = { "deno_fmt" },
 							lua = { "stylua" },
 							markdown = { "deno_fmt" },
 							nix = { "nixpkgs_fmt" },
