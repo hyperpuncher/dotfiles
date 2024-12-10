@@ -53,7 +53,7 @@ path=(~/dotfiles/scripts/ $path)
 
 # Export environment variables.
 export GPG_TTY=$TTY
-export BROWSER=brave
+export BROWSER=brave-beta
 export EDITOR=nvim
 export PAGER='moar -style dracula -no-linenumbers'
 export MANPAGER='nvim +Man!'
