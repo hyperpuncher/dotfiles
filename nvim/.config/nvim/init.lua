@@ -217,6 +217,7 @@ require("lazy").setup({
 				black = "None",
 				bg = "None",
 				menu = "None",
+				comment = "#b3b3b3",
 			},
 			italic_comment = true,
 			transparent_bg = true,
