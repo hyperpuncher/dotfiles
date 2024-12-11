@@ -62,7 +62,18 @@ local servers = {
 	nil_ls = {},
 	ols = {},
 	openscad_lsp = {},
-	pyright = {},
+	pyright = {
+		pyright = {
+			-- Using Ruff's import organizer
+			disableOrganizeImports = true,
+		},
+		python = {
+			analysis = {
+				-- Ignore all files for analysis to exclusively use Ruff for linting
+				ignore = { "*" },
+			},
+		},
+	},
 	ruff = {},
 	rust_analyzer = {},
 	svelte = {},
