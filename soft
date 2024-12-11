@@ -25,7 +25,6 @@ blueman
 bluez-utils
 brave-beta-bin
 brave-bin
-brillo
 btop
 btrfs-progs
 buildah
@@ -230,7 +229,7 @@ qt5-wayland
 qt5ct
 qt6-wayland
 qt6ct
-quickemu
+quickemu-git
 qview-git
 r2modman-bin
 railwayapp-cli
@@ -274,6 +273,8 @@ sunshine
 svelte-language-server
 sway
 swaybg
+swift-bin
+swiftformat-bin
 syncthing
 syncthing-gtk
 tailwindcss-bin
@@ -307,6 +308,7 @@ upx
 uv
 ventoy-bin
 vial-appimage
+video-trimmer
 virt-manager
 vscode-html-languageserver
 vulkan-radeon
@@ -330,7 +332,6 @@ xorg-xhost
 xray
 yaml-language-server
 yarn
-yaru-gtk-theme
 yazi
 yt-dlp
 zip
