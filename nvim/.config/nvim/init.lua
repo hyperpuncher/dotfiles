@@ -530,6 +530,8 @@ require("lazy").setup({
 			require("qmk").setup(conf)
 		end,
 	},
+
+	{ "echasnovski/mini.ai", version = false, opts = {} },
 }, {
 	ui = {
 		border = "rounded",
