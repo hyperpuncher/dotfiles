@@ -1,4 +1,7 @@
-.PHONY: ssh paru stow soft greetd misc mirrors
+.PHONY: ssh paru stow soft greetd misc mirrors essential
+
+essential:
+	pacman -S neovim age zsh stow rustup openssh ccache pigz pbzip2 pacman-contrib foot greetd-tuigreet
 
 ssh:
 	@echo "Decrypting ssh keys"
