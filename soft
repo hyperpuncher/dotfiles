@@ -5,7 +5,6 @@ alacritty
 amd-ucode
 android-file-transfer
 android-tools
-ansible-lint
 apple_cursor
 arduino-cli
 aria2
@@ -24,7 +23,6 @@ blender-bin
 blueman
 bluez-utils
 brave-beta-bin
-brave-bin
 btop
 btrfs-progs
 buildah
@@ -38,7 +36,6 @@ cliphist
 corectrl
 csvlens
 dashbinsh
-davinci-resolve-studio
 dbus-broker
 ddcci-driver-linux-dkms
 ddcutil
@@ -87,7 +84,6 @@ gparted
 greetd-tuigreet
 grim
 gst-plugin-pipewire
-gtk-engine-murrine
 gum
 gvfs
 gvfs-smb
@@ -231,7 +227,6 @@ qt6-wayland
 qt6ct
 quickemu-git
 qview-git
-r2modman-bin
 railwayapp-cli
 rebuild-detector
 retroarch
@@ -246,7 +241,6 @@ rustup
 rustywind
 sbctl
 sc-im
-screen
 sd
 shadowsocks-rust
 shellcheck
@@ -265,7 +259,6 @@ speedtest-go
 spirv-headers
 spotify
 sshfs
-staticcheck
 steam
 stow
 stylua
@@ -323,7 +316,6 @@ wireplumber
 wl-clipboard
 wl-screenrec
 wlsunset
-wluma
 wtype
 xdg-desktop-portal-gtk
 xdg-desktop-portal-hyprland
