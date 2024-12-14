@@ -1,4 +1,4 @@
-export BROWSER=firefox
+export BROWSER=brave-beta
 export EDITOR=nvim
 export PAGER='moar -style dracula -no-linenumbers'
 export MANPAGER='nvim +Man!'
