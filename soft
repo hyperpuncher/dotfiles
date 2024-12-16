@@ -13,7 +13,6 @@ atool
 autotiling-rs
 base
 base-devel
-bash-language-server
 bat
 bc
 beekeeper-studio-bin
@@ -77,9 +76,7 @@ gitleaks
 glow
 gnome-disk-utility
 gnome-keyring
-gofumpt
-golangci-lint-bin
-gopls
+go
 gparted
 greetd-tuigreet
 grim
@@ -129,7 +126,6 @@ llvm
 lnav
 localsend-bin
 lua-jsregexp
-lua-language-server
 lua-luv
 luarocks
 man-db
@@ -149,7 +145,6 @@ network-manager-applet
 networkmanager
 nfs-utils
 nixpacks
-nixpkgs-fmt
 nmap
 noto-fonts
 noto-fonts-cjk
@@ -238,7 +233,6 @@ rofi-wayland
 rpi-imager
 rustdesk-bin
 rustup
-rustywind
 sbctl
 sc-im
 sd
@@ -261,9 +255,7 @@ spotify
 sshfs
 steam
 stow
-stylua
 sunshine
-svelte-language-server
 sway
 swaybg
 swift-bin
@@ -271,8 +263,6 @@ swiftformat-bin
 syncthing
 syncthing-gtk
 tailwindcss-bin
-tailwindcss-language-server
-taplo-cli
 telegram-desktop
 tern
 testdisk
@@ -291,7 +281,6 @@ ttf-roboto
 ttf-rubik-vf
 ttf-ubuntu-font-family
 ttf-ubuntu-mono-nerd
-typescript-language-server
 udiskie
 ufw
 unarchiver
@@ -322,7 +311,6 @@ xdg-desktop-portal-hyprland
 xorg-server-xvfb
 xorg-xhost
 xray
-yaml-language-server
 yarn
 yazi
 yt-dlp
