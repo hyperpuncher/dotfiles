@@ -6,8 +6,9 @@
     // "spacing": 4, // Gaps between modules (4px)
 
     "modules-left": ["tray"],
-    "modules-center": ["custom/media"],
+    "modules-center": [],
     "modules-right": [
+        "custom/media",
         "custom/brightness",
         "pulseaudio",
         "temperature",
