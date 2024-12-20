@@ -16,7 +16,6 @@
         "memory",
         "disk",
         "hyprland/language",
-        // "custom/weather",
         "clock"
     ],
     "tray": {
@@ -112,5 +111,10 @@
         "format": "{}°C 󰖕",
         "exec": "curl -s 'https://api.open-meteo.com/v1/forecast?latitude=53.90&longitude=27.57&current_weather=true&temperature_2m' | jq '.current_weather.temperature' | xargs printf '%.0f'",
         "interval": 1800
+    },
+    "custom/separator": {
+        "format": "|",
+        "interval": "once",
+        "tooltip": false
     }
 }
