@@ -8,6 +8,7 @@ android-tools
 apple_cursor
 arduino-cli
 aria2
+aseprite
 assimp
 atool
 autotiling-rs
@@ -77,6 +78,7 @@ glow
 gnome-disk-utility
 gnome-keyring
 go
+godot
 gparted
 greetd-tuigreet
 grim
@@ -177,6 +179,7 @@ pcbdraw
 pdfarranger
 pgformatter
 pigz
+pinta
 pipewire
 pipewire-alsa
 pipewire-jack
@@ -193,6 +196,7 @@ procs
 progress
 proton-ge-custom-bin
 protontricks
+proxmark3
 pulsemixer
 python-beautifulsoup4
 python-dotenv
@@ -292,7 +296,6 @@ ventoy-bin
 vial-appimage
 video-trimmer
 virt-manager
-vscode-html-languageserver
 vulkan-radeon
 vulkan-tools
 waybar
