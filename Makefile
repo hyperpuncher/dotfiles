@@ -28,6 +28,7 @@ stow:
 		gtk \
 		home \
 		hyprland \
+		icons \
 		jamesdsp \
 		mangohud \
 		mpv \
