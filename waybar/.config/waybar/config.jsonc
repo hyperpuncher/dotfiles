@@ -65,27 +65,26 @@
         "format-icons": [""]
     },
     "pulseaudio": {
-        // "scroll-step": 1, // %, can be a float
         "format": "{volume}% {icon}",
         "format-bluetooth": "{volume}% {icon} ",
-        "format-bluetooth-muted": " {icon}",
-        "format-muted": " {format_source}",
-        "format-source": "{volume}% ",
-        "format-source-muted": "",
+        "format-bluetooth-muted": "{volume}%  ",
+        "format-muted": "{volume}%  ",
         "format-icons": {
             "headphone": "",
             "hands-free": "",
             "headset": "",
             "default": ["", " "]
         },
-        "ignored-sinks": ["JamesDSP Sink"]
+        "ignored-sinks": ["JamesDSP Sink"],
+        "on-click": "wpctl set-mute @DEFAULT_SINK@ toggle"
     },
     "custom/media": {
         "tooltip": false,
         "format": "{}",
         "interval": 1,
         "escape": true,
-        "exec": "$HOME/.config/waybar/scripts/get_spotify.sh"
+        "exec": "$HOME/.config/waybar/scripts/get_spotify.sh",
+        "on-click": "playerctl play-pause"
     },
     "hyprland/language": {
         "format": "{}",
