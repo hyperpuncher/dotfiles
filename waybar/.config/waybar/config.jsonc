@@ -101,7 +101,7 @@
     },
     "custom/brightness": {
         "tooltip": false,
-        "format": "{}%  ",
+        "format": "{}%  ",
         "interval": 5,
         "exec": "cat /tmp/monitor_brightness"
     },
