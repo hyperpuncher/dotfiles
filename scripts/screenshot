@@ -1,0 +1,29 @@
+#!/usr/bin/env dash
+
+if [ "$#" -lt 1 ]; then
+    echo "Usage: screenshot -f/-w/-s"
+    exit 1
+fi
+
+DIR=~/Pictures/screenshots/
+ZONE=$1
+
+if ! [ -d "$DIR" ]; then
+    mkdir "$DIR"
+fi
+
+IMG="$DIR$(date +%Y-%m-%d_%Hh%Mm%Ss).png"
+
+case "$ZONE" in
+"-f")
+    grim "$IMG"
+    ;;
+"-w")
+    grim -g "$(hyprctl -j activewindow | jq -r '. | "\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"')" "$IMG"
+    ;;
+"-s")
+    grim -g "$(slurp -d -w 1 -F "Iosevka Nerd Font")" "$IMG"
+    ;;
+esac
+
+wl-copy <"$IMG" && dunstify "Screenshot saved"
