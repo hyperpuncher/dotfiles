@@ -64,5 +64,4 @@ misc:
 	sudo localectl set-locale LC_TIME=en_IE.UTF-8
 	chsh -s /usr/bin/zsh
 	sudo ln -s /usr/share/fontconfig/conf.avail/10-hinting-none.conf /etc/fonts/conf.d/
-	echo 'ddcci_backlight' | sudo tee /etc/modules-load.d/backlight.conf > /dev/null
 	sudo usermod -a -G video $(shell whoami)
