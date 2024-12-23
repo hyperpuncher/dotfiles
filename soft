@@ -127,6 +127,7 @@ linux-lts-headers
 llvm
 lnav
 localsend-bin
+loupe
 lua-jsregexp
 lua-luv
 luarocks
@@ -207,7 +208,6 @@ python-mistune2
 python-numpy
 python-pillow
 python-pip
-python-pipreqs
 python-pynvim
 python-pypdf
 python-pytelegrambotapi
@@ -225,7 +225,6 @@ qt5ct
 qt6-wayland
 qt6ct
 quickemu-git
-qview-git
 railwayapp-cli
 rebuild-detector
 retroarch
