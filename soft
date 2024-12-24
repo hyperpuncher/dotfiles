@@ -55,7 +55,7 @@ exfatprogs
 expac
 extra-cmake-modules
 eza
-f3d
+f3d-bin
 fastfetch
 fd
 ffmpeg
@@ -91,12 +91,10 @@ helvum
 heroic-games-launcher-bin
 hip-runtime-amd
 hyperfine
-hyprcursor
 hypridle
 hyprland
-hyprlang
 hyprpicker
-hyprsunset-git
+hyprsunset
 imagemagick
 inkscape
 inotify-tools
