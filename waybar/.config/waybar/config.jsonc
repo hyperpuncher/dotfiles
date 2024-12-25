@@ -103,7 +103,9 @@
         "tooltip": false,
         "format": "{}%  ",
         "interval": 5,
-        "exec": "cat /tmp/monitor_brightness"
+        "exec": "cat /tmp/monitor_brightness",
+        "on-scroll-up": "ddcutil --noverify setvcp 10 + 5",
+        "on-scroll-down": "ddcutil --noverify setvcp 10 - 5"
     },
     "custom/weather": {
         "tooltip": false,
