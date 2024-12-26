@@ -437,12 +437,7 @@ require("lazy").setup({
 
 	{ "hiphish/rainbow-delimiters.nvim" },
 
-	{
-		"folke/zen-mode.nvim",
-		opts = {
-			window = { backdrop = 1 },
-		},
-	},
+	{ "folke/zen-mode.nvim" },
 
 	{
 		"folke/trouble.nvim",
