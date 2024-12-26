@@ -425,7 +425,13 @@ require("lazy").setup({
 		opts = {},
 	},
 
-	{ "rmagatti/auto-session", opts = {} },
+	{
+		"rmagatti/auto-session",
+		lazy = false,
+		opts = {
+			suppressed_dirs = { "~/", "~/Downloads", "/" },
+		},
+	},
 
 	{ "smjonas/inc-rename.nvim", opts = {} },
 
