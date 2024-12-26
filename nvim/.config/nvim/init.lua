@@ -195,16 +195,14 @@ require("lazy").setup({
 		"Mofiqul/dracula.nvim",
 		opts = {
 			colors = {
-				-- bg = bg_color,
-				-- black = "white",
-				-- menu = bg_color,
 				black = "None",
+				white = "None",
 				bg = "None",
 				menu = "None",
 				comment = "#b3b3b3",
+				selection = "#4c4c4c",
 			},
 			italic_comment = true,
-			transparent_bg = true,
 		},
 	},
 
