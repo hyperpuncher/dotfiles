@@ -4,8 +4,6 @@ local map = vim.keymap.set
 local hl = vim.api.nvim_set_hl
 local autocmd = vim.api.nvim_create_autocmd
 
-local bg_color = "#1A1A1A"
-
 vim.g.mapleader = " "
 
 vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
@@ -23,7 +21,6 @@ opt.pumheight = 10 -- Maximum number of entries in a popup
 opt.relativenumber = true
 opt.scrolloff = 15
 opt.shiftwidth = 4
--- opt.showmode = false
 opt.signcolumn = "yes"
 opt.smartcase = true
 opt.smartindent = true
@@ -131,34 +128,10 @@ require("lazy").setup({
 		config = function()
 			local telescope = require("telescope")
 			local telescopeBuiltIn = require("telescope.builtin")
-			local telescopeConfig = require("telescope.config")
-
-			-- Clone the default Telescope configuration
-			local vimgrep_arguments = { unpack(telescopeConfig.values.vimgrep_arguments) }
-
-			table.insert(vimgrep_arguments, "--hidden")
-			table.insert(vimgrep_arguments, "-u")
-			table.insert(vimgrep_arguments, "--glob")
-			table.insert(vimgrep_arguments, "!**/.git/*")
-			table.insert(vimgrep_arguments, "--glob")
-			table.insert(vimgrep_arguments, "!**/node_modules/*")
 
 			telescope.setup({
-				defaults = {
-					vimgrep_arguments = vimgrep_arguments,
-				},
 				pickers = {
 					find_files = {
-						find_command = {
-							"rg",
-							"-u",
-							"--files",
-							"--hidden",
-							"--glob",
-							"!**/.git/*",
-							"--glob",
-							"!**/node_modules/*",
-						},
 						theme = "dropdown",
 						previewer = false,
 					},
@@ -502,12 +475,9 @@ require("lazy").setup({
 			"LazyGitFilter",
 			"LazyGitFilterCurrentFile",
 		},
-		-- optional for floating window border decoration
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 		},
-		-- setting the keybinding for LazyGit with 'keys' is recommended in
-		-- order to load the plugin when the command is run for the first time
 		keys = {
 			{ "<leader>lg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
 		},
@@ -530,8 +500,6 @@ require("lazy").setup({
 			require("qmk").setup(conf)
 		end,
 	},
-
-	{ "echasnovski/mini.ai", version = false, opts = {} },
 }, {
 	ui = {
 		border = "rounded",
