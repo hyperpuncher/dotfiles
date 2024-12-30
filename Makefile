@@ -38,6 +38,7 @@ stow:
 		pacman \
 		pulse \
 		rofi \
+		spotify \
 		waybar \
 		wireplumber \
 		yazi \
