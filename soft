@@ -1,4 +1,4 @@
-7-zip-full
+7zip
 adw-gtk-theme
 age
 alacritty
@@ -178,7 +178,7 @@ pcbdraw
 pdfarranger
 pgformatter
 pigz
-pinta
+pinta-git
 pipewire
 pipewire-alsa
 pipewire-jack
@@ -214,7 +214,7 @@ python-rich
 python-setuptools
 python-tabulate
 python-wxpython
-qemu-emulators-full
+qemu-desktop
 qmk
 qrencode
 qt5-imageformats
@@ -236,6 +236,7 @@ rustdesk-bin
 rustup
 sbctl
 sc-im
+scc
 sd
 shadowsocks-rust
 shellcheck
