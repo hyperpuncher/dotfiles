@@ -597,6 +597,8 @@ map("n", "<leader>e", vim.diagnostic.open_float)
 
 map("n", "<leader>z", ":ZenMode<CR>", { silent = true })
 
+map("n", "<leader>m", ":!make run<CR>", { silent = true })
+
 --  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(_, bufnr)
 	local nmap = function(keys, func, desc)
