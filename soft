@@ -132,6 +132,7 @@ luarocks
 man-db
 mangohud
 mediainfo
+mesa-utils
 moar
 mods
 mosh
@@ -178,7 +179,6 @@ pcbdraw
 pdfarranger
 pgformatter
 pigz
-pinta-git
 pipewire
 pipewire-alsa
 pipewire-jack
@@ -247,6 +247,7 @@ sing-geoip-db
 sing-geosite-db
 skate
 slurp
+socat
 soft-serve
 solvespace
 sops
