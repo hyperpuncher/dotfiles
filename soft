@@ -158,7 +158,6 @@ nwg-look
 oatmeal-bin
 obinskit
 obs-studio
-obsidian
 ocrmypdf
 odin
 ollama-rocm
@@ -206,6 +205,7 @@ python-mistune2
 python-numpy
 python-pillow
 python-pip
+python-pipx
 python-pynvim
 python-pypdf
 python-pytelegrambotapi
@@ -222,7 +222,7 @@ qt5-wayland
 qt5ct
 qt6-wayland
 qt6ct
-quickemu-git
+quickemu
 railwayapp-cli
 rebuild-detector
 retroarch
