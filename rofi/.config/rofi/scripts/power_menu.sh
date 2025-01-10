@@ -12,7 +12,7 @@ case $1 in
 	"niri")
 		niri msg action quit
 		;;
-	"hyprland")
+	"Hyprland")
 		hyprctl dispatch exit
 		;;
 	esac
