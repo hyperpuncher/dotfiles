@@ -146,6 +146,7 @@ neovim
 network-manager-applet
 networkmanager
 nfs-utils
+niri-git
 nixpacks
 nmap
 noto-fonts
@@ -314,6 +315,7 @@ xh
 xorg-server-xvfb
 xorg-xhost
 xray
+xwayland-satellite
 yaak-bin
 yarn
 yazi
