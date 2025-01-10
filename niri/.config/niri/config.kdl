@@ -70,6 +70,13 @@ layout {
 
 }
 
+workspace "chat"
+workspace "browser"
+window-rule {
+    match app-id="org.telegram.desktop"
+    open-on-workspace "chat"
+}
+
 spawn-at-startup "mpv" "--loop=no" "/home/igor/dotfiles/sounds/silent.wav"
 spawn-at-startup "~/projects/arduino/autobrightness/autobrightness"
 spawn-at-startup "swaybg" "-m" "fill" "-i" "/home/igor/Pictures/wallpapers/aesthetics-purple.png"
@@ -93,7 +100,8 @@ prefer-no-csd
 screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
 animations {
-    slowdown 0.8
+    // off
+    slowdown 0.4
 }
 
 window-rule {
@@ -116,12 +124,6 @@ binds {
     Mod+B { spawn "brave-beta"; }
     Mod+E { spawn "nemo"; }
 
-    // You can also use a shell. Do this if you need pipes, multiple commands, etc.
-    // Note: the entire command goes as a single argument in the end.
-    // Mod+T { spawn "bash" "-c" "notify-send hello && exec alacritty"; }
-
-    // Example volume keys mappings for PipeWire & WirePlumber.
-    // The allow-when-locked=true property makes them work even when the session is locked.
     XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%+"; }
     XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%-"; }
     XF86AudioMute        allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
@@ -251,6 +253,9 @@ binds {
     Mod+7 { focus-workspace 7; }
     Mod+8 { focus-workspace 8; }
     Mod+9 { focus-workspace 9; }
+
+    Mod+T { focus-workspace "chat"; }
+    Mod+G { focus-workspace "browser"; }
     // Mod+Ctrl+1 { move-column-to-workspace 1; }
     // Mod+Ctrl+2 { move-column-to-workspace 2; }
     // Mod+Ctrl+3 { move-column-to-workspace 3; }
