@@ -92,6 +92,12 @@
         "format-en": "EN",
         "format-ru": "RU"
     },
+    "niri/language": {
+        "format": "{}",
+        "format-en": "EN",
+        "format-ru": "RU",
+        "rotate": 90
+    },
     "wlr/taskbar": {
         "format": "{icon}",
         "icon-size": 18,
