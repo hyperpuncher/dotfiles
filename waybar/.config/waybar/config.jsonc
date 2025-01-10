@@ -1,22 +1,24 @@
 {
-    "layer": "top", // Waybar at top layer
-    // "position": "bottom", // Waybar position (top|bottom|left|right)
-    // "height": 30, // Waybar height (to be removed for auto height)
-    // "width": 1280, // Waybar width
-    // "spacing": 4, // Gaps between modules (4px)
+    "layer": "top",
+    "position": "left",
+    // "height": 30,
+    // "width": 1280,
+    "spacing": 0,
 
-    "modules-left": ["tray"],
-    "modules-center": [],
-    "modules-right": [
-        "custom/media",
-        "custom/brightness",
-        "pulseaudio",
+    "modules-left": [
+        "clock",
+        "niri/language",
+        "disk",
+        "memory",
         "temperature",
         "cpu",
-        "memory",
-        "disk",
-        "hyprland/language",
-        "clock"
+        "pulseaudio",
+        "custom/brightness",
+        "custom/media"
+    ],
+    "modules-center": [],
+    "modules-right": [
+        "tray"
     ],
     "tray": {
         "icon-size": 16,
@@ -32,11 +34,13 @@
     },
     "clock": {
         "tooltip-format": "<tt><small>{calendar}</small></tt>",
-        "format-alt": "{:%d.%m.%Y}"
+        "format-alt": "{:%d.%m.%Y}",
+        "rotate": 90
     },
     "cpu": {
         "format": "{usage}% 󰍛",
-        "interval": 2
+        "interval": 2,
+        "rotate": 90
     },
     "bluetooth": {
         "format": "",
@@ -46,15 +50,18 @@
         "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
         "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
         "on-click": "systemctl start bluetooth.service",
-        "on-click-right": "systemctl stop bluetooth.service"
+        "on-click-right": "systemctl stop bluetooth.service",
+        "rotate": 90
     },
     "memory": {
-        "format": "{}%  "
+        "format": "{}%  ",
+        "rotate": 90
     },
     "disk": {
         "interval": 30,
         "format": "{percentage_used}%  ",
-        "path": "/"
+        "path": "/",
+        "rotate": 90
     },
     "temperature": {
         "tooltip": false,
@@ -62,7 +69,8 @@
         "critical-threshold": 80,
         "format-critical": "{temperatureC}°C {icon}",
         "format": "{temperatureC}°C {icon}",
-        "format-icons": [""]
+        "format-icons": [""],
+        "rotate": 90
     },
     "pulseaudio": {
         "format": "{volume}% {icon}",
@@ -76,7 +84,8 @@
             "default": ["", " "]
         },
         "ignored-sinks": ["JamesDSP Sink"],
-        "on-click": "wpctl set-mute @DEFAULT_SINK@ toggle"
+        "on-click": "wpctl set-mute @DEFAULT_SINK@ toggle",
+        "rotate": 90
     },
     "custom/media": {
         "tooltip": false,
@@ -85,12 +94,14 @@
         "interval": 1,
         "escape": true,
         "exec": "$HOME/.config/waybar/scripts/get_spotify.sh",
-        "on-click": "playerctl play-pause"
+        "on-click": "playerctl play-pause",
+        "rotate": 90
     },
     "hyprland/language": {
         "format": "{}",
         "format-en": "EN",
-        "format-ru": "RU"
+        "format-ru": "RU",
+        "rotate": 90
     },
     "niri/language": {
         "format": "{}",
@@ -112,7 +123,8 @@
         "interval": 5,
         "exec": "cat /tmp/monitor_brightness",
         "on-scroll-up": "ddcutil --noverify setvcp 10 + 5",
-        "on-scroll-down": "ddcutil --noverify setvcp 10 - 5"
+        "on-scroll-down": "ddcutil --noverify setvcp 10 - 5",
+        "rotate": 90
     },
     "custom/weather": {
         "tooltip": false,
