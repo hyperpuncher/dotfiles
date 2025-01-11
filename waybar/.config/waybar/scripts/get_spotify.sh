@@ -12,5 +12,5 @@ if [ -n "$playback_status" ]; then
 		song_status=''
 	fi
 
-	printf "%s" "$song_status $media"
+	printf "%s" "$media $song_status"
 fi
