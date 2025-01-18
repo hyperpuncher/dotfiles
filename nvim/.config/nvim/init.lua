@@ -278,7 +278,6 @@ require("lazy").setup({
 							markdown = { "deno_fmt" },
 							nix = { "nixpkgs_fmt" },
 							python = { "ruff_format", "ruff_organize_imports" },
-							sh = { "shfmt" },
 							sql = { "pg_format" },
 							svelte = { "deno_fmt", "rustywind" },
 							swift = { "swiftformat" },
