@@ -419,12 +419,7 @@ require("lazy").setup({
 		},
 	},
 
-	{
-		"kylechui/nvim-surround",
-		version = "*",
-		event = "VeryLazy",
-		opts = {},
-	},
+	{ "echasnovski/mini.surround", version = "*", opts = {} },
 
 	{
 		"rmagatti/auto-session",
