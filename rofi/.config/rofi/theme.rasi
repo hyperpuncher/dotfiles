@@ -5,7 +5,7 @@
     separatorcolor:              var(foreground);
     urgent-foreground:           var(red);
     alternate-urgent-background: var(lightbg);
-    lightbg:                     rgba ( 20, 20, 20, 100 % );
+    lightbg:                     rgba ( 23, 23, 23, 100 % );
     background-color:            transparent;
     border-color:                var(foreground);
     normal-background:           var(background);
@@ -17,7 +17,7 @@
     urgent-background:           var(background);
     selected-normal-foreground:  var(lightbg);
     active-foreground:           var(blue);
-    background:                  rgba ( 0, 0, 0, 100 % );
+    background:                  rgba ( 26, 26, 26, 100 % );
     selected-active-background:  var(blue);
     active-background:           var(background);
     selected-normal-background:  var(lightfg);
