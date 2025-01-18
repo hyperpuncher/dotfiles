@@ -94,6 +94,7 @@ local formatters = {
 local linters = {
 	"golangci-lint",
 	"jsonlint",
+	"shellcheck",
 }
 
 local ensure_installed = vim.tbl_keys(servers)
