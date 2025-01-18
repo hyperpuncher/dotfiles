@@ -260,7 +260,7 @@ require("lazy").setup({
 						},
 						notify_on_error = false,
 						formatters = {
-							deno_fmt = { append_args = { "--indent-width=4" } },
+							deno_fmt = { append_args = { "--use-tabs=true" } },
 						},
 						formatters_by_ft = {
 							astro = { "deno_fmt", "rustywind" },
