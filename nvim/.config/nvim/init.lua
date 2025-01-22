@@ -714,11 +714,3 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 		vim.diagnostic.disable()
 	end,
 })
-
-vim.api.nvim_create_autocmd("VimEnter", {
-	callback = function()
-		if vim.fn.argv(0) == "" then
-			require("telescope.builtin").project_files()
-		end
-	end,
-})
