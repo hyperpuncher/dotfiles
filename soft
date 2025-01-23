@@ -55,7 +55,7 @@ exfatprogs
 expac
 extra-cmake-modules
 eza
-f3d-bin
+f3d
 fastfetch
 fd
 ffmpeg
@@ -66,6 +66,7 @@ fnm
 font-manager
 foot
 freecad
+freerdp
 freerouting
 fx
 fzf
@@ -77,6 +78,7 @@ gitleaks
 glow
 gnome-disk-utility
 gnome-keyring
+gnome-text-editor
 go
 godot
 gparted
@@ -95,6 +97,7 @@ hypridle
 hyprland
 hyprpicker
 hyprsunset
+identity
 imagemagick
 inkscape
 inotify-tools
@@ -135,6 +138,7 @@ mediainfo
 mesa-utils
 moar
 mods
+moonlight-qt
 mosh
 mpv
 mtpfs
@@ -146,8 +150,7 @@ neovim
 network-manager-applet
 networkmanager
 nfs-utils
-niri-git
-nixpacks
+niri
 nmap
 noto-fonts
 noto-fonts-cjk
@@ -161,7 +164,6 @@ obinskit
 obs-studio
 ocrmypdf
 odin
-ollama-rocm
 ondsel-es-appimage
 opencl-clhpp
 opencl-rusticl-mesa
@@ -226,6 +228,7 @@ qt6ct
 quickemu
 railwayapp-cli
 rebuild-detector
+remmina
 retroarch
 retroarch-assets-ozone
 ripgrep
@@ -235,12 +238,12 @@ rofi-wayland
 rpi-imager
 rustdesk-bin
 rustup
+ryujinx
 sbctl
 sc-im
 scc
 sd
 shadowsocks-rust
-shellcheck
 sidequest-bin
 sidequestlite-bin
 signal-desktop
@@ -260,7 +263,6 @@ sshfs
 steam
 stow
 sunshine
-sway
 swaybg
 swift-bin
 swiftformat-bin
