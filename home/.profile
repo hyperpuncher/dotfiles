@@ -28,5 +28,5 @@ export PATH=$PATH:$HOME/dotfiles/scripts:$HOME/.local/bin:$CARGO_HOME/bin:$PNPM_
 
 export SOPS_AGE_RECIPIENTS=age1tnkh972ad6ddm6grzmjjnlcq90247r36ywq220y3ytnkw9aqwcsqzwxxu4
 
-export http_proxy=http://127.0.0.1:10808
+export http_proxy=socks5://127.0.0.1:10808
 export https_proxy=$http_proxy
