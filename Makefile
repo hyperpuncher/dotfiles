@@ -6,8 +6,7 @@ essential:
 ssh:
 	@echo "Decrypting ssh keys"
 	mkdir ~/.ssh
-	age -d -o ~/.ssh/id_ed25519 ./.ssh/id_ed25519.age
-	cp ./.ssh/id_ed25519.pub ~/.ssh/
+	age -d -o ~/.ssh/id_ed25519 ./ssh/.ssh/id_ed25519.age
 
 paru:
 	@echo "Installing paru"
@@ -39,6 +38,7 @@ stow:
 		pulse \
 		rofi \
 		spotify \
+		ssh \
 		waybar \
 		wireplumber \
 		yazi \
