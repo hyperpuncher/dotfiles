@@ -103,5 +103,5 @@ alias wgup='sudo wg-quick up'
 setopt glob_dots     # no special treatment for file names with a leading dot
 setopt auto_menu  # require an extra TAB press to open the completion menu
 
-eval "$(fnm env --use-on-cd)"
+eval "$(fnm env --use-on-cd --shell zsh)"
 eval "$(zoxide init zsh)"
