@@ -39,6 +39,7 @@ stow:
 		rofi \
 		spotify \
 		ssh \
+		tmux \
 		waybar \
 		wireplumber \
 		yazi \
