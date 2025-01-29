@@ -275,6 +275,7 @@ testdisk
 tinygo
 tlrc-bin
 tmux
+tmux-plugin-manager
 transmission-gtk
 trash-cli
 tree-sitter-cli
