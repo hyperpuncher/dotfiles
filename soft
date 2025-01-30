@@ -279,7 +279,7 @@ tmux-plugin-manager
 transmission-gtk
 trash-cli
 tree-sitter-cli
-ttf-cascadia-code-nerd
+ttf-cascadia-mono-nerd
 ttf-iosevka-nerd
 ttf-iosevkaterm-nerd
 ttf-ms-win11-auto
@@ -302,7 +302,7 @@ virt-manager
 vulkan-radeon
 vulkan-tools
 waybar
-web-os-dev-manager-bin
+webos-dev-manager-bin
 wget
 wine-mono
 winetricks
