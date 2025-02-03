@@ -60,6 +60,7 @@ local servers = {
 	nil_ls = {},
 	ols = {},
 	openscad_lsp = {},
+	phpactor = {},
 	pyright = {
 		pyright = {
 			-- Using Ruff's import organizer
@@ -84,6 +85,7 @@ local servers = {
 local formatters = {
 	"gofumpt",
 	"nixpkgs-fmt",
+	"php-cs-fixer",
 	"rustywind",
 	"shfmt",
 	"stylua",
@@ -94,6 +96,7 @@ local formatters = {
 local linters = {
 	"golangci-lint",
 	"jsonlint",
+	"phpstan",
 	"shellcheck",
 }
 
@@ -277,6 +280,7 @@ require("lazy").setup({
 							lua = { "stylua" },
 							markdown = { "deno_fmt" },
 							nix = { "nixpkgs_fmt" },
+							php = { "php_cs_fixer" },
 							python = { "ruff_format", "ruff_organize_imports" },
 							sql = { "pg_format" },
 							svelte = { "deno_fmt", "rustywind" },
@@ -296,6 +300,7 @@ require("lazy").setup({
 					lint.linters_by_ft = {
 						go = { "golangcilint" },
 						json = { "jsonlint" },
+						php = { "phpstan" },
 					}
 
 					-- Create autocommand which carries out the actual linting
