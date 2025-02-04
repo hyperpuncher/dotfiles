@@ -33,6 +33,7 @@ chafa
 clang
 clinfo
 cliphist
+composer
 corectrl
 csvlens
 dashbinsh
@@ -180,6 +181,8 @@ pbzip2
 pcbdraw
 pdfarranger
 pgformatter
+php
+php-sqlite
 pigz
 pipewire
 pipewire-alsa
@@ -282,6 +285,7 @@ tree-sitter-cli
 ttf-cascadia-mono-nerd
 ttf-iosevka-nerd
 ttf-iosevkaterm-nerd
+ttf-maple-beta
 ttf-ms-win11-auto
 ttf-nunito
 ttf-roboto
