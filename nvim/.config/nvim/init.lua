@@ -52,6 +52,7 @@ local servers = {
 	astro = {},
 	bashls = {},
 	clangd = { filetypes = { "c", "cpp", "arduino", "h", "hpp" } },
+	elixirls = { cmd = { vim.fn.expand("~/.local/share/nvim/mason/packages/elixir-ls/language_server.sh") } },
 	gopls = {},
 	html = {},
 	htmx = {},
@@ -644,6 +645,7 @@ require("mason-lspconfig").setup_handlers({
 			on_attach = on_attach,
 			settings = servers[server_name],
 			filetypes = (servers[server_name] or {}).filetypes,
+			cmd = (servers[server_name] or {}).cmd,
 		})
 	end,
 })
