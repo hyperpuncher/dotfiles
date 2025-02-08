@@ -55,7 +55,7 @@ local servers = {
 	elixirls = { cmd = { vim.fn.expand("~/.local/share/nvim/mason/packages/elixir-ls/language_server.sh") } },
 	gopls = {},
 	html = {},
-	htmx = {},
+	htmx = { filetypes = { "templ" } },
 	lua_ls = { Lua = { diagnostics = { globals = { "vim" } } } },
 	marksman = {},
 	nil_ls = {},
