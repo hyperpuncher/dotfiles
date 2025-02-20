@@ -62,15 +62,10 @@ local servers = {
 	ols = {},
 	openscad_lsp = {},
 	phpactor = {},
-	pyright = {
-		pyright = {
-			-- Using Ruff's import organizer
-			disableOrganizeImports = true,
-		},
-		python = {
+	basedpyright = {
+		basedpyright = {
 			analysis = {
-				-- Ignore all files for analysis to exclusively use Ruff for linting
-				ignore = { "*" },
+				typeCheckingMode = "standard",
 			},
 		},
 	},
