@@ -659,8 +659,7 @@ luasnip.config.setup({})
 cmp.setup({
 	formatting = {
 		format = lspkind.cmp_format({
-			maxwidth = 50,
-			ellipsis_char = "...",
+			maxwidth = 15,
 		}),
 	},
 	view = {
