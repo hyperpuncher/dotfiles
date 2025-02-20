@@ -206,6 +206,9 @@ require("lazy").setup({
 				selection = "#4c4c4c",
 			},
 			italic_comment = true,
+			overrides = {
+				LspInlayHint = { fg = "#b3b3b3", bg = "None", italic = true },
+			},
 		},
 	},
 
@@ -601,6 +604,7 @@ map("n", "<leader>m", ":!make run<CR>", { silent = true })
 
 --  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(_, bufnr)
+	vim.lsp.inlay_hint.enable(true)
 	local nmap = function(keys, func, desc)
 		if desc then
 			desc = "LSP: " .. desc
