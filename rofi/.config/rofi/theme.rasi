@@ -170,5 +170,5 @@ textbox-prompt-colon {
     text-color: inherit;
 }
 window {
-  width: 30%;
+  width: 35%;
 }
