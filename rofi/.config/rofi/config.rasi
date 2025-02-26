@@ -1,6 +1,6 @@
 configuration {
 	modes: "drun";
-	font: "Maple Mono 16";
+	font: "CaskaydiaMono Nerd Font 17";
 	location: 0;
 	fixed-num-lines: false;
 	show-icons: true;
