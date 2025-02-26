@@ -66,6 +66,10 @@ local servers = {
 		basedpyright = {
 			analysis = {
 				typeCheckingMode = "standard",
+				inlayHints = {
+					variableTypes = false,
+					genericTypes = false,
+				},
 			},
 		},
 	},
