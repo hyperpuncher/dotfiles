@@ -4,7 +4,7 @@ configuration {
 	location: 0;
 	fixed-num-lines: false;
 	show-icons: true;
-	kb-cancel: "Escape,Control+g,Control+bracketleft,MousePrimary";
+	kb-cancel: "Escape";
   timeout {
       action: "kb-cancel";
       delay:  0;
