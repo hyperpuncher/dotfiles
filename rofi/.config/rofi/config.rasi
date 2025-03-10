@@ -1,6 +1,6 @@
 configuration {
 	modes: "drun";
-	font: "CaskaydiaMono Nerd Font 17";
+	font: "CaskaydiaMono Nerd Font 15";
 	location: 0;
 	fixed-num-lines: false;
 	show-icons: true;
