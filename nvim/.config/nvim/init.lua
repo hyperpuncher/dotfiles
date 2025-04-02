@@ -78,6 +78,7 @@ local servers = {
 	ruby_lsp = {},
 	ruff = {},
 	rust_analyzer = {},
+	sqls = {},
 	svelte = {},
 	tailwindcss = {},
 	templ = {},
