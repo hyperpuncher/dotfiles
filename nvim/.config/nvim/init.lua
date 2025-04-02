@@ -87,6 +87,7 @@ local servers = {
 
 local formatters = {
 	"gofumpt",
+	"kulala-fmt",
 	"nixpkgs-fmt",
 	"php-cs-fixer",
 	"rustywind",
@@ -279,6 +280,7 @@ require("lazy").setup({
 							css = { "deno_fmt" },
 							dart = { "dart_format" },
 							go = { "gofumpt" },
+							http = { "kulala-fmt" },
 							ino = { "clang-format" },
 							javascript = { "deno_fmt", "rustywind" },
 							typescript = { "deno_fmt", "rustywind" },
@@ -507,6 +509,14 @@ require("lazy").setup({
 			}
 			require("qmk").setup(conf)
 		end,
+	},
+
+	{
+		"mistweaverco/kulala.nvim",
+		ft = { "http", "rest" },
+		opts = {
+			global_keymaps = true,
+		},
 	},
 }, {
 	ui = {
