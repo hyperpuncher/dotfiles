@@ -91,12 +91,12 @@ local formatters = {
 	"kulala-fmt",
 	"nixpkgs-fmt",
 	"php-cs-fixer",
+	"rubyfmt",
 	"rustywind",
 	"shfmt",
-	"rubyfmt",
 	"stylua",
-	"templ",
 	"taplo",
+	"templ",
 }
 
 local linters = {
@@ -284,7 +284,6 @@ require("lazy").setup({
 							http = { "kulala-fmt" },
 							ino = { "clang-format" },
 							javascript = { "deno_fmt", "rustywind" },
-							typescript = { "deno_fmt", "rustywind" },
 							json = { "deno_fmt" },
 							jsonc = { "deno_fmt" },
 							lua = { "stylua" },
@@ -298,6 +297,7 @@ require("lazy").setup({
 							swift = { "swiftformat" },
 							templ = { "templ", "rustywind" },
 							toml = { "taplo" },
+							typescript = { "deno_fmt", "rustywind" },
 							yaml = { "deno_fmt" },
 						},
 					})
