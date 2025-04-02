@@ -1,5 +1,5 @@
 export GPG_TTY=$TTY
-export BROWSER=brave-beta
+export BROWSER=brave
 export EDITOR=nvim
 export PAGER='moar -style dracula -no-linenumbers'
 export MANPAGER='nvim +Man!'
