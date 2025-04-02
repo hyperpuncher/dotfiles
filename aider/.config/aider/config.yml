@@ -1,6 +1,5 @@
 model: openrouter/deepseek/deepseek-chat
-set-env: OPENROUTER_API_KEY=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
 dark-mode: true
-code-theme: monokai
+code-theme: dracula
 analytics-disable: true
 editor: nvim
