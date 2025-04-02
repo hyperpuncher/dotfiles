@@ -11,5 +11,4 @@ export QT_QPA_PLATFORMTHEME=qt6ct
 hyprctl dispatch exec "swaybg -m fill -i /home/igor/Pictures/wallpapers/gradient_light.avif"
 hyprctl dispatch exec "swaybg -i /home/igor/Pictures/wallpapers/mask_vertical_4k.png"
 sleep 1
-pkill -o swaybg
-pkill -o swaybg
+while [ "$(pgrep -c swaybg)" -gt 2 ]; do pkill -o swaybg; done
