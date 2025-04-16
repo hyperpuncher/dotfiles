@@ -83,7 +83,7 @@ local servers = {
 	svelte = {},
 	tailwindcss = {},
 	templ = {},
-	ts_ls = {},
+	vtsls = {},
 	yamlls = {},
 }
 
