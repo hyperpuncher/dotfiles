@@ -7,6 +7,7 @@ local autocmd = vim.api.nvim_create_autocmd
 vim.g.mapleader = " "
 
 vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+vim.o.winborder = "rounded"
 
 opt.breakindent = true
 opt.clipboard = "unnamedplus"
