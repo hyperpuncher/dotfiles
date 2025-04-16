@@ -105,6 +105,7 @@ local linters = {
 	"jsonlint",
 	"phpstan",
 	"shellcheck",
+	"oxlint",
 }
 
 local ensure_installed = vim.tbl_keys(servers)
@@ -319,10 +320,23 @@ require("lazy").setup({
 				"mfussenegger/nvim-lint",
 				config = function()
 					local lint = require("lint")
+					lint.linters.oxlint.args = {
+						"--format",
+						"unix",
+						"-D",
+						"suspicious",
+						"-D",
+						"perf",
+					}
 					lint.linters_by_ft = {
 						go = { "golangcilint" },
 						json = { "jsonlint" },
 						php = { "phpstan" },
+						svelte = { "oxlint" },
+						javascript = { "oxlint" },
+						typescript = { "oxlint" },
+						javascriptreact = { "oxlint" },
+						typescriptreact = { "oxlint" },
 					}
 
 					-- Create autocommand which carries out the actual linting
