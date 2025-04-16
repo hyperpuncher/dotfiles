@@ -238,6 +238,16 @@ require("lazy").setup({
 						group = group,
 						callback = function(args)
 							vim.diagnostic.disable(args.buf)
+					local capabilities = require("blink.cmp").get_lsp_capabilities()
+
+					require("mason-lspconfig").setup_handlers({
+						function(server_name)
+							require("lspconfig")[server_name].setup({
+								capabilities = capabilities,
+								settings = servers[server_name],
+								filetypes = (servers[server_name] or {}).filetypes,
+								cmd = (servers[server_name] or {}).cmd,
+							})
 						end,
 					})
 				end,
@@ -373,24 +383,32 @@ require("lazy").setup({
 	},
 
 	{
-		"L3MON4D3/LuaSnip",
-		build = "make install_jsregexp",
-	},
-
-	{
-		"hrsh7th/nvim-cmp",
+		"saghen/blink.cmp",
+		version = "1.*",
 		dependencies = {
-			"hrsh7th/cmp-buffer",
-			"hrsh7th/cmp-cmdline",
-			"hrsh7th/cmp-nvim-lsp",
-			"hrsh7th/cmp-nvim-lua",
-			"hrsh7th/cmp-path",
-			"onsails/lspkind.nvim",
-			"L3MON4D3/LuaSnip",
-			"saadparwaiz1/cmp_luasnip",
-			"rafamadriz/friendly-snippets",
-			"roobert/tailwindcss-colorizer-cmp.nvim",
+			{ "rafamadriz/friendly-snippets" },
 		},
+		opts = {
+			keymap = { preset = "default" },
+
+			appearance = {
+				nerd_font_variant = "normal",
+			},
+
+			completion = {
+				documentation = {
+					auto_show = true,
+					auto_show_delay_ms = 200,
+				},
+			},
+
+			sources = {
+				default = { "lsp", "path", "snippets", "buffer" },
+			},
+
+			fuzzy = { implementation = "prefer_rust_with_warning" },
+		},
+		opts_extend = { "sources.default" },
 	},
 
 	{
@@ -650,84 +668,6 @@ autocmd("TextYankPost", {
 	group = highlight_group,
 	pattern = "*",
 })
-
--- nvim-cmp supports additional completion capabilities, so broadcast that to servers
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
-
-require("mason-lspconfig").setup_handlers({
-	function(server_name)
-		require("lspconfig")[server_name].setup({
-			capabilities = capabilities,
-			on_attach = on_attach,
-			settings = servers[server_name],
-			filetypes = (servers[server_name] or {}).filetypes,
-			cmd = (servers[server_name] or {}).cmd,
-		})
-	end,
-})
-
--- [[ Configure nvim-cmp ]]
-local cmp = require("cmp")
-local luasnip = require("luasnip")
-local lspkind = require("lspkind")
-require("luasnip.loaders.from_vscode").lazy_load()
-luasnip.config.setup({})
-
-cmp.setup({
-	formatting = {
-		format = lspkind.cmp_format({
-			maxwidth = 18,
-		}),
-	},
-	view = {
-		entries = { name = "custom", selection_order = "near_cursor" },
-	},
-	window = {
-		completion = cmp.config.window.bordered({
-			border = "rounded",
-			winhighlight = "Normal:CmpPmenu,CursorLine:PmenuSel,Search:None",
-		}),
-		documentation = cmp.config.window.bordered({
-			border = "rounded",
-		}),
-	},
-	snippet = {
-		expand = function(args)
-			luasnip.lsp_expand(args.body)
-		end,
-	},
-	completion = {
-		completeopt = "menu,menuone,noinsert",
-	},
-	mapping = cmp.mapping.preset.insert({
-		["<C-y>"] = cmp.mapping.confirm(),
-	}),
-	sources = {
-		{ name = "nvim_lsp" },
-		{ name = "nvim_lua" },
-		{ name = "path" },
-		{ name = "luasnip" },
-		{ name = "buffer" },
-	},
-	-- experimental = {
-	-- 	ghost_text = true,
-	-- },
-})
-
--- `:` cmdline setup.
-cmp.setup.cmdline(":", {
-	mapping = cmp.mapping.preset.cmdline(),
-	sources = cmp.config.sources({
-		{ name = "path" },
-	}, {
-		{ name = "cmdline", keyword_length = 3 },
-	}),
-})
-
-cmp.config.formatting = {
-	format = require("tailwindcss-colorizer-cmp").formatter,
-}
 
 vim.filetype.add({ extension = { templ = "templ" } })
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
