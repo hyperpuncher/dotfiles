@@ -98,6 +98,7 @@ local formatters = {
 	"stylua",
 	"taplo",
 	"templ",
+	"prettierd",
 }
 
 local linters = {
@@ -305,11 +306,11 @@ require("lazy").setup({
 							python = { "ruff_format", "ruff_organize_imports" },
 							ruby = { "rubyfmt" },
 							sql = { "pg_format" },
-							svelte = { "deno_fmt", "rustywind" },
+							svelte = { "prettierd", "rustywind" },
 							swift = { "swiftformat" },
 							templ = { "templ", "rustywind" },
 							toml = { "taplo" },
-							typescript = { "deno_fmt", "rustywind" },
+							typescript = { "prettierd", "rustywind" },
 							yaml = { "deno_fmt" },
 						},
 					})
