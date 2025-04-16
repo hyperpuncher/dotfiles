@@ -3,6 +3,7 @@ adw-gtk-theme
 age
 alacritty
 amd-ucode
+android-apktool
 android-file-transfer
 android-tools
 apple_cursor
@@ -17,10 +18,12 @@ bc
 beekeeper-studio-bin
 bfg
 bind
+biome
 blender
 blueman
 bluez-utils
 brave-beta-bin
+brave-bin
 btop
 btrfs-progs
 buildah
@@ -82,7 +85,6 @@ gitleaks
 glow
 gnome-disk-utility
 gnome-keyring
-gnome-text-editor
 go
 godot
 golangci-lint-bin
@@ -98,6 +100,7 @@ helvum
 heroic-games-launcher-bin
 hip-runtime-amd
 hiprt
+httptoolkit-bin
 hurl
 hyperfine
 hypridle
@@ -110,6 +113,7 @@ imagemagick
 inkscape
 inotify-tools
 inter-font
+jadx
 jamesdsp-git
 jdk-openjdk
 jq
@@ -133,6 +137,7 @@ linux-firmware
 linux-headers
 linux-lts
 linux-lts-headers
+lite-xl
 llvm
 lnav
 localsend-bin
@@ -145,6 +150,7 @@ mangohud
 maplemononormalnl-ttf
 mediainfo
 mesa-utils
+mitmproxy
 moar
 mods
 mosh
@@ -179,6 +185,7 @@ openmp
 openscad
 openssh
 orca-slicer-unstable-bin
+oxlint
 pacman-contrib
 papers
 papirus-folders-git
@@ -244,6 +251,7 @@ ripgrep
 river
 rocm-hip-runtime
 rocm-opencl-runtime
+rofi-emoji
 rofi-wayland
 rpi-imager
 ruff
@@ -338,6 +346,7 @@ xray
 xwayland-satellite
 yarn
 yt-dlp
+zed
 zip
 zoxide
 zsh-autosuggestions
