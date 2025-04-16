@@ -132,9 +132,6 @@ require("lazy").setup({
 				},
 			})
 		end,
-		vim.filetype.add({
-			pattern = { [".*/hyprland%.conf"] = "hyprlang" },
-		}),
 	},
 
 	{
@@ -234,12 +231,6 @@ require("lazy").setup({
 			{
 				"williamboman/mason-lspconfig.nvim",
 				config = function()
-					local group = vim.api.nvim_create_augroup("__env", { clear = true })
-					vim.api.nvim_create_autocmd("BufEnter", {
-						pattern = ".env",
-						group = group,
-						callback = function(args)
-							vim.diagnostic.disable(args.buf)
 					local capabilities = require("blink.cmp").get_lsp_capabilities()
 
 					require("mason-lspconfig").setup_handlers({
@@ -283,9 +274,8 @@ require("lazy").setup({
 							timeout_ms = 500,
 							lsp_fallback = true,
 						},
-						notify_on_error = false,
 						formatters = {
-							deno_fmt = { append_args = { "--use-tabs=true" } },
+							deno_fmt = { append_args = { "--use-tabs" } },
 						},
 						formatters_by_ft = {
 							astro = { "deno_fmt", "rustywind" },
@@ -461,10 +451,10 @@ require("lazy").setup({
 	},
 
 	{
-		"NvChad/nvim-colorizer.lua",
+		"catgoose/nvim-colorizer.lua",
 		opts = {
 			user_default_options = {
-				tailwind = true,
+				tailwind = "both",
 			},
 		},
 	},
@@ -483,8 +473,6 @@ require("lazy").setup({
 
 	{ "hiphish/rainbow-delimiters.nvim" },
 
-	{ "folke/zen-mode.nvim" },
-
 	{
 		"folke/trouble.nvim",
 		keys = {
@@ -502,7 +490,7 @@ require("lazy").setup({
 		opts = {},
 	},
 
-	{ "Darazaki/indent-o-matic", opts = {} },
+	-- { "Darazaki/indent-o-matic", opts = {} },
 
 	{
 		"ThePrimeagen/harpoon",
@@ -530,6 +518,7 @@ require("lazy").setup({
 
 	{
 		"codethread/qmk.nvim",
+		lazy = true,
 		config = function()
 			---@type qmk.UserConfig
 			local conf = {
@@ -579,6 +568,7 @@ map("n", "<leader>cW", function()
 	local word = vim.fn.expand("<cWORD>")
 	telescope_fn.grep_string({ search = word })
 end)
+map("n", "gr", telescope_fn.lsp_references)
 
 local harpoon = require("harpoon")
 
@@ -649,30 +639,7 @@ map("n", "[d", vim.diagnostic.goto_prev)
 map("n", "]d", vim.diagnostic.goto_next)
 map("n", "<leader>e", vim.diagnostic.open_float)
 
-map("n", "<leader>z", ":ZenMode<CR>", { silent = true })
-
 map("n", "<leader>m", ":!make run<CR>", { silent = true })
-
---  This function gets run when an LSP connects to a particular buffer.
-local on_attach = function(_, bufnr)
-	vim.lsp.inlay_hint.enable(true)
-	local nmap = function(keys, func, desc)
-		if desc then
-			desc = "LSP: " .. desc
-		end
-
-		map("n", keys, func, { buffer = bufnr, desc = desc })
-	end
-
-	nmap("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
-
-	nmap("gd", telescope_fn.lsp_definitions, "[G]oto [D]efinition")
-	nmap("gr", telescope_fn.lsp_references, "[G]oto [R]eferences")
-	nmap("gI", telescope_fn.lsp_implementations, "[G]oto [I]mplementation")
-	nmap("<leader>D", telescope_fn.lsp_type_definitions, "Type [D]efinition")
-
-	nmap("K", vim.lsp.buf.hover, "Hover Documentation")
-end
 
 hl(0, "YankHighlight", { fg = "black", bg = "white" })
 local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
@@ -684,21 +651,22 @@ autocmd("TextYankPost", {
 	pattern = "*",
 })
 
-vim.filetype.add({ extension = { templ = "templ" } })
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
-vim.diagnostic.config({ float = { border = "rounded" } })
-
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 	pattern = "ikiosuru.py",
 	callback = function()
-		vim.diagnostic.disable()
+		vim.diagnostic.enable(false)
 	end,
 })
 
-vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-	pattern = ".envrc",
+vim.api.nvim_create_autocmd("BufEnter", {
+	pattern = ".env",
+	callback = function(args)
+		vim.diagnostic.enable(false, args)
+	end,
+})
+
+vim.api.nvim_create_autocmd("InsertLeave", {
 	callback = function()
-		vim.bo.filetype = "sh"
+		os.execute("hyprctl switchxkblayout current 0 >/dev/null 2>&1")
 	end,
 })
