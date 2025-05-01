@@ -60,6 +60,7 @@ erlang
 exfatprogs
 expac
 extra-cmake-modules
+eyedropper
 eza
 f3d
 fastfetch
@@ -147,7 +148,6 @@ lua-luv
 luarocks
 man-db
 mangohud
-maplemononormalnl-ttf
 mediainfo
 mesa-utils
 mitmproxy
@@ -324,6 +324,7 @@ ventoy-bin
 vial-appimage
 video-trimmer
 virt-manager
+viu
 vulkan-radeon
 vulkan-tools
 waybar
