@@ -140,53 +140,12 @@ require("lazy").setup({
 	},
 
 	{
-		"nvim-telescope/telescope.nvim",
-		config = function()
-			local telescope = require("telescope")
-			local telescopeBuiltIn = require("telescope.builtin")
-
-			telescope.setup({
-				pickers = {
-					find_files = {
-						theme = "dropdown",
-						previewer = false,
-					},
-					git_files = {
-						theme = "dropdown",
-						previewer = false,
-					},
-				},
-			})
-
-			-- We cache the results of "git rev-parse"
-			-- Process creation is expensive in Windows, so this reduces latency
-			local is_inside_work_tree = {}
-
-			telescopeBuiltIn.project_files = function()
-				local opts = {} -- define here if you want to define something
-
-				local cwd = vim.fn.getcwd()
-				if is_inside_work_tree[cwd] == nil then
-					vim.fn.system("git rev-parse --is-inside-work-tree")
-					is_inside_work_tree[cwd] = vim.v.shell_error == 0
-				end
-
-				if is_inside_work_tree[cwd] then
-					require("telescope.builtin").git_files(opts)
-				else
-					require("telescope.builtin").find_files(opts)
-				end
-			end
-		end,
-
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			{
-				"nvim-telescope/telescope-fzf-native.nvim",
-				build = "make",
-				cond = function()
-					return vim.fn.executable("make") == 1
-				end,
+		"ibhagwan/fzf-lua",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		opts = {
+			winopts = { preview = { vertical = "up:80%" } },
+			fzf_opts = {
+				["--layout"] = false,
 			},
 		},
 	},
@@ -559,21 +518,17 @@ autocmd("FileType", {
 	command = "set formatoptions-=cro",
 })
 
-local telescope_fn = require("telescope.builtin")
+local fzf = require("fzf-lua")
 
-map("n", "<leader>f", telescope_fn.find_files)
-map("n", "<leader>g", telescope_fn.project_files)
-map("n", "<leader>w", telescope_fn.live_grep)
-map("n", "<leader>h", telescope_fn.help_tags)
-map("n", "<leader>cw", function()
-	local word = vim.fn.expand("<cword>")
-	telescope_fn.grep_string({ search = word })
-end)
-map("n", "<leader>cW", function()
-	local word = vim.fn.expand("<cWORD>")
-	telescope_fn.grep_string({ search = word })
-end)
-map("n", "gr", telescope_fn.lsp_references)
+
+
+map("n", "<leader>f", fzf.files)
+map("n", "<leader>g", fzf.git_files)
+map("n", "<leader>w", fzf.live_grep_native)
+-- map("n", "<leader>h", fzf.help_tags)
+map("n", "gd", fzf.lsp_definitions)
+map("n", "gr", fzf.lsp_references)
+map("n", "K", vim.lsp.buf.hover)
 
 local harpoon = require("harpoon")
 
