@@ -175,7 +175,8 @@ require("lazy").setup({
 				bg = "None",
 				menu = "None",
 				comment = "#777777",
-				selection = "#252525",
+				selection = "#2D2D2D",
+				visual = "#2D2D2D",
 			},
 			italic_comment = true,
 			overrides = {
