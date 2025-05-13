@@ -61,21 +61,22 @@ local servers = {
 	gopls = {},
 	html = {},
 	htmx = { filetypes = { "templ" } },
-	lua_ls = { Lua = { diagnostics = { globals = { "vim" } } } },
+	lua_ls = { settings = { Lua = { diagnostics = { globals = { "vim" } } } } },
 	marksman = {},
-	nil_ls = {},
 	ols = {},
 	openscad_lsp = {},
 	phpactor = {},
 	basedpyright = {
-		basedpyright = {
-			disableOrganizeImports = true,
-			disableTaggedHints = true,
-			analysis = {
-				typeCheckingMode = "standard",
-				inlayHints = {
-					variableTypes = false,
-					genericTypes = false,
+		settings = {
+			basedpyright = {
+				disableOrganizeImports = true,
+				disableTaggedHints = true,
+				analysis = {
+					typeCheckingMode = "standard",
+					inlayHints = {
+						variableTypes = false,
+						genericTypes = false,
+					},
 				},
 			},
 		},
