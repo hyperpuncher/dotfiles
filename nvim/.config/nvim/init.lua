@@ -290,49 +290,6 @@ require("lazy").setup({
 	},
 
 	{
-		"lukas-reineke/indent-blankline.nvim",
-		main = "ibl",
-		opts = {
-			indent = {
-				char = "│",
-			},
-			scope = { enabled = false },
-			exclude = {
-				filetypes = {
-					"help",
-					"alpha",
-					"dashboard",
-					"neo-tree",
-					"Trouble",
-					"trouble",
-					"lazy",
-					"mason",
-					"notify",
-					"toggleterm",
-					"lazyterm",
-				},
-			},
-		},
-		dependencies = {
-			{
-				"echasnovski/mini.indentscope",
-				opts = {
-					symbol = "│",
-					draw = {
-						delay = 0,
-						animation = function()
-							return 0
-						end,
-					},
-					options = {
-						border = "top",
-					},
-				},
-			},
-		},
-	},
-
-	{
 		"saghen/blink.cmp",
 		version = "1.*",
 		dependencies = {
@@ -435,30 +392,10 @@ require("lazy").setup({
 		opts = {},
 	},
 
-	-- { "Darazaki/indent-o-matic", opts = {} },
-
 	{
 		"ThePrimeagen/harpoon",
 		branch = "harpoon2",
 		dependencies = { "nvim-lua/plenary.nvim" },
-	},
-
-	{
-		"kdheepak/lazygit.nvim",
-		lazy = true,
-		cmd = {
-			"LazyGit",
-			"LazyGitConfig",
-			"LazyGitCurrentFile",
-			"LazyGitFilter",
-			"LazyGitFilterCurrentFile",
-		},
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-		},
-		keys = {
-			{ "<leader>lg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
-		},
 	},
 
 	{
@@ -487,6 +424,42 @@ require("lazy").setup({
 			global_keymaps = true,
 		},
 	},
+
+
+	{
+		"folke/snacks.nvim",
+		priority = 1000,
+		lazy = false,
+		opts = {
+			dim = {},
+			indent = {
+				animate = { enabled = false },
+				filter = function(buf)
+					local excluded_filetypes = {
+						markdown = true,
+					}
+					return vim.g.snacks_indent ~= false
+						and vim.b[buf].snacks_indent ~= false
+						and vim.bo[buf].buftype == ""
+						and not excluded_filetypes[vim.bo[buf].filetype]
+				end,
+			},
+			lazygit = {},
+			bigfile = {},
+			rename = {},
+			input = {},
+		},
+		keys = {
+			{
+				"<leader>lg",
+				function()
+					Snacks.lazygit()
+				end,
+				desc = "Lazygit",
+			},
+		},
+	},
+
 }, {
 	ui = {
 		border = "rounded",
