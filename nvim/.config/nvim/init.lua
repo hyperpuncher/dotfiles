@@ -1,4 +1,4 @@
-local opt = vim.opt
+local opt = vim.o
 local cmd = vim.cmd
 local map = vim.keymap.set
 local hl = vim.api.nvim_set_hl
@@ -6,9 +6,8 @@ local autocmd = vim.api.nvim_create_autocmd
 
 vim.g.mapleader = " "
 
-vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
-vim.o.winborder = "rounded"
-
+opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+opt.winborder = "rounded"
 opt.breakindent = true
 opt.clipboard = "unnamedplus"
 opt.completeopt = "menuone,noselect"
@@ -32,9 +31,14 @@ opt.splitright = true
 opt.swapfile = false
 opt.tabstop = 4
 opt.termguicolors = true
-opt.timeoutlen = 500
+opt.timeoutlen = 400
 opt.undofile = true
 opt.updatetime = 200
+opt.laststatus = 3
+opt.foldlevel = 99
+opt.foldmethod = "expr"
+opt.foldexpr = "v:lua.vim.lsp.foldexpr()"
+opt.foldtext = ""
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
