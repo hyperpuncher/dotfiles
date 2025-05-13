@@ -152,12 +152,13 @@ require("lazy").setup({
 
 	{
 		"stevearc/oil.nvim",
+		lazy = false,
 		opts = {
 			use_default_keymaps = false,
 			keymaps = {
 				["<CR>"] = "actions.select",
-				["-"] = "actions.parent",
-				["<C-c>"] = "actions.close",
+				["-"] = { "actions.parent", mode = "n" },
+				["<C-c>"] = { "actions.close", mode = "n" },
 			},
 			view_options = {
 				show_hidden = true,
