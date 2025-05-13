@@ -1,10 +1,17 @@
 #!/usr/bin/env dash
 
+cleanup() {
+	hyprctl -q --batch "$(hyprctl -j clients | jq -j '.[] | "dispatch closewindow pid:\(.pid);"')"
+	cliphist wipe
+}
+
 case $1 in
 "shutdown")
+	cleanup
 	systemctl poweroff
 	;;
 "reboot")
+	cleanup
 	systemctl reboot
 	;;
 "logout")
