@@ -189,29 +189,8 @@ require("lazy").setup({
 	{
 		"neovim/nvim-lspconfig",
 		dependencies = {
-			{
-				"williamboman/mason.nvim",
-				opts = { ui = { border = "rounded" } },
-			},
-
-			{
-				"williamboman/mason-lspconfig.nvim",
-				config = function()
-					local capabilities = require("blink.cmp").get_lsp_capabilities()
-
-					require("mason-lspconfig").setup_handlers({
-						function(server_name)
-							require("lspconfig")[server_name].setup({
-								capabilities = capabilities,
-								settings = servers[server_name],
-								filetypes = (servers[server_name] or {}).filetypes,
-								cmd = (servers[server_name] or {}).cmd,
-							})
-						end,
-					})
-				end,
-			},
-
+			{ "mason-org/mason.nvim" },
+			{ "mason-org/mason-lspconfig.nvim" },
 			{
 				"WhoIsSethDaniel/mason-tool-installer.nvim",
 				opts = {
@@ -522,7 +501,12 @@ autocmd("FileType", {
 
 local fzf = require("fzf-lua")
 
+for server_name, config in pairs(servers) do
+	vim.lsp.config(server_name, config)
+end
 
+require("mason").setup()
+require("mason-lspconfig").setup()
 
 map("n", "<leader>f", fzf.files)
 map("n", "<leader>g", fzf.git_files)
