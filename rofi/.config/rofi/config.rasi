@@ -2,7 +2,7 @@ configuration {
 	modes: "drun";
 	font: "CaskaydiaMono Nerd Font 15";
 	location: 0;
-	fixed-num-lines: false;
+	fixed-num-lines: true;
 	show-icons: true;
 	kb-cancel: "Escape";
   timeout {
