@@ -1,21 +1,21 @@
-general.import = ["~/.config/alacritty/monokai_charcoal.toml"]
+general.import = ["~/dotfiles/alacritty/.config/alacritty/dracula.toml"]
 
 [font]
 size = 15.0
 
 [font.normal]
-family = "IosevkaTerm Nerd Font"
+family = "CaskaydiaMono Nerd Font"
 style = "Regular"
 
 [font.bold]
-family = "IosevkaTerm Nerd Font"
+family = "CaskaydiaMono Nerd Font"
 style = "Bold"
 
 [font.italic]
-family = "IosevkaTerm Nerd Font"
+family = "CaskaydiaMono Nerd Font"
 style = "Italic"
 
 [window]
 padding.x = 7
 dynamic_padding = true
-opacity = 0.9
+opacity = 0.94
