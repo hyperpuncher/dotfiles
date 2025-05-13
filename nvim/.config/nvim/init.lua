@@ -560,7 +560,7 @@ map("n", "<leader>e", vim.diagnostic.open_float)
 
 map("n", "<leader>m", ":!make run<CR>", { silent = true })
 
-hl(0, "YankHighlight", { fg = "black", bg = "white" })
+hl(0, "YankHighlight", { fg = "#131412", bg = "#E2E3E3" })
 local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
 autocmd("TextYankPost", {
 	callback = function()
