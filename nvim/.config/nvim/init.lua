@@ -588,3 +588,17 @@ vim.api.nvim_create_autocmd("User", {
 		end
 	end,
 })
+
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+	pattern = { "Caddyfile", "*/Caddyfile", "*Caddyfile*" },
+	callback = function()
+		vim.bo.filetype = "caddy"
+	end,
+})
+
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+	pattern = { "*.d2" },
+	callback = function()
+		vim.bo.filetype = "d2"
+	end,
+})
