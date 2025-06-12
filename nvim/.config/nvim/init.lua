@@ -143,6 +143,12 @@ require("lazy").setup({
 	},
 
 	{
+		"ravsii/tree-sitter-d2",
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
+		build = "make nvim-install",
+	},
+
+	{
 		"ibhagwan/fzf-lua",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		opts = {
