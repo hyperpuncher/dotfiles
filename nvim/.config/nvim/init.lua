@@ -152,7 +152,7 @@ require("lazy").setup({
 		"ibhagwan/fzf-lua",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		opts = {
-			winopts = { preview = { vertical = "up:80%" } },
+			winopts = { preview = { vertical = "up:70%" } },
 			fzf_opts = {
 				["--layout"] = false,
 			},
