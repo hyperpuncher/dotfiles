@@ -83,9 +83,9 @@ local servers = {
 			},
 		},
 	},
-	ruby_lsp = {},
 	ty = {},
 	ruff = {},
+	ruby_lsp = {},
 	rust_analyzer = {},
 	sqls = {},
 	svelte = {},
@@ -397,7 +397,6 @@ require("lazy").setup({
 		"codethread/qmk.nvim",
 		lazy = true,
 		config = function()
-			---@type qmk.UserConfig
 			local conf = {
 				name = "ikiosuru",
 				layout = {
