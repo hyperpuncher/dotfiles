@@ -380,6 +380,28 @@ require("lazy").setup({
 		"ThePrimeagen/harpoon",
 		branch = "harpoon2",
 		dependencies = { "nvim-lua/plenary.nvim" },
+		config = function()
+			local harpoon = require("harpoon")
+
+			map("n", "<leader>a", function()
+				harpoon:list():add()
+			end)
+			map("n", "<leader>hb", function()
+				harpoon.ui:toggle_quick_menu(harpoon:list())
+			end)
+			map("n", "<leader>j", function()
+				harpoon:list():select(1)
+			end)
+			map("n", "<leader>k", function()
+				harpoon:list():select(2)
+			end)
+			map("n", "<leader>l", function()
+				harpoon:list():select(3)
+			end)
+			map("n", "<leader>;", function()
+				harpoon:list():select(4)
+			end)
+		end,
 	},
 
 	{
@@ -473,27 +495,6 @@ map("n", "<leader>w", fzf.live_grep_native)
 map("n", "gd", fzf.lsp_definitions)
 map("n", "gr", fzf.lsp_references)
 map("n", "K", vim.lsp.buf.hover)
-
-local harpoon = require("harpoon")
-
-map("n", "<leader>a", function()
-	harpoon:list():add()
-end)
-map("n", "<leader>b", function()
-	harpoon.ui:toggle_quick_menu(harpoon:list())
-end)
-map("n", "<leader>j", function()
-	harpoon:list():select(1)
-end)
-map("n", "<leader>k", function()
-	harpoon:list():select(2)
-end)
-map("n", "<leader>l", function()
-	harpoon:list():select(3)
-end)
-map("n", "<leader>;", function()
-	harpoon:list():select(4)
-end)
 
 map({ "n", "i" }, "<MiddleMouse>", "<Nop>")
 map({ "n", "i", "v" }, "<RightMouse>", "<Nop>")
