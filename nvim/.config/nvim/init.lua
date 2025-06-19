@@ -149,17 +149,6 @@ require("lazy").setup({
 	},
 
 	{
-		"ibhagwan/fzf-lua",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-		opts = {
-			winopts = { preview = { vertical = "up:70%" } },
-			fzf_opts = {
-				["--layout"] = false,
-			},
-		},
-	},
-
-	{
 		"stevearc/oil.nvim",
 		lazy = false,
 		opts = {
@@ -441,6 +430,7 @@ require("lazy").setup({
 			},
 			lazygit = {},
 			bigfile = {},
+			notifier = {},
 			rename = {},
 			input = {},
 		},
