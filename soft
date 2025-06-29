@@ -46,6 +46,7 @@ dbmate
 dbus-broker
 ddcci-driver-linux-dkms
 ddcutil
+deepchat-bin
 delve
 deno
 devtools
@@ -114,11 +115,13 @@ hyprpicker
 hyprsunset
 identity
 imagemagick
+informant
 inkscape
 inotify-tools
 inter-font
 jadx
 jamesdsp-git
+jan-bin
 jdk-openjdk
 jq
 jqp
@@ -187,12 +190,12 @@ odin
 ondsel-es-appimage
 opencl-clhpp
 opencl-mesa
+opencode-bin
 openmp
 openscad
 openssh
 orca-slicer-unstable-bin
 otf-libertinus
-oxlint
 pacman-contrib
 papers
 papirus-folders-git
@@ -226,6 +229,7 @@ proxmark3
 pulsemixer
 python-aubio
 python-beautifulsoup4
+python-debugpy
 python-dotenv
 python-fake-bpy-module-latest
 python-kikit
@@ -289,8 +293,6 @@ sshfs
 steam
 steamcmd
 stow
-sunshine-bin
-superfile
 swaybg
 swift-bin
 swiftformat-bin
@@ -342,6 +344,8 @@ walk
 waybar
 webos-dev-manager-bin
 wget
+whisper.cpp-model-base
+whisper.cpp-model-large-v3
 wine-mono
 winetricks
 wireguard-tools
