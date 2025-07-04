@@ -46,7 +46,6 @@ dbmate
 dbus-broker
 ddcci-driver-linux-dkms
 ddcutil
-deepchat-bin
 delve
 deno
 devtools
@@ -308,6 +307,7 @@ tinygo
 tlrc-bin
 tmux
 tmux-plugin-manager
+tmux-sessionizer-bin
 transmission-gtk
 trash-cli
 tree-sitter-cli
@@ -340,7 +340,6 @@ virt-manager
 viu
 vulkan-radeon
 vulkan-tools
-walk
 waybar
 webos-dev-manager-bin
 wget
