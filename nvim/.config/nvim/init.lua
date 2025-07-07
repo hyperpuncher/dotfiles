@@ -357,23 +357,6 @@ require("lazy").setup({
 	{ "hiphish/rainbow-delimiters.nvim" },
 
 	{
-		"folke/trouble.nvim",
-		keys = {
-			{
-				"<leader>d",
-				"<cmd>Trouble diagnostics toggle<cr>",
-				desc = "Diagnostics (Trouble)",
-			},
-			{
-				"<leader>q",
-				"<cmd>Trouble qflist toggle<cr>",
-				desc = "Quickfix List (Trouble)",
-			},
-		},
-		opts = {},
-	},
-
-	{
 		"ThePrimeagen/harpoon",
 		branch = "harpoon2",
 		dependencies = { "nvim-lua/plenary.nvim" },
