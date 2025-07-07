@@ -417,32 +417,364 @@ require("lazy").setup({
 		priority = 1000,
 		lazy = false,
 		opts = {
+			bigfile = {},
 			dim = {},
+			explorer = {},
 			indent = {
 				animate = { enabled = false },
 				filter = function(buf)
-					local excluded_filetypes = {
-						markdown = true,
-					}
+					local excluded_filetypes = { markdown = true }
 					return vim.g.snacks_indent ~= false
 						and vim.b[buf].snacks_indent ~= false
 						and vim.bo[buf].buftype == ""
 						and not excluded_filetypes[vim.bo[buf].filetype]
 				end,
 			},
+			input = {},
+			picker = {},
 			lazygit = {},
-			bigfile = {},
 			notifier = {},
 			rename = {},
-			input = {},
 		},
 		keys = {
+			-- Top Pickers & Explorer
 			{
-				"<leader>lg",
+				"<leader><space>",
+				function()
+					Snacks.picker.smart()
+				end,
+				desc = "Smart Find Files",
+			},
+			{
+				"<leader>,",
+				function()
+					Snacks.picker.buffers()
+				end,
+				desc = "Buffers",
+			},
+			{
+				"<leader>/",
+				function()
+					Snacks.picker.grep()
+				end,
+				desc = "Grep",
+			},
+			{
+				"<leader>:",
+				function()
+					Snacks.picker.command_history()
+				end,
+				desc = "Command History",
+			},
+			{
+				"<leader>n",
+				function()
+					Snacks.picker.notifications()
+				end,
+				desc = "Notification History",
+			},
+			{
+				"<leader>e",
+				function()
+					Snacks.explorer()
+				end,
+				desc = "File Explorer",
+			},
+			--find
+			{
+				"<leader>ff",
+				function()
+					Snacks.picker.files()
+				end,
+				desc = "Find Files",
+			},
+			{
+				"<leader>fg",
+				function()
+					Snacks.picker.git_files()
+				end,
+				desc = "Find Git Files",
+			},
+			-- git
+			{
+				"<leader>gb",
+				function()
+					Snacks.picker.git_branches()
+				end,
+				desc = "Git Branches",
+			},
+			{
+				"<leader>gl",
+				function()
+					Snacks.picker.git_log()
+				end,
+				desc = "Git Log",
+			},
+			{
+				"<leader>gs",
+				function()
+					Snacks.picker.git_status()
+				end,
+				desc = "Git Status",
+			},
+			{
+				"<leader>gS",
+				function()
+					Snacks.picker.git_stash()
+				end,
+				desc = "Git Stash",
+			},
+			-- Grep
+			{
+				"<leader>sg",
+				function()
+					Snacks.picker.grep()
+				end,
+				desc = "Grep",
+			},
+			{
+				"<leader>sw",
+				function()
+					Snacks.picker.grep_word()
+				end,
+				desc = "Visual selection or word",
+				mode = { "n", "x" },
+			},
+			-- search
+			{
+				'<leader>s"',
+				function()
+					Snacks.picker.registers()
+				end,
+				desc = "Registers",
+			},
+			{
+				"<leader>s/",
+				function()
+					Snacks.picker.search_history()
+				end,
+				desc = "Search History",
+			},
+			{
+				"<leader>sb",
+				function()
+					Snacks.picker.lines()
+				end,
+				desc = "Buffer Lines",
+			},
+			{
+				"<leader>sc",
+				function()
+					Snacks.picker.command_history()
+				end,
+				desc = "Command History",
+			},
+			{
+				"<leader>sC",
+				function()
+					Snacks.picker.commands()
+				end,
+				desc = "Commands",
+			},
+			{
+				"<leader>sd",
+				function()
+					Snacks.picker.diagnostics()
+				end,
+				desc = "Diagnostics",
+			},
+			{
+				"<leader>sD",
+				function()
+					Snacks.picker.diagnostics_buffer()
+				end,
+				desc = "Buffer Diagnostics",
+			},
+			{
+				"<leader>sh",
+				function()
+					Snacks.picker.help()
+				end,
+				desc = "Help Pages",
+			},
+			{
+				"<leader>sH",
+				function()
+					Snacks.picker.highlights()
+				end,
+				desc = "Highlights",
+			},
+			{
+				"<leader>si",
+				function()
+					Snacks.picker.icons()
+				end,
+				desc = "Icons",
+			},
+			{
+				"<leader>sj",
+				function()
+					Snacks.picker.jumps()
+				end,
+				desc = "Jumps",
+			},
+			{
+				"<leader>sk",
+				function()
+					Snacks.picker.keymaps()
+				end,
+				desc = "Keymaps",
+			},
+			{
+				"<leader>sl",
+				function()
+					Snacks.picker.loclist()
+				end,
+				desc = "Location List",
+			},
+			{
+				"<leader>sm",
+				function()
+					Snacks.picker.marks()
+				end,
+				desc = "Marks",
+			},
+			{
+				"<leader>sM",
+				function()
+					Snacks.picker.man()
+				end,
+				desc = "Man Pages",
+			},
+			{
+				"<leader>sq",
+				function()
+					Snacks.picker.qflist()
+				end,
+				desc = "Quickfix List",
+			},
+			{
+				"<leader>sR",
+				function()
+					Snacks.picker.resume()
+				end,
+				desc = "Resume",
+			},
+			{
+				"<leader>su",
+				function()
+					Snacks.picker.undo()
+				end,
+				desc = "Undo History",
+			},
+			{
+				"<leader>uC",
+				function()
+					Snacks.picker.colorschemes()
+				end,
+				desc = "Colorschemes",
+			},
+			-- LSP
+			{
+				"gd",
+				function()
+					Snacks.picker.lsp_definitions()
+				end,
+				desc = "Goto Definition",
+			},
+			{
+				"gD",
+				function()
+					Snacks.picker.lsp_declarations()
+				end,
+				desc = "Goto Declaration",
+			},
+			{
+				"gr",
+				function()
+					Snacks.picker.lsp_references()
+				end,
+				nowait = true,
+				desc = "References",
+			},
+			{
+				"gI",
+				function()
+					Snacks.picker.lsp_implementations()
+				end,
+				desc = "Goto Implementation",
+			},
+			{
+				"gy",
+				function()
+					Snacks.picker.lsp_type_definitions()
+				end,
+				desc = "Goto T[y]pe Definition",
+			},
+			-- Other
+			{
+				"<leader>z",
+				function()
+					Snacks.zen()
+				end,
+				desc = "Toggle Zen Mode",
+			},
+			{
+				"<leader>.",
+				function()
+					Snacks.scratch()
+				end,
+				desc = "Toggle Scratch Buffer",
+			},
+			{
+				"<leader>S",
+				function()
+					Snacks.scratch.select()
+				end,
+				desc = "Select Scratch Buffer",
+			},
+			{
+				"<leader>n",
+				function()
+					Snacks.notifier.show_history()
+				end,
+				desc = "Notification History",
+			},
+			{
+				"<leader>bd",
+				function()
+					Snacks.bufdelete()
+				end,
+				desc = "Delete Buffer",
+			},
+			{
+				"<leader>cR",
+				function()
+					Snacks.rename.rename_file()
+				end,
+				desc = "Rename File",
+			},
+			{
+				"<leader>gB",
+				function()
+					Snacks.gitbrowse()
+				end,
+				desc = "Git Browse",
+				mode = { "n", "v" },
+			},
+			{
+				"<leader>gg",
 				function()
 					Snacks.lazygit()
 				end,
 				desc = "Lazygit",
+			},
+			{
+				"<leader>un",
+				function()
+					Snacks.notifier.hide()
+				end,
+				desc = "Dismiss All Notifications",
 			},
 		},
 	},
@@ -480,8 +812,6 @@ autocmd("FileType", {
 	command = "set formatoptions-=cro",
 })
 
-local fzf = require("fzf-lua")
-
 for server_name, config in pairs(servers) do
 	vim.lsp.config(server_name, config)
 end
@@ -489,12 +819,6 @@ end
 require("mason").setup()
 require("mason-lspconfig").setup()
 
-map("n", "<leader>f", fzf.files)
-map("n", "<leader>g", fzf.git_files)
-map("n", "<leader>w", fzf.live_grep_native)
--- map("n", "<leader>h", fzf.help_tags)
-map("n", "gd", fzf.lsp_definitions)
-map("n", "gr", fzf.lsp_references)
 map("n", "K", vim.lsp.buf.hover)
 
 map({ "n", "i" }, "<MiddleMouse>", "<Nop>")
