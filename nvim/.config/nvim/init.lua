@@ -36,10 +36,10 @@ opt.timeoutlen = 500
 opt.undofile = true
 opt.updatetime = 200
 opt.laststatus = 3
+opt.foldcolumn = "0"
 opt.foldlevel = 99
 opt.foldmethod = "expr"
 opt.foldexpr = "v:lua.vim.lsp.foldexpr()"
-opt.foldtext = ""
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -410,7 +410,6 @@ require("lazy").setup({
 			global_keymaps = true,
 		},
 	},
-
 
 	{
 		"folke/snacks.nvim",
