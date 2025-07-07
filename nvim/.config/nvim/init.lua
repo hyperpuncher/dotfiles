@@ -347,7 +347,7 @@ require("lazy").setup({
 		"rmagatti/auto-session",
 		lazy = false,
 		opts = {
-			suppressed_dirs = { "~/", "~/Downloads", "/" },
+			suppressed_dirs = { "/", "~/", "~/Desktop/", "~/Downloads" },
 		},
 	},
 
