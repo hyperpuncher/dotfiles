@@ -850,20 +850,14 @@ map("n", "-", "<CMD>Oil<CR>")
 map("v", "J", ":m '>+1<CR>gv=gv", { silent = true })
 map("v", "K", ":m '<-2<CR>gv=gv", { silent = true })
 
-map("n", "<leader>x", ":bd<CR>")
-
 map("n", "<leader>rn", ":IncRename ")
 
--- Increase and decrease ints
-map("n", "<C-S-a>", "<C-a>")
-map("n", "<C-S-x>", "<C-x>")
+map("n", "<C-f>", "<CMD>silent !tmux neww tmux-sessionizer<CR>")
 
 -- Diagnostic keymaps
 map("n", "[d", vim.diagnostic.goto_prev)
 map("n", "]d", vim.diagnostic.goto_next)
-map("n", "<leader>e", vim.diagnostic.open_float)
-
-map("n", "<leader>m", ":!make run<CR>", { silent = true })
+map("n", "<leader>d", vim.diagnostic.open_float)
 
 hl(0, "YankHighlight", { fg = "#131412", bg = "#E2E3E3" })
 local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
