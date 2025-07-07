@@ -22,6 +22,7 @@ opt.relativenumber = true
 opt.scrolloff = 10
 opt.shiftround = true
 opt.shiftwidth = 4
+opt.showmode = false
 opt.signcolumn = "yes"
 opt.smartcase = true
 opt.smartindent = true
@@ -467,6 +468,27 @@ require("lazy").setup({
 		},
 	},
 
+
+	{
+		"echasnovski/mini.statusline",
+		version = false,
+		config = function()
+			local statusline = require("mini.statusline")
+			statusline.section_location = function()
+				return "%2l:%-2v"
+			end
+			statusline.section_filename = function()
+				return vim.fn.expand("%:.")
+			end
+			statusline.section_fileinfo = function()
+				local filetype = vim.bo.filetype
+				local icon = require("nvim-web-devicons").get_icon(vim.fn.expand("%:t"), nil, { default = true })
+				filetype = icon .. " " .. filetype
+				return filetype
+			end
+			statusline.setup()
+		end,
+	},
 }, {
 	ui = {
 		border = "rounded",
@@ -591,4 +613,34 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 	callback = function()
 		vim.bo.filetype = "d2"
 	end,
+})
+
+vim.api.nvim_set_hl(0, "MiniStatuslineModeNormal", {
+	fg = "#111111",
+	bg = "#bd93f9",
+	bold = true,
+})
+
+vim.api.nvim_set_hl(0, "MiniStatuslineModeVisual", {
+	fg = "#111111",
+	bg = "#ff79c6",
+	bold = true,
+})
+
+vim.api.nvim_set_hl(0, "MiniStatuslineModeInsert", {
+	fg = "#111111",
+	bg = "#50fa7b",
+	bold = true,
+})
+
+vim.api.nvim_set_hl(0, "MiniStatuslineModeCommand", {
+	fg = "#111111",
+	bg = "#8be9fd",
+	bold = true,
+})
+
+vim.api.nvim_set_hl(0, "MiniStatuslineModeReplace", {
+	fg = "#111111",
+	bg = "#f1fa8c",
+	bold = true,
 })
