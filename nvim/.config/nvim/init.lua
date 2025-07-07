@@ -62,6 +62,7 @@ local servers = {
 	gopls = {},
 	html = {},
 	htmx = { filetypes = { "templ" } },
+	jsonls = {},
 	lua_ls = { settings = { Lua = { diagnostics = { globals = { "vim" } } } } },
 	marksman = {},
 	ols = {},
