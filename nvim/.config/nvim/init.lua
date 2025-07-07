@@ -199,18 +199,6 @@ require("lazy").setup({
 			},
 
 			{
-				"j-hui/fidget.nvim",
-				opts = {
-					notification = {
-						window = {
-							winblend = 0,
-							border = "rounded",
-						},
-					},
-				},
-			},
-
-			{
 				"stevearc/conform.nvim",
 				config = function()
 					require("conform").setup({
