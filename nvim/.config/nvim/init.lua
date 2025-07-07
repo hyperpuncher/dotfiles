@@ -213,6 +213,13 @@ require("lazy").setup({
 								args = { "fmt", "-" },
 								stdin = true,
 							},
+							prettierd = {
+								append_args = {
+									"--config-precedence=file-override",
+									"--print-width=90",
+									"--use-tabs=true",
+								},
+							},
 						},
 						formatters_by_ft = {
 							astro = { "deno_fmt", "rustywind" },
