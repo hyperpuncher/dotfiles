@@ -57,6 +57,8 @@ z4h bindkey z4h-backward-kill-zword Ctrl+Alt+Backspace
 z4h bindkey undo Ctrl+/ Shift+Tab  # undo the last command line change
 z4h bindkey redo Alt+/             # redo the last undone command line change
 
+bindkey -s "^F" "tms\n"
+
 # Autoload functions.
 autoload -Uz zmv
 
