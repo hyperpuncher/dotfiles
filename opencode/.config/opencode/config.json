@@ -1,0 +1,54 @@
+{
+	"$schema": "http://opencode.ai/config.json",
+	"theme": "system",
+	"model": "openrouter/openai/gpt-4.1-mini",
+	"autoshare": false,
+	"autoupdate": false,
+	"mcp": {
+		"context7": {
+			"type": "local",
+			"command": ["npx", "-y", "@upstash/context7-mcp"],
+			"enabled": true
+		}
+	},
+	"provider": {
+		"openrouter": {
+			"npm": "@openrouter/ai-sdk-provider",
+			"name": "OpenRouter",
+			"models": {
+				"mistralai/devstral-small": {
+					"name": "Devstral Small",
+					"release_date": "2025-07-10",
+					"attachment": false,
+					"reasoning": false,
+					"temperature": true,
+					"tool_call": true,
+					"cost": {
+						"input": 0.10,
+						"output": 0.30
+					},
+					"limit": {
+						"context": 128000,
+						"output": 128000
+					}
+				},
+				"mistralai/devstral-medium": {
+					"name": "Devstral Medium",
+					"release_date": "2025-07-10",
+					"attachment": false,
+					"reasoning": false,
+					"temperature": true,
+					"tool_call": true,
+					"cost": {
+						"input": 0.4,
+						"output": 2
+					},
+					"limit": {
+						"context": 128000,
+						"output": 128000
+					}
+				}
+			}
+		}
+	}
+}
