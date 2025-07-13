@@ -1,0 +1,14 @@
+#!/usr/bin/env dash
+
+mask=~/Pictures/wallpapers/mask_vertical_4k.avif
+input="$1"
+output="$2"
+resolution="3840x2160"
+
+magick "$input" -resize "${resolution}^" \
+	-gravity center -extent "$resolution" \
+	-quality 100 +repage "$output"
+
+magick "$output" "$mask" \
+	-compose Over -composite \
+	-quality 100 "$output"
