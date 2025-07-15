@@ -80,6 +80,7 @@ freerdp
 freerouting
 fx
 fzf
+gale-bin
 gamemode
 geoip
 gimp
@@ -89,9 +90,11 @@ gitleaks
 glow
 gnome-disk-utility
 gnome-keyring
+gnome-sound-recorder
 go
 godot
 golangci-lint-bin
+google-gemini-cli
 gparted
 greetd-tuigreet
 grim
@@ -120,7 +123,6 @@ inotify-tools
 inter-font
 jadx
 jamesdsp-git
-jan-bin
 jdk-openjdk
 jq
 jqp
@@ -174,6 +176,7 @@ networkmanager
 nfs-utils
 niri
 nmap
+noise-suppression-for-voice
 noto-fonts
 noto-fonts-cjk
 noto-fonts-emoji
@@ -274,6 +277,7 @@ scc
 sd
 sendme-bin
 shadowsocks-rust
+showmethekey
 sidequest-bin
 sidequestlite-bin
 signal-desktop
