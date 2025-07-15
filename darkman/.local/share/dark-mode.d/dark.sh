@@ -16,4 +16,4 @@ pkill Telegram
 hyprctl dispatch exec "Telegram"
 
 sleep 1
-pkill -o swaybg
+[ $(pgrep -c swaybg) -gt 1 ] && pkill -o swaybg
