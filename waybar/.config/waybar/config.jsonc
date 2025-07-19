@@ -9,13 +9,13 @@
 		// "disk",
 		// "memory",
 		// "cpu",
-		// "pulseaudio",
 		// "custom/brightness",
 		"custom/media"
 	],
 	"modules-right": [
 		"hyprland/language",
 		"custom/darkman",
+		// "pulseaudio",
 		"group/tray-expander"
 	],
 
@@ -96,17 +96,15 @@
 	},
 
 	"pulseaudio": {
-		"format-bluetooth": "{volume}% {icon} ",
-		"format-bluetooth-muted": "{volume}%  ",
-		"format-muted": "{volume}%  ",
+		"format": "{icon}",
+		"on-click": "pavucontrol",
+		"tooltip-format": "Playing at {volume}%",
+		"scroll-step": 5,
+		"format-muted": "",
 		"format-icons": {
-			"headphone": "",
-			"hands-free": "",
-			"headset": "",
-			"default": ["", " "]
+			"default": ["", "", ""]
 		},
-		"ignored-sinks": ["JamesDSP Sink"],
-		"on-click": "wpctl set-mute @DEFAULT_SINK@ toggle"
+		"ignored-sinks": ["JamesDSP Sink"]
 	},
 
 	"custom/media": {
