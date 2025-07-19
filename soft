@@ -82,6 +82,7 @@ fx
 fzf
 gale-bin
 gamemode
+gemini-cli
 geoip
 gimp
 git
@@ -94,7 +95,6 @@ gnome-sound-recorder
 go
 godot
 golangci-lint-bin
-google-gemini-cli
 gparted
 greetd-tuigreet
 grim
@@ -216,6 +216,9 @@ pipewire
 pipewire-alsa
 pipewire-jack
 pipewire-pulse
+plocate
+plymouth
+plymouth-theme-angular-git
 plzip
 pnpm
 podlet
@@ -228,7 +231,6 @@ procs
 progress
 proton-ge-custom-bin
 proxmark3
-pulsemixer
 python-aubio
 python-beautifulsoup4
 python-debugpy
@@ -352,7 +354,9 @@ whisper.cpp-model-large-v3
 wine-mono
 winetricks
 wireguard-tools
+wiremix
 wireplumber
+wl-clip-persist
 wl-clipboard
 wl-screenrec
 wlsunset
