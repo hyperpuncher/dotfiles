@@ -35,8 +35,9 @@
 	"group/tray-expander": {
 		"orientation": "inherit",
 		"drawer": {
-			"transition-duration": 600,
-			"children-class": "tray-group-item"
+			"transition-duration": 300,
+			"children-class": "tray-group-item",
+			"click-to-reveal": true
 		},
 		"modules": [
 			"custom/expand-icon",
