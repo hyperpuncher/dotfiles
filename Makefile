@@ -12,7 +12,7 @@ paru:
 	@echo "Installing paru"
 	rustup default stable
 	git clone https://aur.archlinux.org/paru.git /tmp/paru
-	makepkg -si -D /tmp/paru
+	makepkg --noconfirm -si -D /tmp/paru
 
 stow:
 	@echo "Linking configs"
