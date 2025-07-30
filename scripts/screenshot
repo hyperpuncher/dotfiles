@@ -1,29 +1,61 @@
 #!/usr/bin/env dash
 
-if [ "$#" -lt 1 ]; then
-    echo "Usage: screenshot -f/-w/-s"
-    exit 1
-fi
+DIR=${HOME}/Pictures/screenshots
+EDIT=false # set by -e
+ZONE="f"   # default type
 
-DIR=~/Pictures/screenshots/
-ZONE=$1
+usage() {
+	cat <<EOF
+Usage: $(basename "$0") [-f|-w|-s] [-e]
+  -f  full screen (default)
+  -w  active window
+  -s  select region
+  -e  send capture to satty instead of clipboard
+EOF
+	exit 1
+}
 
-if ! [ -d "$DIR" ]; then
-    mkdir "$DIR"
-fi
+# ------------- option parsing -------------
+while getopts ":fwshe" opt; do
+	case $opt in
+	f) ZONE="f" ;;
+	w) ZONE="w" ;;
+	s) ZONE="s" ;;
+	e) EDIT=true ;;
+	h) usage ;;
+	\?)
+		printf 'Unknown option: -%s\n' "$OPTARG" >&2
+		usage
+		;;
+	esac
+done
+shift $((OPTIND - 1))
 
-IMG="$DIR$(date +%Y-%m-%d_%Hh%Mm%Ss).png"
+# ------------- helpers -------------
+round_corners() {
+	magick - \
+		\( +clone -alpha extract -fill black -colorize 100 \
+		-fill white -draw "roundRectangle 0,0 %[fx:w-1],%[fx:h-1] 14,14" \
+		-alpha off \) \
+		-compose CopyOpacity -composite "$IMG"
+}
+
+# ------------- main -------------
+mkdir -p "$DIR"
+IMG="$DIR/$(date +%Y-%m-%d_%Hh%Mm%Ss).png"
 
 case "$ZONE" in
-"-f")
-    grim "$IMG"
-    ;;
-"-w")
-    grim -g "$(hyprctl -j activewindow | jq -r '. | "\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"')" "$IMG"
-    ;;
-"-s")
-    grim -g "$(slurp -d -w 1 -F "Iosevka Nerd Font")" "$IMG"
-    ;;
+f) grim "$IMG" ;;
+w)
+	grim -g "$(hyprctl -j activewindow 2>/dev/null |
+		jq -r '"\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"')" - |
+		round_corners "$IMG"
+	;;
+s) grim -g "$(slurp -d -w 1 -F "Iosevka Nerd Font")" "$IMG" ;;
 esac
 
-wl-copy <"$IMG" && dunstify "Screenshot saved"
+if [ "$EDIT" = true ]; then
+	satty -f "$IMG"
+else
+	wl-copy <"$IMG" && dunstify "Screenshot saved"
+fi
