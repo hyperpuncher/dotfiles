@@ -82,7 +82,6 @@ fx
 fzf
 gale-bin
 gamemode
-gemini-cli
 geoip
 gimp
 git
@@ -162,6 +161,7 @@ mitmproxy
 moar
 mods
 mongodb-compass-bin
+mongodb-tools-bin
 mongosh-bin
 mosh
 mpv
@@ -216,6 +216,7 @@ pipewire
 pipewire-alsa
 pipewire-jack
 pipewire-pulse
+pixieditor-bin
 plocate
 plymouth
 plymouth-theme-angular-git
@@ -273,6 +274,7 @@ rustdesk-bin
 rustup
 rustywind-bin
 ryujinx
+satty
 sbctl
 sc-im
 scc
@@ -346,6 +348,7 @@ virt-manager
 viu
 vulkan-radeon
 vulkan-tools
+walker-bin
 waybar
 webos-dev-manager-bin
 wget
