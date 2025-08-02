@@ -270,6 +270,7 @@ rocm-opencl-runtime
 rofi-emoji
 rofi-wayland
 rpi-imager
+runapp
 rustdesk-bin
 rustup
 rustywind-bin
@@ -301,8 +302,6 @@ steam
 steamcmd
 stow
 swaybg
-swift-bin
-swiftformat-bin
 syncthing
 syncthing-gtk
 tailwindcss-bin
@@ -340,6 +339,7 @@ upscayl-bin
 upx
 usql
 uv
+uwsm
 valkey
 ventoy-bin
 vial-appimage
