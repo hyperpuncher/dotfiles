@@ -1,9 +1,9 @@
 export GPG_TTY=$TTY
 export BROWSER=brave
 export EDITOR=nvim
-export PAGER='moar -style dracula -no-linenumbers'
 export MANPAGER='nvim +Man!'
 export TERM=xterm-256color
+export PAGER="moor -style dracula -no-linenumbers=false"
 export VISUAL=nvim
 export BAT_THEME="Dracula"
 
