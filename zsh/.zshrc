@@ -137,9 +137,8 @@ alias lt='eza -T -L=2 -a --icons --group-directories-first'
 alias mkdir='mkdir -p'
 alias n='cd ~/Documents/notes/ && v .'
 alias p='cd ~/projects'
-alias pipreqs='python -m pipreqs.pipreqs --force'
 alias r='paru -Rns'
-alias redis-cli='redis-cli  --no-auth-warning'
+alias redis-cli='redis-cli --no-auth-warning'
 alias rmf='rm -rf'
 alias stow='stow --no-folding -Rv'
 alias sv='sudoedit'
@@ -152,5 +151,4 @@ alias wgup='sudo wg-quick up'
 setopt glob_dots     # no special treatment for file names with a leading dot
 setopt auto_menu  # require an extra TAB press to open the completion menu
 
-eval "$(fnm env --use-on-cd --shell zsh)"
 eval "$(zoxide init zsh)"
