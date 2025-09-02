@@ -384,8 +384,6 @@ require("lazy").setup({
 		lazy = false,
 		opts = {
 			bigfile = {},
-			dim = {},
-			explorer = {},
 			indent = {
 				animate = { enabled = false },
 				filter = function(buf)
@@ -397,20 +395,34 @@ require("lazy").setup({
 				end,
 			},
 			input = {},
-			picker = {},
+			picker = {
+				hidden = true,
+				formatters = {
+					file = {
+						truncate = 100,
+					},
+				},
+				layout = {
+					preset = function()
+						return vim.o.columns >= 200 and "default" or "vertical"
+					end,
+				},
+			},
 			lazygit = {},
 			notifier = {},
 			rename = {},
+			zen = {
+				toggles = {
+					dim = false,
+					git_signs = true,
+				},
+				show = {
+					statusline = true,
+				},
+			},
 		},
 		keys = {
 			-- Top Pickers & Explorer
-			{
-				"<leader><space>",
-				function()
-					Snacks.picker.smart()
-				end,
-				desc = "Smart Find Files",
-			},
 			{
 				"<leader>,",
 				function()
@@ -438,13 +450,6 @@ require("lazy").setup({
 					Snacks.picker.notifications()
 				end,
 				desc = "Notification History",
-			},
-			{
-				"<leader>e",
-				function()
-					Snacks.explorer()
-				end,
-				desc = "File Explorer",
 			},
 			--find
 			{
@@ -620,7 +625,7 @@ require("lazy").setup({
 				desc = "Quickfix List",
 			},
 			{
-				"<leader>sR",
+				"<leader>sr",
 				function()
 					Snacks.picker.resume()
 				end,
