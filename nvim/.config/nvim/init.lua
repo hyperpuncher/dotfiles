@@ -779,6 +779,32 @@ require("lazy").setup({
 	},
 
 	{
+		"dmtrKovalenko/fff.nvim",
+		build = "cargo build --release",
+		opts = {
+			prompt = "> ",
+			layout = {
+				height = 0.7,
+				width = 0.7,
+				preview_position = "top",
+			},
+			preview = {
+				enabled = false,
+			},
+		},
+		lazy = false,
+		keys = {
+			{
+				"<leader>p",
+				function()
+					require("fff").find_files()
+				end,
+				desc = "Open file picker",
+			},
+		},
+	},
+
+	{
 		"A7Lavinraj/fyler.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		opts = {
