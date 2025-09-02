@@ -31,6 +31,7 @@ zstyle ':z4h:direnv:success' notify 'yes'
 # SSH when connecting to these hosts.
 zstyle ':z4h:ssh:homelab'   enable 'yes'
 zstyle ':z4h:ssh:coolify'   enable 'yes'
+zstyle ':z4h:ssh:dokploy'      enable 'yes'
 
 zstyle ':z4h:ssh:localhost' enable 'yes'
 
