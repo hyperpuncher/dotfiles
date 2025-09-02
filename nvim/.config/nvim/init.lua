@@ -865,7 +865,7 @@ map({ "i", "v", "c" }, "<C-s>", "<Esc>:w<CR>")
 map("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
-map("n", "-", "<CMD>Oil<CR>")
+map("n", "-", "<CMD>Fyler<CR>")
 
 map("v", "J", ":m '>+1<CR>gv=gv", { silent = true })
 map("v", "K", ":m '<-2<CR>gv=gv", { silent = true })
@@ -875,8 +875,6 @@ map("n", "<leader>rn", ":IncRename ")
 map("n", "<C-f>", "<CMD>silent !tmux neww tmux-sessionizer<CR>")
 
 -- Diagnostic keymaps
-map("n", "[d", vim.diagnostic.goto_prev)
-map("n", "]d", vim.diagnostic.goto_next)
 map("n", "<leader>d", vim.diagnostic.open_float)
 
 hl(0, "YankHighlight", { fg = "#131412", bg = "#E2E3E3" })
@@ -909,15 +907,6 @@ vim.api.nvim_create_autocmd("InsertLeave", {
 	end,
 })
 
-vim.api.nvim_create_autocmd("User", {
-	pattern = "OilActionsPost",
-	callback = function(event)
-		if event.data.actions.type == "move" then
-			Snacks.rename.on_rename_file(event.data.actions.src_url, event.data.actions.dest_url)
-		end
-	end,
-})
-
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 	pattern = { "Caddyfile", "*/Caddyfile", "*Caddyfile*" },
 	callback = function()
@@ -937,25 +926,21 @@ vim.api.nvim_set_hl(0, "MiniStatuslineModeNormal", {
 	bg = "#bd93f9",
 	bold = true,
 })
-
 vim.api.nvim_set_hl(0, "MiniStatuslineModeVisual", {
 	fg = "#111111",
 	bg = "#ff79c6",
 	bold = true,
 })
-
 vim.api.nvim_set_hl(0, "MiniStatuslineModeInsert", {
 	fg = "#111111",
 	bg = "#50fa7b",
 	bold = true,
 })
-
 vim.api.nvim_set_hl(0, "MiniStatuslineModeCommand", {
 	fg = "#111111",
 	bg = "#8be9fd",
 	bold = true,
 })
-
 vim.api.nvim_set_hl(0, "MiniStatuslineModeReplace", {
 	fg = "#111111",
 	bg = "#f1fa8c",
