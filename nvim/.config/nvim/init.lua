@@ -58,6 +58,7 @@ local servers = {
 	astro = {},
 	bashls = {},
 	clangd = { filetypes = { "c", "cpp", "arduino", "h", "hpp" } },
+	cssls = {},
 	elixirls = { cmd = { vim.fn.expand("~/.local/share/nvim/mason/packages/elixir-ls/language_server.sh") } },
 	gopls = {},
 	html = {},
