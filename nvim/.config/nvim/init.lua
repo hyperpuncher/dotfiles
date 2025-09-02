@@ -74,19 +74,11 @@ local servers = {
 			basedpyright = {
 				disableOrganizeImports = true,
 				analysis = {
-					ignore = { "*" },
-					typeCheckingMode = "off",
-					inlayHints = {
-						callArgumentNames = false,
-						functionReturnTypes = false,
-						genericTypes = false,
-						variableTypes = false,
-					},
+					typeCheckingMode = "standard",
 				},
 			},
 		},
 	},
-	ty = {},
 	ruff = {},
 	ruby_lsp = {},
 	rust_analyzer = {},
