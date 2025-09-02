@@ -946,3 +946,7 @@ vim.api.nvim_set_hl(0, "MiniStatuslineModeReplace", {
 	bg = "#f1fa8c",
 	bold = true,
 })
+
+vim.lsp.document_color.enable(true, 0, {
+	style = "virtual",
+})
