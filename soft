@@ -22,7 +22,6 @@ biome
 blender
 blueman
 bluez-utils
-brave-beta-bin
 brave-bin
 btop
 btrfs-progs
@@ -83,6 +82,7 @@ fzf
 gale-bin
 gamemode
 geoip
+ghostwriter
 gimp
 git
 github-cli
@@ -130,6 +130,7 @@ kicad
 kimageformats5
 kvantum
 kvantum-qt5
+labwc
 lazydocker
 lazygit
 lazysql
@@ -158,11 +159,11 @@ mangohud
 mediainfo
 mesa-utils
 mitmproxy
-moar
 mods
 mongodb-compass-bin
 mongodb-tools-bin
 mongosh-bin
+moor-bin
 mosh
 mpv
 mtpfs
@@ -170,7 +171,7 @@ mumble
 nemo
 nemo-fileroller
 nemo-preview
-neovim
+neovim-git
 network-manager-applet
 networkmanager
 nfs-utils
@@ -216,7 +217,6 @@ pipewire
 pipewire-alsa
 pipewire-jack
 pipewire-pulse
-pixieditor-bin
 plocate
 plymouth
 plymouth-theme-angular-git
@@ -256,7 +256,7 @@ qt5-wayland
 qt5ct
 qt6-wayland
 qt6ct
-quickemu
+quickemu-git
 qutebrowser
 rebuild-detector
 redisinsight-bin
@@ -374,6 +374,7 @@ xwayland-satellite
 yarn
 yt-dlp
 zed
+zen-browser-bin
 zip
 zoxide
 zsh-autosuggestions
