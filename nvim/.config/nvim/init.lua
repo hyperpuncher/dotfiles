@@ -144,23 +144,6 @@ require("lazy").setup({
 	},
 
 	{
-		"stevearc/oil.nvim",
-		lazy = false,
-		opts = {
-			use_default_keymaps = false,
-			keymaps = {
-				["<CR>"] = "actions.select",
-				["-"] = { "actions.parent", mode = "n" },
-				["<C-c>"] = { "actions.close", mode = "n" },
-			},
-			view_options = {
-				show_hidden = true,
-			},
-		},
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-	},
-
-	{
 		"Mofiqul/dracula.nvim",
 		opts = {
 			colors = {
@@ -799,6 +782,22 @@ require("lazy").setup({
 			statusline.setup()
 		end,
 	},
+
+	{
+		"A7Lavinraj/fyler.nvim",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		opts = {
+			icon_provider = "nvim-web-devicons",
+			views = {
+				explorer = {
+					win = {
+						border = "rounded",
+					},
+				},
+			},
+		},
+	},
+
 }, {
 	ui = {
 		border = "rounded",
