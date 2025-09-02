@@ -309,15 +309,6 @@ require("lazy").setup({
 		},
 	},
 
-	{
-		"catgoose/nvim-colorizer.lua",
-		opts = {
-			user_default_options = {
-				tailwind = "both",
-			},
-		},
-	},
-
 	{ "echasnovski/mini.surround", version = "*", opts = {} },
 
 	{
@@ -818,6 +809,7 @@ require("mason").setup()
 require("mason-lspconfig").setup()
 
 map("n", "K", vim.lsp.buf.hover)
+map("n", "<leader>cp", vim.lsp.document_color.color_presentation)
 
 map({ "n", "i" }, "<MiddleMouse>", "<Nop>")
 map({ "n", "i", "v" }, "<RightMouse>", "<Nop>")
