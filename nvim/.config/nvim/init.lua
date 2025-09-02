@@ -309,7 +309,7 @@ require("lazy").setup({
 		},
 	},
 
-	{ "echasnovski/mini.surround", version = "*", opts = {} },
+	{ "nvim-mini/mini.surround", version = "*", opts = {} },
 
 	{
 		"rmagatti/auto-session",
@@ -750,7 +750,6 @@ require("lazy").setup({
 		},
 	},
 
-
 	{
 		"supermaven-inc/supermaven-nvim",
 		config = function()
@@ -759,7 +758,7 @@ require("lazy").setup({
 	},
 
 	{
-		"echasnovski/mini.statusline",
+		"nvim-mini/mini.statusline",
 		version = false,
 		config = function()
 			local statusline = require("mini.statusline")
