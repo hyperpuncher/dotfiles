@@ -1,5 +1,10 @@
 #!/usr/bin/env dash
 
+if [ "$#" -lt 2 ]; then
+	echo "Usage: wally <input> <output>"
+	exit 1
+fi
+
 mask=~/Pictures/wallpapers/mask_vertical_4k.avif
 input="$1"
 output="$2"
