@@ -147,6 +147,7 @@ alias udiskmount='udisksctl mount -b'
 alias v='nvim'
 alias wgdown='basename /proc/sys/net/ipv4/conf/*vpn | xargs sudo wg-quick down'
 alias wgup='sudo wg-quick up'
+alias wl-screenrec='wl-screenrec --low-power=off --bitrate="20 MB" --max-fps=60 --codec=hevc'
 
 # Set shell options: http://zsh.sourceforge.net/Doc/Release/Options.html.
 setopt glob_dots     # no special treatment for file names with a leading dot
