@@ -321,7 +321,7 @@ require("lazy").setup({
 
 	{ "smjonas/inc-rename.nvim", opts = {} },
 
-	{ "hiphish/rainbow-delimiters.nvim" },
+	{ "hiphish/rainbow-delimiters.nvim", submodules = false },
 
 	{
 		"ThePrimeagen/harpoon",
