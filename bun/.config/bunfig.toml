@@ -1,0 +1,13 @@
+telemetry = false
+
+[install]
+minimumReleaseAge = 86400
+minimumReleaseAgeExcludes = [
+  "@types/bun",
+  "typescript",
+  "@sveltejs/kit",
+  "svelte",
+]
+
+[console]
+depth = 5
