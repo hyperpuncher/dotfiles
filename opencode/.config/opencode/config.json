@@ -1,7 +1,6 @@
 {
 	"$schema": "http://opencode.ai/config.json",
-	"theme": "system",
-	"model": "openrouter/openai/gpt-4.1-mini",
+	"theme": "my-theme",
 	"autoshare": false,
 	"autoupdate": false,
 	"mcp": {
