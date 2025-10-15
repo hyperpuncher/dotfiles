@@ -1,11 +1,26 @@
 [user]
     name = hyperpuncher
     email = 39203616+hyperpuncher@users.noreply.github.com
+
 [credential]
     helper = libsecret
+
 [init]
     defaultBranch = main
+
 [http]
 	postBuffer = 524288000
-[pull]
-	rebase = true
+
+[core]
+    pager = delta
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true  # use n and N to move between diff sections
+	diff-so-fancy = true
+	tabs = 4
+
+[merge]
+    conflictStyle = zdiff3
