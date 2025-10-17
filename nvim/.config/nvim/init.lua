@@ -239,6 +239,8 @@ require("lazy").setup({
 		build = "make nvim-install",
 	},
 
+	{ "nvim-tree/nvim-web-devicons", opts = {} },
+
 	{
 		"Mofiqul/dracula.nvim",
 		opts = {
