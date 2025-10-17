@@ -912,16 +912,11 @@ require("lazy").setup({
 	},
 
 	{
-		"A7Lavinraj/fyler.nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
+		"nvim-mini/mini.files",
+		version = false,
 		opts = {
-			icon_provider = "nvim-web-devicons",
-			views = {
-				explorer = {
-					win = {
-						border = "rounded",
-					},
-				},
+			mappings = {
+				go_in_plus = "<CR>",
 			},
 		},
 	},
@@ -972,7 +967,10 @@ map({ "i", "v", "c" }, "<C-s>", "<Esc>:w<CR>")
 map("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
-map("n", "-", "<CMD>Fyler<CR>")
+map("n", "-", function()
+	MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
+	MiniFiles.reveal_cwd()
+end)
 
 map("v", "J", ":m '>+1<CR>gv=gv", { silent = true })
 map("v", "K", ":m '<-2<CR>gv=gv", { silent = true })
