@@ -1,19 +1,26 @@
 // https://github.com/YaLTeR/niri/wiki
 
 environment {
-    QT_AUTO_SCREEN_SCALE_FACTOR "1"
-    QT_QPA_PLATFORM "wayland"
-    QT_QPA_PLATFORMTHEME "qt6ct"
-    QT_WAYLAND_DISABLE_WINDOWDECORATION "1"
-    LIBVA_DRIVER_NAME "radeonsi"
-    SDL_AUDIODRIVER "alsa"
-    ALSOFT_DRIVERS "alsa"
-    DISPLAY ":0"
+	ALSOFT_DRIVERS "alsa"
+	DISPLAY ":0"
+	ELECTRON_OZONE_PLATFORM_HINT "auto"
+	GDK_BACKEND "wayland,x11,*"
+	LIBVA_DRIVER_NAME "radeonsi"
+	QT_AUTO_SCREEN_SCALE_FACTOR "1"
+	QT_QPA_PLATFORM "wayland;xcb"
+	QT_QPA_PLATFORMTHEME "qt6ct"
+	QT_WAYLAND_DISABLE_WINDOWDECORATION "1"
+	SDL_AUDIODRIVER "alsa"
+	SDL_VIDEODRIVER "wayland,x11"
+	STEAM_FORCE_DESKTOPUI_SCALING "1.5 "
+	XCURSOR_SIZE "28"
+	XCURSOR_THEME "macOS"
+	XDG_SESSION_TYPE "wayland"
 }
 
 cursor {
     xcursor-theme "macOS"
-    xcursor-size 32
+    xcursor-size 28
     hide-when-typing
     hide-after-inactive-ms 2000
 }
@@ -26,27 +33,30 @@ input {
         }
 
         track-layout "window"
-        repeat-delay 400
+        repeat-delay 275
+		repeat-rate 40
     }
 
     mouse {
         // off
-        accel-speed -0.3
-        // accel-profile "flat"
+        // accel-speed -0.3
+        accel-profile "flat"
         // middle-emulation
     }
 
     warp-mouse-to-focus
-    focus-follows-mouse // Setting max-scroll-amount="0%" makes it work only on windows already fully on screen.
+    focus-follows-mouse max-scroll-amount="20%"
     disable-power-key-handling
 }
 
 output "DP-3" {
     variable-refresh-rate on-demand=true
+	scale 1.5
 }   
 
 layout {
-    gaps 4
+    gaps 3
+
     always-center-single-column
     center-focused-column "on-overflow"
 
@@ -63,36 +73,37 @@ layout {
     }
 
     border {
-        width 2
-        active-color "#b3b3b3"
-        inactive-color "#30302F"
+        width 3
+        active-color "#ffffff54"
+        inactive-color "#0000"
     }
 
 }
 
 workspace "chat"
 workspace "browser"
+workspace "music"
 window-rule {
     match app-id="org.telegram.desktop"
     open-on-workspace "chat"
 }
 
-spawn-at-startup "mpv" "--loop=no" "/home/igor/dotfiles/sounds/silent.wav"
+spawn-at-startup "runapp" "mpv" "--loop=no" "~/dotfiles/sounds/silent.wav"
 spawn-at-startup "~/projects/arduino/autobrightness/autobrightness"
-spawn-at-startup "swaybg" "-m" "fill" "-i" "/home/igor/Pictures/wallpapers/aesthetics-purple.png"
-spawn-at-startup "waybar"
-spawn-at-startup "wlsunset" "-t" "3000" "-T" "6500" "-l" "53.9" "-L" "27.6" "-d" "1800"
-spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
-spawn-at-startup "udiskie"
-spawn-at-startup "dunst"
-spawn-at-startup "corectrl"
-spawn-at-startup "jamesdsp" "-t"
-spawn-at-startup "blueman-applet"
-spawn-at-startup "nm-applet"
-spawn-at-startup "localsend" "--hidden"
-spawn-at-startup "telegram-desktop"
-spawn-at-startup "wl-paste" "--type" "text" "--watch" "cliphist" "store"
-spawn-at-startup "wl-paste" "--type" "image" "--watch" "cliphist" "store"
+spawn-at-startup "runapp" "wlsunset" "-t" "3000" "-T" "6500" "-l" "53.9" "-L" "27.6" "-d" "1800"
+spawn-at-startup "runapp" "darkman" "run"
+spawn-at-startup "runapp" "waybar"
+spawn-at-startup "runapp" "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
+spawn-at-startup "runapp" "udiskie"
+spawn-at-startup "runapp" "dunst"
+spawn-at-startup "runapp" "corectrl"
+spawn-at-startup "runapp" "jamesdsp" "-t"
+spawn-at-startup "runapp" "blueman-applet"
+spawn-at-startup "runapp" "nm-applet"
+spawn-at-startup "runapp" "localsend" "--hidden"
+spawn-at-startup "runapp" "wl-clip-persist" "--clipboard" "regular"
+spawn-at-startup "runapp" "wl-paste" "--type" "text" "--watch" "cliphist" "store"
+spawn-at-startup "runapp" "wl-paste" "--type" "image" "--watch" "cliphist" "store"
 spawn-at-startup "xwayland-satellite"
 
 prefer-no-csd
@@ -101,7 +112,10 @@ screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
 animations {
     // off
-    slowdown 0.4
+    slowdown 0.5
+    workspace-switch {
+		off
+    }
 }
 
 window-rule {
@@ -118,15 +132,23 @@ binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
-    Mod+Return { spawn "foot"; }
-    Mod+D { spawn "rofi" "-show" "drun" "-display-drun" "Apps"; }
+    Mod+Return { spawn "runapp" "foot"; }
+    Mod+D { spawn "runapp" "rofi" "-show" "drun" "-display-drun" "apps" "-run-command" "runapp {cmd}"; }
     Mod+Escape { spawn "rofi" "-show" "power_menu" "-modes" "power_menu:~/dotfiles/rofi/.config/rofi/scripts/power_menu.sh"; }
-    Mod+B { spawn "brave-beta"; }
+    Mod+B { spawn "zen-browser"; }
     Mod+E { spawn "nemo"; }
+
+	// bind = $mod, V, exec, rofi -modi clipboard:~/dotfiles/rofi/.config/rofi/scripts/cliphist-rofi-img -show clipboard -show-icons -theme-str 'window {width: 40%;}'
+	Mod+V { spawn "rofi" "-modi" "clipboard:~/dotfiles/rofi/.config/rofi/scripts/cliphist-rofi-img" "-show" "clipboard" "-show-icons" "-theme-str" "window {width: 40%;}"; }
+
 
     XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%+"; }
     XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%-"; }
     XF86AudioMute        allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
+
+	XF86AudioPlay allow-when-locked=true { spawn "playerctl" "play-pause"; }
+	XF86AudioNext allow-when-locked=true { spawn "playerctl" "next"; }
+	XF86AudioPrev allow-when-locked=true { spawn "playerctl" "previous"; }
 
     Mod+Q { close-window; }
 
@@ -135,8 +157,8 @@ binds {
     Mod+Up    { focus-window-up; }
     Mod+Right { focus-column-right; }
     Mod+H     { focus-column-left; }
-    // Mod+J     { focus-window-down; }
-    // Mod+K     { focus-window-up; }
+    Mod+J     { focus-window-down; }
+    Mod+K     { focus-window-up; }
     Mod+L     { focus-column-right; }
 
     Mod+Ctrl+Left  { move-column-left; }
@@ -150,8 +172,8 @@ binds {
 
     // Alternative commands that move across workspaces when reaching
     // the first or last window in a column.
-    Mod+J     { focus-window-or-workspace-down; }
-    Mod+K     { focus-window-or-workspace-up; }
+    // Mod+J     { focus-window-or-workspace-down; }
+    // Mod+K     { focus-window-or-workspace-up; }
     Mod+Ctrl+J     { move-window-down-or-to-workspace-down; }
     Mod+Ctrl+K     { move-window-up-or-to-workspace-up; }
 
@@ -256,6 +278,7 @@ binds {
 
     Mod+T { focus-workspace "chat"; }
     Mod+G { focus-workspace "browser"; }
+    Mod+S { focus-workspace "music"; }
     // Mod+Ctrl+1 { move-column-to-workspace 1; }
     // Mod+Ctrl+2 { move-column-to-workspace 2; }
     // Mod+Ctrl+3 { move-column-to-workspace 3; }
@@ -306,8 +329,8 @@ binds {
     Mod+Shift+Equal { set-window-height "+10%"; }
 
     // Move the focused window between the floating and the tiling layout.
-    Mod+V       { toggle-window-floating; }
-    Mod+Shift+V { switch-focus-between-floating-and-tiling; }
+    // Mod+V       { toggle-window-floating; }
+    // Mod+Shift+V { switch-focus-between-floating-and-tiling; }
 
     // Actions to switch layouts.
     // Note: if you uncomment these, make sure you do NOT have
