@@ -275,57 +275,64 @@ require("lazy").setup({
 
 			{
 				"stevearc/conform.nvim",
-				config = function()
-					require("conform").setup({
-						format_on_save = {
-							timeout_ms = 500,
-							lsp_fallback = true,
-						},
-						formatters = {
-							deno_fmt = { append_args = { "--use-tabs", "--line-width=90" } },
-							caddy = {
-								command = "caddy",
-								args = { "fmt", "-" },
-								stdin = true,
-							},
-							prettierd = {
-								append_args = {
-									"--config-precedence=file-override",
-									"--print-width=90",
-									"--use-tabs=true",
-								},
+				opts = {
+					format_on_save = {
+						timeout_ms = 1000,
+						lsp_format = "fallback",
+					},
+					formatters = {
+						["biome-check"] = {
+							append_args = {
+								"--indent-width=4",
+								"--line-width=90",
+								-- "--vcs-enabled=true",
+								-- "--vcs-client-kind=git",
+								-- "--vcs-use-ignore-file=true",
 							},
 						},
-						formatters_by_ft = {
-							astro = { "deno_fmt", "rustywind" },
-							c = { "clang-format" },
-							caddy = { "caddy" },
-							cpp = { "clang-format" },
-							css = { "deno_fmt" },
-							d2 = { "d2" },
-							go = { "gofumpt" },
-							html = { "deno_fmt" },
-							http = { "kulala-fmt" },
-							ino = { "clang-format" },
-							javascript = { "prettierd", "rustywind" },
-							json = { "deno_fmt" },
-							jsonc = { "deno_fmt" },
-							lua = { "stylua" },
-							markdown = { "deno_fmt" },
-							nix = { "nixpkgs_fmt" },
-							php = { "php_cs_fixer" },
-							python = { "ruff_format", "ruff_organize_imports" },
-							ruby = { "rubyfmt" },
-							sql = { "pg_format" },
-							svelte = { "prettierd", "rustywind" },
-							swift = { "swiftformat" },
-							templ = { "templ", "rustywind" },
-							toml = { "taplo" },
-							typescript = { "prettierd", "rustywind" },
-							yaml = { "deno_fmt" },
+						deno_fmt = { append_args = { "--use-tabs", "--line-width=90" } },
+						caddy = {
+							command = "caddy",
+							args = { "fmt", "-" },
+							stdin = true,
 						},
-					})
-				end,
+						prettierd = {
+							append_args = {
+								"--config-precedence=file-override",
+								"--print-width=90",
+								"--use-tabs=true",
+							},
+						},
+					},
+					formatters_by_ft = {
+						astro = { "prettierd" },
+						c = { "clang-format" },
+						cpp = { "clang-format" },
+						caddy = { "caddy" },
+						css = { "biome-check" },
+						d2 = { "d2" },
+						go = { "gofumpt" },
+						html = { "deno_fmt" },
+						http = { "kulala-fmt" },
+						ino = { "clang-format" },
+						javascript = { "biome-check", "rustywind" },
+						javascriptreact = { "biome-check", "rustywind" },
+						json = { "biome-check" },
+						jsonc = { "biome-check" },
+						lua = { "stylua" },
+						markdown = { "deno_fmt" },
+						python = { "ruff_format", "ruff_organize_imports" },
+						sql = { "pg_format" },
+						svelte = { "prettierd", "biome-check", "rustywind" },
+						swift = { "swiftformat" },
+						templ = { "templ", "rustywind" },
+						toml = { "taplo" },
+						typescript = { "biome-check", "rustywind" },
+						typescriptreact = { "biome-check", "rustywind" },
+						vue = { "prettierd" },
+						yaml = { "deno_fmt" },
+					},
+				},
 			},
 
 			{
