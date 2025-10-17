@@ -885,7 +885,10 @@ require("lazy").setup({
 
 	{
 		"dmtrKovalenko/fff.nvim",
-		build = "cargo build --release",
+		build = function()
+			require("fff.download").download_or_build_binary()
+		end,
+		lazy = false,
 		opts = {
 			prompt = "> ",
 			layout = {
@@ -897,7 +900,6 @@ require("lazy").setup({
 				enabled = false,
 			},
 		},
-		lazy = false,
 		keys = {
 			{
 				"<leader>p",
