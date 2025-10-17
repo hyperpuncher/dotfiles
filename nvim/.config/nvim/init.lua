@@ -127,7 +127,6 @@ local formatters = {
 local linters = {
 	"golangci-lint",
 	"jsonlint",
-	"phpstan",
 	"shellcheck",
 	"oxlint",
 }
@@ -350,7 +349,6 @@ require("lazy").setup({
 					lint.linters_by_ft = {
 						go = { "golangcilint" },
 						json = { "jsonlint" },
-						php = { "phpstan" },
 						svelte = { "oxlint" },
 						javascript = { "oxlint" },
 						typescript = { "oxlint" },
@@ -361,7 +359,7 @@ require("lazy").setup({
 					-- Create autocommand which carries out the actual linting
 					-- on the specified events.
 					local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
-					vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
+					autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
 						group = lint_augroup,
 						callback = function()
 							require("lint").try_lint()
@@ -920,14 +918,11 @@ require("lazy").setup({
 			},
 		},
 	},
-
 }, {
 	ui = {
 		border = "rounded",
 	},
 })
-
-cmd.colorscheme("dracula")
 
 autocmd("FileType", {
 	command = "set formatoptions-=cro",
@@ -979,10 +974,8 @@ map("n", "<leader>rn", ":IncRename ")
 
 map("n", "<C-f>", "<CMD>silent !tmux neww tmux-sessionizer<CR>")
 
--- Diagnostic keymaps
 map("n", "<leader>d", vim.diagnostic.open_float)
 
-hl(0, "YankHighlight", { fg = "#131412", bg = "#E2E3E3" })
 local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
 autocmd("TextYankPost", {
 	callback = function()
@@ -992,61 +985,63 @@ autocmd("TextYankPost", {
 	pattern = "*",
 })
 
-vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+autocmd({ "BufRead", "BufNewFile" }, {
 	pattern = "ikiosuru.py",
 	callback = function()
 		vim.diagnostic.enable(false)
 	end,
 })
 
-vim.api.nvim_create_autocmd("BufEnter", {
+autocmd("BufEnter", {
 	pattern = ".env",
 	callback = function(args)
 		vim.diagnostic.enable(false, args)
 	end,
 })
 
-vim.api.nvim_create_autocmd("InsertLeave", {
+autocmd("InsertLeave", {
 	callback = function()
 		os.execute("hyprctl switchxkblayout current 0 >/dev/null 2>&1")
 	end,
 })
 
-vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+autocmd({ "BufNewFile", "BufRead" }, {
 	pattern = { "Caddyfile", "*/Caddyfile", "*Caddyfile*" },
 	callback = function()
 		vim.bo.filetype = "caddy"
 	end,
 })
 
-vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+autocmd({ "BufNewFile", "BufRead" }, {
 	pattern = { "*.d2" },
 	callback = function()
 		vim.bo.filetype = "d2"
 	end,
 })
 
-vim.api.nvim_set_hl(0, "MiniStatuslineModeNormal", {
+vim.cmd.colorscheme("dracula")
+hl(0, "YankHighlight", { fg = "#131412", bg = "#E2E3E3" })
+hl(0, "MiniStatuslineModeNormal", {
 	fg = "#111111",
 	bg = "#bd93f9",
 	bold = true,
 })
-vim.api.nvim_set_hl(0, "MiniStatuslineModeVisual", {
+hl(0, "MiniStatuslineModeVisual", {
 	fg = "#111111",
 	bg = "#ff79c6",
 	bold = true,
 })
-vim.api.nvim_set_hl(0, "MiniStatuslineModeInsert", {
+hl(0, "MiniStatuslineModeInsert", {
 	fg = "#111111",
 	bg = "#50fa7b",
 	bold = true,
 })
-vim.api.nvim_set_hl(0, "MiniStatuslineModeCommand", {
+hl(0, "MiniStatuslineModeCommand", {
 	fg = "#111111",
 	bg = "#8be9fd",
 	bold = true,
 })
-vim.api.nvim_set_hl(0, "MiniStatuslineModeReplace", {
+hl(0, "MiniStatuslineModeReplace", {
 	fg = "#111111",
 	bg = "#f1fa8c",
 	bold = true,
