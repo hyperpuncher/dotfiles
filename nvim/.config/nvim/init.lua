@@ -132,6 +132,51 @@ local linters = {
 	"oxlint",
 }
 
+local filetypes = {
+	"astro",
+	"bash",
+	"c",
+	"comment",
+	"cpp",
+	"css",
+	"csv",
+	"desktop",
+	"dockerfile",
+	"git_config",
+	"gitignore",
+	"go",
+	"html",
+	"http",
+	"hurl",
+	"hyprlang",
+	"ini",
+	"javascript",
+	"jq",
+	"json",
+	"jsonc",
+	"jsx",
+	"just",
+	"lua",
+	"make",
+	"markdown",
+	"odin",
+	"python",
+	"rasi",
+	"regex",
+	"rust",
+	"sql",
+	"ssh_config",
+	"svelte",
+	"swift",
+	"templ",
+	"tmux",
+	"toml",
+	"tsx",
+	"typescript",
+	"vue",
+	"yaml",
+}
+
 local ensure_installed = vim.tbl_keys(servers)
 vim.list_extend(ensure_installed, formatters)
 vim.list_extend(ensure_installed, linters)
@@ -140,20 +185,51 @@ require("lazy").setup({
 
 	{
 		"nvim-treesitter/nvim-treesitter",
+		lazy = false,
+		branch = "main",
 		build = ":TSUpdate",
 		config = function()
-			require("nvim-treesitter.configs").setup({
-				auto_install = true,
-				highlight = { enable = true },
-				indent = { enable = true },
-				incremental_selection = {
-					enable = true,
-					keymaps = {
-						node_incremental = "v",
-						node_decremental = "V",
+			require("nvim-treesitter").install(filetypes)
+
+			for _, filetype in ipairs(filetypes) do
+				autocmd("FileType", {
+					pattern = { filetype },
+					callback = function()
+						vim.treesitter.start()
+					end,
+				})
+			end
+		end,
+	},
+
+	{
+		"nvim-treesitter/nvim-treesitter-textobjects",
+		branch = "main",
+		config = function()
+			require("nvim-treesitter-textobjects").setup({
+				select = {
+					lookahead = true,
+					selection_modes = {
+						["@parameter.outer"] = "v", -- charwise
+						["@function.outer"] = "V", -- linewise
+						["@class.outer"] = "<c-v>", -- blockwise
 					},
+					include_surrounding_whitespace = false,
 				},
 			})
+
+			map({ "x", "o" }, "af", function()
+				require("nvim-treesitter-textobjects.select").select_textobject("@function.outer", "textobjects")
+			end)
+			map({ "x", "o" }, "if", function()
+				require("nvim-treesitter-textobjects.select").select_textobject("@function.inner", "textobjects")
+			end)
+			map({ "x", "o" }, "ac", function()
+				require("nvim-treesitter-textobjects.select").select_textobject("@class.outer", "textobjects")
+			end)
+			map({ "x", "o" }, "ic", function()
+				require("nvim-treesitter-textobjects.select").select_textobject("@class.inner", "textobjects")
+			end)
 		end,
 	},
 
