@@ -115,15 +115,13 @@ local servers = {
 local formatters = {
 	"gofumpt",
 	"kulala-fmt",
-	"nixpkgs-fmt",
-	"php-cs-fixer",
-	"rubyfmt",
 	"rustywind",
 	"shfmt",
 	"stylua",
 	"taplo",
 	"templ",
 	"prettierd",
+	"biome",
 }
 
 local linters = {
