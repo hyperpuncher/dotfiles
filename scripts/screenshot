@@ -57,5 +57,5 @@ esac
 if [ "$EDIT" = true ]; then
 	satty -f "$IMG"
 else
-	wl-copy <"$IMG" && dunstify "Screenshot saved"
+	wl-copy <"$IMG" && notify-send -u low -i "/usr/share/icons/Papirus-Dark/128x128/mimetypes/x-content-image-picturecd.svg" "Screenshot" "Saved"
 fi
