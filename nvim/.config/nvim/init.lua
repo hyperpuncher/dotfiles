@@ -1,5 +1,4 @@
 local opt = vim.o
-local cmd = vim.cmd
 local map = vim.keymap.set
 local hl = vim.api.nvim_set_hl
 local autocmd = vim.api.nvim_create_autocmd
@@ -8,7 +7,10 @@ vim.g.mapleader = " "
 
 opt.sessionoptions = "buffers,curdir,folds,help,tabpages,winsize,winpos,terminal"
 opt.winborder = "rounded"
+opt.pumborder = "rounded"
 opt.breakindent = true
+opt.linebreak = true
+opt.breakat = " ^I!@*+;:,./?"
 opt.clipboard = "unnamedplus"
 opt.completeopt = "menuone,noselect"
 opt.expandtab = false
