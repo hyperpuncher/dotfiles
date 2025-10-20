@@ -7,10 +7,12 @@ android-apktool
 android-file-transfer
 android-tools
 apple_cursor
+arch-wiki-lite
 arduino-cli
 aria2
 assimp
 atool
+audacity
 base
 base-devel
 bat
@@ -48,6 +50,7 @@ ddcutil
 delve
 deno
 devtools
+dialog
 difftastic
 direnv
 docker-buildx
@@ -85,6 +88,7 @@ geoip
 ghostwriter
 gimp
 git
+git-delta
 github-cli
 gitleaks
 glow
@@ -102,6 +106,7 @@ gum
 gvfs
 gvfs-smb
 handlr-regex
+headscale
 helvum
 heroic-games-launcher-bin
 hip-runtime-amd
@@ -113,6 +118,7 @@ hypridle
 hyprland
 hyprland-per-window-layout
 hyprpicker
+hyprqt6engine
 hyprsunset
 identity
 imagemagick
@@ -125,7 +131,9 @@ jamesdsp-git
 jdk-openjdk
 jq
 jqp
+jujutsu
 just
+kdiskmark
 kicad
 kimageformats5
 kvantum
@@ -133,6 +141,7 @@ kvantum-qt5
 labwc
 lazydocker
 lazygit
+lazyjj
 lazysql
 lib32-gamemode
 lib32-mesa
@@ -147,6 +156,7 @@ linux-firmware
 linux-headers
 linux-lts
 linux-lts-headers
+lite-xl
 llvm
 lnav
 localsend-bin
@@ -156,13 +166,17 @@ lua-luv
 luarocks
 man-db
 mangohud
+mangowc-git
 mediainfo
 mesa-utils
+micro
+minio-client
 mitmproxy
 mods
 mongodb-compass-bin
 mongodb-tools-bin
 mongosh-bin
+moonlight-qt
 moor-bin
 mosh
 mpv
@@ -171,7 +185,7 @@ mumble
 nemo
 nemo-fileroller
 nemo-preview
-neovim-git
+neovim-nightly-bin
 network-manager-applet
 networkmanager
 nfs-utils
@@ -197,7 +211,7 @@ opencode-bin
 openmp
 openscad
 openssh
-orca-slicer-unstable-bin
+orca-slicer-bin
 otf-libertinus
 pacman-contrib
 papers
@@ -219,7 +233,7 @@ pipewire-jack
 pipewire-pulse
 plocate
 plymouth
-plymouth-theme-angular-git
+plymouth-theme-colorful-sliced-git
 plzip
 pnpm
 podlet
@@ -253,7 +267,6 @@ qmk
 qrencode
 qt5-imageformats
 qt5-wayland
-qt5ct
 qt6-wayland
 qt6ct
 quickemu-git
@@ -267,8 +280,8 @@ ripgrep
 river
 rocm-hip-runtime
 rocm-opencl-runtime
+rofi
 rofi-emoji
-rofi-wayland
 rpi-imager
 runapp
 rustdesk-bin
@@ -304,6 +317,7 @@ stow
 swaybg
 syncthing
 syncthing-gtk
+tailscale
 tailwindcss-bin
 telegram-desktop
 tern
@@ -348,7 +362,6 @@ virt-manager
 viu
 vulkan-radeon
 vulkan-tools
-walker-bin
 waybar
 webos-dev-manager-bin
 wget
@@ -362,6 +375,7 @@ wireplumber
 wl-clip-persist
 wl-clipboard
 wl-screenrec
+wlr-randr
 wlsunset
 wtype
 xdg-desktop-portal-gtk
