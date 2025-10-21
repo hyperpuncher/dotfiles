@@ -3,7 +3,7 @@ default:
 	just -l
 
 # Bootstrap
-bootstrap: essential ssh paru stow mirrors soft greetd misc
+bootstrap: essential ssh paru stow mirrors soft greetd misc theme
 
 # Essentials packages
 essential:
@@ -85,3 +85,13 @@ misc:
 	chsh -s /usr/bin/zsh
 	sudo ln -sf /usr/share/fontconfig/conf.avail/10-hinting-none.conf /etc/fonts/conf.d/
 	sudo usermod -aG video $(whoami)
+
+theme:
+	gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3'
+	gsettings set org.gnome.desktop.interface icon-theme 'Papirus'
+	gsettings set org.gnome.desktop.interface font-name 'Inter Variable 11'
+	gsettings set org.gnome.desktop.interface monospace-font-name 'CaskaydiaMono Nerd Font 11'
+	gsettings set org.gnome.desktop.interface font-hinting 'none'
+	gsettings set org.gnome.desktop.interface font-antialiasing 'rgba'
+	gsettings set org.gnome.desktop.interface cursor-theme 'macOS'
+	gsettings set org.gnome.desktop.interface cursor-size 28
