@@ -5,7 +5,7 @@
 		"currentLine": "#44475a",
 		"selection": "#44475a",
 		"foreground": "#f8f8f2",
-		"comment": "#6272a4",
+		"comment": "#636363",
 		"cyan": "#8be9fd",
 		"green": "#50fa7b",
 		"orange": "#ffb86c",
@@ -49,7 +49,7 @@
 		},
 		"textMuted": {
 			"dark": "comment",
-			"light": "#6272a4"
+			"light": "#636363"
 		},
 		"background": {
 			"dark": "none",
@@ -85,11 +85,11 @@
 		},
 		"diffContext": {
 			"dark": "comment",
-			"light": "#6272a4"
+			"light": "#636363"
 		},
 		"diffHunkHeader": {
 			"dark": "comment",
-			"light": "#6272a4"
+			"light": "#636363"
 		},
 		"diffHighlightAdded": {
 			"dark": "green",
@@ -145,7 +145,7 @@
 		},
 		"markdownBlockQuote": {
 			"dark": "comment",
-			"light": "#6272a4"
+			"light": "#636363"
 		},
 		"markdownEmph": {
 			"dark": "yellow",
@@ -157,7 +157,7 @@
 		},
 		"markdownHorizontalRule": {
 			"dark": "comment",
-			"light": "#6272a4"
+			"light": "#636363"
 		},
 		"markdownListItem": {
 			"dark": "purple",
@@ -181,7 +181,7 @@
 		},
 		"syntaxComment": {
 			"dark": "comment",
-			"light": "#6272a4"
+			"light": "#636363"
 		},
 		"syntaxKeyword": {
 			"dark": "pink",
