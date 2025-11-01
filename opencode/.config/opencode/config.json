@@ -3,6 +3,7 @@
 	"theme": "my-theme",
 	"autoshare": false,
 	"autoupdate": false,
+	"small_model": "openrouter/google/gemini-2.5-flash-lite-preview-09-2025",
 	"mcp": {
 		"context7": {
 			"type": "local",
