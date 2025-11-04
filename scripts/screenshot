@@ -48,7 +48,7 @@ case "$ZONE" in
 f) grim "$IMG" ;;
 w)
 	grim -g "$(hyprctl -j activewindow 2>/dev/null |
-		jq -r '"\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"')" - |
+		jq -r '"\(.at[0] + 1),\(.at[1] + 1) \(.size[0] - 1)x\(.size[1] - 1)"')" - |
 		round_corners "$IMG"
 	;;
 s) grim -g "$(slurp -d -w 1 -F "Iosevka Nerd Font")" "$IMG" ;;
