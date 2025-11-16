@@ -24,7 +24,6 @@ biome
 blender
 blueman
 bluez-utils
-brave-bin
 btop
 btrfs-progs
 buildah
@@ -53,6 +52,7 @@ devtools
 dialog
 difftastic
 direnv
+diskus
 docker-buildx
 docker-compose
 downgrade
@@ -73,7 +73,6 @@ fd
 ffmpeg
 ffmpegthumbnailer
 file-roller
-firefox
 fnm
 font-manager
 foot
@@ -97,7 +96,6 @@ gnome-keyring
 gnome-sound-recorder
 go
 godot
-golangci-lint-bin
 gparted
 greetd-tuigreet
 grim
@@ -107,6 +105,7 @@ gvfs
 gvfs-smb
 handlr-regex
 headscale
+helium-browser-bin
 helvum
 heroic-games-launcher-bin
 hip-runtime-amd
@@ -121,6 +120,7 @@ hyprpicker
 hyprqt6engine
 hyprsunset
 identity
+ijq
 imagemagick
 informant
 inkscape
@@ -130,7 +130,6 @@ jadx
 jamesdsp-git
 jdk-openjdk
 jq
-jqp
 jujutsu
 just
 kdiskmark
@@ -199,7 +198,6 @@ npm
 nss-mdns
 nsz
 nvtop
-nwg-look
 oatmeal-bin
 obs-studio
 ocrmypdf
@@ -218,6 +216,7 @@ papers
 papirus-folders-git
 papirus-icon-theme
 paru
+pastel
 pavucontrol
 pbzip2
 pcbdraw
@@ -314,10 +313,10 @@ sshfs
 steam
 steamcmd
 stow
+svgo
 swaybg
 syncthing
 syncthing-gtk
-tailscale
 tailwindcss-bin
 telegram-desktop
 tern
