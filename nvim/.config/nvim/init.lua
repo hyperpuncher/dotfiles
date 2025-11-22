@@ -980,6 +980,12 @@ map("n", "<C-f>", "<CMD>silent !tmux neww tmux-sessionizer<CR>")
 
 map("n", "<leader>d", vim.diagnostic.open_float)
 
+vim.diagnostic.config({
+	float = {
+		width = 65,
+	},
+})
+
 local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
 autocmd("TextYankPost", {
 	callback = function()
