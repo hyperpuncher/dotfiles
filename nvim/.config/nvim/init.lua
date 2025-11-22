@@ -89,6 +89,7 @@ local servers = {
 	svelte = {},
 	tailwindcss = {},
 	templ = {},
+	tinymist = {},
 	vtsls = {
 		filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
 		settings = {
@@ -120,6 +121,7 @@ local formatters = {
 	"stylua",
 	"taplo",
 	"templ",
+	"typstyle",
 	"prettierd",
 	"biome",
 }
@@ -172,6 +174,7 @@ local filetypes = {
 	"toml",
 	"tsx",
 	"typescript",
+	"typst",
 	"vue",
 	"yaml",
 }
@@ -329,6 +332,7 @@ require("lazy").setup({
 						typescript = { "biome-check", "rustywind" },
 						typescriptreact = { "biome-check", "rustywind" },
 						vue = { "prettierd" },
+						typst = { "typstyle" },
 						yaml = { "deno_fmt" },
 					},
 				},
