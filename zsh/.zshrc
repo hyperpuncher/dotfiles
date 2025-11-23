@@ -122,7 +122,7 @@ alias bt='bluetoothctl'
 alias drop='dragon-drop -x -a'
 alias cat='bat -pp'
 alias d='cd ~/dotfiles/'
-alias dev='pnpm dev || bun dev'
+alias dev='bun dev'
 alias fd='fd -HI'
 alias fzf='fzf --preview "bat --color=always {}" --preview-window=right:60%:wrap'
 alias fx='FX_SHOW_SIZE=true FX_LINE_NUMBERS=true fx'
@@ -149,7 +149,7 @@ alias udiskmount='udisksctl mount -b'
 alias v='nvim'
 alias wgdown='basename /proc/sys/net/ipv4/conf/*vpn | xargs sudo wg-quick down'
 alias wgup='sudo wg-quick up'
-alias screenrec='wl-screenrec --low-power=off --bitrate="20 MB" --max-fps=60 --codec=hevc'
+alias rec='wl-screenrec --low-power=off --bitrate="20 MB" --max-fps=60 --codec=hevc'
 
 # Set shell options: http://zsh.sourceforge.net/Doc/Release/Options.html.
 setopt glob_dots     # no special treatment for file names with a leading dot
