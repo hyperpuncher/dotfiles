@@ -124,6 +124,7 @@ local formatters = {
 	"typstyle",
 	"prettierd",
 	"biome",
+	"xmlformatter",
 }
 
 local linters = {
@@ -334,6 +335,7 @@ require("lazy").setup({
 						vue = { "prettierd" },
 						typst = { "typstyle" },
 						yaml = { "deno_fmt" },
+						xml = { "xmlformatter" },
 					},
 				},
 			},
