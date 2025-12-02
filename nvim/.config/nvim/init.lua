@@ -973,8 +973,8 @@ map("n", "-", function()
 	MiniFiles.reveal_cwd()
 end)
 
-map("v", "J", ":m '>+1<CR>gv=gv", { silent = true })
-map("v", "K", ":m '<-2<CR>gv=gv", { silent = true })
+map("x", "J", ":m '>+1<CR>gv=gv", { silent = true })
+map("x", "K", ":m '<-2<CR>gv=gv", { silent = true })
 
 map("n", "<leader>rn", ":IncRename ")
 
