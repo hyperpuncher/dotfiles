@@ -1062,3 +1062,5 @@ hl(0, "MiniStatuslineModeReplace", {
 vim.lsp.document_color.enable(true, 0, {
 	style = "virtual",
 })
+
+require("vim._extui").enable({})
