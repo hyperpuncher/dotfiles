@@ -2,6 +2,7 @@
 adw-gtk-theme
 age
 alacritty
+alsa-utils
 amd-ucode
 android-apktool
 android-file-transfer
@@ -17,6 +18,7 @@ base
 base-devel
 bat
 bc
+beat-saber-mod-manager-bin
 beekeeper-studio-bin
 bfg
 bind
@@ -24,6 +26,7 @@ biome
 blender
 blueman
 bluez-utils
+bs-manager-git
 btop
 btrfs-progs
 buildah
@@ -38,6 +41,7 @@ clinfo
 cliphist
 composer
 corectrl
+croc
 csvlens
 d2
 darkman
@@ -53,6 +57,7 @@ dialog
 difftastic
 direnv
 diskus
+dl-librescore
 docker-buildx
 docker-compose
 downgrade
@@ -85,7 +90,6 @@ gale-bin
 gamemode
 geoip
 ghostwriter
-gimp
 git
 git-delta
 github-cli
@@ -159,13 +163,13 @@ lite-xl
 llvm
 lnav
 localsend-bin
+losslesscut-bin
 loupe
 lua-jsregexp
 lua-luv
 luarocks
 man-db
 mangohud
-mangowc-git
 mediainfo
 mesa-utils
 micro
@@ -184,6 +188,7 @@ mumble
 nemo
 nemo-fileroller
 nemo-preview
+neothesia
 neovim-nightly-bin
 network-manager-applet
 networkmanager
@@ -197,12 +202,12 @@ noto-fonts-emoji
 npm
 nss-mdns
 nsz
+numr
 nvtop
 oatmeal-bin
 obs-studio
 ocrmypdf
 odin
-ondsel-es-appimage
 opencl-clhpp
 opencl-mesa
 opencode-bin
