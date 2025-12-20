@@ -40,6 +40,8 @@ opt.foldcolumn = "0"
 opt.foldlevel = 99
 opt.foldmethod = "expr"
 opt.foldexpr = "v:lua.vim.lsp.foldexpr()"
+opt.langmap =
+	"ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz"
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
