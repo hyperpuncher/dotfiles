@@ -1,0 +1,39 @@
+{
+	"font": {
+		"normal": {
+			"family": "CaskaydiaMono Nerd Font",
+			"size": 11
+		}
+	},
+	"launcher_window": {
+		"opacity": 0.95,
+		"client_side_decorations": {
+			"enabled": true,
+			"rounding": 11,
+			"border_width": 6
+		},
+		"dim_around": false,
+		"compact_mode": {
+			"enabled": true
+		},
+		"size": {
+			"width": 850,
+			"height": 650
+		}
+	},
+	"favorites": [],
+	"providers": {
+		"clipboard": {
+			"preferences": {
+				"eraseOnStartup": true
+			}
+		},
+		"developer": {
+			"enabled": false
+		},
+		"wm": {
+			"enabled": false
+		}
+	}
+}
+
