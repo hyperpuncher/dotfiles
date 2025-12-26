@@ -12,4 +12,4 @@ dark)
 esac
 
 runapp swaybg -i $WALLPAPER
-[ $(pgrep -c swaybg) -gt 1 ] && pkill -o swaybg
+[ $(pgrep -c swaybg) -gt 1 ] && sleep 1 && pkill -o swaybg
