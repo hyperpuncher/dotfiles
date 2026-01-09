@@ -4,7 +4,6 @@ age
 alacritty
 alsa-utils
 amd-ucode
-android-apktool
 android-file-transfer
 android-tools
 apple_cursor
@@ -126,7 +125,6 @@ hyprsunset
 identity
 ijq
 imagemagick
-informant
 inkscape
 inotify-tools
 inter-font
@@ -175,6 +173,7 @@ mesa-utils
 micro
 minio-client
 mitmproxy
+mkvtoolnix-cli
 mods
 mongodb-compass-bin
 mongodb-tools-bin
@@ -318,6 +317,7 @@ sshfs
 steam
 steamcmd
 stow
+sunshine
 svgo
 swaybg
 syncthing
@@ -353,7 +353,7 @@ udiskie
 ufw
 unarchiver
 unzip
-upscayl-bin
+upscaler
 upx
 usql
 uv
@@ -361,6 +361,7 @@ uwsm
 valkey
 ventoy-bin
 vial-appimage
+vicinae-bin
 video-trimmer
 virt-manager
 viu
@@ -381,6 +382,7 @@ wl-clipboard
 wl-screenrec
 wlr-randr
 wlsunset
+wrangler
 wtype
 xdg-desktop-portal-gtk
 xdg-desktop-portal-hyprland
@@ -391,6 +393,7 @@ xray
 xwayland-satellite
 yarn
 yt-dlp
+yt-dlp-ejs
 zed
 zen-browser-bin
 zip
