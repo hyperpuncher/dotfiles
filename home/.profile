@@ -1,5 +1,5 @@
 export GPG_TTY=$TTY
-export BROWSER=brave
+export BROWSER=zen-browser
 export EDITOR=nvim
 export MANPAGER='nvim +Man!'
 export TERM=xterm-256color

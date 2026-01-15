@@ -1,39 +1,129 @@
-{
-	"font": {
-		"normal": {
-			"family": "CaskaydiaMono Nerd Font",
-			"size": 11
-		}
-	},
-	"launcher_window": {
-		"opacity": 0.95,
-		"client_side_decorations": {
-			"enabled": true,
-			"rounding": 11,
-			"border_width": 6
-		},
-		"dim_around": false,
-		"compact_mode": {
-			"enabled": true
-		},
-		"size": {
-			"width": 850,
-			"height": 650
-		}
-	},
-	"favorites": [],
-	"providers": {
-		"clipboard": {
-			"preferences": {
-				"eraseOnStartup": true
-			}
-		},
-		"developer": {
-			"enabled": false
-		},
-		"wm": {
-			"enabled": false
-		}
-	}
-}
+// This configuration is merged with the default vicinae configuration file, which you can obtain by running the `vicinae config default` command.
+// Every item defined in this file takes precedence over the values defined in the default config or any other imported file.
+//
+// You can make manual edits to this file, however you should keep in mind that this file may be written to by vicinae when a configuration change is made through the GUI.
+// When that happens, any custom comments or formatting will be lost.
+//
+// If you want to maintain a configuration file with your own comments and formatting, you should create a separate file and add it to the 'imports' array.
+//
+// Learn more about configuration at https://docs.vicinae.com/config
 
+{
+   "$schema": "https://vicinae.com/schemas/config.json",
+   "font": {
+      "normal": {
+         "family": "CaskaydiaMono Nerd Font",
+         "size": 11
+      }
+   },
+   "launcher_window": {
+      "opacity": 0.95,
+      "client_side_decorations": {
+         "enabled": true,
+         "rounding": 11,
+         "border_width": 6
+      },
+      "size": {
+         "width": 800,
+         "height": 600
+      },
+      "dim_around": false,
+      "compact_mode": {
+         "enabled": true
+      }
+   },
+   "favorites": [],
+   "providers": {
+      "applications": {
+         "preferences": {
+            "paths": [
+               "/home/igor/.local/share/applications",
+               "/usr/share/applications"
+            ]
+         }
+      },
+      "calculator": {
+         "enabled": false
+      },
+      "clipboard": {
+         "preferences": {
+            "eraseOnStartup": true
+         },
+         "entrypoints": {
+            "history": {
+               "preferences": {
+                  "defaultAction": "copy"
+               }
+            }
+         }
+      },
+      "core": {
+         "entrypoints": {
+            "about": {
+               "enabled": false
+            },
+            "documentation": {
+               "enabled": false
+            },
+            "keybind-settings": {
+               "enabled": false
+            },
+            "manage-fallback": {
+               "enabled": false
+            },
+            "oauth-token-store": {
+               "enabled": false
+            },
+            "open-config-file": {
+               "enabled": false
+            },
+            "open-default-config": {
+               "enabled": false
+            },
+            "refresh-apps": {
+               "enabled": false
+            },
+            "report-bug": {
+               "enabled": false
+            },
+            "settings": {
+               "enabled": false
+            },
+            "sponsor": {
+               "enabled": false
+            }
+         }
+      },
+      "developer": {
+         "enabled": false
+      },
+      "power": {
+         "entrypoints": {
+            "hibernate": {
+               "enabled": false
+            },
+            "lock": {
+               "enabled": false
+            },
+            "sleep": {
+               "enabled": false
+            },
+            "soft-reboot": {
+               "enabled": false
+            },
+            "suspend": {
+               "enabled": false
+            }
+         }
+      },
+      "system": {
+         "enabled": false
+      },
+      "theme": {
+         "enabled": false
+      },
+      "wm": {
+         "enabled": false
+      }
+   }
+}
