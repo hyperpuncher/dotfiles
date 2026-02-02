@@ -1,22 +1,13 @@
 {
 	"$schema": "http://opencode.ai/config.json",
-	"theme": "my-theme",
+	"theme": "system",
 	"autoshare": false,
 	"autoupdate": false,
+	"default_agent": "plan",
 	"small_model": "openrouter/google/gemini-2.5-flash-lite-preview-09-2025",
+	"model": "opencode/kimi-k2.5-free",
 	"tui": {
 		"scroll_speed": 5
 	},
-	"mcp": {
-		"context7": {
-			"type": "local",
-			"command": ["bunx", "@upstash/context7-mcp"],
-			"enabled": true
-		},
-		"svelte": {
-			"type": "local",
-			"command": ["bunx", "@sveltejs/mcp"],
-			"enabled": true
-		}
-	}
+	"plugin": ["@sveltejs/opencode"]
 }
