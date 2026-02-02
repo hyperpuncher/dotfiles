@@ -67,14 +67,6 @@ element {
     border-radius:  16px;
 }
 
-// element normal active {
-//     text-color: @bg3;
-// }
-//
-// element alternate active {
-//     text-color: @bg3;
-// }
-
 element selected normal, element selected active {
 	background-color:   @bg-primary;
 	text-color:         @fg-primary;
