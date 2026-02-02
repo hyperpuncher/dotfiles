@@ -29,7 +29,7 @@ bs-manager-git
 btop
 btrfs-progs
 buildah
-bun-bin
+bun
 caddy
 caligula
 cargo-watch
@@ -88,7 +88,6 @@ fzf
 gale-bin
 gamemode
 geoip
-ghostwriter
 git
 git-delta
 github-cli
@@ -157,7 +156,6 @@ linux-firmware
 linux-headers
 linux-lts
 linux-lts-headers
-lite-xl
 llvm
 lnav
 localsend-bin
@@ -170,7 +168,6 @@ man-db
 mangohud
 mediainfo
 mesa-utils
-micro
 minio-client
 mitmproxy
 mkvtoolnix-cli
@@ -186,7 +183,6 @@ mtpfs
 mumble
 nemo
 nemo-fileroller
-nemo-preview
 neothesia
 neovim-nightly-bin
 network-manager-applet
@@ -296,7 +292,6 @@ sbctl
 sc-im
 scc
 sd
-sendme-bin
 shadowsocks-rust
 showmethekey
 sidequest-bin
@@ -361,7 +356,6 @@ uwsm
 valkey
 ventoy-bin
 vial-appimage
-vicinae-bin
 video-trimmer
 virt-manager
 viu
