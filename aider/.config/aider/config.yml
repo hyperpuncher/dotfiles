@@ -1,5 +1,0 @@
-model: openrouter/deepseek/deepseek-chat
-dark-mode: true
-code-theme: dracula
-analytics-disable: true
-editor: nvim
