@@ -922,7 +922,11 @@ end
 require("mason").setup()
 require("mason-lspconfig").setup()
 
-map("n", "K", vim.lsp.buf.hover)
+map("n", "K", function()
+	vim.lsp.buf.hover({
+		max_width = 65,
+	})
+end)
 map("n", "<leader>cp", vim.lsp.document_color.color_presentation)
 
 map({ "n", "i" }, "<MiddleMouse>", "<Nop>")
