@@ -969,6 +969,9 @@ map("n", "<C-f>", "<CMD>silent !tmux neww tmux-sessionizer<CR>")
 
 map("n", "<leader>d", vim.diagnostic.open_float)
 
+map("n", "x", '"_x')
+map("n", "X", '"_X')
+
 vim.diagnostic.config({
 	float = {
 		width = 65,
