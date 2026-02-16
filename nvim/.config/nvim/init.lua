@@ -843,7 +843,7 @@ require("lazy").setup({
 	{
 		"supermaven-inc/supermaven-nvim",
 		opts = {
-			ignore_filetypes = { "fff_input", "minifiles" },
+			ignore_filetypes = { "bigfile", "fff_input", "minifiles" },
 		},
 	},
 
