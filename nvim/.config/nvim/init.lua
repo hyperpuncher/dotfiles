@@ -129,7 +129,6 @@ local filetypes = {
 	"comment",
 	"cpp",
 	"css",
-	"csv",
 	"desktop",
 	"dockerfile",
 	"git_config",
