@@ -65,7 +65,14 @@ local servers = {
 	gopls = {},
 	html = {},
 	htmx = { filetypes = { "templ" } },
-	jsonls = {},
+	jsonls = {
+		settings = {
+			json = {
+				allowTrailingCommas = true,
+				allowComments = true,
+			},
+		},
+	},
 	lua_ls = { settings = { Lua = { diagnostics = { globals = { "vim" } } } } },
 	marksman = {},
 	ols = {},
