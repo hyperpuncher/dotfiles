@@ -371,9 +371,25 @@ require("lazy").setup({
 			},
 
 			completion = {
+				menu = {
+					draw = {
+						components = {
+							label = {
+								width = { max = 20 },
+							},
+							label_description = {
+								width = { max = 20 },
+							},
+						},
+					},
+				},
+
 				documentation = {
 					auto_show = true,
 					auto_show_delay_ms = 200,
+					window = {
+						max_width = 50,
+					},
 				},
 			},
 
@@ -972,7 +988,7 @@ map("n", "X", '"_X')
 
 vim.diagnostic.config({
 	float = {
-		width = 65,
+		max_width = 65,
 	},
 })
 
