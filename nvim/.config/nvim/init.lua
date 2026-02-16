@@ -950,8 +950,8 @@ map({ "i", "c" }, "<C-v>", "<C-R><C-R>+")
 map("n", "<C-s>", ":w<CR>")
 map({ "i", "v", "c" }, "<C-s>", "<Esc>:w<CR>")
 
-map("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+map({ "n", "v" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+map({ "n", "v" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 map("n", "-", function()
 	MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
