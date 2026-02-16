@@ -118,7 +118,6 @@ local formatters = {
 
 local linters = {
 	"golangci-lint",
-	"jsonlint",
 	"shellcheck",
 	"oxlint",
 }
@@ -343,7 +342,6 @@ require("lazy").setup({
 					}
 					lint.linters_by_ft = {
 						go = { "golangcilint" },
-						json = { "jsonlint" },
 						svelte = { "oxlint" },
 						javascript = { "oxlint" },
 						typescript = { "oxlint" },
