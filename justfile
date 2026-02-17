@@ -60,9 +60,9 @@ stow:
 # Update mirror list & refresh DB
 mirrors:
 	echo "Updating mirrors"
-	curl -s "https://archlinux.org/mirrorlist/?country=BY&country=DE&country=LV&country=LT&country=NL&country=PL&country=RU&protocol=http&protocol=https&ip_version=4&use_mirror_status=on" \
+	curl -s "https://archlinux.org/mirrorlist/?country=all&protocol=https&ip_version=4&use_mirror_status=on" \
 	| sed -e 's/^#Server/Server/' -e '/^#/d' \
-	| rankmirrors -n 5 -m 0.2 - \
+	| rankmirrors -p -n 5 -m 0.2 - \
 	| sudo tee /etc/pacman.d/mirrorlist
 	paru -Sy
 
