@@ -1,3 +1,16 @@
 #!/usr/bin/env dash
 
-hyprctl -j clients | jq --argjson id "$(hyprctl -j activeworkspace | jq -r '.id')" -r '.[] | select(.workspace.id == $id) | "\(.at[0] + 1),\(.at[1] + 1) \(.size[0] - 1)x\(.size[1] - 1)"' | slurp -r -b '#00000000' -s '#FFFFFF1A' -B '#00000000' -c '#FFFFFFFF'
+workspace_id=$(hyprctl -j activeworkspace | jq -r '.id')
+
+hyprctl -j clients |
+	jq \
+		--argjson id "$workspace_id" \
+		-r '.[] 
+        | select(.workspace.id == $id) 
+        | "\(.at[0] + 1),\(.at[1] + 1) \(.size[0] - 1)x\(.size[1] - 1)"' |
+	slurp \
+		-r \
+		-w 0 \
+		-b '#00000000' \
+		-B '#00000000' \
+		-s '#ffffff4d'
