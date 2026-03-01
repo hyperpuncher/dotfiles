@@ -12,7 +12,6 @@ arduino-cli
 aria2
 assimp
 atool
-audacity
 base
 base-devel
 bat
@@ -25,7 +24,7 @@ biome
 blender
 blueman
 bluez-utils
-bs-manager-git
+bs-manager-bin
 btop
 btrfs-progs
 buildah
@@ -35,6 +34,7 @@ caligula
 cargo-watch
 ccache
 chafa
+chough-bin
 clang
 clinfo
 cliphist
@@ -98,6 +98,8 @@ gnome-keyring
 gnome-sound-recorder
 go
 godot
+golangci-lint
+goreleaser
 gparted
 greetd-tuigreet
 grim
@@ -181,6 +183,7 @@ mosh
 mpv
 mtpfs
 mumble
+namcap
 nemo
 nemo-fileroller
 neothesia
@@ -205,7 +208,7 @@ ocrmypdf
 odin
 opencl-clhpp
 opencl-mesa
-opencode-bin
+opencode
 openmp
 openscad
 openssh
@@ -225,6 +228,7 @@ perl-image-exiftool
 pgformatter
 php
 php-sqlite
+pi-coding-agent
 pigz
 pipewire
 pipewire-alsa
@@ -244,6 +248,7 @@ postgresql
 procs
 progress
 proton-ge-custom-bin
+protontricks
 proxmark3
 python-aubio
 python-beautifulsoup4
@@ -268,7 +273,7 @@ qt5-imageformats
 qt5-wayland
 qt6-wayland
 qt6ct
-quickemu-git
+quickemu
 qutebrowser
 rebuild-detector
 redisinsight-bin
@@ -276,7 +281,6 @@ remmina
 retroarch
 retroarch-assets-ozone
 ripgrep
-river
 rocm-hip-runtime
 rocm-opencl-runtime
 rofi
@@ -293,6 +297,8 @@ sc-im
 scc
 sd
 shadowsocks-rust
+shellcheck
+shfmt
 showmethekey
 sidequest-bin
 sidequestlite-bin
@@ -336,7 +342,6 @@ ttf-fantasque-nerd
 ttf-geist-mono-variable
 ttf-iosevka-nerd
 ttf-iosevkaterm-nerd
-ttf-ms-win11-auto
 ttf-nunito
 ttf-roboto
 ttf-rubik-vf
@@ -344,11 +349,12 @@ ttf-space-mono-nerd
 ttf-ubuntu-font-family
 ttf-ubuntu-mono-nerd
 typst
+typstyle
 udiskie
 ufw
 unarchiver
 unzip
-upscaler
+upscayl-bin
 upx
 usql
 uv
@@ -364,8 +370,6 @@ vulkan-tools
 waybar
 webos-dev-manager-bin
 wget
-whisper.cpp-model-base
-whisper.cpp-model-large-v3
 wine-mono
 winetricks
 wireguard-tools
@@ -385,6 +389,7 @@ xorg-server-xvfb
 xorg-xhost
 xray
 xwayland-satellite
+yaak-bin
 yarn
 yt-dlp
 yt-dlp-ejs
