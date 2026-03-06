@@ -1,0 +1,5 @@
+#!/usr/bin/env dash
+
+prompt=$1
+
+pi --provider openrouter --model inception/mercury-2 -p "$prompt \noutput only what asked" | glow -
