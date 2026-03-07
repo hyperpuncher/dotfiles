@@ -1,0 +1,32 @@
+background-color=#ffffffe6
+text-color=#0f0f0fe6
+border-color=#00000033
+font=monospace 11
+border-radius=9
+border-size=3
+padding=8,12
+margin=4
+outer-margin=10
+icon-path=/usr/share/icons/Papirus-Dark
+max-icon-size=32
+width=240
+default-timeout=4000
+
+[urgency=low]
+background-color=#030303e6
+text-color=#dddddde6
+default-timeout=2000
+
+[urgency=normal]
+default-timeout=4000
+
+[urgency=high]
+background-color=#e11233e6
+text-color=#ffffffe6
+border-color=#ff000033
+default-timeout=0
+
+[app-name=shopot]
+width=200
+
+# vim: ft=cfg
