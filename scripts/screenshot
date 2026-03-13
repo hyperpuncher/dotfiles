@@ -32,12 +32,25 @@ done
 shift $((OPTIND - 1))
 
 # ------------- helpers -------------
+cleanup() {
+	[ -n "$TMPDIR" ] && rm -rf "$TMPDIR"
+}
+
 round_corners() {
-	magick - \
-		\( +clone -alpha extract -fill black -colorize 100 \
-		-fill white -draw "roundRectangle 0,0 %[fx:w-1],%[fx:h-1] 14,14" \
-		-alpha off \) \
-		-compose CopyOpacity -composite "$IMG"
+	TMPDIR=$(mktemp -d /tmp/screenshot_XXXXXX)
+	trap cleanup EXIT INT TERM
+
+	cat >"$TMPDIR/img.v"
+
+	W=$(vipsheader -f width "$TMPDIR/img.v")
+	H=$(vipsheader -f height "$TMPDIR/img.v")
+
+	# Create SVG mask
+	printf '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 %s %s"><rect rx="14" width="%s" height="%s" fill="white"/></svg>' "$W" "$H" "$W" "$H" >"$TMPDIR/mask.svg"
+
+	# Extract alpha from SVG and join with image
+	vips extract_band "$TMPDIR/mask.svg" "$TMPDIR/mask.v" 3
+	vips bandjoin "$TMPDIR/img.v $TMPDIR/mask.v" "$IMG"
 }
 
 # ------------- main -------------
@@ -49,7 +62,7 @@ f) grim "$IMG" ;;
 w)
 	grim -g "$(hyprctl -j activewindow 2>/dev/null |
 		jq -r '"\(.at[0] + 1),\(.at[1] + 1) \(.size[0] - 1)x\(.size[1] - 1)"')" - |
-		round_corners "$IMG"
+		round_corners
 	;;
 s) grim -g "$(slurp -d -w 1 -F "Iosevka Nerd Font")" "$IMG" ;;
 esac
