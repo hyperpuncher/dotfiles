@@ -1063,7 +1063,7 @@ hl(0, "MiniStatuslineModeReplace", {
 	bold = true,
 })
 
-vim.lsp.document_color.enable(true, 0, {
+vim.lsp.document_color.enable(true, nil, {
 	style = "virtual",
 })
 
