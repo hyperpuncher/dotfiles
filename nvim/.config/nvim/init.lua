@@ -745,12 +745,21 @@ require("lazy").setup({
 		opts = {
 			prompt = "> ",
 			layout = {
-				height = 0.7,
+				height = 0.5,
 				width = 0.7,
 				preview_position = "top",
 			},
 			preview = {
 				enabled = false,
+			},
+			hl = {
+				border = "Comment",
+			},
+			keymaps = {
+				cycle_grep_modes = "<C-m>",
+			},
+			grep = {
+				trim_whitespace = true,
 			},
 		},
 		keys = {
@@ -760,6 +769,17 @@ require("lazy").setup({
 					require("fff").find_files()
 				end,
 				desc = "Open file picker",
+			},
+			{
+				"<leader>/",
+				function()
+					require("fff").live_grep({
+						grep = {
+							modes = { "plain", "fuzzy" },
+						},
+					})
+				end,
+				desc = "Live fffuzy grep",
 			},
 		},
 	},
