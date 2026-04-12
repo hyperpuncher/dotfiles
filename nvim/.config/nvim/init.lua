@@ -487,9 +487,7 @@ require("lazy").setup({
 					},
 				},
 				layout = {
-					preset = function()
-						return vim.o.columns >= 200 and "default" or "vertical"
-					end,
+					preset = "dropdown",
 				},
 			},
 			lazygit = {},
@@ -506,21 +504,6 @@ require("lazy").setup({
 			},
 		},
 		keys = {
-			-- Top Pickers & Explorer
-			{
-				"<leader>,",
-				function()
-					Snacks.picker.buffers()
-				end,
-				desc = "Buffers",
-			},
-			{
-				"<leader>/",
-				function()
-					Snacks.picker.grep()
-				end,
-				desc = "Grep",
-			},
 			{
 				"<leader>:",
 				function()
@@ -534,50 +517,6 @@ require("lazy").setup({
 					Snacks.picker.notifications()
 				end,
 				desc = "Notification History",
-			},
-			--find
-			{
-				"<leader>ff",
-				function()
-					Snacks.picker.files()
-				end,
-				desc = "Find Files",
-			},
-			{
-				"<leader>fg",
-				function()
-					Snacks.picker.git_files()
-				end,
-				desc = "Find Git Files",
-			},
-			-- git
-			{
-				"<leader>gb",
-				function()
-					Snacks.picker.git_branches()
-				end,
-				desc = "Git Branches",
-			},
-			{
-				"<leader>gl",
-				function()
-					Snacks.picker.git_log()
-				end,
-				desc = "Git Log",
-			},
-			{
-				"<leader>gs",
-				function()
-					Snacks.picker.git_status()
-				end,
-				desc = "Git Status",
-			},
-			{
-				"<leader>gS",
-				function()
-					Snacks.picker.git_stash()
-				end,
-				desc = "Git Stash",
 			},
 			-- Grep
 			{
@@ -594,35 +533,6 @@ require("lazy").setup({
 				end,
 				desc = "Visual selection or word",
 				mode = { "n", "x" },
-			},
-			-- search
-			{
-				'<leader>s"',
-				function()
-					Snacks.picker.registers()
-				end,
-				desc = "Registers",
-			},
-			{
-				"<leader>s/",
-				function()
-					Snacks.picker.search_history()
-				end,
-				desc = "Search History",
-			},
-			{
-				"<leader>sb",
-				function()
-					Snacks.picker.lines()
-				end,
-				desc = "Buffer Lines",
-			},
-			{
-				"<leader>sc",
-				function()
-					Snacks.picker.command_history()
-				end,
-				desc = "Command History",
 			},
 			{
 				"<leader>sC",
@@ -653,13 +563,6 @@ require("lazy").setup({
 				desc = "Help Pages",
 			},
 			{
-				"<leader>sH",
-				function()
-					Snacks.picker.highlights()
-				end,
-				desc = "Highlights",
-			},
-			{
 				"<leader>si",
 				function()
 					Snacks.picker.icons()
@@ -679,20 +582,6 @@ require("lazy").setup({
 					Snacks.picker.keymaps()
 				end,
 				desc = "Keymaps",
-			},
-			{
-				"<leader>sl",
-				function()
-					Snacks.picker.loclist()
-				end,
-				desc = "Location List",
-			},
-			{
-				"<leader>sm",
-				function()
-					Snacks.picker.marks()
-				end,
-				desc = "Marks",
 			},
 			{
 				"<leader>sM",
@@ -810,26 +699,11 @@ require("lazy").setup({
 				desc = "Rename File",
 			},
 			{
-				"<leader>gB",
-				function()
-					Snacks.gitbrowse()
-				end,
-				desc = "Git Browse",
-				mode = { "n", "v" },
-			},
-			{
 				"<leader>gg",
 				function()
 					Snacks.lazygit()
 				end,
 				desc = "Lazygit",
-			},
-			{
-				"<leader>un",
-				function()
-					Snacks.notifier.hide()
-				end,
-				desc = "Dismiss All Notifications",
 			},
 		},
 	},
