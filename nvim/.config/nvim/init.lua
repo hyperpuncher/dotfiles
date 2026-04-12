@@ -431,34 +431,6 @@ require("lazy").setup({
 	{ "hiphish/rainbow-delimiters.nvim", submodules = false },
 
 	{
-		"ThePrimeagen/harpoon",
-		branch = "harpoon2",
-		dependencies = { "nvim-lua/plenary.nvim" },
-		config = function()
-			local harpoon = require("harpoon")
-
-			map("n", "<leader>a", function()
-				harpoon:list():add()
-			end)
-			map("n", "<leader>hb", function()
-				harpoon.ui:toggle_quick_menu(harpoon:list())
-			end)
-			map("n", "<leader>j", function()
-				harpoon:list():select(1)
-			end)
-			map("n", "<leader>k", function()
-				harpoon:list():select(2)
-			end)
-			map("n", "<leader>l", function()
-				harpoon:list():select(3)
-			end)
-			map("n", "<leader>;", function()
-				harpoon:list():select(4)
-			end)
-		end,
-	},
-
-	{
 		"codethread/qmk.nvim",
 		lazy = true,
 		config = function()
