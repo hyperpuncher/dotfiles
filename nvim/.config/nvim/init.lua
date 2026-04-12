@@ -22,6 +22,7 @@ opt.pumheight = 10 -- Maximum number of entries in a popup
 opt.scrolloff = 10
 opt.shiftround = true
 opt.shiftwidth = 4
+opt.shortmess = opt.shortmess .. "I"
 opt.showmode = false
 opt.signcolumn = "yes"
 opt.smartcase = true
