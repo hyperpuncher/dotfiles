@@ -143,7 +143,6 @@ local filetypes = {
 	"javascript",
 	"jq",
 	"json",
-	"jsonc",
 	"jsx",
 	"just",
 	"lua",
