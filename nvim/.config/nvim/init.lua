@@ -1040,4 +1040,4 @@ vim.lsp.document_color.enable(true, nil, {
 	style = "virtual",
 })
 
-require("vim._extui").enable({})
+require("vim._core.ui2").enable({})
