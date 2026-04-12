@@ -230,6 +230,12 @@ require("lazy").setup({
 		build = "make nvim-install",
 	},
 
+	{
+		"YuryKL/tree-sitter-datastar",
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
+		build = "./install.sh nvim",
+	},
+
 	{ "nvim-tree/nvim-web-devicons", opts = {} },
 
 	{
