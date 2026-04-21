@@ -254,6 +254,33 @@ require("lazy").setup({
 				LspInlayHint = { fg = "#636363", bg = "None", italic = true },
 			},
 		},
+		setup = function()
+			hl(0, "MiniStatuslineModeNormal", {
+				fg = "#111111",
+				bg = "#bd93f9",
+				bold = true,
+			})
+			hl(0, "MiniStatuslineModeVisual", {
+				fg = "#111111",
+				bg = "#ff79c6",
+				bold = true,
+			})
+			hl(0, "MiniStatuslineModeInsert", {
+				fg = "#111111",
+				bg = "#50fa7b",
+				bold = true,
+			})
+			hl(0, "MiniStatuslineModeCommand", {
+				fg = "#111111",
+				bg = "#8be9fd",
+				bold = true,
+			})
+			hl(0, "MiniStatuslineModeReplace", {
+				fg = "#111111",
+				bg = "#f1fa8c",
+				bold = true,
+			})
+		end,
 	},
 
 	{
@@ -896,32 +923,6 @@ vim.filetype.add({
 })
 
 vim.cmd.colorscheme("dracula")
-hl(0, "YankHighlight", { fg = "#131412", bg = "#E2E3E3" })
-hl(0, "MiniStatuslineModeNormal", {
-	fg = "#111111",
-	bg = "#bd93f9",
-	bold = true,
-})
-hl(0, "MiniStatuslineModeVisual", {
-	fg = "#111111",
-	bg = "#ff79c6",
-	bold = true,
-})
-hl(0, "MiniStatuslineModeInsert", {
-	fg = "#111111",
-	bg = "#50fa7b",
-	bold = true,
-})
-hl(0, "MiniStatuslineModeCommand", {
-	fg = "#111111",
-	bg = "#8be9fd",
-	bold = true,
-})
-hl(0, "MiniStatuslineModeReplace", {
-	fg = "#111111",
-	bg = "#f1fa8c",
-	bold = true,
-})
 
 vim.lsp.document_color.enable(true, nil, {
 	style = "virtual",
