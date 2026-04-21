@@ -799,10 +799,6 @@ require("lazy").setup({
 	},
 })
 
-autocmd("FileType", {
-	command = "set formatoptions-=cro",
-})
-
 for server_name, config in pairs(servers) do
 	vim.lsp.config(server_name, config)
 end
@@ -864,26 +860,17 @@ vim.diagnostic.config({
 	},
 })
 
-local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
+hl(0, "YankHighlight", { fg = "#131412", bg = "#E2E3E3" })
 autocmd("TextYankPost", {
 	callback = function()
 		vim.hl.on_yank({ higroup = "YankHighlight" })
 	end,
-	group = highlight_group,
-	pattern = "*",
 })
 
-autocmd({ "BufRead", "BufNewFile" }, {
-	pattern = "ikiosuru.py",
-	callback = function()
-		vim.diagnostic.enable(false)
-	end,
-})
-
-autocmd("BufEnter", {
-	pattern = ".env",
+autocmd({ "BufRead", "BufNewFile", "BufEnter" }, {
+	pattern = { "ikiosuru.py", ".env" },
 	callback = function(args)
-		vim.diagnostic.enable(false, args)
+		vim.diagnostic.enable(false, args.buf)
 	end,
 })
 
@@ -893,18 +880,19 @@ autocmd("InsertLeave", {
 	end,
 })
 
-autocmd({ "BufNewFile", "BufRead" }, {
-	pattern = { "Caddyfile", "*/Caddyfile", "*Caddyfile*" },
+autocmd("FileType", {
 	callback = function()
-		vim.bo.filetype = "caddy"
+		vim.opt.formatoptions:remove({ "c", "r", "o" })
 	end,
 })
 
-autocmd({ "BufNewFile", "BufRead" }, {
-	pattern = { "*.d2" },
-	callback = function()
-		vim.bo.filetype = "d2"
-	end,
+vim.filetype.add({
+	extension = {
+		d2 = "d2",
+	},
+	filename = {
+		Caddyfile = "caddy",
+	},
 })
 
 vim.cmd.colorscheme("dracula")
