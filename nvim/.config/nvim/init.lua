@@ -168,10 +168,6 @@ local filetypes = {
 	"yaml",
 }
 
-local ensure_installed = vim.tbl_keys(servers)
-vim.list_extend(ensure_installed, formatters)
-vim.list_extend(ensure_installed, linters)
-
 require("lazy").setup({
 
 	{
@@ -287,12 +283,12 @@ require("lazy").setup({
 	{
 		"neovim/nvim-lspconfig",
 		dependencies = {
-			{ "mason-org/mason.nvim" },
-			{ "mason-org/mason-lspconfig.nvim" },
+			{ "mason-org/mason.nvim", opts = { max_concurrent_installers = 10 } },
+			{ "mason-org/mason-lspconfig.nvim", opts = {} },
 			{
 				"WhoIsSethDaniel/mason-tool-installer.nvim",
 				opts = {
-					ensure_installed = ensure_installed,
+					ensure_installed = vim.list_extend(vim.list_extend(vim.tbl_keys(servers), formatters), linters),
 					auto_update = true,
 				},
 			},
@@ -827,12 +823,9 @@ require("lazy").setup({
 	},
 })
 
-for server_name, config in pairs(servers) do
-	vim.lsp.config(server_name, config)
+for name, config in pairs(servers) do
+	vim.lsp.config(name, config)
 end
-
-require("mason").setup()
-require("mason-lspconfig").setup()
 
 map("n", "K", function()
 	vim.lsp.buf.hover({
