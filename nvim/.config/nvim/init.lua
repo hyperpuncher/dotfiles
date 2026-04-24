@@ -162,6 +162,7 @@ local filetypes = {
 	"toml",
 	"tsx",
 	"typescript",
+	"typescriptreact",
 	"typst",
 	"vue",
 	"yaml",
@@ -910,6 +911,13 @@ autocmd("InsertLeave", {
 autocmd("FileType", {
 	callback = function()
 		vim.opt.formatoptions:remove({ "c", "r", "o" })
+	end,
+})
+
+autocmd("FileType", {
+	pattern = { "javascriptreact", "typescriptreact" },
+	callback = function()
+		vim.bo.commentstring = "{/* %s */}"
 	end,
 })
 
