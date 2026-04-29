@@ -228,9 +228,10 @@ require("lazy").setup({
 	},
 
 	{
-		"YuryKL/tree-sitter-datastar",
+		"hyperpuncher/tree-sitter-datastar",
+		branch = "feat/jsx-support",
 		dependencies = { "nvim-treesitter/nvim-treesitter" },
-		build = "./install.sh nvim",
+		build = "./install.sh nvim html,templ,jsx,tsx",
 	},
 
 	{ "nvim-tree/nvim-web-devicons", opts = {} },
