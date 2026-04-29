@@ -19,7 +19,8 @@ opt.ignorecase = true
 opt.inccommand = "split"
 opt.mouse = "a"
 opt.pumheight = 10 -- Maximum number of entries in a popup
-opt.scrolloff = 10
+opt.scrolloff = 99
+opt.scrolloffpad = 1
 opt.shiftround = true
 opt.shiftwidth = 4
 opt.shortmess = opt.shortmess .. "I"
@@ -843,11 +844,6 @@ map("n", "<C-j>", "<C-w><C-j>")
 map("n", "<C-k>", "<C-w><C-k>")
 map("n", "<C-l>", "<C-w><C-l>")
 
-map("n", "<C-d>", "0<C-d>zz")
-map("n", "<C-u>", "0<C-u>zz")
-map("n", "G", "0Gzz")
-map("n", "N", "Nzz")
-map("n", "n", "nzz")
 map({ "n", "v" }, "<Space>", "<Nop>")
 map("n", "<C-a>", "ggVG")
 map({ "i", "c" }, "<C-v>", "<C-R><C-R>+")
