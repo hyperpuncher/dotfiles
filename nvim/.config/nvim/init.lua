@@ -457,8 +457,6 @@ require("lazy").setup({
 		},
 	},
 
-	{ "smjonas/inc-rename.nvim", opts = {} },
-
 	{ "hiphish/rainbow-delimiters.nvim", submodules = false },
 
 	{
@@ -863,7 +861,7 @@ end)
 map("x", "J", ":m '>+1<CR>gv=gv", { silent = true })
 map("x", "K", ":m '<-2<CR>gv=gv", { silent = true })
 
-map("n", "<leader>rn", ":IncRename ")
+map("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename" })
 
 map("n", "<C-f>", "<CMD>silent !tmux neww tmux-sessionizer<CR>")
 
