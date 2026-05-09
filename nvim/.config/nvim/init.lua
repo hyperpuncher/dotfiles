@@ -234,6 +234,11 @@ require("lazy").setup({
 		build = "./install.sh nvim html,templ,jsx,tsx",
 	},
 
+	{
+		"hyperpuncher/datastar-lsp",
+		opts = {},
+	},
+
 	{ "nvim-tree/nvim-web-devicons", opts = {} },
 
 	{
