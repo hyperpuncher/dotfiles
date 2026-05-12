@@ -75,7 +75,19 @@ local servers = {
 			},
 		},
 	},
-	lua_ls = { settings = { Lua = { diagnostics = { globals = { "vim" } } } } },
+	lua_ls = {
+		settings = {
+			Lua = {
+				workspace = {
+					library = {
+						"/usr/share/hypr/stubs",
+						vim.env.VIMRUNTIME,
+					},
+				},
+				diagnostics = { globals = { "hl", "vim" } },
+			},
+		},
+	},
 	marksman = {},
 	ols = {},
 	openscad_lsp = {},
