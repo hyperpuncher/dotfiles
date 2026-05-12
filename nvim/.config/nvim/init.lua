@@ -175,7 +175,6 @@ local filetypes = {
 	"toml",
 	"tsx",
 	"typescript",
-	"typescriptreact",
 	"typst",
 	"vue",
 	"yaml",
@@ -191,7 +190,7 @@ require("lazy").setup({
 		config = function()
 			require("nvim-treesitter").install(filetypes)
 
-			for _, filetype in ipairs(filetypes) do
+			for _, filetype in ipairs(vim.list_extend(filetypes, { "javascriptreact", "typescriptreact" })) do
 				autocmd("FileType", {
 					pattern = { filetype },
 					callback = function()
