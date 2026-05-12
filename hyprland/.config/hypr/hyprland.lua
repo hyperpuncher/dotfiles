@@ -305,9 +305,9 @@ hl.bind(mod .. " + SHIFT + t", hl.dsp.window.move({ workspace = "3" }))
 hl.bind(mod .. " + SHIFT + s", hl.dsp.window.move({ workspace = "4" }))
 hl.bind(mod .. " + SHIFT + w", hl.dsp.window.move({ workspace = "5" }))
 
-hl.bind(mod .. " + n", hl.dsp.workspace.toggle_special({ "notes" }))
-hl.bind(mod .. " + m", hl.dsp.workspace.toggle_special({ "calculator" }))
-hl.bind(mod .. " + a", hl.dsp.workspace.toggle_special({ "chatski" }))
+hl.bind(mod .. " + n", hl.dsp.workspace.toggle_special("notes"))
+hl.bind(mod .. " + m", hl.dsp.workspace.toggle_special("calculator"))
+hl.bind(mod .. " + a", hl.dsp.workspace.toggle_special("chatski"))
 
 hl.bind(mod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
 hl.bind(mod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
