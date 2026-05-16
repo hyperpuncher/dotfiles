@@ -248,7 +248,9 @@ require("lazy").setup({
 
 	{
 		"hyperpuncher/datastar-lsp",
-		opts = {},
+		opts = {
+			cmd = { "/home/igor/projects/datastar-lsp/target/release/datastar-lsp" },
+		},
 	},
 
 	{ "nvim-tree/nvim-web-devicons", opts = {} },
