@@ -8,6 +8,7 @@ vim.g.mapleader = " "
 opt.sessionoptions = "buffers,curdir,folds,help,tabpages,winsize,winpos,terminal"
 opt.winborder = "rounded"
 opt.pumborder = "rounded"
+opt.cursorline = true
 opt.breakindent = true
 opt.linebreak = true
 opt.breakat = " ^I!@*+;:,./?"
