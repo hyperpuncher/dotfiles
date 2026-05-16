@@ -410,6 +410,9 @@ require("lazy").setup({
 								"--use-tabs=true",
 							},
 						},
+						dsfmt = {
+							command = vim.fn.expand("~/projects/dsfmt/target/release/dsfmt"),
+						},
 					},
 					formatters_by_ft = {
 						astro = { "prettierd" },
@@ -435,7 +438,7 @@ require("lazy").setup({
 						templ = { "templ", "rustywind" },
 						toml = { "oxfmt" },
 						typescript = { "oxfmt" },
-						typescriptreact = { "oxfmt" },
+						typescriptreact = { "dsfmt", "oxfmt" },
 						typst = { "typstyle" },
 						vue = { "oxfmt" },
 						xml = { "xmlformatter" },
