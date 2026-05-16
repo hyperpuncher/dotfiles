@@ -300,6 +300,79 @@ require("lazy").setup({
 	},
 
 	{
+		"catppuccin/nvim",
+		name = "catppuccin",
+		priority = 1000,
+		opts = {
+			flavour = "auto",
+			transparent_background = true,
+			float = {
+				transparent = true,
+			},
+			color_overrides = {
+				mocha = {
+					rosewater = "#f5e0dc",
+					flamingo = "#f2cdcd",
+					pink = "#f5c2e7",
+					mauve = "#cba6f7",
+					red = "#f38ba8",
+					maroon = "#eba0ac",
+					peach = "#fab387",
+					yellow = "#f9e2af",
+					green = "#a6e3a1",
+					teal = "#94e2d5",
+					sky = "#89dceb",
+					sapphire = "#74c7ec",
+					blue = "#89b4fa",
+					lavender = "#b4befe",
+					text = "#e1e1e1",
+					subtext1 = "#c3c3c3",
+					subtext0 = "#aeaeae",
+					overlay2 = "#9a9a9a",
+					overlay1 = "#858585",
+					overlay0 = "#717171",
+					surface2 = "#5c5c5c",
+					surface1 = "#494949",
+					surface0 = "#343434",
+					base = "#202020",
+					mantle = "#191919",
+					crust = "#121212",
+				},
+			},
+			custom_highlights = function(colors)
+				return {
+					Comment = { fg = colors.surface2 },
+					CursorLine = { bg = colors.base },
+					FloatBorder = { fg = colors.overlay2 },
+					PmenuSel = { bg = colors.surface0 },
+					Visual = { bg = colors.surface0 },
+					VisualNOS = { bg = colors.surface0 },
+					MiniStatuslineDevinfo = { bg = colors.base },
+					MiniStatuslineFileinfo = { bg = colors.base },
+					MiniStatuslineFilename = { bg = colors.base },
+					MiniStatuslineInactive = { bg = colors.base },
+				}
+			end,
+		},
+	},
+
+	-- {
+	-- 	"f-person/auto-dark-mode.nvim",
+	-- 	opts = {
+	-- 		{
+	-- 			set_dark_mode = function()
+	-- 				vim.cmd.colorscheme("catppuccin-mocha")
+	-- 			end,
+	-- 			set_light_mode = function()
+	-- 				vim.cmd.colorscheme("catppuccin-latte")
+	-- 			end,
+	-- 			update_interval = 3000,
+	-- 			fallback = "dark",
+	-- 		},
+	-- 	},
+	-- },
+
+	{
 		"neovim/nvim-lspconfig",
 		dependencies = {
 			{ "mason-org/mason.nvim", opts = { max_concurrent_installers = 10 } },
@@ -935,7 +1008,7 @@ vim.filetype.add({
 	},
 })
 
-vim.cmd.colorscheme("dracula")
+vim.cmd.colorscheme("catppuccin")
 
 vim.lsp.document_color.enable(true, nil, {
 	style = "virtual",
