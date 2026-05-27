@@ -1,6 +1,6 @@
 local terminal = "foot"
 local file_manager = "nemo"
-local browser = "zen-browser"
+local browser = "helium-browser"
 
 -- monitor
 
