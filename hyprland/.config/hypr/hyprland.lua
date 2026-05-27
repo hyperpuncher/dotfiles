@@ -47,7 +47,7 @@ suppressMaximizeRule:set_enabled(true)
 hl.window_rule({
 	name = "telegram",
 	match = { class = "org.telegram.desktop" },
-	workspace = 3,
+	workspace = "3 silent",
 	pseudo = true,
 	size = { 1002, 1392 },
 })
@@ -84,13 +84,13 @@ hl.window_rule({
 hl.window_rule({
 	name = "spotify",
 	match = { class = "spotify" },
-	workspace = 4,
+	workspace = "4",
 })
 
 hl.window_rule({
 	name = "steam",
 	match = { class = "steam" },
-	workspace = 5,
+	workspace = "5 silent",
 })
 
 hl.window_rule({
@@ -120,7 +120,7 @@ hl.window_rule({
 hl.window_rule({
 	name = "foot",
 	match = { class = "foot" },
-	size = { 1416, 1416 },
+	size = { 1249, 1426 },
 })
 
 hl.window_rule({
