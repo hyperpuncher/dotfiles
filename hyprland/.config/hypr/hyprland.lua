@@ -265,18 +265,14 @@ hl.bind(
 hl.bind(mod .. " + RETURN", hl.dsp.exec_cmd(terminal))
 hl.bind(mod .. " + e", hl.dsp.exec_cmd(file_manager))
 hl.bind(mod .. " + b", hl.dsp.exec_cmd(browser))
-hl.bind(mod .. " + x", hl.dsp.window.kill())
 hl.bind(mod .. " + d", hl.dsp.exec_cmd("rofi -show drun -display-drun 'apps' -run-command 'runapp {cmd}'"))
-hl.bind(mod .. " + q", hl.dsp.window.close())
-hl.bind(mod .. " + p", hl.dsp.window.pseudo())
-hl.bind(mod .. " + f", hl.dsp.window.fullscreen())
-hl.bind(mod .. " + SHIFT + f", hl.dsp.window.float())
 hl.bind(mod .. " + bracketleft", hl.dsp.exec_cmd("rofi -show emoji"))
 
-hl.bind(mod .. " + c", hl.dsp.send_shortcut({ mods = "CTRL", key = "Insert" }))
-hl.bind(mod .. " + v", hl.dsp.send_shortcut({ mods = "SHIFT", key = "Insert" }))
-hl.bind(mod .. " + a", hl.dsp.send_shortcut({ mods = "CTRL", key = "a" }))
-hl.bind(mod .. " + z", hl.dsp.send_shortcut({ mods = "CTRL", key = "z" }))
+hl.bind(mod .. " + SHIFT + k", hl.dsp.window.kill())
+hl.bind(mod .. " + q", hl.dsp.window.close())
+hl.bind(mod .. " + p", hl.dsp.window.pseudo())
+hl.bind(mod .. " + f", hl.dsp.window.fullscreen({ mode = "maximized" }))
+hl.bind(mod .. " + SHIFT + f", hl.dsp.window.float())
 
 hl.bind(mod .. " + h", hl.dsp.focus({ direction = "l" }))
 hl.bind(mod .. " + l", hl.dsp.focus({ direction = "r" }))
@@ -288,10 +284,10 @@ hl.bind(mod .. " + CTRL + l", hl.dsp.window.move({ direction = "r" }))
 hl.bind(mod .. " + CTRL + k", hl.dsp.window.move({ direction = "u" }))
 hl.bind(mod .. " + CTRL + j", hl.dsp.window.move({ direction = "d" }))
 
-hl.bind("ALT + h", hl.dsp.window.resize({ x = -50, y = 0 }))
-hl.bind("ALT + l", hl.dsp.window.resize({ x = 50, y = 0 }))
-hl.bind("ALT + k", hl.dsp.window.resize({ x = 0, y = -50 }))
-hl.bind("ALT + j", hl.dsp.window.resize({ x = 0, y = 50 }))
+hl.bind("ALT + h", hl.dsp.window.resize({ x = -50, y = 0, relative = true }), { repeating = true })
+hl.bind("ALT + l", hl.dsp.window.resize({ x = 50, y = 0, relative = true }), { repeating = true })
+hl.bind("ALT + k", hl.dsp.window.resize({ x = 0, y = -50, relative = true }), { repeating = true })
+hl.bind("ALT + j", hl.dsp.window.resize({ x = 0, y = 50, relative = true }), { repeating = true })
 
 hl.bind(mod .. " + g", hl.dsp.focus({ workspace = "1" }))
 hl.bind(mod .. " + r", hl.dsp.focus({ workspace = "2" }))
@@ -299,28 +295,42 @@ hl.bind(mod .. " + t", hl.dsp.focus({ workspace = "3" }))
 hl.bind(mod .. " + s", hl.dsp.focus({ workspace = "4" }))
 hl.bind(mod .. " + w", hl.dsp.focus({ workspace = "5" }))
 
-hl.bind(mod .. " + SHIFT + g", hl.dsp.window.move({ workspace = "1" }))
-hl.bind(mod .. " + SHIFT + r", hl.dsp.window.move({ workspace = "2" }))
-hl.bind(mod .. " + SHIFT + t", hl.dsp.window.move({ workspace = "3" }))
-hl.bind(mod .. " + SHIFT + s", hl.dsp.window.move({ workspace = "4" }))
-hl.bind(mod .. " + SHIFT + w", hl.dsp.window.move({ workspace = "5" }))
+hl.bind(mod .. " + SHIFT + g", hl.dsp.window.move({ workspace = "1", follow = false }))
+hl.bind(mod .. " + SHIFT + r", hl.dsp.window.move({ workspace = "2", follow = false }))
+hl.bind(mod .. " + SHIFT + t", hl.dsp.window.move({ workspace = "3", follow = false }))
+hl.bind(mod .. " + SHIFT + s", hl.dsp.window.move({ workspace = "4", follow = false }))
+hl.bind(mod .. " + SHIFT + w", hl.dsp.window.move({ workspace = "5", follow = false }))
 
 hl.bind(mod .. " + n", hl.dsp.workspace.toggle_special("notes"))
 hl.bind(mod .. " + m", hl.dsp.workspace.toggle_special("calculator"))
-hl.bind(mod .. " + a", hl.dsp.workspace.toggle_special("chatski"))
+hl.bind(mod .. " + i", hl.dsp.workspace.toggle_special("chatski"))
 
 hl.bind(mod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
 hl.bind(mod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
+
+hl.bind(mod .. " + c", hl.dsp.send_shortcut({ mods = "CTRL", key = "Insert" }))
+hl.bind(mod .. " + v", hl.dsp.send_shortcut({ mods = "SHIFT", key = "Insert" }))
+hl.bind(mod .. " + a", hl.dsp.send_shortcut({ mods = "CTRL", key = "a" }))
+hl.bind(mod .. " + x", hl.dsp.send_shortcut({ mods = "CTRL", key = "x" }))
+hl.bind(mod .. " + z", hl.dsp.send_shortcut({ mods = "CTRL", key = "z" }))
 
 hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"))
 hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"))
 hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"))
 
-hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_SINK@ 5%-"))
-hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume -l 1.2 @DEFAULT_SINK@ 5%+"))
+hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_SINK@ 3%-"), { repeating = true })
+hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_SINK@ 3%+"), { repeating = true })
 
-hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("ddcutil --skip-ddc-checks --noverify setvcp 10 - 5"))
-hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("ddcutil --skip-ddc-checks --noverify setvcp 10 + 5"))
+hl.bind(
+	"XF86MonBrightnessDown",
+	hl.dsp.exec_cmd("ddcutil --skip-ddc-checks --noverify setvcp 10 - 5"),
+	{ repeating = true }
+)
+hl.bind(
+	"XF86MonBrightnessUp",
+	hl.dsp.exec_cmd("ddcutil --skip-ddc-checks --noverify setvcp 10 + 5"),
+	{ repeating = true }
+)
 
 hl.bind(mod .. " + comma", hl.dsp.exec_cmd("~/dotfiles/scripts/screenshot -f"))
 hl.bind(mod .. " + period", hl.dsp.exec_cmd("~/dotfiles/scripts/screenshot -w"))
@@ -339,7 +349,6 @@ hl.bind(
 )
 
 hl.bind(mod .. " + bracketright", hl.dsp.exec_cmd("shopot"))
-hl.bind(mod .. " + i", hl.dsp.exec_cmd("~/projects/chatski/dist/linux-unpacked/chatski"))
 
 -- misc
 
