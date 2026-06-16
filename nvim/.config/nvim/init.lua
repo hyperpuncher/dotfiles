@@ -997,7 +997,21 @@ autocmd("FileType", {
 	end,
 })
 
+local function set_picker_scrolloff()
+	vim.wo.scrolloff = 0
+	vim.wo.scrolloffpad = 0
+end
+
+local picker_scrolloff = vim.api.nvim_create_augroup("PickerScrolloff", { clear = true })
 autocmd("FileType", {
+	group = picker_scrolloff,
+	pattern = { "fff_list", "fff_input", "fff_preview", "fff_file_info" },
+	callback = set_picker_scrolloff,
+})
+autocmd("User", {
+	group = picker_scrolloff,
+	pattern = "MiniFilesWindowUpdate",
+	callback = set_picker_scrolloff,
 })
 
 vim.filetype.add({
