@@ -974,7 +974,7 @@ vim.diagnostic.config({
 hl(0, "YankHighlight", { fg = "#131412", bg = "#E2E3E3" })
 autocmd("TextYankPost", {
 	callback = function()
-		vim.hl.on_yank({ higroup = "YankHighlight" })
+		vim.hl.hl_op({ higroup = "YankHighlight" })
 	end,
 })
 
