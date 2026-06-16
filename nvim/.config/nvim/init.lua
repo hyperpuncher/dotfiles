@@ -998,10 +998,6 @@ autocmd("FileType", {
 })
 
 autocmd("FileType", {
-	pattern = { "javascriptreact", "typescriptreact" },
-	callback = function()
-		vim.bo.commentstring = "{/* %s */}"
-	end,
 })
 
 vim.filetype.add({
