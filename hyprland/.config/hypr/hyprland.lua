@@ -195,12 +195,12 @@ hl.device({
 
 hl.config({
 	general = {
-		gaps_in = 2,
+		gaps_in = 1,
 		gaps_out = 4,
 		border_size = 3,
 		col = {
-			inactive_border = "rgba(0,0,0,170)",
-			active_border = "rgba(255,255,255,170)",
+			inactive_border = "rgba(50,50,50,0)",
+			active_border = "rgba(222,222,222,0.5)",
 		},
 	},
 
@@ -213,10 +213,10 @@ hl.config({
 		shadow = {
 			enabled = true,
 			range = 40,
-			render_power = 3,
-			color = "rgba(00000050)",
-			offset = { 0, 0 },
-			scale = 0.99,
+			render_power = 4,
+			color = "rgba(00000030)",
+			offset = { 0, 8 },
+			scale = 0.97,
 		},
 		rounding = 9,
 		rounding_power = 2.25,
