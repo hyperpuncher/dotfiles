@@ -1,0 +1,79 @@
+#!/usr/bin/env python3
+
+import configparser
+import json
+import locale
+import os
+import shutil
+from pathlib import Path
+
+
+def localized(section, key):
+	language = locale.getlocale(locale.LC_MESSAGES)[0] or ""
+	candidates = []
+	if language:
+		candidates.extend((f"{key}[{language}]", f"{key}[{language.split('_')[0]}]"))
+	candidates.append(key)
+	for candidate in candidates:
+		if candidate in section:
+			return section[candidate]
+	return ""
+
+
+def enabled_for_desktop(section):
+	desktops = set(filter(None, os.environ.get("XDG_CURRENT_DESKTOP", "").split(":")))
+	only = set(filter(None, section.get("OnlyShowIn", "").split(";")))
+	excluded = set(filter(None, section.get("NotShowIn", "").split(";")))
+	return (not only or bool(desktops & only)) and not bool(desktops & excluded)
+
+
+def desktop_entries():
+	data_home = Path(os.environ.get("XDG_DATA_HOME", Path.home() / ".local/share"))
+	data_dirs = [Path(path) for path in os.environ.get("XDG_DATA_DIRS", "/usr/local/share:/usr/share").split(":")]
+	seen = set()
+	entries = []
+
+	for data_dir in (data_home, *data_dirs):
+		applications = data_dir / "applications"
+		if not applications.is_dir():
+			continue
+		for path in applications.rglob("*.desktop"):
+			desktop_id = str(path.relative_to(applications)).replace("/", "-")[:-8]
+			if desktop_id in seen:
+				continue
+			seen.add(desktop_id)
+
+			parser = configparser.ConfigParser(interpolation=None, strict=False)
+			parser.optionxform = str
+			try:
+				parser.read(path, encoding="utf-8")
+				section = parser["Desktop Entry"]
+			except (configparser.Error, KeyError, OSError, UnicodeError):
+				continue
+
+			if section.get("Type") != "Application" or section.getboolean("Hidden", fallback=False):
+				continue
+			if section.getboolean("NoDisplay", fallback=False) or not enabled_for_desktop(section):
+				continue
+			try_exec = section.get("TryExec", "")
+			if try_exec and not (Path(try_exec).is_file() if "/" in try_exec else shutil.which(try_exec)):
+				continue
+			name = localized(section, "Name")
+			if not name:
+				continue
+
+			entries.append({
+				"id": desktop_id,
+				"desktopEntryId": f"{desktop_id}.desktop",
+				"name": name,
+				"genericName": localized(section, "GenericName"),
+				"comment": localized(section, "Comment"),
+				"keywords": [word for word in localized(section, "Keywords").split(";") if word],
+				"icon": section.get("Icon", ""),
+				"path": str(path),
+			})
+
+	return entries
+
+
+print(json.dumps(desktop_entries(), ensure_ascii=False, separators=(",", ":")))

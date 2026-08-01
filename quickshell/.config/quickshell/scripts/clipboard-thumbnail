@@ -1,0 +1,14 @@
+#!/usr/bin/env dash
+
+set -eu
+
+entry=$1
+input=$2
+output=$3
+square="${output}.square.png"
+mask="${output}.mask.svg"
+
+printf '%s\n' "$entry" | cliphist decode > "$input"
+vips thumbnail "$input" "$square" 68 --height 68 --crop centre --size down
+printf '%s' '<svg xmlns="http://www.w3.org/2000/svg" width="68" height="68"><rect width="68" height="68" rx="16" fill="white"/></svg>' > "$mask"
+vips composite2 "$square" "$mask" "$output" dest-in

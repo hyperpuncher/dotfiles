@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+cache_dir=${XDG_CACHE_HOME:-$HOME/.cache}/quickshell
+usage_file=$cache_dir/launcher-usage.json
+lock_file=$cache_dir/launcher-usage.lock
+mkdir -p "$cache_dir"
+
+case ${1:-read} in
+read)
+	if [[ -s $usage_file ]]; then
+		cat "$usage_file"
+	else
+		printf '{}\n'
+	fi
+	;;
+bump)
+	key=${2:?missing application key}
+	(
+		flock 9
+		if [[ ! -s $usage_file ]]; then
+			printf '{}\n' > "$usage_file"
+		fi
+		jq --arg key "$key" '.[$key] = ((.[$key] // 0) + 1)' "$usage_file" > "$usage_file.tmp"
+		mv "$usage_file.tmp" "$usage_file"
+	) 9>"$lock_file"
+	;;
+*)
+	printf 'usage: %s [read|bump KEY]\n' "$0" >&2
+	exit 2
+	;;
+esac

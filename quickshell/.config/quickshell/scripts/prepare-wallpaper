@@ -1,0 +1,32 @@
+#!/usr/bin/env dash
+
+set -eu
+
+input=$1
+output=$2
+width=$3
+height=$4
+temporary="${output}.tmp.$$.webp"
+
+mkdir -p "$(dirname "$output")"
+
+if [ -f "$output" ] \
+	&& [ "$output" -nt "$input" ] \
+	&& [ "$(vipsheader -f width "$output" 2>/dev/null || true)" = "$width" ] \
+	&& [ "$(vipsheader -f height "$output" 2>/dev/null || true)" = "$height" ]; then
+	# Distinguish a valid cache from a newly written cache so the current
+	# image is not needlessly reloaded and briefly displayed as black.
+	exit 10
+fi
+
+cleanup() {
+	[ ! -e "$temporary" ] || unlink "$temporary"
+}
+trap cleanup EXIT HUP INT TERM
+
+vips thumbnail "$input" "${temporary}[Q=98,effort=6,smart-subsample,strip]" "$width" \
+	--height "$height" \
+	--crop centre \
+	--size both
+mv "$temporary" "$output"
+trap - EXIT HUP INT TERM

@@ -1,0 +1,19 @@
+#!/usr/bin/env dash
+
+set -eu
+
+if [ -n "${LABWC_PID:-}" ]; then
+	exec labwc --exit
+elif [ -n "${HYPRLAND_INSTANCE_SIGNATURE:-}" ]; then
+	if [ -n "${UWSM_WAIT_VARNAMES:-}" ]; then
+		exec uwsm stop
+	fi
+	exec hyprctl dispatch exit
+elif [ -n "${NIRI_SOCKET:-}" ]; then
+	exec niri msg action quit --skip-confirmation
+elif [ -n "${XDG_SESSION_ID:-}" ]; then
+	exec loginctl terminate-session "$XDG_SESSION_ID"
+fi
+
+printf '%s\n' 'could not identify the current session' >&2
+exit 1

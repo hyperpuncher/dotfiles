@@ -1,0 +1,15 @@
+#!/usr/bin/env dash
+
+set -eu
+
+state=$1
+
+if [ -n "${HYPRLAND_INSTANCE_SIGNATURE:-}" ]; then
+	hyprctl dispatch dpms "$state"
+elif [ -n "${NIRI_SOCKET:-}" ]; then
+	if [ "$state" = off ]; then
+		niri msg action power-off-monitors
+	fi
+elif command -v wlopm >/dev/null 2>&1; then
+	wlopm --"$state" '*'
+fi
