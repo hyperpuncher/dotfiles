@@ -1,0 +1,19 @@
+#!/bin/sh
+
+set -eu
+umask 077
+
+id=$1
+mime=$2
+output=$3
+
+if [ -s "$output" ]; then
+	exit 0
+fi
+
+mkdir -p -- "$(dirname -- "$output")"
+temporary="${output}.tmp.$$"
+trap 'trash -- "$temporary" 2>/dev/null || true' EXIT HUP INT TERM
+rift read "$id" --mime "$mime" > "$temporary"
+mv -- "$temporary" "$output"
+trap - EXIT HUP INT TERM
