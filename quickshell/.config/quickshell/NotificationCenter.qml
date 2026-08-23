@@ -78,6 +78,8 @@ PanelWindow {
 		onClicked: root.close()
 	}
 
+	PopupShadow { target: card }
+
 	Rectangle {
 		id: card
 		width: Math.min(700, root.width - 64)
@@ -201,19 +203,23 @@ PanelWindow {
 
 							IconImage {
 								anchors.centerIn: parent
-								width: 28
-								height: 28
-								source: row.modelData.image || Quickshell.iconPath(row.modelData.appIcon, "")
+								width: 24
+								height: 24
+								source: row.modelData.appIcon
+									? Quickshell.iconPath(row.modelData.appIcon, Quickshell.iconPath("dialog-information-symbolic", ""))
+									: Quickshell.iconPath("dialog-information-symbolic", "")
 								mipmap: false
 							}
 
-							Text {
-								anchors.centerIn: parent
-								visible: row.modelData.image === "" && row.modelData.appIcon === ""
-								text: row.modelData.appName ? row.modelData.appName.slice(0, 1).toUpperCase() : "•"
-								color: row.selected ? Theme.selectedText : Theme.text
-								font.family: Theme.fontFamily
-								font.pixelSize: 15
+							Image {
+								anchors.fill: parent
+								visible: source !== "" && status !== Image.Error
+								source: row.modelData.image
+								fillMode: Image.PreserveAspectCrop
+								sourceSize: Qt.size(80, 80)
+								asynchronous: true
+								smooth: true
+								mipmap: false
 							}
 						}
 
@@ -281,7 +287,7 @@ PanelWindow {
 
 			RowLayout {
 				Layout.fillWidth: true
-				Layout.preferredHeight: 18
+				Layout.preferredHeight: 20
 				Layout.leftMargin: 10
 				spacing: 18
 

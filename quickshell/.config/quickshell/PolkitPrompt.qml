@@ -104,6 +104,8 @@ Scope {
 			Behavior on opacity { NumberAnimation { duration: 50; easing.type: Easing.OutQuad } }
 		}
 
+		PopupShadow { target: card }
+
 		Rectangle {
 			id: card
 			width: Math.min(480, window.width - 64)
@@ -237,7 +239,7 @@ Scope {
 
 				RowLayout {
 					Layout.fillWidth: true
-					Layout.preferredHeight: 18
+					Layout.preferredHeight: 20
 					Layout.leftMargin: 2
 					spacing: 18
 

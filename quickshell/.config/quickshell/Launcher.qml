@@ -1,7 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
-import Quickshell.Io
 import Quickshell.Wayland
 
 PanelWindow {
@@ -52,6 +51,9 @@ PanelWindow {
 	]
 	readonly property var results: buildResults(query, applications)
 	readonly property int visibleRows: Math.min(6, results.length)
+	readonly property int searchHeight: 48
+	readonly property int rowHeight: 54
+	readonly property int footerHeight: 20
 
 	function searchableText(entry): string {
 		return [entry.name, entry.genericName, entry.comment, entry.keywords.join(" ")]
@@ -157,9 +159,7 @@ PanelWindow {
 		const updatedUsage = Object.assign({}, usage);
 		updatedUsage[key] = (updatedUsage[key] || 0) + 1;
 		usageBumped(updatedUsage);
-		usageWriter.command = [`${Quickshell.shellDir}/scripts/launcher-usage`, "bump", key];
-		usageWriter.running = false;
-		usageWriter.running = true;
+		Quickshell.execDetached([`${Quickshell.shellDir}/scripts/launcher-usage`, "bump", key]);
 		if (entry.shellPanel) {
 			ShellState.open(entry.shellPanel);
 			return;
@@ -171,10 +171,6 @@ PanelWindow {
 			"--env", `DESKTOP_ENTRY_NAME=${entry.name}`,
 			"gio", "launch", entry.path
 		]);
-	}
-
-	Process {
-		id: usageWriter
 	}
 
 	visible: ShellState.activePanel === "launcher"
@@ -202,11 +198,14 @@ PanelWindow {
 		onClicked: root.close()
 	}
 
+	PopupShadow { target: card }
+
 	Rectangle {
 		id: card
 
 		width: Math.min(600, root.width - 64)
-		height: 30 + search.height + 10 + Math.max(54, root.visibleRows * 54) + footer.height
+		height: 30 + root.searchHeight + Math.max(root.rowHeight, root.visibleRows * root.rowHeight)
+			+ root.footerHeight + 20
 		anchors.centerIn: parent
 		color: Theme.surface
 		radius: Theme.radius
@@ -263,7 +262,7 @@ PanelWindow {
 			Rectangle {
 				id: search
 				Layout.fillWidth: true
-				Layout.preferredHeight: 48
+				Layout.preferredHeight: root.searchHeight
 				color: "transparent"
 				radius: 8
 				border.width: 1
@@ -319,7 +318,7 @@ PanelWindow {
 			ListView {
 				id: resultList
 				Layout.fillWidth: true
-				Layout.preferredHeight: Math.max(54, root.visibleRows * 54)
+				Layout.preferredHeight: Math.max(root.rowHeight, root.visibleRows * root.rowHeight)
 				clip: true
 				spacing: 0
 				model: root.results
@@ -335,7 +334,7 @@ PanelWindow {
 					readonly property bool selected: index === root.selectedIndex
 
 					width: ListView.view.width
-					height: 54
+					height: root.rowHeight
 					radius: 8
 					color: selected ? Theme.selected : "transparent"
 
@@ -359,8 +358,10 @@ PanelWindow {
 								height: 24
 								source: visible ? Quickshell.iconPath(row.entry.icon, "") : ""
 								fillMode: Image.PreserveAspectFit
+								sourceSize: Qt.size(48, 48)
 								asynchronous: true
 								smooth: true
+								mipmap: false
 							}
 
 							Text {
@@ -436,7 +437,7 @@ PanelWindow {
 			RowLayout {
 				id: footer
 				Layout.fillWidth: true
-				Layout.preferredHeight: 18
+				Layout.preferredHeight: root.footerHeight
 				Layout.leftMargin: 10
 				spacing: 18
 

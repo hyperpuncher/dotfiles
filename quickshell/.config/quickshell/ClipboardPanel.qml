@@ -161,6 +161,8 @@ PanelWindow {
 
 		if (row.sensitive) {
 			previewText = "sensitive clipboard item\n\npress enter to restore it for 10 minutes";
+		} else if (row.kind === "file" && row.fileType === "image") {
+			previewImage = encodeURI(`file://${row.filePath}`);
 		} else if (row.kind === "image") {
 			imageDecode.rowId = row.id;
 			imageDecode.outputPath = `${imageDirectory}/${row.id}.${row.extension}`;

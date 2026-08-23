@@ -16,6 +16,7 @@ PanelWindow {
 	readonly property var wiredDevices: devices.filter(device => device.type === DeviceType.Wired)
 	readonly property var rows: buildRows(wiredDevices, wifiDevices)
 	readonly property int visibleRows: Math.min(7, rows.length)
+	readonly property int footerHeight: 20
 
 	function buildRows(wired, wifi): var {
 		const result = [];
@@ -136,10 +137,13 @@ PanelWindow {
 		onClicked: root.close()
 	}
 
+	PopupShadow { target: card }
+
 	Rectangle {
 		id: card
 		width: Math.min(600, root.width - 64)
-		height: 92 + (root.enteringPassword ? 56 : 0) + Math.max(58, root.visibleRows * 58) + footer.height
+		height: 92 + (root.enteringPassword ? 56 : 0) + Math.max(58, root.visibleRows * 58)
+			+ root.footerHeight
 		anchors.centerIn: parent
 		color: Theme.surface
 		radius: Theme.radius
@@ -369,7 +373,7 @@ PanelWindow {
 			RowLayout {
 				id: footer
 				Layout.fillWidth: true
-				Layout.preferredHeight: 18
+				Layout.preferredHeight: root.footerHeight
 				Layout.leftMargin: 10
 				spacing: 18
 

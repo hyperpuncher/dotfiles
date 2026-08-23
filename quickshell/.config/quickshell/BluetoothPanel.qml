@@ -120,6 +120,8 @@ PanelWindow {
 		onClicked: root.close()
 	}
 
+	PopupShadow { target: card }
+
 	Rectangle {
 		id: card
 
@@ -377,7 +379,7 @@ PanelWindow {
 			RowLayout {
 				Layout.fillWidth: true
 				Layout.leftMargin: 10
-				Layout.preferredHeight: 18
+				Layout.preferredHeight: 20
 				spacing: 16
 
 				KeyHint { shortcut: "↑↓"; description: "move" }

@@ -8,7 +8,7 @@ PanelWindow {
 
 	property int selectedIndex: 0
 	readonly property var actions: [
-		{ name: "shutdown", detail: "power off the system", icon: "", command: ["bash", "-c", "cliphist wipe; systemctl poweroff"] },
+		{ name: "shutdown", detail: "power off the system", icon: "", command: ["bash", "-c", "rift clear; systemctl poweroff"] },
 		{ name: "reboot", detail: "restart the system", icon: "", command: ["systemctl", "reboot"] },
 		{ name: "hibernate", detail: "save session to disk", icon: "", command: ["systemctl", "hibernate"] },
 		{ name: "logout", detail: "end the current session", icon: "󰗽", command: [`${Quickshell.shellDir}/scripts/logout`] }
@@ -58,6 +58,8 @@ PanelWindow {
 		anchors.fill: parent
 		onClicked: root.close()
 	}
+
+	PopupShadow { target: card }
 
 	Rectangle {
 		id: card

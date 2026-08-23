@@ -128,6 +128,8 @@ PanelWindow {
 		onClicked: root.close()
 	}
 
+	PopupShadow { target: card }
+
 	Rectangle {
 		id: card
 		width: Math.min(620, root.width - 64)
@@ -343,7 +345,7 @@ PanelWindow {
 			RowLayout {
 				id: footer
 				Layout.fillWidth: true
-				Layout.preferredHeight: 18
+				Layout.preferredHeight: 20
 				Layout.leftMargin: 10
 				spacing: 18
 

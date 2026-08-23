@@ -17,7 +17,7 @@ PanelWindow {
 		right: 12
 	}
 
-	implicitWidth: 320
+	implicitWidth: Math.max(220, Math.min(280, toastColumn.implicitWidth))
 	implicitHeight: Math.max(1, toastColumn.implicitHeight)
 	color: "transparent"
 	exclusionMode: ExclusionMode.Ignore
@@ -38,6 +38,7 @@ PanelWindow {
 				id: toast
 				required property var modelData
 				readonly property int timeout: NotificationService.timeoutFor(modelData)
+				implicitWidth: 58 + Math.max(summaryText.implicitWidth, bodyText.visible ? bodyText.implicitWidth : 0)
 				width: toastColumn.width
 				height: 62
 				color: Theme.notificationSurface
@@ -60,19 +61,24 @@ PanelWindow {
 						clip: true
 
 						IconImage {
-							anchors.fill: parent
-							source: toast.modelData.image || Quickshell.iconPath(toast.modelData.appIcon, "")
+							anchors.centerIn: parent
+							width: 22
+							height: 22
+							source: toast.modelData.appIcon
+								? Quickshell.iconPath(toast.modelData.appIcon, Quickshell.iconPath("dialog-information-symbolic", ""))
+								: Quickshell.iconPath("dialog-information-symbolic", "")
 							mipmap: false
 						}
 
-						Text {
-							anchors.centerIn: parent
-							visible: toast.modelData.image === "" && toast.modelData.appIcon === ""
-							text: toast.modelData.appName ? toast.modelData.appName.slice(0, 1).toUpperCase() : "•"
-							color: Theme.text
-							font.family: Theme.fontFamily
-							font.pixelSize: 14
-							font.weight: Font.Medium
+						Image {
+							anchors.fill: parent
+							visible: source !== "" && status !== Image.Error
+							source: toast.modelData.image
+							fillMode: Image.PreserveAspectCrop
+							sourceSize: Qt.size(68, 68)
+							asynchronous: true
+							smooth: true
+							mipmap: false
 						}
 					}
 
@@ -80,30 +86,19 @@ PanelWindow {
 						Layout.fillWidth: true
 						spacing: 2
 
-						RowLayout {
+						Text {
+							id: summaryText
 							Layout.fillWidth: true
-							spacing: 8
-
-							Text {
-								Layout.fillWidth: true
-								text: toast.modelData.summary || "notification"
-								color: Theme.text
-								font.family: Theme.fontFamily
-								font.pixelSize: 14
-								font.styleName: "Medium"
-								elide: Text.ElideRight
-							}
-
-							Text {
-								text: toast.modelData.appName
-								color: Theme.muted
-								font.family: Theme.fontFamily
-								font.pixelSize: 10
-								elide: Text.ElideRight
-							}
+							text: toast.modelData.summary || "notification"
+							color: Theme.text
+							font.family: Theme.fontFamily
+							font.pixelSize: 14
+							font.styleName: "Medium"
+							elide: Text.ElideRight
 						}
 
 						Text {
+							id: bodyText
 							Layout.fillWidth: true
 							visible: text !== ""
 							text: toast.modelData.body

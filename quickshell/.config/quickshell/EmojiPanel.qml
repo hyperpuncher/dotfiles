@@ -13,6 +13,9 @@ PanelWindow {
 	property var emojis: []
 	readonly property var results: filterRows(emojis, query)
 	readonly property int visibleRows: Math.min(7, results.length)
+	readonly property int searchHeight: 48
+	readonly property int rowHeight: 58
+	readonly property int footerHeight: 20
 
 	function parseEmoji(output: string): void {
 		const rows = [];
@@ -105,10 +108,13 @@ PanelWindow {
 		onClicked: root.close()
 	}
 
+	PopupShadow { target: card }
+
 	Rectangle {
 		id: card
 		width: Math.min(660, root.width - 64)
-		height: 30 + search.height + 10 + Math.max(58, root.visibleRows * 58) + footer.height
+		height: 30 + root.searchHeight + Math.max(root.rowHeight, root.visibleRows * root.rowHeight)
+			+ root.footerHeight + 20
 		anchors.centerIn: parent
 		color: Theme.surface
 		radius: Theme.radius
@@ -165,7 +171,7 @@ PanelWindow {
 			Rectangle {
 				id: search
 				Layout.fillWidth: true
-				Layout.preferredHeight: 48
+				Layout.preferredHeight: root.searchHeight
 				color: "transparent"
 				radius: 8
 				border.width: 1
@@ -198,7 +204,7 @@ PanelWindow {
 			ListView {
 				id: resultList
 				Layout.fillWidth: true
-				Layout.preferredHeight: Math.max(58, root.visibleRows * 58)
+				Layout.preferredHeight: Math.max(root.rowHeight, root.visibleRows * root.rowHeight)
 				clip: true
 				model: root.results
 				currentIndex: root.selectedIndex
@@ -210,7 +216,7 @@ PanelWindow {
 					required property var modelData
 					readonly property bool selected: index === root.selectedIndex
 					width: ListView.view.width
-					height: 58
+					height: root.rowHeight
 					radius: 8
 					color: selected ? Theme.selected : "transparent"
 
@@ -292,7 +298,7 @@ PanelWindow {
 			RowLayout {
 				id: footer
 				Layout.fillWidth: true
-				Layout.preferredHeight: 18
+				Layout.preferredHeight: root.footerHeight
 				Layout.leftMargin: 10
 				spacing: 18
 

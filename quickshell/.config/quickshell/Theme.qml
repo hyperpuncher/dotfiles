@@ -14,7 +14,7 @@ Singleton {
 	readonly property color surface: dark ? "#f2181818" : "#f2f6f6f4"
 	readonly property color surfaceRaised: dark ? "#f2242424" : "#f2e8e8e5"
 	readonly property color notificationSurface: dark ? "#f20a0a0b" : surface
-	readonly property color notificationBorder: dark ? "#80dedede" : "#4d323232"
+	readonly property color notificationBorder: "#80dedede"
 	readonly property color text: dark ? "#f2f2f0" : "#141414"
 	readonly property color muted: dark ? "#999999" : "#6c6c68"
 	readonly property color border: dark ? "#3b3b3b" : "#cacac6"
@@ -27,7 +27,7 @@ Singleton {
 	readonly property color scrim: dark ? "#59000000" : "#24000000"
 
 	readonly property string fontFamily: "Iosevka Nerd Font"
-	readonly property int radius: 12
+	readonly property int radius: 9
 
 	function setMode(mode: string): void {
 		if (mode === "dark" || mode === "light")

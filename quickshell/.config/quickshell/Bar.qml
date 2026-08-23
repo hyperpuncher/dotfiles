@@ -15,6 +15,8 @@ Scope {
 
 	property bool showDate: false
 	property bool trayExpanded: false
+	property bool calendarVisible: false
+	property var calendarScreen: Quickshell.screens.length > 0 ? Quickshell.screens[0] : null
 	property string language: "EN"
 	readonly property bool onHyprland: Quickshell.env("HYPRLAND_INSTANCE_SIGNATURE") !== ""
 	readonly property var players: Mpris.players.values
@@ -84,6 +86,12 @@ Scope {
 		precision: SystemClock.Minutes
 	}
 
+	Timer {
+		id: calendarShowDelay
+		interval: 500
+		onTriggered: root.calendarVisible = true
+	}
+
 	Process {
 		command: ["hyprctl", "devices", "-j"]
 		running: root.onHyprland
@@ -141,7 +149,16 @@ Scope {
 					anchors.left: parent.left
 					anchors.right: parent.right
 					height: clockText.implicitHeight + 14
+					hoverEnabled: true
 					cursorShape: Qt.PointingHandCursor
+					onEntered: {
+						root.calendarScreen = window.screen;
+						calendarShowDelay.restart();
+					}
+					onExited: {
+						calendarShowDelay.stop();
+						root.calendarVisible = false;
+					}
 					onClicked: root.showDate = !root.showDate
 				}
 
@@ -270,6 +287,13 @@ Scope {
 					}
 				}
 			}
+		}
+	}
+
+	Loader {
+		active: root.calendarVisible
+		sourceComponent: CalendarPopup {
+			screen: root.calendarScreen
 		}
 	}
 

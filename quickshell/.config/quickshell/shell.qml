@@ -17,6 +17,8 @@ ShellRoot {
 	property bool wallpaperPreparePending: false
 	property var launcherApplications: []
 	property var launcherUsage: ({})
+	property bool screenshotActive: false
+	property string screenshotMode: "region"
 
 	function prepareWallpaper(): void {
 		const monitor = wallpaperScreen && Quickshell.env("HYPRLAND_INSTANCE_SIGNATURE") !== ""
@@ -106,6 +108,14 @@ ShellRoot {
 
 	Bar {}
 	OverlayScrim {}
+
+	Loader {
+		active: root.screenshotActive
+		sourceComponent: Screenshot {
+			initialMode: root.screenshotMode
+			onClosed: root.screenshotActive = false
+		}
+	}
 
 	Idle {}
 	PolkitPrompt {}
@@ -198,6 +208,27 @@ ShellRoot {
 					description: "open emoji picker"
 					onPressed: root.togglePanel("emoji")
 				}
+
+				GlobalShortcut {
+					appid: "quickshell"
+					name: "screenshot"
+					description: "capture and annotate a region"
+					onPressed: root.openScreenshot("region")
+				}
+
+				GlobalShortcut {
+					appid: "quickshell"
+					name: "screenshot-window"
+					description: "capture and annotate the active window"
+					onPressed: root.openScreenshot("window")
+				}
+
+				GlobalShortcut {
+					appid: "quickshell"
+					name: "screenshot-fullscreen"
+					description: "capture and annotate the focused monitor"
+					onPressed: root.openScreenshot("fullscreen")
+				}
 			}
 		}
 	}
@@ -207,6 +238,16 @@ ShellRoot {
 			ShellState.close();
 		else
 			ShellState.open(name);
+	}
+
+	function openScreenshot(mode: string): void {
+		if (root.screenshotActive) {
+			root.screenshotActive = false;
+			return;
+		}
+		ShellState.close();
+		root.screenshotMode = mode;
+		root.screenshotActive = true;
 	}
 
 	IpcHandler {
@@ -242,6 +283,15 @@ ShellRoot {
 
 		function close(): void {
 			ShellState.close();
+		}
+
+		function screenshot(): void {
+			root.openScreenshot("region");
+		}
+
+		function editScreenshot(mode: string): void {
+			if (["region", "window", "fullscreen"].includes(mode))
+				root.openScreenshot(mode);
 		}
 
 		function setTheme(mode: string): void {
