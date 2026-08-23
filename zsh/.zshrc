@@ -19,7 +19,7 @@ zstyle ':z4h:autosuggestions' forward-char 'accept'
 
 # Recursively traverse directories when TAB-completing files.
 zstyle ':z4h:fzf-complete' recurse-dirs 'no'
-zstyle ':z4h:*' fzf-flags --color=fg:'#e2e2e2',bg:-1,hl:4,fg+:'#e2e2e2',bg+:-1,hl+:4,info:3,prompt:2,pointer:5,marker:5,spinner:3,header:8
+zstyle ':z4h:*' fzf-flags --color=fg:7,fg+:7,bg:-1,bg+:-1,hl:4,hl+:4,info:3,prompt:2,pointer:5,marker:5,spinner:3,header:8
 # zstyle ':z4h:fzf-complete' fzf-bindings tab:repeat
 
 # Enable direnv to automatically source .envrc files.
@@ -30,8 +30,9 @@ zstyle ':z4h:direnv:success' notify 'yes'
 # Enable ('yes') or disable ('no') automatic teleportation of z4h over
 # SSH when connecting to these hosts.
 zstyle ':z4h:ssh:homelab'   enable 'yes'
-zstyle ':z4h:ssh:coolify'   enable 'yes'
-zstyle ':z4h:ssh:dokploy'      enable 'yes'
+zstyle ':z4h:ssh:dokploy'   enable 'yes'
+zstyle ':z4h:ssh:openclaw'  enable 'yes'
+zstyle ':z4h:ssh:openclaw-nextcars'  enable 'yes'
 
 zstyle ':z4h:ssh:localhost' enable 'yes'
 
@@ -67,57 +68,6 @@ autoload -Uz zmv
 function md() { [[ $# == 1 ]] && mkdir -p -- "$1" && cd -- "$1" }
 compdef _directories md
 
-# Create a desktop launcher for a web app
-function web2app() {
-  if [ "$#" -ne 3 ]; then
-    echo "Usage: web2app <AppName> <AppURL> <IconURL> (IconURL must be in PNG -- use https://dashboardicons.com)"
-    return 1
-  fi
-
-  local APP_NAME="$1"
-  local APP_URL="$2"
-  local ICON_URL="$3"
-  local ICON_DIR="$HOME/.local/share/applications/icons"
-  local DESKTOP_FILE="$HOME/.local/share/applications/${APP_NAME}.desktop"
-  local ICON_PATH="${ICON_DIR}/${APP_NAME}.png"
-
-  mkdir -p "$ICON_DIR"
-
-  if ! curl -sL -o "$ICON_PATH" "$ICON_URL"; then
-    echo "Error: Failed to download icon."
-    return 1
-  fi
-
-  cat > "$DESKTOP_FILE" <<EOF
-[Desktop Entry]
-Version=1.0
-Name=$APP_NAME
-Comment=$APP_NAME
-Exec=runapp brave --app="$APP_URL" --name="$APP_NAME" --class="$APP_NAME"
-Terminal=false
-Type=Application
-Icon=$ICON_PATH
-StartupNotify=true
-EOF
-
-  chmod +x "$DESKTOP_FILE"
-}
-
-function web2app-remove() {
-  if [ "$#" -ne 1 ]; then
-    echo "Usage: web2app-remove <AppName>"
-    return 1
-  fi
-
-  local APP_NAME="$1"
-  local ICON_DIR="$HOME/.local/share/applications/icons"
-  local DESKTOP_FILE="$HOME/.local/share/applications/${APP_NAME}.desktop"
-  local ICON_PATH="${ICON_DIR}/${APP_NAME}.png"
-
-  rm "$DESKTOP_FILE"
-  rm "$ICON_PATH"
-}
-
 alias bt='bluetoothctl'
 alias drop='dragon-drop -x -a'
 alias cat='bat -pp'
@@ -130,6 +80,7 @@ alias gc='git clone'
 alias gp='git pull'
 alias i='paru -S'
 alias ipa='ip -c -br -4 a'
+alias llama-server='llama-server --models-preset ~/.config/llama-cpp/models.ini'
 alias lg='lazygit'
 alias ll='eza -la --icons --group-directories-first -s type'
 alias ls='eza -a --icons --group-directories-first -s type'
@@ -147,13 +98,19 @@ alias stow='stow --no-folding -Rv'
 alias sv='sudoedit'
 alias tldr='tldr -c'
 alias udiskmount='udisksctl mount -b'
+alias up-docs='parallel --tagstring "{/}" "cd {} && [ -d .git ] && git fetch --depth=1 origin && git reset --hard @{u}" ::: ~/docs/*'
 alias v='nvim'
 alias wgdown='basename /proc/sys/net/ipv4/conf/*vpn | xargs sudo wg-quick down'
 alias wgup='sudo wg-quick up'
 alias rec='wl-screenrec --low-power=off --bitrate="40 MB" --codec=hevc'
+alias macos='~/VMs/macos-sequoia.conf --width 3840 --height 2160'
+alias windows='~/VMs/windows-11.conf --width 3840 --height 2160 --display spice'
 
 # Set shell options: http://zsh.sourceforge.net/Doc/Release/Options.html.
 setopt glob_dots     # no special treatment for file names with a leading dot
 setopt auto_menu  # require an extra TAB press to open the completion menu
 
 eval "$(zoxide init zsh)"
+
+
+
