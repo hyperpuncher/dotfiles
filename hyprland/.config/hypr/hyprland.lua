@@ -15,125 +15,114 @@ hl.monitor({
 -- exec
 
 hl.on("hyprland.start", function()
-	hl.exec_cmd("runapp mpv --loop=no ~/dotfiles/sounds/silent.wav")
-	hl.exec_cmd("runapp ~/projects/arduino/autobrightness/autobrightness")
-	hl.exec_cmd("runapp wlsunset -t 3000 -T 6500 -l 53.9 -L 27.6 -d 1800")
-	hl.exec_cmd("runapp darkman run")
-	hl.exec_cmd("runapp waybar")
-	hl.exec_cmd("runapp /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1")
-	hl.exec_cmd("runapp udiskie")
-	hl.exec_cmd("runapp mako")
-	hl.exec_cmd("runapp corectrl")
-	hl.exec_cmd("runapp jamesdsp -t")
-	hl.exec_cmd("runapp blueman-applet")
-	hl.exec_cmd("runapp nm-applet")
-	hl.exec_cmd("runapp localsend --hidden")
-	hl.exec_cmd("runapp /usr/bin/hyprland-per-window-layout")
-	hl.exec_cmd("runapp wl-clip-persist --clipboard regular")
-	hl.exec_cmd("runapp wl-paste --type text --watch cliphist store")
-	hl.exec_cmd("runapp wl-paste --type image --watch cliphist store")
-	hl.exec_cmd("runapp hypridle")
+	for _, command in ipairs({
+		"runapp mpv --loop=no ~/dotfiles/sounds/silent.wav",
+		"runapp ~/projects/arduino/autobrightness/autobrightness",
+		"runapp wlsunset -t 3000 -T 6500 -l 53.9 -L 27.6 -d 1800",
+		"runapp darkman run",
+		"runapp qs",
+		"runapp udiskie",
+		"runapp corectrl",
+		"runapp jamesdsp -t",
+		"runapp localsend --hidden",
+		"runapp /usr/bin/hyprland-per-window-layout",
+	}) do
+		hl.exec_cmd(command)
+	end
+end)
+
+hl.on("hyprland.shutdown", function()
+	hl.exec_cmd("rift clear")
 end)
 
 -- window rules
 
-local suppressMaximizeRule = hl.window_rule({
-	name = "suppress-maximize-events",
-	match = { class = ".*" },
-	suppress_event = "maximize",
-})
-suppressMaximizeRule:set_enabled(true)
+local window_rules = {
+	{
+		name = "suppress-maximize-events",
+		match = { class = ".*" },
+		suppress_event = "maximize",
+	},
+	{
+		name = "telegram",
+		match = { class = "org.telegram.desktop" },
+		workspace = "3 silent",
+		pseudo = true,
+		size = { 1002, 1392 },
+	},
+	{
+		name = "mumble",
+		match = { class = "info.mumble.Mumble" },
+		pseudo = true,
+		size = { 773, 498 },
+	},
+	{
+		name = "signal",
+		match = { class = "signal" },
+		pseudo = true,
+		size = { 874, 1212 },
+	},
+	{
+		name = "transmission",
+		match = { class = "com.transmissionbt.*" },
+		pseudo = true,
+		size = { 950, 550 },
+	},
+	{
+		name = "spotify",
+		match = { class = "spotify" },
+		workspace = "4",
+	},
+	{
+		name = "steam",
+		match = { class = "steam" },
+		workspace = "5 silent",
+	},
+	{
+		name = "file-operation-progress",
+		match = { title = "^File Operation Progress$" },
+		float = true,
+	},
+	{
+		name = "dev-linux-amd64",
+		match = { class = "^.*dev-linux-amd64$" },
+		float = true,
+	},
+	{
+		name = "qemu-system-x86_64",
+		match = { class = "qemu-system-x86_64" },
+		tile = true,
+	},
+	{
+		name = "vtk",
+		match = { class = "Vtk" },
+		tile = true,
+	},
+	{
+		name = "foot",
+		match = { class = "foot" },
+		size = { 1249, 1426 },
+	},
+	{
+		name = "croc-gui",
+		match = { class = "croc-gui" },
+		float = true,
+	},
+	{
+		name = "gnome-file-roller",
+		match = { class = "org.gnome.FileRoller" },
+		float = true,
+	},
+	{
+		name = "emulator",
+		match = { class = "Emulator" },
+		float = true,
+	},
+}
 
-hl.window_rule({
-	name = "telegram",
-	match = { class = "org.telegram.desktop" },
-	workspace = "3 silent",
-	pseudo = true,
-	size = { 1002, 1392 },
-})
-
-hl.window_rule({
-	name = "mumble",
-	match = { class = "info.mumble.Mumble" },
-	pseudo = true,
-	size = { 773, 498 },
-})
-
-hl.window_rule({
-	name = "signal",
-	match = { class = "signal" },
-	pseudo = true,
-	size = { 874, 1212 },
-})
-
-hl.window_rule({
-	name = "blueman",
-	match = { class = "blueman-manager" },
-	float = true,
-	center = true,
-	size = { 529, 344 },
-})
-
-hl.window_rule({
-	name = "transmission",
-	match = { class = "com.transmissionbt.*" },
-	pseudo = true,
-	size = { 950, 550 },
-})
-
-hl.window_rule({
-	name = "spotify",
-	match = { class = "spotify" },
-	workspace = "4",
-})
-
-hl.window_rule({
-	name = "steam",
-	match = { class = "steam" },
-	workspace = "5 silent",
-})
-
-hl.window_rule({
-	name = "file-operation-progress",
-	match = { title = "^File Operation Progress$" },
-	float = true,
-})
-
-hl.window_rule({
-	name = "dev-linux-amd64",
-	match = { class = "^.*dev-linux-amd64$" },
-	float = true,
-})
-
-hl.window_rule({
-	name = "qemu-system-x86_64",
-	match = { class = "qemu-system-x86_64" },
-	tile = true,
-})
-
-hl.window_rule({
-	name = "vtk",
-	match = { class = "Vtk" },
-	tile = true,
-})
-
-hl.window_rule({
-	name = "foot",
-	match = { class = "foot" },
-	size = { 1249, 1426 },
-})
-
-hl.window_rule({
-	name = "croc-gui",
-	match = { class = "croc-gui" },
-	float = true,
-})
-
-hl.window_rule({
-	name = "gnome-file-roller",
-	match = { class = "org.gnome.FileRoller" },
-	float = true,
-})
+for _, rule in ipairs(window_rules) do
+	hl.window_rule(rule)
+end
 
 -- workspaces
 
@@ -147,18 +136,15 @@ hl.workspace_rule({
 	on_created_empty = "[pseudo; size 700 800] foot numr",
 })
 
-hl.workspace_rule({
-	workspace = "special:chatski",
-	on_created_empty = "[pseudo; size 1200 1400] ~/projects/chatski/dist/linux-unpacked/chatski",
-})
-
 -- layer rules
 
 hl.layer_rule({
-	name = "rofi",
-	match = { namespace = "rofi" },
+	name = "quickshell-pickers",
+	match = {
+		namespace = "quickshell-(launcher|clipboard|bluetooth|power|emoji|network|audio|notification-center|polkit|calendar)",
+	},
 	blur = true,
-	ignore_alpha = 0,
+	ignore_alpha = 0.5,
 	no_anim = true,
 })
 
@@ -231,91 +217,101 @@ hl.curve("easeOut", { type = "bezier", points = { { 0.23, 1 }, { 0.32, 1 } } })
 hl.curve("easeInOut", { type = "bezier", points = { { 0.77, 0 }, { 0.175, 1 } } })
 
 -- Keep occasional transitions subtle and fast; frequent keyboard navigation stays instant.
-hl.animation({ leaf = "global", enabled = true, speed = 1.2, bezier = "easeOut" })
-hl.animation({ leaf = "border", enabled = false })
+local animation_rules = {
+	{ leaf = "global", enabled = true, speed = 1.2, bezier = "easeOut" },
+	{ leaf = "border", enabled = false },
 
-hl.animation({ leaf = "windows", enabled = true, speed = 1.2, bezier = "easeOut" })
-hl.animation({ leaf = "windowsIn", enabled = true, speed = 1.6, bezier = "easeOut", style = "popin 95%" })
-hl.animation({ leaf = "windowsOut", enabled = true, speed = 1, bezier = "easeOut", style = "popin 95%" })
-hl.animation({ leaf = "windowsMove", enabled = true, speed = 1.2, bezier = "easeInOut" })
+	{ leaf = "windows", enabled = true, speed = 1.2, bezier = "easeOut" },
+	{ leaf = "windowsIn", enabled = true, speed = 1.6, bezier = "easeOut", style = "popin 95%" },
+	{ leaf = "windowsOut", enabled = true, speed = 1, bezier = "easeOut", style = "popin 95%" },
+	{ leaf = "windowsMove", enabled = true, speed = 1.2, bezier = "easeInOut" },
 
-hl.animation({ leaf = "fade", enabled = true, speed = 1, bezier = "easeOut" })
-hl.animation({ leaf = "fadeIn", enabled = true, speed = 1.2, bezier = "easeOut" })
-hl.animation({ leaf = "fadeOut", enabled = true, speed = 0.8, bezier = "easeOut" })
-hl.animation({ leaf = "fadeSwitch", enabled = false })
-hl.animation({ leaf = "fadeShadow", enabled = false })
+	{ leaf = "fade", enabled = true, speed = 1, bezier = "easeOut" },
+	{ leaf = "fadeIn", enabled = true, speed = 1.2, bezier = "easeOut" },
+	{ leaf = "fadeOut", enabled = true, speed = 0.8, bezier = "easeOut" },
+	{ leaf = "fadeSwitch", enabled = false },
+	{ leaf = "fadeShadow", enabled = false },
 
-hl.animation({ leaf = "layers", enabled = true, speed = 1.2, bezier = "easeOut" })
-hl.animation({ leaf = "layersIn", enabled = true, speed = 1.2, bezier = "easeOut", style = "fade" })
-hl.animation({ leaf = "layersOut", enabled = true, speed = 0.8, bezier = "easeOut", style = "fade" })
+	{ leaf = "layers", enabled = true, speed = 1.2, bezier = "easeOut" },
+	{ leaf = "layersIn", enabled = true, speed = 1.2, bezier = "easeOut", style = "fade" },
+	{ leaf = "layersOut", enabled = true, speed = 0.8, bezier = "easeOut", style = "fade" },
 
-hl.animation({ leaf = "workspaces", enabled = false })
+	{ leaf = "workspaces", enabled = false },
+}
+
+for _, rule in ipairs(animation_rules) do
+	hl.animation(rule)
+end
 
 -- binds
 
 local mod = "SUPER"
 
-hl.bind(
-	mod .. " + ESCAPE",
-	hl.dsp.exec_cmd(
-		"rofi -show power_menu -modes 'power_menu:~/dotfiles/rofi/.config/rofi/scripts/power_menu.sh' -theme-str 'window {width: 15%;}' -no-show-icons"
+local function mod_bind(keys, dispatcher, options)
+	hl.bind(mod .. " + " .. keys, dispatcher, options)
+end
+
+-- apps and shell
+
+mod_bind("ESCAPE", hl.dsp.global("quickshell:power"))
+mod_bind("RETURN", hl.dsp.exec_cmd(terminal))
+mod_bind("e", hl.dsp.exec_cmd(file_manager))
+mod_bind("b", hl.dsp.exec_cmd(browser))
+mod_bind("d", hl.dsp.global("quickshell:launcher"))
+mod_bind("bracketleft", hl.dsp.global("quickshell:emoji"))
+mod_bind("bracketright", hl.dsp.exec_cmd("shopot"))
+
+-- windows
+
+mod_bind("SHIFT + k", hl.dsp.window.kill())
+mod_bind("q", hl.dsp.window.close())
+mod_bind("p", hl.dsp.window.pseudo())
+mod_bind("f", hl.dsp.window.fullscreen({ mode = "maximized" }))
+mod_bind("SHIFT + f", hl.dsp.window.float())
+
+for _, bind in ipairs({
+	{ key = "h", direction = "l", resize = { -50, 0 } },
+	{ key = "l", direction = "r", resize = { 50, 0 } },
+	{ key = "k", direction = "u", resize = { 0, -50 } },
+	{ key = "j", direction = "d", resize = { 0, 50 } },
+}) do
+	mod_bind(bind.key, hl.dsp.focus({ direction = bind.direction }))
+	mod_bind("CTRL + " .. bind.key, hl.dsp.window.move({ direction = bind.direction }))
+	hl.bind(
+		"ALT + " .. bind.key,
+		hl.dsp.window.resize({ x = bind.resize[1], y = bind.resize[2], relative = true }),
+		{ repeating = true }
 	)
-)
-hl.bind(mod .. " + RETURN", hl.dsp.exec_cmd(terminal))
-hl.bind(mod .. " + e", hl.dsp.exec_cmd(file_manager))
-hl.bind(mod .. " + b", hl.dsp.exec_cmd(browser))
-hl.bind(mod .. " + d", hl.dsp.exec_cmd("rofi -show drun -display-drun 'apps' -run-command 'runapp {cmd}'"))
-hl.bind(mod .. " + bracketleft", hl.dsp.exec_cmd("rofi -show emoji"))
+end
 
-hl.bind(mod .. " + SHIFT + k", hl.dsp.window.kill())
-hl.bind(mod .. " + q", hl.dsp.window.close())
-hl.bind(mod .. " + p", hl.dsp.window.pseudo())
-hl.bind(mod .. " + f", hl.dsp.window.fullscreen({ mode = "maximized" }))
-hl.bind(mod .. " + SHIFT + f", hl.dsp.window.float())
+mod_bind("mouse:272", hl.dsp.window.drag(), { mouse = true })
+mod_bind("mouse:273", hl.dsp.window.resize(), { mouse = true })
 
-hl.bind(mod .. " + h", hl.dsp.focus({ direction = "l" }))
-hl.bind(mod .. " + l", hl.dsp.focus({ direction = "r" }))
-hl.bind(mod .. " + k", hl.dsp.focus({ direction = "u" }))
-hl.bind(mod .. " + j", hl.dsp.focus({ direction = "d" }))
+-- workspaces
 
-hl.bind(mod .. " + CTRL + h", hl.dsp.window.move({ direction = "l" }))
-hl.bind(mod .. " + CTRL + l", hl.dsp.window.move({ direction = "r" }))
-hl.bind(mod .. " + CTRL + k", hl.dsp.window.move({ direction = "u" }))
-hl.bind(mod .. " + CTRL + j", hl.dsp.window.move({ direction = "d" }))
+for workspace, key in ipairs({ "g", "r", "t", "s", "w" }) do
+	local name = tostring(workspace)
+	mod_bind(key, hl.dsp.focus({ workspace = name }))
+	mod_bind("SHIFT + " .. key, hl.dsp.window.move({ workspace = name, follow = false }))
+end
 
-hl.bind("ALT + h", hl.dsp.window.resize({ x = -50, y = 0, relative = true }), { repeating = true })
-hl.bind("ALT + l", hl.dsp.window.resize({ x = 50, y = 0, relative = true }), { repeating = true })
-hl.bind("ALT + k", hl.dsp.window.resize({ x = 0, y = -50, relative = true }), { repeating = true })
-hl.bind("ALT + j", hl.dsp.window.resize({ x = 0, y = 50, relative = true }), { repeating = true })
+mod_bind("n", hl.dsp.workspace.toggle_special("notes"))
+mod_bind("m", hl.dsp.workspace.toggle_special("calculator"))
 
-hl.bind(mod .. " + g", hl.dsp.focus({ workspace = "1" }))
-hl.bind(mod .. " + r", hl.dsp.focus({ workspace = "2" }))
-hl.bind(mod .. " + t", hl.dsp.focus({ workspace = "3" }))
-hl.bind(mod .. " + s", hl.dsp.focus({ workspace = "4" }))
-hl.bind(mod .. " + w", hl.dsp.focus({ workspace = "5" }))
+-- app shortcuts
 
-hl.bind(mod .. " + SHIFT + g", hl.dsp.window.move({ workspace = "1", follow = false }))
-hl.bind(mod .. " + SHIFT + r", hl.dsp.window.move({ workspace = "2", follow = false }))
-hl.bind(mod .. " + SHIFT + t", hl.dsp.window.move({ workspace = "3", follow = false }))
-hl.bind(mod .. " + SHIFT + s", hl.dsp.window.move({ workspace = "4", follow = false }))
-hl.bind(mod .. " + SHIFT + w", hl.dsp.window.move({ workspace = "5", follow = false }))
+mod_bind("c", hl.dsp.send_shortcut({ mods = "CTRL", key = "Insert" }))
+mod_bind("v", hl.dsp.send_shortcut({ mods = "SHIFT", key = "Insert" }))
+mod_bind("a", hl.dsp.send_shortcut({ mods = "CTRL", key = "a" }))
+mod_bind("x", hl.dsp.send_shortcut({ mods = "CTRL", key = "x" }))
+mod_bind("z", hl.dsp.send_shortcut({ mods = "CTRL", key = "z" }))
+mod_bind("SHIFT + v", hl.dsp.global("quickshell:clipboard"))
 
-hl.bind(mod .. " + n", hl.dsp.workspace.toggle_special("notes"))
-hl.bind(mod .. " + m", hl.dsp.workspace.toggle_special("calculator"))
-hl.bind(mod .. " + i", hl.dsp.workspace.toggle_special("chatski"))
+-- media and display
 
-hl.bind(mod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
-hl.bind(mod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
-
-hl.bind(mod .. " + c", hl.dsp.send_shortcut({ mods = "CTRL", key = "Insert" }))
-hl.bind(mod .. " + v", hl.dsp.send_shortcut({ mods = "SHIFT", key = "Insert" }))
-hl.bind(mod .. " + a", hl.dsp.send_shortcut({ mods = "CTRL", key = "a" }))
-hl.bind(mod .. " + x", hl.dsp.send_shortcut({ mods = "CTRL", key = "x" }))
-hl.bind(mod .. " + z", hl.dsp.send_shortcut({ mods = "CTRL", key = "z" }))
-
-hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"))
-hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"))
-hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"))
+hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl --player=spotify play-pause"))
+hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl --player=spotify next"))
+hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl --player=spotify previous"))
 
 hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_SINK@ 5%-"), { repeating = true })
 hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_SINK@ 5%+"), { repeating = true })
@@ -331,23 +327,16 @@ hl.bind(
 	{ repeating = true }
 )
 
-hl.bind(mod .. " + comma", hl.dsp.exec_cmd("~/dotfiles/scripts/screenshot -f"))
-hl.bind(mod .. " + period", hl.dsp.exec_cmd("~/dotfiles/scripts/screenshot -w"))
-hl.bind(mod .. " + slash", hl.dsp.exec_cmd("~/dotfiles/scripts/screenshot -s"))
-hl.bind(mod .. " + SHIFT + comma", hl.dsp.exec_cmd("~/dotfiles/scripts/screenshot -f -e"))
-hl.bind(mod .. " + SHIFT + period", hl.dsp.exec_cmd("~/dotfiles/scripts/screenshot -w -e"))
-hl.bind(mod .. " + SHIFT + slash", hl.dsp.exec_cmd("~/dotfiles/scripts/screenshot -s -e"))
+-- screenshots and utilities
 
-hl.bind(mod .. " + CTRL + c", hl.dsp.exec_cmd("hyprpicker -a"))
+mod_bind("comma", hl.dsp.exec_cmd("~/dotfiles/scripts/screenshot -f"))
+mod_bind("period", hl.dsp.exec_cmd("~/dotfiles/scripts/screenshot -w"))
+mod_bind("slash", hl.dsp.exec_cmd("~/dotfiles/scripts/screenshot -s"))
 
-hl.bind(
-	mod .. " + SHIFT + v",
-	hl.dsp.exec_cmd(
-		"rofi -modi clipboard:~/dotfiles/rofi/.config/rofi/scripts/cliphist-rofi-img -show clipboard -show-icons -theme-str 'window {width: 30%;}'"
-	)
-)
-
-hl.bind(mod .. " + bracketright", hl.dsp.exec_cmd("shopot"))
+mod_bind("CTRL + comma", hl.dsp.global("quickshell:screenshot-fullscreen"))
+mod_bind("CTRL + period", hl.dsp.global("quickshell:screenshot-window"))
+mod_bind("CTRL + slash", hl.dsp.global("quickshell:screenshot"))
+mod_bind("CTRL + c", hl.dsp.exec_cmd("hyprpicker -a"))
 
 -- misc
 
@@ -355,7 +344,7 @@ hl.config({
 	misc = {
 		disable_hyprland_logo = true,
 		disable_splash_rendering = true,
-		vrr = 1,
+		vrr = 0,
 		middle_click_paste = false,
 	},
 
