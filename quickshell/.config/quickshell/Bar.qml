@@ -217,6 +217,10 @@ Scope {
 					}
 				}
 
+				Dock {
+					anchors.centerIn: parent
+				}
+
 				ColumnLayout {
 					id: bottomArea
 					anchors.left: parent.left

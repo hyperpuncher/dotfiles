@@ -1,0 +1,18 @@
+dbus-update-activation-environment --systemd \
+	ALSOFT_DRIVERS ELECTRON_OZONE_PLATFORM_HINT GDK_BACKEND LIBVA_DRIVER_NAME \
+	QT_AUTO_SCREEN_SCALE_FACTOR QT_ENABLE_HIGHDPI_SCALING QT_QPA_PLATFORM \
+	QT_QPA_PLATFORMTHEME QT_SCALE_FACTOR_ROUNDING_POLICY QT_STYLE_OVERRIDE \
+	QT_WAYLAND_DISABLE_WINDOWDECORATION SDL_AUDIODRIVER SDL_VIDEODRIVER \
+	STEAM_FORCE_DESKTOPUI_SCALING XCURSOR_SIZE XCURSOR_THEME
+systemctl --user --no-block start labwc-session.target
+
+runapp wlr-randr --output DP-3 --preferred --scale 1.5 --adaptive-sync enabled
+runapp mpv --loop=no ~/dotfiles/sounds/silent.wav
+runapp ~/projects/arduino/autobrightness/autobrightness
+runapp wlsunset -t 3000 -T 6500 -l 53.9 -L 27.6 -d 1800
+runapp darkman run
+runapp qs
+runapp udiskie
+runapp corectrl
+runapp jamesdsp -t
+runapp localsend --hidden

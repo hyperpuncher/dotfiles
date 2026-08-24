@@ -1,0 +1,36 @@
+border.width: 1
+
+window.titlebar.padding.width: 5
+window.titlebar.padding.height: 3
+window.active.border.color: #888892
+window.inactive.border.color: #c8c8ce
+
+window.*.title.bg: Solid
+window.active.title.bg.color: #f4f4f6
+window.inactive.title.bg.color: #e8e8eb
+window.active.label.text.color: #202124
+window.inactive.label.text.color: #777780
+window.label.text.justify: Left
+
+window.button.width: 24
+window.button.height: 24
+window.button.spacing: 2
+window.button.hover.bg.color: #00000012
+window.button.hover.bg.corner-radius: 6
+
+window.active.shadow.size: 40
+window.inactive.shadow.size: 32
+window.active.shadow.color: #00000030
+window.inactive.shadow.color: #00000020
+
+osd.bg.color: #f4f4f6
+osd.border.color: #888892
+osd.border.width: 1
+osd.label.text.color: #202124
+osd.window-switcher.style-classic.width: 30%
+osd.window-switcher.style-classic.padding: 4
+osd.window-switcher.style-classic.item.padding.x: 6
+osd.window-switcher.style-classic.item.padding.y: 4
+osd.window-switcher.style-classic.item.active.border.width: 1
+osd.window-switcher.style-classic.item.active.border.color: #777780
+osd.window-switcher.style-classic.item.active.bg.color: #0000000d

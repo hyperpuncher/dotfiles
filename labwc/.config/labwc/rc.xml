@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<labwc_config>
+	<core>
+		<decoration>server</decoration>
+		<gap>4</gap>
+		<adaptiveSync>fullscreen</adaptiveSync>
+		<primarySelection>no</primarySelection>
+	</core>
+
+	<desktops number="5">
+		<names>
+			<name>1</name>
+			<name>2</name>
+			<name>3</name>
+			<name>4</name>
+			<name>5</name>
+		</names>
+		<popupTime>0</popupTime>
+	</desktops>
+
+	<keyboard layoutScope="global">
+		<numlock>on</numlock>
+		<repeatRate>40</repeatRate>
+		<repeatDelay>300</repeatDelay>
+
+		<keybind key="W-Escape"><action name="Execute" command="qs ipc call shell togglePower" /></keybind>
+		<keybind key="W-Return"><action name="Execute" command="runapp foot" /></keybind>
+		<keybind key="W-e"><action name="Execute" command="runapp nemo" /></keybind>
+		<keybind key="W-b"><action name="Execute" command="runapp helium-browser" /></keybind>
+		<keybind key="W-d"><action name="Execute" command="qs ipc call shell toggleLauncher" /></keybind>
+		<keybind key="W-bracketleft"><action name="Execute" command="qs ipc call shell toggleEmoji" /></keybind>
+		<keybind key="W-bracketright"><action name="Execute" command="shopot" /></keybind>
+		<keybind key="W-S-v"><action name="Execute" command="qs ipc call shell toggleClipboard" /></keybind>
+		<keybind key="W-i"><action name="Execute" command="pi-ui" /></keybind>
+		<keybind key="W-S-i"><action name="Execute" command="sh -c 'cd ~/projects/pi-ui &amp;&amp; deno task build:linux &amp;&amp; PI_UI_DEBUG=1 deno task run:linux'" /></keybind>
+
+		<keybind key="W-q"><action name="Close" /></keybind>
+		<keybind key="W-S-k"><action name="Kill" /></keybind>
+		<keybind key="W-f"><action name="ToggleMaximize" /></keybind>
+		<keybind key="W-S-f"><action name="ToggleFullscreen" /></keybind>
+		<keybind key="A-Tab"><action name="NextWindow" /></keybind>
+		<keybind key="A-S-Tab"><action name="PreviousWindow" /></keybind>
+		<keybind key="W-Tab"><action name="NextWindow" /></keybind>
+		<keybind key="W-S-Tab"><action name="PreviousWindow" /></keybind>
+		<keybind key="W-h"><action name="PreviousWindowImmediate" /></keybind>
+		<keybind key="W-j"><action name="NextWindowImmediate" /></keybind>
+		<keybind key="W-k"><action name="PreviousWindowImmediate" /></keybind>
+		<keybind key="W-l"><action name="NextWindowImmediate" /></keybind>
+
+
+		<keybind key="W-g"><action name="GoToDesktop" to="1" /></keybind>
+		<keybind key="W-r"><action name="GoToDesktop" to="2" /></keybind>
+		<keybind key="W-t"><action name="GoToDesktop" to="3" /></keybind>
+		<keybind key="W-s"><action name="GoToDesktop" to="4" /></keybind>
+		<keybind key="W-w"><action name="GoToDesktop" to="5" /></keybind>
+		<keybind key="W-S-g"><action name="SendToDesktop" to="1" follow="no" /></keybind>
+		<keybind key="W-S-r"><action name="SendToDesktop" to="2" follow="no" /></keybind>
+		<keybind key="W-S-t"><action name="SendToDesktop" to="3" follow="no" /></keybind>
+		<keybind key="W-S-s"><action name="SendToDesktop" to="4" follow="no" /></keybind>
+		<keybind key="W-S-w"><action name="SendToDesktop" to="5" follow="no" /></keybind>
+
+		<keybind key="W-c"><action name="Execute" command="wtype -M ctrl -k Insert" /></keybind>
+		<keybind key="W-v"><action name="Execute" command="wtype -M shift -k Insert" /></keybind>
+		<keybind key="W-a"><action name="Execute" command="wtype -M ctrl -k a" /></keybind>
+		<keybind key="W-x"><action name="Execute" command="wtype -M ctrl -k x" /></keybind>
+		<keybind key="W-z"><action name="Execute" command="wtype -M ctrl -k z" /></keybind>
+
+		<keybind key="XF86AudioPlay" allowWhenLocked="yes"><action name="Execute" command="playerctl --player=spotify play-pause" /></keybind>
+		<keybind key="XF86AudioNext" allowWhenLocked="yes"><action name="Execute" command="playerctl --player=spotify next" /></keybind>
+		<keybind key="XF86AudioPrev" allowWhenLocked="yes"><action name="Execute" command="playerctl --player=spotify previous" /></keybind>
+		<keybind key="XF86AudioLowerVolume" allowWhenLocked="yes"><action name="Execute" command="wpctl set-volume @DEFAULT_SINK@ 5%-" /></keybind>
+		<keybind key="XF86AudioRaiseVolume" allowWhenLocked="yes"><action name="Execute" command="wpctl set-volume @DEFAULT_SINK@ 5%+" /></keybind>
+		<keybind key="XF86MonBrightnessDown"><action name="Execute" command="ddcutil --skip-ddc-checks --noverify setvcp 10 - 5" /></keybind>
+		<keybind key="XF86MonBrightnessUp"><action name="Execute" command="ddcutil --skip-ddc-checks --noverify setvcp 10 + 5" /></keybind>
+
+		<keybind key="W-comma"><action name="Execute" command="~/dotfiles/scripts/screenshot -f" /></keybind>
+		<keybind key="W-period"><action name="Execute" command="~/dotfiles/scripts/screenshot -w" /></keybind>
+		<keybind key="W-slash"><action name="Execute" command="~/dotfiles/scripts/screenshot -s" /></keybind>
+		<keybind key="C-W-comma"><action name="Execute" command="qs ipc call shell editScreenshot fullscreen" /></keybind>
+		<keybind key="C-W-period"><action name="Execute" command="qs ipc call shell editScreenshot window" /></keybind>
+		<keybind key="C-W-slash"><action name="Execute" command="qs ipc call shell editScreenshot region" /></keybind>
+		<keybind key="C-W-c"><action name="Execute" command="hyprpicker -a" /></keybind>
+	</keyboard>
+
+	<mouse>
+		<default />
+		<context name="Root">
+			<mousebind button="Left" action="Press" />
+			<mousebind button="Middle" action="Press" />
+			<mousebind button="Right" action="Press" />
+		</context>
+	</mouse>
+
+	<libinput>
+		<device category="default">
+			<accelProfile>flat</accelProfile>
+		</device>
+		<device category="bastard-keyboards-charybdis-mini-(3x6)-pro-micro-1">
+			<pointerSpeed>0.5</pointerSpeed>
+		</device>
+		<device category="nordic-2.4g-wireless-receiver-mouse">
+			<pointerSpeed>0</pointerSpeed>
+		</device>
+		<device category="logitech-ergo-m575">
+			<pointerSpeed>-0.5</pointerSpeed>
+		</device>
+	</libinput>
+
+	<focus>
+		<followMouse>yes</followMouse>
+		<followMouseRequiresMovement>yes</followMouseRequiresMovement>
+		<raiseOnFocus>no</raiseOnFocus>
+	</focus>
+
+	<theme>
+		<name>labwc</name>
+		<titlebar>
+			<layout>:iconify,max,close</layout>
+			<showTitle>yes</showTitle>
+		</titlebar>
+		<cornerRadius>9</cornerRadius>
+		<maximizedDecoration>none</maximizedDecoration>
+		<dropShadows>yes</dropShadows>
+		<dropShadowsOnTiled>yes</dropShadowsOnTiled>
+		<font name="Iosevka Nerd Font" size="10" weight="medium" />
+	</theme>
+
+</labwc_config>

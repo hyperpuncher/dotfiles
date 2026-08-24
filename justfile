@@ -39,6 +39,7 @@ stow:
 	hyprland \
 	icons \
 	jamesdsp \
+	labwc \
 	mangohud \
 	mpv \
 	mumble \
