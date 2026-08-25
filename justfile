@@ -7,7 +7,7 @@ bootstrap: essential ssh paru stow mirrors soft greetd misc theme
 
 # Essentials packages
 essential:
-	sudo pacman -S neovim age zsh stow rustup openssh ccache pigz pbzip2 pacman-contrib foot greetd-tuigreet
+	sudo pacman -S --needed age zsh stow rustup openssh ccache pigz pbzip2 pacman-contrib foot greetd-tuigreet
 
 # Decrypt & install SSH key
 ssh:
@@ -28,13 +28,14 @@ stow:
 	stow --no-folding -Rv \
 	alacritty \
 	applications \
+	biome \
 	btop \
+	bun \
 	darkman \
-	dunst \
+	fontconfig \
 	foot \
 	git \
 	glow \
-	gtk \
 	home \
 	hyprland \
 	icons \
@@ -46,17 +47,24 @@ stow:
 	npm \
 	nvim \
 	opencode \
+	oxfmt \
 	pacman \
 	paru \
+	pi \
 	pipewire \
+	pnpm \
 	pulse \
-	rofi \
+	quickshell \
+	rg \
 	spotify \
 	ssh \
+	sunshine \
+	telegram \
 	tmux \
-	waybar \
+	uwsm \
 	wireplumber \
-	zsh
+	zsh \
+
 
 # Update mirror list & refresh DB
 mirrors:
@@ -65,12 +73,12 @@ mirrors:
 	| sed -e 's/^#Server/Server/' -e '/^#/d' \
 	| rankmirrors -p -n 5 -m 0.2 - \
 	| sudo tee /etc/pacman.d/mirrorlist
-	paru -Sy
+	paru -Syyu
 
 # Install all packages listed in ./soft
 soft:
 	echo "Installing soft"
-	paru -S $(cat soft)
+	paru -S --needed $(cat soft)
 
 # Greeter configuration & systemd enable
 greetd:
