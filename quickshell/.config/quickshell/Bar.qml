@@ -217,10 +217,6 @@ Scope {
 					}
 				}
 
-				Dock {
-					anchors.centerIn: parent
-				}
-
 				ColumnLayout {
 					id: bottomArea
 					anchors.left: parent.left
@@ -273,14 +269,12 @@ Scope {
 					BarButton {
 						visible: root.onHyprland
 						text: root.language
-						fontSize: 17
 						onClicked: Hyprland.dispatch("switchxkblayout current next")
 					}
 
 					BarButton {
 						text: Theme.dark ? "" : ""
 						iconRotation: 90
-						fontSize: 30
 						onClicked: Theme.toggle()
 					}
 
@@ -347,7 +341,7 @@ Scope {
 		id: button
 		required property string text
 		property real iconRotation: 0
-		property real fontSize: 24
+		property real fontSize: 18
 		signal clicked()
 		Layout.alignment: Qt.AlignHCenter
 		Layout.preferredWidth: 32
@@ -357,7 +351,7 @@ Scope {
 			anchors.centerIn: parent
 			text: button.text
 			color: Theme.barText
-			font.family: "IosevkaTerm Nerd Font Mono"
+			font.family: "Iosevka Nerd Font"
 			font.pixelSize: button.fontSize
 			font.weight: Font.Medium
 			rotation: button.iconRotation

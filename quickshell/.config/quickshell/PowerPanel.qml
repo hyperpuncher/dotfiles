@@ -138,7 +138,7 @@ PanelWindow {
 							Layout.maximumWidth: 28
 							text: row.modelData.icon
 							color: row.selected ? Theme.selectedText : Theme.text
-							font.family: "IosevkaTerm Nerd Font Mono"
+							font.family: "Iosevka Nerd Font"
 							font.pixelSize: 20
 							horizontalAlignment: Text.AlignHCenter
 						}

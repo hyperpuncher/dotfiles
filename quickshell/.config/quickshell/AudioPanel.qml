@@ -265,7 +265,7 @@ PanelWindow {
 							Layout.maximumWidth: 28
 							text: row.modelData.kind === "output" || row.modelData.kind === "playback" ? row.audio && row.audio.muted ? "󰖁" : "󰕾" : row.audio && row.audio.muted ? "󰍭" : "󰍬"
 							color: row.selected ? Theme.selectedText : Theme.text
-							font.family: "IosevkaTerm Nerd Font Mono"
+							font.family: "Iosevka Nerd Font"
 							font.pixelSize: 20
 							horizontalAlignment: Text.AlignHCenter
 						}

@@ -196,7 +196,7 @@ PanelWindow {
 					Text {
 						text: root.adapter && root.adapter.enabled ? "" : "󰂲"
 						color: Theme.text
-						font.family: "IosevkaTerm Nerd Font Mono"
+						font.family: "Iosevka Nerd Font"
 						font.pixelSize: 25
 					}
 
@@ -227,7 +227,7 @@ PanelWindow {
 						text: "󰐥"
 						color: Theme.text
 						opacity: root.adapter && root.adapter.enabled ? 1 : 0.45
-						font.family: "IosevkaTerm Nerd Font Mono"
+						font.family: "Iosevka Nerd Font"
 						font.pixelSize: 20
 					}
 				}
@@ -291,7 +291,7 @@ PanelWindow {
 							Text {
 								text: ""
 								color: wrapper.selected ? Theme.selectedText : Theme.text
-								font.family: "IosevkaTerm Nerd Font Mono"
+								font.family: "Iosevka Nerd Font"
 								font.pixelSize: 20
 								Layout.preferredWidth: 28
 								horizontalAlignment: Text.AlignHCenter

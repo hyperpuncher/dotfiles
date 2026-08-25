@@ -608,7 +608,7 @@ PanelWindow {
 									visible: row.thumbnailSource === ""
 									text: row.modelData.kind === "image" ? "" : row.modelData.kind === "file" ? row.modelData.fileIcon : ""
 									color: row.selected ? Theme.selectedText : Theme.text
-									font.family: "IosevkaTerm Nerd Font Mono"
+									font.family: "Iosevka Nerd Font"
 									font.pixelSize: 19
 								}
 
