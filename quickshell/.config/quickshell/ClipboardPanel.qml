@@ -14,6 +14,8 @@ PanelWindow {
 	readonly property var results: filterRows(history, query)
 	property string previewText: ""
 	property string previewImage: ""
+	property var linkPreview: null
+	property var linkPreviewCache: ({})
 	readonly property string imageDirectory: `${Quickshell.env("XDG_RUNTIME_DIR") || "/tmp"}/clipboard-images`
 	readonly property string imageCacheDirectory: `${imageDirectory}/sources`
 	readonly property string riftSocketPath: `${Quickshell.env("XDG_RUNTIME_DIR") || "/tmp"}/rift.sock`
@@ -49,8 +51,19 @@ PanelWindow {
 		return icons[type] || icons.file;
 	}
 
+	function linkUrl(value: string): string {
+		const candidate = value.trim();
+		return /^https?:\/\/\S+$/.test(candidate) ? candidate : "";
+	}
+
+	function linkHost(url: string): string {
+		return url.replace(/^https?:\/\//, "").split(/[\/#?]/)[0];
+	}
+
 	function rowDetail(row): string {
 		const incomplete = row.complete ? "" : " · incomplete";
+		if (row.kind === "link")
+			return `${linkHost(row.url)} · link${incomplete}`;
 		if (row.kind === "image")
 			return `${row.extension.toUpperCase()} · image · ${row.imageSize || row.storedSize}${incomplete}`;
 		if (row.kind === "file") {
@@ -70,7 +83,7 @@ PanelWindow {
 			console.warn("failed to parse Rift history:", error);
 		}
 		const textPriority = ["text/plain;charset=utf-8", "text/plain", "UTF8_STRING", "STRING", "TEXT"];
-		history = items.map(item => {
+		const rows = items.map(item => {
 			const formats = item.formats || [];
 			const imageFormat = formats.find(format => format.mime.startsWith("image/"));
 			const imageMetadata = item.image || null;
@@ -89,7 +102,8 @@ PanelWindow {
 				: imageFormat || text || formats[0] || { mime: "unknown", size: 0 };
 			const fileName = isFile ? file.name : "";
 			const detectedFileType = isFile ? file.category : "";
-			const kind = isFile ? "file" : imageFormat ? "image" : "text";
+			const url = !isFile && !imageFormat ? linkUrl(preview) : "";
+			const kind = isFile ? "file" : imageFormat ? "image" : url ? "link" : "text";
 			return {
 				id: item.id,
 				value: item.sensitive ? "sensitive clipboard item" : isFile ? fileName : preview.trim() ? preview : primary.mime,
@@ -103,13 +117,17 @@ PanelWindow {
 				fileType: detectedFileType,
 				fileIcon: isFile ? fileIcon(detectedFileType) : "",
 				filePath: isFile ? file.path : "",
+				url,
 				sensitive: item.sensitive,
 				complete: item.complete,
 				fileName
 			};
 		});
+		const changed = rows.length !== history.length
+			|| rows.some((row, index) => row.id !== history[index].id || row.complete !== history[index].complete);
 		selectedIndex = 0;
-		loadPreview();
+		if (changed)
+			history = rows;
 	}
 
 	function compact(value: string): string {
@@ -127,11 +145,16 @@ PanelWindow {
 
 	function open(): void {
 		query = "";
+		const selectionChanged = selectedIndex !== 0;
 		selectedIndex = 0;
+		if (selectionChanged)
+			loadPreview();
 		ShellState.resetPointerSelection();
 		ShellState.open("clipboard");
 		connectHistoryEvents();
 		reload();
+		resultList.cancelFlick();
+		resultList.positionViewAtBeginning();
 		Qt.callLater(() => keyHandler.forceActiveFocus());
 	}
 
@@ -156,6 +179,8 @@ PanelWindow {
 		const row = selectedRow();
 		previewText = "";
 		previewImage = "";
+		linkPreview = null;
+		linkPreviewProcess.running = false;
 		if (!row)
 			return;
 
@@ -172,6 +197,16 @@ PanelWindow {
 			];
 			imageDecode.running = false;
 			imageDecode.running = true;
+		} else if (row.kind === "link") {
+			const cached = linkPreviewCache[row.url];
+			if (cached) {
+				linkPreview = cached;
+			} else {
+				previewText = row.url;
+				linkPreviewProcess.rowId = row.id;
+				linkPreviewProcess.command = [`${Quickshell.shellDir}/scripts/link-preview`, row.url];
+				linkPreviewProcess.running = true;
+			}
 		} else {
 			textDecode.rowId = row.id;
 			textDecode.command = ["rift", "read", row.id, "--mime", row.previewMime];
@@ -222,6 +257,8 @@ PanelWindow {
 		if (!row) return;
 		if (row.kind === "file") {
 			Quickshell.execDetached(["xdg-open", row.filePath]);
+		} else if (row.kind === "link") {
+			Quickshell.execDetached(["xdg-open", row.url]);
 		} else if (row.kind === "image") {
 			const path = `${imageDirectory}/${row.id}.${row.extension}`;
 			Quickshell.execDetached([
@@ -347,6 +384,25 @@ PanelWindow {
 				const row = root.selectedRow();
 				if (row && row.id === textDecode.rowId)
 					root.previewText = text;
+			}
+		}
+	}
+
+	Process {
+		id: linkPreviewProcess
+		property string rowId: ""
+		stdout: StdioCollector {
+			onStreamFinished: {
+				const row = root.selectedRow();
+				if (!text.trim() || !row || row.id !== linkPreviewProcess.rowId)
+					return;
+				try {
+					const preview = JSON.parse(text);
+					root.linkPreviewCache[row.url] = preview;
+					root.linkPreview = preview;
+				} catch (error) {
+					console.warn("failed to parse link preview:", error);
+				}
 			}
 		}
 	}
@@ -513,6 +569,7 @@ PanelWindow {
 					spacing: 3
 					model: root.results
 					currentIndex: root.selectedIndex
+					highlightMoveDuration: 0
 					boundsBehavior: Flickable.StopAtBounds
 
 					delegate: Rectangle {
@@ -520,11 +577,22 @@ PanelWindow {
 						required property int index
 						required property var modelData
 						readonly property bool selected: index === root.selectedIndex
+						readonly property bool link: modelData.kind === "link"
+						readonly property string fallbackIcon: modelData.kind === "image" ? ""
+							: modelData.kind === "file" ? modelData.fileIcon
+							: link ? "" : ""
 						property string thumbnailSource: ""
 						readonly property string thumbnailInput: `${root.imageCacheDirectory}/${modelData.id}.${modelData.extension}`
 
 						function loadThumbnail(): void {
 							thumbnailSource = "";
+							if (link) {
+								linkMetadata.rowId = modelData.id;
+								linkMetadata.command = [`${Quickshell.shellDir}/scripts/link-preview`, "--favicon", modelData.url];
+								linkMetadata.running = false;
+								linkMetadata.running = true;
+								return;
+							}
 							if (modelData.kind === "file" && modelData.fileType === "image") {
 								thumbnailSource = encodeURI(`file://${modelData.filePath}`);
 								return;
@@ -552,6 +620,18 @@ PanelWindow {
 							}
 						}
 
+						Process {
+							id: linkMetadata
+							property string rowId: ""
+							stdout: StdioCollector {
+								onStreamFinished: {
+									if (!text.trim() || row.modelData.id !== linkMetadata.rowId)
+										return;
+									row.thumbnailSource = text.trim();
+								}
+							}
+						}
+
 						width: ListView.view.width
 						height: 58
 						clip: true
@@ -568,23 +648,25 @@ PanelWindow {
 								Layout.preferredWidth: 38
 								Layout.preferredHeight: 38
 								radius: 8
-								color: row.selected ? Qt.rgba(0.5, 0.5, 0.5, 0.2) : Qt.rgba(Theme.muted.r, Theme.muted.g, Theme.muted.b, 0.12)
+								color: row.link
+									? "transparent"
+									: row.selected ? Qt.rgba(0.5, 0.5, 0.5, 0.2) : Qt.rgba(Theme.muted.r, Theme.muted.g, Theme.muted.b, 0.12)
 
 								Image {
 									id: thumbnailImage
 									anchors.fill: parent
-									anchors.margins: 1
-									visible: false
+									anchors.margins: row.link ? 0 : 1
+									visible: row.link && status === Image.Ready
 									source: row.thumbnailSource
-									sourceSize: Qt.size(68, 68)
-									fillMode: Image.PreserveAspectCrop
-									asynchronous: true
+									sourceSize: Qt.size(96, 96)
+									fillMode: row.link ? Image.PreserveAspectFit : Image.PreserveAspectCrop
+									asynchronous: !row.link
 									smooth: true
 								}
 
 								MultiEffect {
 									anchors.fill: thumbnailImage
-									visible: row.thumbnailSource !== ""
+									visible: !row.link && thumbnailImage.status === Image.Ready
 									source: thumbnailImage
 									maskEnabled: true
 									maskSource: thumbnailMask
@@ -605,8 +687,8 @@ PanelWindow {
 
 								Text {
 									anchors.centerIn: parent
-									visible: row.thumbnailSource === ""
-									text: row.modelData.kind === "image" ? "" : row.modelData.kind === "file" ? row.modelData.fileIcon : ""
+									visible: thumbnailImage.status !== Image.Ready
+									text: row.fallbackIcon
 									color: row.selected ? Theme.selectedText : Theme.text
 									font.family: "Iosevka Nerd Font"
 									font.pixelSize: 19
@@ -617,7 +699,7 @@ PanelWindow {
 									z: 2
 									color: "transparent"
 									radius: 8
-									border.width: 1
+									border.width: row.link && thumbnailImage.status === Image.Ready ? 0 : 1
 									border.pixelAligned: true
 									border.color: Theme.border
 								}
@@ -656,7 +738,8 @@ PanelWindow {
 							hoverEnabled: true
 							cursorShape: Qt.PointingHandCursor
 							onPositionChanged: mouse => {
-								if (ShellState.pointerSelectionMoved(row.mapToItem(card, mouse.x, mouse.y))) {
+								const pointerMoved = ShellState.pointerSelectionMoved(row.mapToItem(card, mouse.x, mouse.y));
+								if (pointerMoved && root.selectedIndex !== row.index) {
 									root.selectedIndex = row.index;
 									root.loadPreview();
 								}
@@ -693,7 +776,7 @@ PanelWindow {
 					Text {
 						anchors.fill: parent
 						anchors.margins: 10
-						visible: root.previewImage === ""
+						visible: root.previewImage === "" && root.linkPreview === null
 						text: root.previewText
 						color: Theme.text
 						font.family: Theme.fontFamily
@@ -702,13 +785,102 @@ PanelWindow {
 						verticalAlignment: Text.AlignTop
 					}
 
+					ColumnLayout {
+						anchors.fill: parent
+						anchors.margins: 10
+						visible: root.linkPreview !== null
+						spacing: 14
+
+						Item {
+							Layout.fillWidth: true
+							Layout.preferredHeight: root.linkPreview && root.linkPreview.image ? 250 : 0
+							visible: root.linkPreview && root.linkPreview.image
+
+							Image {
+								id: linkPreviewImage
+								anchors.fill: parent
+								visible: false
+								source: root.linkPreview ? root.linkPreview.image : ""
+								fillMode: Image.PreserveAspectCrop
+								asynchronous: false
+								smooth: true
+							}
+
+							MultiEffect {
+								anchors.fill: parent
+								source: linkPreviewImage
+								maskEnabled: true
+								maskSource: linkPreviewMask
+							}
+
+							Item {
+								id: linkPreviewMask
+								anchors.fill: parent
+								visible: false
+								layer.enabled: true
+
+								Rectangle {
+									anchors.fill: parent
+									radius: 10
+									color: "white"
+								}
+							}
+						}
+
+						RowLayout {
+							Layout.fillWidth: true
+							spacing: 10
+
+							Image {
+								Layout.preferredWidth: 32
+								Layout.preferredHeight: 32
+								source: root.linkPreview ? root.linkPreview.favicon : ""
+								sourceSize: Qt.size(96, 96)
+								fillMode: Image.PreserveAspectFit
+								asynchronous: false
+								smooth: true
+							}
+
+							Text {
+								Layout.fillWidth: true
+								text: root.linkPreview ? root.linkPreview.title : ""
+								color: Theme.text
+								font.family: Theme.fontFamily
+								font.pixelSize: 19
+								font.weight: Font.DemiBold
+								wrapMode: Text.Wrap
+							}
+						}
+
+						Text {
+							Layout.fillWidth: true
+							visible: text !== ""
+							text: root.linkPreview ? root.linkPreview.description : ""
+							color: Theme.muted
+							font.family: Theme.fontFamily
+							font.pixelSize: 14
+							wrapMode: Text.Wrap
+						}
+
+						Text {
+							Layout.fillWidth: true
+							text: root.linkPreview ? root.linkPreview.url : ""
+							color: Theme.muted
+							font.family: Theme.fontFamily
+							font.pixelSize: 12
+							wrapMode: Text.WrapAnywhere
+						}
+
+						Item { Layout.fillHeight: true }
+					}
+
 					Image {
 						anchors.fill: parent
 						anchors.margins: 10
 						visible: root.previewImage !== ""
 						source: root.previewImage
 						fillMode: Image.PreserveAspectFit
-						asynchronous: true
+						asynchronous: false
 						smooth: true
 					}
 				}
@@ -728,7 +900,7 @@ PanelWindow {
 					description: "path"
 				}
 				KeyHint {
-					visible: root.selectedRow() && ["file", "image"].includes(root.selectedRow().kind)
+					visible: root.selectedRow() && ["file", "image", "link"].includes(root.selectedRow().kind)
 					shortcut: "shift ↵"
 					description: "open"
 				}

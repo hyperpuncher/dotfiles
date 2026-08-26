@@ -141,11 +141,7 @@ ShellRoot {
 		onLoaded: item.open()
 	}
 
-	Loader {
-		active: ShellState.activePanel === "clipboard"
-		sourceComponent: ClipboardPanel {}
-		onLoaded: item.open()
-	}
+	ClipboardPanel {}
 
 	Loader {
 		active: ShellState.activePanel === "power"

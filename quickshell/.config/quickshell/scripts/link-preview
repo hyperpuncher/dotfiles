@@ -1,0 +1,201 @@
+#!/usr/bin/env python3
+
+import hashlib
+import json
+import os
+import sys
+import time
+from pathlib import Path
+from urllib.parse import urljoin, urlparse
+
+import requests
+from bs4 import BeautifulSoup
+
+MAX_HTML_BYTES = 2 * 1024 * 1024
+MAX_IMAGE_BYTES = 12 * 1024 * 1024
+MAX_AGE = 7 * 24 * 60 * 60
+USER_AGENT = "Mozilla/5.0 (X11; Linux x86_64) clipboard-link-preview/1.0"
+IMAGE_SUFFIXES = {
+	"image/gif": ".gif",
+	"image/jpeg": ".jpg",
+	"image/vnd.microsoft.icon": ".ico",
+	"image/x-icon": ".ico",
+	"image/png": ".png",
+	"image/svg+xml": ".svg",
+	"image/webp": ".webp",
+}
+SESSION = requests.Session()
+SESSION.headers["User-Agent"] = USER_AGENT
+
+
+def clean(value):
+	return " ".join((value or "").split())
+
+
+def remote_url(value):
+	return value if urlparse(value).scheme in ("http", "https") else ""
+
+
+def icon_score(icon):
+	href = icon["href"].lower()
+	kind = icon.get("type", "").lower()
+	rel = " ".join(icon.get("rel", [])).lower()
+	sizes = icon.get("sizes", "").lower()
+	if "mask-icon" in rel:
+		return 7_000
+	if href.endswith(".svg") or "svg" in kind:
+		return 100_000
+	if sizes == "any":
+		return 90_000
+	pixels = [int(size.split("x", 1)[0]) for size in sizes.split() if size.split("x", 1)[0].isdigit()]
+	if pixels:
+		return 10_000 + max(pixels)
+	if "apple-touch" in rel:
+		return 9_000
+	if "fluid-icon" in rel:
+		return 8_000
+	if href.endswith(".png") or "png" in kind:
+		return 1_000
+	return 0
+
+
+def fallback(url):
+	parsed = urlparse(url)
+	return {
+		"url": url,
+		"title": parsed.hostname or url,
+		"description": "",
+		"image": "",
+		"favicon": f"{parsed.scheme}://{parsed.netloc}/favicon.ico",
+	}
+
+
+def fetch_metadata(url):
+	response = SESSION.get(url, headers={"Accept": "text/html,application/xhtml+xml"}, timeout=6)
+	response.raise_for_status()
+	if response.headers.get("Content-Type", "").split(";", 1)[0] not in ("text/html", "application/xhtml+xml"):
+		return fallback(response.url)
+
+	soup = BeautifulSoup(response.content[:MAX_HTML_BYTES], "html.parser")
+	metadata = {
+		(tag.get("property") or tag.get("name", "")).lower(): tag.get("content", "")
+		for tag in soup.find_all("meta")
+		if tag.get("content") and (tag.get("property") or tag.get("name"))
+	}
+	icons = [tag for tag in soup.find_all("link", href=True) if "icon" in " ".join(tag.get("rel", [])).lower()]
+	parsed = urlparse(response.url)
+	origin = f"{parsed.scheme}://{parsed.netloc}"
+	image = metadata.get("og:image") or metadata.get("twitter:image") or ""
+	icon = max(icons, key=icon_score)["href"] if icons else "/favicon.ico"
+	title = metadata.get("og:title") or metadata.get("twitter:title") or (soup.title.get_text() if soup.title else "")
+	return {
+		"url": response.url,
+		"title": clean(title) or parsed.hostname or response.url,
+		"description": clean(metadata.get("og:description") or metadata.get("twitter:description")
+			or metadata.get("description")),
+		"image": remote_url(urljoin(response.url, image)) if image else "",
+		"favicon": remote_url(urljoin(response.url, icon)) or f"{origin}/favicon.ico",
+	}
+
+
+def resource_exists(url):
+	try:
+		with SESSION.get(url, headers={"Range": "bytes=0-0"}, timeout=3, stream=True) as response:
+			return response.ok
+	except requests.RequestException:
+		return False
+
+
+def write_json(path, value):
+	temporary = path.with_suffix(f".{os.getpid()}.tmp")
+	try:
+		temporary.write_text(json.dumps(value, ensure_ascii=False))
+		temporary.replace(path)
+	finally:
+		temporary.unlink(missing_ok=True)
+
+
+def load_metadata(url, cache):
+	hostname = urlparse(url).hostname or ""
+	is_local = hostname in ("localhost", "::1") or hostname.startswith("127.")
+	if cache.exists() and time.time() - cache.stat().st_mtime < MAX_AGE:
+		try:
+			metadata = json.loads(cache.read_text())
+			if not is_local or resource_exists(metadata.get("favicon", "")):
+				return metadata
+		except (OSError, ValueError):
+			pass
+	try:
+		metadata = fetch_metadata(url)
+	except requests.RequestException:
+		return fallback(url)
+	write_json(cache, metadata)
+	return metadata
+
+
+def cache_image(url, cache_root):
+	if not url:
+		return ""
+	image_root = cache_root / "images"
+	image_root.mkdir(exist_ok=True)
+	key = hashlib.sha256(url.encode()).hexdigest()
+	cached = max(
+		(path for path in image_root.glob(f"{key}.*") if path.suffix != ".tmp"),
+		key=lambda path: path.stat().st_mtime,
+		default=None,
+	)
+	if cached and cached.stat().st_size and time.time() - cached.stat().st_mtime < MAX_AGE:
+		return cached.as_uri()
+
+	temporary = image_root / f"{key}.{os.getpid()}.tmp"
+	try:
+		with SESSION.get(url, headers={"Accept": "image/*"}, timeout=8, stream=True) as response:
+			response.raise_for_status()
+			content_type = response.headers.get("Content-Type", "").split(";", 1)[0]
+			if not content_type.startswith("image/"):
+				return url
+			suffix = IMAGE_SUFFIXES.get(content_type, ".img")
+			output = image_root / f"{key}{suffix}"
+			total = 0
+			with temporary.open("wb") as file:
+				for chunk in response.iter_content(64 * 1024):
+					total += len(chunk)
+					if total > MAX_IMAGE_BYTES:
+						return url
+					file.write(chunk)
+		temporary.replace(output)
+		return output.as_uri()
+	except (OSError, requests.RequestException):
+		return url
+	finally:
+		temporary.unlink(missing_ok=True)
+
+
+def cache_favicon(url, cache_root):
+	cached = cache_image(url, cache_root)
+	if cached != url:
+		return cached
+	parsed = urlparse(url)
+	fallback_url = f"{parsed.scheme}://{parsed.netloc}/favicon.ico"
+	return url if fallback_url == url else cache_image(fallback_url, cache_root)
+
+
+def main():
+	favicon_only = len(sys.argv) == 3 and sys.argv[1] == "--favicon"
+	url = sys.argv[2] if favicon_only else sys.argv[1] if len(sys.argv) == 2 else ""
+	if urlparse(url).scheme not in ("http", "https"):
+		raise SystemExit(2)
+
+	cache_root = Path(os.environ.get("XDG_CACHE_HOME", Path.home() / ".cache")) / "quickshell" / "link-previews"
+	cache_root.mkdir(parents=True, exist_ok=True)
+	metadata = load_metadata(url, cache_root / f"{hashlib.sha256(url.encode()).hexdigest()}.json")
+	if favicon_only:
+		print(cache_favicon(metadata["favicon"], cache_root))
+		return
+	metadata["favicon"] = cache_favicon(metadata["favicon"], cache_root)
+	metadata["image"] = cache_image(metadata["image"], cache_root)
+	print(json.dumps(metadata, ensure_ascii=False))
+
+
+if __name__ == "__main__":
+	main()
