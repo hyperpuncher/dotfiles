@@ -1,13 +1,12 @@
 local terminal = "foot"
 local file_manager = "nemo"
 local browser = "helium-browser"
+local players = "spotify,spotifast,spoti"
 
 -- monitor
 
 hl.monitor({
 	output = "",
-	mode = "preferred",
-	position = "auto",
 	scale = "1.5",
 	bitdepth = 10,
 })
@@ -309,9 +308,10 @@ mod_bind("SHIFT + v", hl.dsp.global("quickshell:clipboard"))
 
 -- media and display
 
-hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl --player=spotify play-pause"))
-hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl --player=spotify next"))
-hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl --player=spotify previous"))
+hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl --player=" .. players .. " play-pause"))
+hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl --player=" .. players .. " play-pause"))
+hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl --player=" .. players .. " next"))
+hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl --player=" .. players .. " previous"))
 
 hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_SINK@ 5%-"), { repeating = true })
 hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_SINK@ 5%+"), { repeating = true })
