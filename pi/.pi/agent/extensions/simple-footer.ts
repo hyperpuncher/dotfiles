@@ -1,28 +1,59 @@
 /**
  * Simple Footer Extension
  *
- * Shows: cwd (branch) • ↑input ↓output $cost context% codex-limits provider/model • thinking
+ * Shows: cwd (branch) • [$cost for API usage] context% provider limits provider/model • thinking
  */
 
-import type { AssistantMessage } from "@earendil-works/pi-ai";
 import type { ExtensionAPI, ExtensionContext } from "@earendil-works/pi-coding-agent";
 import { truncateToWidth, visibleWidth } from "@earendil-works/pi-tui";
 
 const CODEX_PROVIDER_ID = "openai-codex";
-const CODEX_USAGE_URL = "https://chatgpt.com/backend-api/wham/usage";
-const CODEX_USAGE_TTL_MS = 5 * 60 * 1000;
-const CODEX_USAGE_TIMEOUT_MS = 15_000;
+const OPENCODE_GO_PROVIDER_ID = "opencode-go";
+const SUBSCRIPTION_PROVIDER_IDS = new Set([
+	CODEX_PROVIDER_ID,
+	"github-copilot",
+	"kimi-coding",
+	OPENCODE_GO_PROVIDER_ID,
+	"qwen-token-plan",
+	"qwen-token-plan-cn",
+	"xiaomi-token-plan-ams",
+	"xiaomi-token-plan-cn",
+	"xiaomi-token-plan-sgp",
+	"zai",
+	"zai-coding-cn",
+]);
+const OAUTH_SUBSCRIPTION_PROVIDER_IDS = new Set(["radius", "xai"]);
+const USAGE_URLS = {
+	[CODEX_PROVIDER_ID]: "https://chatgpt.com/backend-api/wham/usage",
+	[OPENCODE_GO_PROVIDER_ID]: "https://opencode.ai/zen/go/v1/usage",
+} as const;
+const USAGE_TTL_MS = 60 * 1000;
+const USAGE_TIMEOUT_MS = 15_000;
 
-type CodexWindow = {
+type UsageProvider = keyof typeof USAGE_URLS;
+type UsageWindow = {
 	usedPercent: number;
 	windowSeconds?: number;
 	resetsAt?: number;
 };
 
 type CodexUsage = {
-	primary?: CodexWindow;
-	secondary?: CodexWindow;
+	primary?: UsageWindow;
+	secondary?: UsageWindow;
 };
+
+type OpenCodeGoUsage = {
+	rolling?: UsageWindow;
+	weekly?: UsageWindow;
+	monthly?: UsageWindow;
+};
+
+function usageProvider(ctx: ExtensionContext): UsageProvider | undefined {
+	const provider = ctx.model?.provider;
+	return provider === CODEX_PROVIDER_ID || provider === OPENCODE_GO_PROVIDER_ID
+		? provider
+		: undefined;
+}
 
 function formatTokens(count: number): string {
 	if (count < 1000) return count.toString();
@@ -32,8 +63,20 @@ function formatTokens(count: number): string {
 	return `${Math.round(count / 1000000)}M`;
 }
 
-function isOpenAICodex(ctx: ExtensionContext): boolean {
-	return ctx.model?.provider === CODEX_PROVIDER_ID;
+function formatCost(cost: number): string {
+	if (cost < 1) return `$${cost.toFixed(3)}`;
+	if (cost < 100) return `$${cost.toFixed(1)}`;
+	return `$${Math.round(cost)}`;
+}
+
+function isUsingSubscription(ctx: ExtensionContext): boolean {
+	if (!ctx.model) return false;
+	const provider = ctx.model.provider;
+	return (
+		SUBSCRIPTION_PROVIDER_IDS.has(provider) ||
+		(OAUTH_SUBSCRIPTION_PROVIDER_IDS.has(provider) &&
+			ctx.modelRegistry.isUsingOAuth(ctx.model))
+	);
 }
 
 function asObject(value: unknown): Record<string, unknown> | undefined {
@@ -51,7 +94,7 @@ function asNumber(value: unknown): number | undefined {
 	return undefined;
 }
 
-function parseCodexWindow(value: unknown): CodexWindow | undefined {
+function parseCodexWindow(value: unknown): UsageWindow | undefined {
 	const window = asObject(value);
 	if (!window) return undefined;
 
@@ -78,19 +121,46 @@ function parseCodexUsage(payload: unknown): CodexUsage | undefined {
 	return usage.primary || usage.secondary ? usage : undefined;
 }
 
+function parseOpenCodeGoUsage(payload: unknown): OpenCodeGoUsage | undefined {
+	const usage = asObject(asObject(payload)?.usage);
+	if (!usage) return undefined;
+	const parseWindow = (value: unknown): UsageWindow | undefined => {
+		const window = asObject(value);
+		const usedPercent = asNumber(window?.percent);
+		if (usedPercent === undefined) return undefined;
+		const rawReset = window?.resetsAt;
+		const parsedReset = typeof rawReset === "string" ? Date.parse(rawReset) : asNumber(rawReset);
+		return {
+			usedPercent,
+			resetsAt: parsedReset === undefined || !Number.isFinite(parsedReset)
+				? undefined
+				: (parsedReset < 10_000_000_000 ? parsedReset : parsedReset / 1000),
+		};
+	};
+	const result = {
+		rolling: parseWindow(usage.rolling),
+		weekly: parseWindow(usage.weekly),
+		monthly: parseWindow(usage.monthly),
+	};
+	return result.rolling || result.weekly || result.monthly ? result : undefined;
+}
+
 function clampPercent(value: number): number {
 	return Math.min(100, Math.max(0, value));
 }
 
-function formatRemainingPercent(window: CodexWindow): string {
+function formatRemainingPercent(window: UsageWindow): string {
 	return `${Math.round(100 - clampPercent(window.usedPercent))}%`;
 }
 
-function formatRemainingTime(window: CodexWindow): string {
+function formatRemainingTime(window: UsageWindow): string {
 	if (!window.resetsAt) return "?";
 
 	const ms = Math.max(0, window.resetsAt * 1000 - Date.now());
-	const hours = ms / 3_600_000;
+	const minutes = ms / 60_000;
+	if (minutes < 60) return `${Math.round(minutes)}m`;
+
+	const hours = minutes / 60;
 	if (hours < 24) return `${formatOneDecimal(hours)}h`;
 	return `${formatOneDecimal(hours / 24)}d`;
 }
@@ -100,46 +170,74 @@ function formatOneDecimal(value: number): string {
 	return Number.isInteger(rounded) ? String(rounded) : rounded.toFixed(1);
 }
 
-function formatCodexUsage(usage: CodexUsage): string {
-	const parts: string[] = [];
-	if (usage.primary) {
-		parts.push(
-			`5h ${formatRemainingPercent(usage.primary)} ${formatRemainingTime(usage.primary)}`,
-		);
-	}
-	if (usage.secondary) {
-		parts.push(
-			`1w ${formatRemainingPercent(usage.secondary)} ${formatRemainingTime(usage.secondary)}`,
-		);
-	}
-	return parts.join("  ");
+function formatWindowDuration(seconds: number): string {
+	const minutes = seconds / 60;
+	if (minutes < 60) return `${formatOneDecimal(minutes)}m`;
+
+	const hours = minutes / 60;
+	if (hours < 24) return `${formatOneDecimal(hours)}h`;
+
+	const days = hours / 24;
+	if (days < 7) return `${formatOneDecimal(days)}d`;
+	return `${formatOneDecimal(days / 7)}w`;
 }
 
-async function fetchCodexUsage(ctx: ExtensionContext): Promise<CodexUsage | undefined> {
+function formatCodexWindow(window: UsageWindow): string | undefined {
+	if (!window.windowSeconds) return undefined;
+	return `${formatWindowDuration(window.windowSeconds)} ${formatRemainingPercent(window)} ${formatRemainingTime(window)}`;
+}
+
+function formatCodexUsage(usage: CodexUsage): string {
+	return [usage.primary, usage.secondary]
+		.map((window) => (window ? formatCodexWindow(window) : undefined))
+		.filter((window): window is string => window !== undefined)
+		.join("  ");
+}
+
+function formatOpenCodeGoUsage(usage: OpenCodeGoUsage): string {
+	return ([
+		["5h", usage.rolling],
+		["1w", usage.weekly],
+		["1m", usage.monthly],
+	] as const)
+		.flatMap(([label, window]) => window
+			? [`${label} ${formatRemainingPercent(window)} ${formatRemainingTime(window)}`]
+			: [])
+		.join("  ");
+}
+
+async function fetchProviderUsage(ctx: ExtensionContext, provider: UsageProvider): Promise<string> {
 	const model = ctx.model;
-	if (!model) return undefined;
+	if (!model) return "";
 
 	const auth = await ctx.modelRegistry.getApiKeyAndHeaders(model);
 	if (!auth.ok) throw new Error(auth.error);
 
-	const headers = { ...auth.headers };
-	if (!Object.keys(headers).some((key) => key.toLowerCase() === "authorization")) {
-		if (!auth.apiKey) return undefined;
-		headers.Authorization = `Bearer ${auth.apiKey}`;
+	const headers = new Headers();
+	for (const [key, value] of Object.entries(auth.headers ?? {})) {
+		if (value !== null) headers.set(key, value);
 	}
-	if (!Object.keys(headers).some((key) => key.toLowerCase() === "user-agent")) {
-		headers["User-Agent"] = "pi-simple-footer";
+	if (!headers.has("authorization")) {
+		if (!auth.apiKey) return "";
+		headers.set("Authorization", `Bearer ${auth.apiKey}`);
 	}
+	if (!headers.has("user-agent")) headers.set("User-Agent", "pi-simple-footer");
 
 	const controller = new AbortController();
-	const timeout = setTimeout(() => controller.abort(), CODEX_USAGE_TIMEOUT_MS);
+	const timeout = setTimeout(() => controller.abort(), USAGE_TIMEOUT_MS);
 	try {
-		const response = await fetch(CODEX_USAGE_URL, {
+		const response = await fetch(USAGE_URLS[provider], {
 			headers,
 			signal: controller.signal,
 		});
-		if (!response.ok) return undefined;
-		return parseCodexUsage(await response.json());
+		if (!response.ok) return "";
+		const payload: unknown = await response.json();
+		if (provider === CODEX_PROVIDER_ID) {
+			const usage = parseCodexUsage(payload);
+			return usage ? formatCodexUsage(usage) : "";
+		}
+		const usage = parseOpenCodeGoUsage(payload);
+		return usage ? formatOpenCodeGoUsage(usage) : "";
 	} finally {
 		clearTimeout(timeout);
 	}
@@ -147,33 +245,61 @@ async function fetchCodexUsage(ctx: ExtensionContext): Promise<CodexUsage | unde
 
 export default function (pi: ExtensionAPI) {
 	let enabled = false;
-	let codexUsage = "";
-	let codexUsageFetchedAt = 0;
-	let codexUsageFetching = false;
+	let providerUsage = "";
+	let usageFetchedAt = 0;
+	let usageFetching = false;
+	let usageRequestId = 0;
+	let usageTimer: ReturnType<typeof setTimeout> | undefined;
+	let activeContext: ExtensionContext | undefined;
 	let activeRender: (() => void) | undefined;
 
-	const refreshCodexUsage = (ctx: ExtensionContext, force = false) => {
-		if (!isOpenAICodex(ctx)) {
-			codexUsage = "";
-			codexUsageFetchedAt = 0;
+	const clearUsageTimer = () => {
+		if (!usageTimer) return;
+		clearTimeout(usageTimer);
+		usageTimer = undefined;
+	};
+
+	const scheduleUsageRefresh = (ctx: ExtensionContext) => {
+		clearUsageTimer();
+		usageTimer = setTimeout(() => {
+			usageTimer = undefined;
+			if (!activeContext) return;
+			refreshUsage(ctx, true);
+		}, USAGE_TTL_MS);
+		usageTimer.unref?.();
+	};
+
+	const refreshUsage = (ctx: ExtensionContext, force = false) => {
+		if (!activeContext) return;
+		const provider = usageProvider(ctx);
+		if (!provider) {
+			providerUsage = "";
+			usageFetchedAt = 0;
+			clearUsageTimer();
 			return;
 		}
-		if (codexUsageFetching) return;
-		if (!force && Date.now() - codexUsageFetchedAt < CODEX_USAGE_TTL_MS) return;
+		if (usageFetching) return;
+		if (!force && Date.now() - usageFetchedAt < USAGE_TTL_MS) return;
 
-		codexUsageFetching = true;
-		void fetchCodexUsage(ctx)
+		usageFetching = true;
+		const requestId = ++usageRequestId;
+		void fetchProviderUsage(ctx, provider)
 			.then((usage) => {
-				codexUsage = usage ? formatCodexUsage(usage) : "";
-				codexUsageFetchedAt = Date.now();
+				if (requestId !== usageRequestId) return;
+				providerUsage = usage;
+				usageFetchedAt = Date.now();
 				activeRender?.();
 			})
 			.catch(() => {
-				codexUsage = "";
-				codexUsageFetchedAt = Date.now();
+				if (requestId !== usageRequestId) return;
+				providerUsage = "";
+				usageFetchedAt = Date.now();
+				activeRender?.();
 			})
 			.finally(() => {
-				codexUsageFetching = false;
+				if (requestId !== usageRequestId) return;
+				usageFetching = false;
+				scheduleUsageRefresh(ctx);
 			});
 	};
 
@@ -189,23 +315,19 @@ export default function (pi: ExtensionAPI) {
 				},
 				invalidate() {},
 				render(width: number): string[] {
-					refreshCodexUsage(ctx);
+					refreshUsage(ctx);
 
-					// Compute tokens
-					let input = 0,
-						output = 0,
-						cost = 0;
-					let thinkingLevel = "off";
-
-					for (const e of ctx.sessionManager.getEntries()) {
-						if (e.type === "message" && e.message.role === "assistant") {
-							const m = e.message as AssistantMessage;
-							input += m.usage.input;
-							output += m.usage.output;
-							cost += m.usage.cost.total;
-						} else if (e.type === "thinking_level_change") {
-							// @ts-ignore
-							thinkingLevel = e.thinkingLevel;
+					let cost = 0;
+					if (!isUsingSubscription(ctx)) {
+						for (const entry of ctx.sessionManager.getEntries()) {
+							if (entry.type === "usage") {
+								cost += entry.usage.cost.total;
+							} else if (entry.type === "branch_summary" || entry.type === "compaction") {
+								cost += entry.usage?.cost.total ?? 0;
+							} else if (entry.type === "message" &&
+								(entry.message.role === "assistant" || entry.message.role === "toolResult")) {
+								cost += entry.message.usage?.cost.total ?? 0;
+							}
 						}
 					}
 
@@ -221,7 +343,7 @@ export default function (pi: ExtensionAPI) {
 					if (branch) cwd = `${cwd} ${branch}`;
 
 					// Context usage
-					const contextUsage = ctx.getContextUsage?.();
+					const contextUsage = ctx.getContextUsage();
 					const contextWindow =
 						contextUsage?.contextWindow ?? ctx.model?.contextWindow ?? 0;
 					const contextPercentValue = contextUsage?.percent ?? 0;
@@ -238,14 +360,11 @@ export default function (pi: ExtensionAPI) {
 						contextStr = theme.fg("warning", contextPercent);
 					else contextStr = contextPercent;
 
-					const statsParts = [
-						`↑${formatTokens(input)}`,
-						`↓${formatTokens(output)}`,
-						`$${cost.toFixed(3)}`,
-						contextStr,
-					];
+					const statsParts = isUsingSubscription(ctx)
+						? [contextStr]
+						: [formatCost(cost), contextStr];
 					let stats = statsParts.join(" ");
-					if (isOpenAICodex(ctx) && codexUsage) stats += ` • ${codexUsage}`;
+					if (providerUsage) stats += ` • ${providerUsage}`;
 
 					// Left side: cwd • stats
 					const leftText = `${cwd} • ${stats}`;
@@ -257,10 +376,8 @@ export default function (pi: ExtensionAPI) {
 					let rightSide = provider ? `${provider}/${modelName}` : modelName;
 
 					if (ctx.model?.reasoning) {
-						rightSide =
-							thinkingLevel === "off"
-								? `${rightSide} • thinking off`
-								: `${rightSide} • ${thinkingLevel}`;
+						const level = pi.getThinkingLevel();
+						rightSide += level === "off" ? " • thinking off" : ` • ${level}`;
 					}
 
 					// Layout with padding
@@ -293,13 +410,19 @@ export default function (pi: ExtensionAPI) {
 	pi.registerCommand("simple-footer", {
 		description: "Toggle simple footer",
 		handler: async (_args, ctx) => {
+			if (ctx.mode !== "tui") return;
 			enabled = !enabled;
 
 			if (enabled) {
+				activeContext = ctx;
 				ctx.ui.setFooter(createFooter(ctx));
-				refreshCodexUsage(ctx, true);
+				refreshUsage(ctx, true);
 				ctx.ui.notify("Simple footer enabled", "info");
 			} else {
+				activeContext = undefined;
+				usageRequestId++;
+				usageFetching = false;
+				clearUsageTimer();
 				ctx.ui.setFooter(undefined);
 				ctx.ui.notify("Default footer restored", "info");
 			}
@@ -307,15 +430,42 @@ export default function (pi: ExtensionAPI) {
 	});
 
 	pi.on("model_select", (_event, ctx) => {
-		codexUsage = "";
-		codexUsageFetchedAt = 0;
-		refreshCodexUsage(ctx, true);
+		if (!activeContext) return;
+		providerUsage = "";
+		usageFetchedAt = 0;
+		usageRequestId++;
+		usageFetching = false;
+		clearUsageTimer();
+		refreshUsage(ctx, true);
 		activeRender?.();
 	});
 
+	pi.on("agent_end", (_event, ctx) => {
+		if (!activeContext) return;
+		refreshUsage(ctx, true);
+	});
+
 	pi.on("session_start", (_event, ctx) => {
+		clearUsageTimer();
+		usageRequestId++;
+		usageFetching = false;
+		providerUsage = "";
+		usageFetchedAt = 0;
+		if (ctx.mode !== "tui") {
+			enabled = false;
+			activeContext = undefined;
+			return;
+		}
 		enabled = true;
+		activeContext = ctx;
 		ctx.ui.setFooter(createFooter(ctx));
-		refreshCodexUsage(ctx, true);
+		refreshUsage(ctx, true);
+	});
+
+	pi.on("session_shutdown", () => {
+		activeContext = undefined;
+		usageRequestId++;
+		usageFetching = false;
+		clearUsageTimer();
 	});
 }
