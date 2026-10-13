@@ -112,7 +112,7 @@ local servers = {
 	tailwindcss = {},
 	templ = {},
 	tinymist = {},
-	tsgo = {},
+	tsc = {},
 	vue_ls = {},
 	yamlls = {},
 }
