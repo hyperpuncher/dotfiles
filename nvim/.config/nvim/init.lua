@@ -120,15 +120,14 @@ local servers = {
 local formatters = {
 	"gofumpt",
 	"kulala-fmt",
+	"oxfmt",
+	"prettierd",
 	"rustywind",
 	"shfmt",
 	"stylua",
 	"templ",
 	"typstyle",
-	"prettierd",
-	"biome",
 	"xmlformatter",
-	"oxfmt",
 }
 
 local linters = {
