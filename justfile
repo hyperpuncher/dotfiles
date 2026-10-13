@@ -7,7 +7,7 @@ bootstrap: essential ssh paru stow mirrors soft greetd misc theme
 
 # Essentials packages
 essential:
-	sudo pacman -S --needed age zsh stow rustup openssh ccache pigz pbzip2 pacman-contrib foot greetd-tuigreet
+	sudo pacman -S --needed age zsh stow rustup openssh ccache parallel pigz pbzip2 pacman-contrib foot greetd-tuigreet
 
 # Decrypt & install SSH key
 ssh:
@@ -26,9 +26,8 @@ paru:
 stow:
 	echo "Linking configs"
 	stow --no-folding -Rv \
-	alacritty \
 	applications \
-	biome \
+	bat \
 	btop \
 	bun \
 	darkman \
@@ -46,7 +45,6 @@ stow:
 	mumble \
 	npm \
 	nvim \
-	opencode \
 	oxfmt \
 	pacman \
 	paru \
@@ -86,11 +84,11 @@ greetd:
 	sudo sed -i 's/^command.*/command = "tuigreet --window-padding 2 --asterisks --remember --remember-session --time --width 50"/' /etc/greetd/config.toml
 	sudo chmod -R go+r /etc/greetd
 	sudo sed -i '6i auth optional pam_gnome_keyring.so' /etc/pam.d/greetd
-	sudo sed -i '$$a session optional pam_gnome_keyring.so auto_start' /etc/pam.d/greetd
+	sudo sed -i '$a session optional pam_gnome_keyring.so auto_start' /etc/pam.d/greetd
 
 # Miscellaneous tweaks
 misc:
-	sudo localectl set-locale LC_TIME=en_IE.UTF-8
+	sudo localectl set-locale LANG=en_IE.UTF-8
 	chsh -s /usr/bin/zsh
 	sudo ln -sf /usr/share/fontconfig/conf.avail/10-hinting-none.conf /etc/fonts/conf.d/
 	sudo usermod -aG video $(whoami)
@@ -98,7 +96,7 @@ misc:
 theme:
 	gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3'
 	gsettings set org.gnome.desktop.interface icon-theme 'Papirus'
-	gsettings set org.gnome.desktop.interface font-name 'Inter Variable 11'
+	gsettings set org.gnome.desktop.interface font-name 'Geist 11'
 	gsettings set org.gnome.desktop.interface monospace-font-name 'CaskaydiaMono Nerd Font 11'
 	gsettings set org.gnome.desktop.interface font-hinting 'none'
 	gsettings set org.gnome.desktop.interface font-antialiasing 'rgba'
