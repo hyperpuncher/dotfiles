@@ -1,0 +1,36 @@
+#!/usr/bin/env dash
+
+# step the default sink by a fixed amount of dB so every step feels the same
+# usage: volume up|down    (override with STEP_DB=2.5, MAX_VOLUME=1.0)
+
+case "$1" in
+	up|down) ;;
+	*)
+		echo "Usage: volume up|down"
+		exit 1
+		;;
+esac
+
+# serialize overlapping invocations, otherwise a held key loses steps
+exec 9>/tmp/volume.lock
+flock 9
+
+step=${STEP_DB:-2.5}
+max=${MAX_VOLUME:-1.0}
+cur=$(wpctl get-volume @DEFAULT_SINK@ | awk '{print $2}')
+[ -n "$cur" ] || exit 0
+
+new=$(awk -v v="$cur" -v step="$step" -v max="$max" -v dir="$1" 'BEGIN {
+	factor = exp(log(10) * step / 60)
+	if (dir == "up")
+		v *= factor
+	else
+		v /= factor
+	if (v > max)
+		v = max
+	if (v < 0.01)
+		v = 0.01
+	printf "%.4f", v
+}')
+
+wpctl set-volume @DEFAULT_SINK@ "$new"
