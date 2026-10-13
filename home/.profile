@@ -2,9 +2,9 @@ export GPG_TTY=$TTY
 export BROWSER=helium-browser
 export EDITOR=nvim
 export MANPAGER='nvim +Man!'
-export PAGER="moor -style catppuccin-mocha -no-linenumbers"
+export PAGER="moor -no-linenumbers"
 export VISUAL=nvim
-export BAT_THEME="Catppuccin Mocha"
+export PLAYWRIGHT_MCP_EXECUTABLE_PATH=/usr/sbin/chromium
 
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_CONFIG_HOME="$HOME/.config"
