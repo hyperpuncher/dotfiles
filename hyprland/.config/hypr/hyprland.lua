@@ -180,8 +180,8 @@ hl.device({
 
 hl.config({
 	general = {
-		gaps_in = 1,
-		gaps_out = 4,
+		gaps_in = 0,
+		gaps_out = 0,
 		border_size = 3,
 		col = {
 			inactive_border = "rgba(50,50,50,0)",
@@ -208,7 +208,7 @@ hl.config({
 	},
 
 	animations = {
-		enabled = true,
+		enabled = false,
 	},
 })
 
