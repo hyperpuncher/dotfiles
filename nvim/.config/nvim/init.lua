@@ -422,10 +422,10 @@ require("lazy").setup({
 					draw = {
 						components = {
 							label = {
-								width = { max = 20 },
+								width = { max = 30 },
 							},
 							label_description = {
-								width = { max = 20 },
+								width = { max = 30 },
 							},
 						},
 					},
@@ -873,6 +873,91 @@ vim.diagnostic.config({
 		max_width = 65,
 	},
 })
+
+-- Format diagnostic message as markdown with code blocks
+local function format_diagnostic_md(diagnostic)
+	local msg = diagnostic.message
+	local lang = vim.bo[0].filetype
+
+	if lang and lang ~= "" then
+		msg = msg:gsub("'({[^}]+})'", "\n\n```" .. lang .. "\n%1\n```\n\n")
+		msg = msg:gsub("'([^']+)'", "`%1`")
+	end
+
+	return msg
+end
+
+-- Prettier diagnostic float
+map("n", "<leader>d", function()
+	-- Find diagnostic under cursor
+	local cursor = vim.api.nvim_win_get_cursor(0)
+	local line, col = cursor[1] - 1, cursor[2]
+	local diagnostics = vim.diagnostic.get(0, { lnum = line })
+	if #diagnostics == 0 then
+		for i = line - 1, math.max(0, line - 3), -1 do
+			diagnostics = vim.diagnostic.get(0, { lnum = i })
+			if #diagnostics > 0 then
+				break
+			end
+		end
+	end
+	local diag = nil
+	for _, d in ipairs(diagnostics) do
+		if col >= d.col and col <= d.end_col then
+			diag = d
+			break
+		end
+	end
+	if not diag then
+		diag = diagnostics[1]
+	end
+	if not diag then
+		return
+	end
+
+	-- Format as markdown
+	local md = format_diagnostic_md(diag)
+	local lines = vim.split(md, "\n", { plain = true })
+
+	-- Create buffer
+	local buf = vim.api.nvim_create_buf(false, true)
+	vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
+	vim.bo[buf].filetype = "markdown"
+
+	-- Format with conform first
+	require("conform").format({ bufnr = buf })
+
+	-- Get formatted content
+	lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
+	vim.bo[buf].modifiable = false
+
+	-- Open window
+	local width = math.min(vim.fn.max(vim.fn.map(lines, "len(v:val)")) + 4, 50)
+	-- Calculate height: estimate visual lines accounting for wrapping
+	local height = 0
+	for _, l in ipairs(lines) do
+		height = height + math.max(1, math.ceil(#l / width))
+	end
+	height = math.max(1, math.min(height, 15))
+	local win = vim.api.nvim_open_win(buf, true, {
+		relative = "cursor",
+		width = width,
+		height = height,
+		style = "minimal",
+		title = " " .. vim.diagnostic.severity[diag.severity] .. " ",
+		row = 1,
+		col = 0,
+	})
+	-- Enable markdown rendering (hide syntax)
+	vim.wo[win].conceallevel = 2
+	vim.wo[win].concealcursor = "n"
+
+	-- Close on q/Esc
+	local close = function()
+		vim.api.nvim_win_close(win, true)
+	end
+	vim.keymap.set("n", { "<Esc>", "q" }, close, { buffer = buf, nowait = true })
+end, { desc = "Show diagnostic" })
 
 hl(0, "YankHighlight", { fg = "#131412", bg = "#E2E3E3" })
 autocmd("TextYankPost", {
