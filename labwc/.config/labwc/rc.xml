@@ -68,8 +68,8 @@
 		<keybind key="XF86AudioPlay" allowWhenLocked="yes"><action name="Execute" command="playerctl --player=spotify play-pause" /></keybind>
 		<keybind key="XF86AudioNext" allowWhenLocked="yes"><action name="Execute" command="playerctl --player=spotify next" /></keybind>
 		<keybind key="XF86AudioPrev" allowWhenLocked="yes"><action name="Execute" command="playerctl --player=spotify previous" /></keybind>
-		<keybind key="XF86AudioLowerVolume" allowWhenLocked="yes"><action name="Execute" command="wpctl set-volume @DEFAULT_SINK@ 5%-" /></keybind>
-		<keybind key="XF86AudioRaiseVolume" allowWhenLocked="yes"><action name="Execute" command="wpctl set-volume @DEFAULT_SINK@ 5%+" /></keybind>
+		<keybind key="XF86AudioLowerVolume" allowWhenLocked="yes"><action name="Execute" command="/home/igor/dotfiles/scripts/volume down" /></keybind>
+		<keybind key="XF86AudioRaiseVolume" allowWhenLocked="yes"><action name="Execute" command="/home/igor/dotfiles/scripts/volume up" /></keybind>
 		<keybind key="XF86MonBrightnessDown"><action name="Execute" command="ddcutil --skip-ddc-checks --noverify setvcp 10 - 5" /></keybind>
 		<keybind key="XF86MonBrightnessUp"><action name="Execute" command="ddcutil --skip-ddc-checks --noverify setvcp 10 + 5" /></keybind>
 
