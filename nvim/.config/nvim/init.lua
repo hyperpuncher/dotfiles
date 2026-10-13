@@ -203,37 +203,6 @@ require("lazy").setup({
 	},
 
 	{
-		"nvim-treesitter/nvim-treesitter-textobjects",
-		branch = "main",
-		config = function()
-			require("nvim-treesitter-textobjects").setup({
-				select = {
-					lookahead = true,
-					selection_modes = {
-						["@parameter.outer"] = "v", -- charwise
-						["@function.outer"] = "V", -- linewise
-						["@class.outer"] = "<c-v>", -- blockwise
-					},
-					include_surrounding_whitespace = false,
-				},
-			})
-
-			map({ "x", "o" }, "af", function()
-				require("nvim-treesitter-textobjects.select").select_textobject("@function.outer", "textobjects")
-			end)
-			map({ "x", "o" }, "if", function()
-				require("nvim-treesitter-textobjects.select").select_textobject("@function.inner", "textobjects")
-			end)
-			map({ "x", "o" }, "ac", function()
-				require("nvim-treesitter-textobjects.select").select_textobject("@class.outer", "textobjects")
-			end)
-			map({ "x", "o" }, "ic", function()
-				require("nvim-treesitter-textobjects.select").select_textobject("@class.inner", "textobjects")
-			end)
-		end,
-	},
-
-	{
 		"ravsii/tree-sitter-d2",
 		dependencies = { "nvim-treesitter/nvim-treesitter" },
 		build = "make nvim-install",
@@ -241,9 +210,7 @@ require("lazy").setup({
 
 	{
 		"hyperpuncher/tree-sitter-datastar",
-		branch = "feat/jsx-support",
 		dependencies = { "nvim-treesitter/nvim-treesitter" },
-		build = "./install.sh nvim html,templ,jsx,tsx",
 	},
 
 	{
@@ -527,15 +494,6 @@ require("lazy").setup({
 	},
 
 	{
-		"mistweaverco/kulala.nvim",
-		version = "*",
-		ft = { "http", "rest" },
-		opts = {
-			global_keymaps = true,
-		},
-	},
-
-	{
 		"folke/snacks.nvim",
 		priority = 1000,
 		lazy = false,
@@ -563,7 +521,6 @@ require("lazy").setup({
 					preset = "dropdown",
 				},
 			},
-			lazygit = {},
 			notifier = {},
 			rename = {},
 			zen = {
@@ -770,13 +727,6 @@ require("lazy").setup({
 					Snacks.rename.rename_file()
 				end,
 				desc = "Rename File",
-			},
-			{
-				"<leader>gg",
-				function()
-					Snacks.lazygit()
-				end,
-				desc = "Lazygit",
 			},
 		},
 	},
