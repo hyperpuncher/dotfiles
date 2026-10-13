@@ -379,7 +379,7 @@ Scope {
 
 	Process {
 		command: ["hyprctl", "monitors", "-j"]
-		running: root.initialMode === "fullscreen"
+		running: root.initialMode === "fullscreen" && Quickshell.env("HYPRLAND_INSTANCE_SIGNATURE") !== ""
 		stdout: StdioCollector { id: monitorsOutput }
 		onExited: exitCode => {
 			if (exitCode !== 0)
@@ -399,7 +399,7 @@ Scope {
 
 	Process {
 		command: ["hyprctl", "activewindow", "-j"]
-		running: root.initialMode === "window"
+		running: root.initialMode === "window" && Quickshell.env("HYPRLAND_INSTANCE_SIGNATURE") !== ""
 		stdout: StdioCollector { id: windowOutput }
 		onExited: exitCode => {
 			if (exitCode !== 0)
@@ -471,13 +471,13 @@ Scope {
 				focus: true
 
 				Keys.onPressed: event => {
-					if (root.textEditing)
-						return;
 					if (event.key === Qt.Key_Escape) {
 						root.handleEscape();
 						event.accepted = true;
 						return;
 					}
+					if (root.textEditing || root.outputBusy)
+						return;
 					if (event.modifiers & Qt.ControlModifier) {
 						if (event.key === Qt.Key_A && root.phase === "selecting")
 							root.selectWholeScreen(window.modelData);

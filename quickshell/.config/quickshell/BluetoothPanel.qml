@@ -11,6 +11,7 @@ PanelWindow {
 	readonly property var devices: Bluetooth.devices.values
 	readonly property var rows: buildRows(devices)
 	property int selectedIndex: 0
+	property bool scanningHere: false
 
 	function usefulName(device): string {
 		const name = device.name || device.deviceName || "unknown device";
@@ -50,15 +51,10 @@ PanelWindow {
 	function open(): void {
 		selectedIndex = 0;
 		ShellState.resetPointerSelection();
-		ShellState.open("bluetooth");
-		if (adapter && adapter.enabled)
-			adapter.discovering = true;
 		Qt.callLater(() => keyHandler.forceActiveFocus());
 	}
 
 	function close(): void {
-		if (adapter && adapter.discovering)
-			adapter.discovering = false;
 		ShellState.close();
 	}
 
@@ -104,9 +100,9 @@ PanelWindow {
 	WlrLayershell.layer: WlrLayer.Overlay
 	WlrLayershell.keyboardFocus: visible ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None
 
-	onVisibleChanged: {
-		if (visible)
-			open();
+	Component.onDestruction: {
+		if (scanningHere && adapter)
+			adapter.discovering = false;
 	}
 	onRowsChanged: {
 		if (rows.length === 0)
@@ -159,19 +155,18 @@ PanelWindow {
 				} else if (event.key === Qt.Key_B && root.adapter) {
 					root.adapter.enabled = !root.adapter.enabled;
 				} else if (event.key === Qt.Key_R && root.adapter && root.adapter.enabled) {
-					root.adapter.discovering = false;
-					discoveryRestart.restart();
+					if (root.scanningHere) {
+						root.adapter.discovering = false;
+						root.scanningHere = false;
+					} else if (!root.adapter.discovering) {
+						root.adapter.discovering = true;
+						root.scanningHere = true;
+					}
 				} else {
 					return;
 				}
 				event.accepted = true;
 			}
-		}
-
-		Timer {
-			id: discoveryRestart
-			interval: 250
-			onTriggered: if (root.adapter && root.adapter.enabled) root.adapter.discovering = true
 		}
 
 		ColumnLayout {
@@ -369,7 +364,8 @@ PanelWindow {
 					visible: root.rows.length === 0
 					text: !root.adapter ? "no Bluetooth adapter"
 						: !root.adapter.enabled ? "press b to turn Bluetooth on"
-						: "scanning for devices…"
+						: root.adapter.discovering ? "scanning for devices…"
+						: "no paired devices · press r to scan"
 					color: Theme.muted
 					font.family: Theme.fontFamily
 					font.pixelSize: 14

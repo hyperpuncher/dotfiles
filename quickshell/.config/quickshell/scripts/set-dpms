@@ -3,9 +3,13 @@
 set -eu
 
 state=$1
+case $state in
+	on|off) ;;
+	*) exit 2 ;;
+esac
 
 if [ -n "${HYPRLAND_INSTANCE_SIGNATURE:-}" ]; then
-	hyprctl dispatch dpms "$state"
+	hyprctl dispatch "hl.dsp.dpms({ action = \"$state\" })"
 elif [ -n "${NIRI_SOCKET:-}" ]; then
 	if [ "$state" = off ]; then
 		niri msg action power-off-monitors

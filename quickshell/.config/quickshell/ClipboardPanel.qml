@@ -8,15 +8,15 @@ import Quickshell.Wayland
 PanelWindow {
 	id: root
 
-	property string query: ""
+	property alias query: queryInput.text
 	property int selectedIndex: 0
 	property var history: []
-	readonly property var results: filterRows(history, query)
-	property string previewText: ""
-	property string previewImage: ""
-	property var linkPreview: null
 	property var linkPreviewCache: ({})
-	readonly property string imageDirectory: `${Quickshell.env("XDG_RUNTIME_DIR") || "/tmp"}/clipboard-images`
+	readonly property var results: filterRows(history, query)
+	readonly property string previewText: previewLoader.item ? previewLoader.item.text : ""
+	readonly property string previewImage: previewLoader.item ? previewLoader.item.image.toString() : ""
+	readonly property var linkPreview: previewLoader.item ? previewLoader.item.link : null
+	readonly property string imageDirectory: `${Quickshell.env("XDG_RUNTIME_DIR") || Quickshell.cacheDir}/clipboard-images`
 	readonly property string imageCacheDirectory: `${imageDirectory}/sources`
 	readonly property string riftSocketPath: `${Quickshell.env("XDG_RUNTIME_DIR") || "/tmp"}/rift.sock`
 
@@ -81,6 +81,7 @@ PanelWindow {
 			items = JSON.parse(output);
 		} catch (error) {
 			console.warn("failed to parse Rift history:", error);
+			return;
 		}
 		const textPriority = ["text/plain;charset=utf-8", "text/plain", "UTF8_STRING", "STRING", "TEXT"];
 		const rows = items.map(item => {
@@ -123,15 +124,16 @@ PanelWindow {
 				fileName
 			};
 		});
-		const changed = rows.length !== history.length
-			|| rows.some((row, index) => row.id !== history[index].id || row.complete !== history[index].complete);
-		selectedIndex = 0;
-		if (changed)
-			history = rows;
+		if (JSON.stringify(rows) === JSON.stringify(history))
+			return;
+		const selectedId = selectedIndex > 0 && selectedRow() ? selectedRow().id : "";
+		history = rows;
+		selectedIndex = Math.max(0, results.findIndex(row => row.id === selectedId));
+		loadPreview();
 	}
 
 	function compact(value: string): string {
-		return value.toLowerCase().replace(/[^a-z0-9]/g, "");
+		return value.toLowerCase().replace(/[^\p{L}\p{N}]/gu, "");
 	}
 
 	function filterRows(rows, filter): var {
@@ -140,22 +142,23 @@ PanelWindow {
 			return rows.slice(0, 100);
 		const compactNeedle = compact(needle);
 		return rows.filter(row => row.value.toLowerCase().includes(needle)
-			|| compact(row.value).includes(compactNeedle)).slice(0, 100);
+			|| (compactNeedle !== "" && compact(row.value).includes(compactNeedle))).slice(0, 100);
 	}
 
 	function open(): void {
 		query = "";
-		const selectionChanged = selectedIndex !== 0;
 		selectedIndex = 0;
-		if (selectionChanged)
-			loadPreview();
+		loadPreview();
 		ShellState.resetPointerSelection();
-		ShellState.open("clipboard");
 		connectHistoryEvents();
 		reload();
 		resultList.cancelFlick();
 		resultList.positionViewAtBeginning();
-		Qt.callLater(() => keyHandler.forceActiveFocus());
+		Qt.callLater(() => {
+			resultList.forceLayout();
+			resultList.positionViewAtBeginning();
+			queryInput.forceActiveFocus();
+		});
 	}
 
 	function close(): void {
@@ -176,49 +179,20 @@ PanelWindow {
 	}
 
 	function loadPreview(): void {
-		const row = selectedRow();
-		previewText = "";
-		previewImage = "";
-		linkPreview = null;
-		linkPreviewProcess.running = false;
-		if (!row)
+		if (!visible)
 			return;
-
-		if (row.sensitive) {
-			previewText = "sensitive clipboard item\n\npress enter to restore it for 10 minutes";
-		} else if (row.kind === "file" && row.fileType === "image") {
-			previewImage = encodeURI(`file://${row.filePath}`);
-		} else if (row.kind === "image") {
-			imageDecode.rowId = row.id;
-			imageDecode.outputPath = `${imageDirectory}/${row.id}.${row.extension}`;
-			imageDecode.command = [
-				"bash", "-c", "mkdir -p -- \"$3\" && rift read \"$1\" --mime \"$2\" > \"$4\"",
-				"_", row.id, row.previewMime, imageDirectory, imageDecode.outputPath
-			];
-			imageDecode.running = false;
-			imageDecode.running = true;
-		} else if (row.kind === "link") {
-			const cached = linkPreviewCache[row.url];
-			if (cached) {
-				linkPreview = cached;
-			} else {
-				previewText = row.url;
-				linkPreviewProcess.rowId = row.id;
-				linkPreviewProcess.command = [`${Quickshell.shellDir}/scripts/link-preview`, row.url];
-				linkPreviewProcess.running = true;
-			}
-		} else {
-			textDecode.rowId = row.id;
-			textDecode.command = ["rift", "read", row.id, "--mime", row.previewMime];
-			textDecode.running = false;
-			textDecode.running = true;
-		}
+		const row = selectedRow();
+		if (JSON.stringify(row) === JSON.stringify(previewLoader.row))
+			return;
+		previewLoader.active = false;
+		previewLoader.row = row;
+		previewLoader.active = row !== null;
 	}
 
 	function moveSelection(delta: int): void {
 		if (results.length === 0)
 			return;
-		selectedIndex = (selectedIndex + delta + results.length) % results.length;
+		selectedIndex = ((selectedIndex + delta) % results.length + results.length) % results.length;
 		resultList.positionViewAtIndex(selectedIndex, ListView.Contain);
 		loadPreview();
 	}
@@ -242,8 +216,8 @@ PanelWindow {
 			const path = `${imageDirectory}/${row.id}.${row.extension}`;
 			Quickshell.execDetached([
 				"bash", "-c",
-				"mkdir -p -- \"$3\" && rift read \"$1\" --mime \"$2\" > \"$4\" && printf '%q' \"$4\" | wl-copy",
-				"_", row.id, row.previewMime, imageDirectory, path
+				"\"$1\" \"$2\" \"$3\" \"$4\" && printf '%q' \"$4\" | wl-copy",
+				"_", `${Quickshell.shellDir}/scripts/clipboard-image-cache`, row.id, row.previewMime, path
 			]);
 		} else {
 			copySelected();
@@ -263,8 +237,8 @@ PanelWindow {
 			const path = `${imageDirectory}/${row.id}.${row.extension}`;
 			Quickshell.execDetached([
 				"bash", "-c",
-				"mkdir -p -- \"$3\" && rift read \"$1\" --mime \"$2\" > \"$4\" && xdg-open \"$4\"",
-				"_", row.id, row.previewMime, imageDirectory, path
+				"\"$1\" \"$2\" \"$3\" \"$4\" && xdg-open \"$4\"",
+				"_", `${Quickshell.shellDir}/scripts/clipboard-image-cache`, row.id, row.previewMime, path
 			]);
 		} else {
 			copySelected();
@@ -277,8 +251,7 @@ PanelWindow {
 		const row = selectedRow();
 		if (!row)
 			return;
-		deleteProcess.command = ["rift", "delete", row.id];
-		deleteProcess.running = true;
+		deleteProcess.exec(["rift", "delete", row.id]);
 	}
 
 	visible: ShellState.activePanel === "clipboard"
@@ -299,15 +272,23 @@ PanelWindow {
 	onVisibleChanged: {
 		if (visible)
 			open();
-		else
+		else {
 			historyEvents.connected = false;
+			listReload.stop();
+			listProcess.running = false;
+		}
 	}
 	onResultsChanged: {
 		if (results.length === 0)
 			selectedIndex = 0;
 		else if (selectedIndex >= results.length)
 			selectedIndex = results.length - 1;
-		loadPreview();
+		Qt.callLater(() => {
+			resultList.forceLayout();
+			if (root.selectedIndex === 0)
+				resultList.positionViewAtBeginning();
+			root.loadPreview();
+		});
 	}
 
 	Socket {
@@ -353,8 +334,8 @@ PanelWindow {
 		id: listReload
 		interval: 50
 		onTriggered: {
-			listProcess.running = false;
-			listProcess.running = true;
+			if (root.visible)
+				listProcess.exec(["rift", "list", "--json"]);
 		}
 	}
 
@@ -366,7 +347,7 @@ PanelWindow {
 				console.warn("rift list failed with exit code", exitCode);
 		}
 		stdout: StdioCollector {
-			onStreamFinished: root.parseHistory(text)
+			onStreamFinished: if (root.visible && text.trim()) root.parseHistory(text)
 		}
 		stderr: StdioCollector {
 			onStreamFinished: {
@@ -376,51 +357,14 @@ PanelWindow {
 		}
 	}
 
-	Process {
-		id: textDecode
-		property string rowId: ""
-		stdout: StdioCollector {
-			onStreamFinished: {
-				const row = root.selectedRow();
-				if (row && row.id === textDecode.rowId)
-					root.previewText = text;
-			}
-		}
-	}
-
-	Process {
-		id: linkPreviewProcess
-		property string rowId: ""
-		stdout: StdioCollector {
-			onStreamFinished: {
-				const row = root.selectedRow();
-				if (!text.trim() || !row || row.id !== linkPreviewProcess.rowId)
-					return;
-				try {
-					const preview = JSON.parse(text);
-					root.linkPreviewCache[row.url] = preview;
-					root.linkPreview = preview;
-				} catch (error) {
-					console.warn("failed to parse link preview:", error);
-				}
-			}
-		}
-	}
-
-	Process {
-		id: imageDecode
-		property string rowId: ""
-		property string outputPath: ""
-		onExited: imagePreviewDelay.restart()
-	}
-
-	Timer {
-		id: imagePreviewDelay
-		interval: 40
-		onTriggered: {
-			const row = root.selectedRow();
-			if (row && row.id === imageDecode.rowId)
-				root.previewImage = `file://${imageDecode.outputPath}?v=${Date.now()}`;
+	Loader {
+		id: previewLoader
+		property var row: null
+		active: false
+		sourceComponent: ClipboardPreview {
+			row: previewLoader.row
+			imageDirectory: root.imageCacheDirectory
+			linkCache: root.linkPreviewCache
 		}
 	}
 
@@ -477,18 +421,10 @@ PanelWindow {
 						root.openSelected();
 					else
 						root.copySelected();
-				} else if (event.key === Qt.Key_Delete) {
+				} else if (event.key === Qt.Key_Delete && (ctrl || root.query === "")) {
 					root.deleteSelected();
-				} else if (event.key === Qt.Key_Backspace) {
-					root.query = root.query.slice(0, -1);
-					root.selectedIndex = 0;
 				} else if (event.key === Qt.Key_U && ctrl) {
 					root.query = "";
-					root.selectedIndex = 0;
-				} else if (event.text.length === 1 && event.text.charCodeAt(0) >= 32
-						&& (event.modifiers === Qt.NoModifier || event.modifiers === Qt.ShiftModifier)) {
-					root.query += event.text;
-					root.selectedIndex = 0;
 				} else {
 					return;
 				}
@@ -523,34 +459,15 @@ PanelWindow {
 						font.weight: Font.Medium
 					}
 
-					Item {
+					SearchInput {
+						id: queryInput
 						Layout.fillWidth: true
 						Layout.fillHeight: true
-
-						Row {
-							anchors.left: parent.left
-							anchors.verticalCenter: parent.verticalCenter
-							spacing: 2
-
-							Text {
-								text: root.query
-								color: Theme.text
-								font.family: Theme.fontFamily
-								font.pixelSize: 17
-							}
-
-							Rectangle {
-								anchors.verticalCenter: parent.verticalCenter
-								width: 1
-								height: 19
-								color: Theme.text
-								SequentialAnimation on opacity {
-									running: root.visible
-									loops: Animation.Infinite
-									NumberAnimation { to: 0; duration: 550 }
-									NumberAnimation { to: 1; duration: 550 }
-								}
-							}
+						Keys.forwardTo: [keyHandler]
+						onTextChanged: {
+							root.selectedIndex = 0;
+							resultList.positionViewAtBeginning();
+							root.loadPreview();
 						}
 					}
 				}
@@ -581,54 +498,20 @@ PanelWindow {
 						readonly property string fallbackIcon: modelData.kind === "image" ? ""
 							: modelData.kind === "file" ? modelData.fileIcon
 							: link ? "" : ""
-						property string thumbnailSource: ""
-						readonly property string thumbnailInput: `${root.imageCacheDirectory}/${modelData.id}.${modelData.extension}`
+						readonly property url thumbnailSource: thumbnailLoader.item ? thumbnailLoader.item.image : ""
 
-						function loadThumbnail(): void {
-							thumbnailSource = "";
-							if (link) {
-								linkMetadata.rowId = modelData.id;
-								linkMetadata.command = [`${Quickshell.shellDir}/scripts/link-preview`, "--favicon", modelData.url];
-								linkMetadata.running = false;
-								linkMetadata.running = true;
-								return;
+						Loader {
+							id: thumbnailLoader
+							readonly property var entry: row.modelData
+							onEntryChanged: {
+								active = false;
+								active = true;
 							}
-							if (modelData.kind === "file" && modelData.fileType === "image") {
-								thumbnailSource = encodeURI(`file://${modelData.filePath}`);
-								return;
-							}
-							if (modelData.kind !== "image")
-								return;
-							thumbnailDecode.command = [
-								`${Quickshell.shellDir}/scripts/clipboard-image-cache`,
-								modelData.id,
-								modelData.previewMime,
-								thumbnailInput
-							];
-							thumbnailDecode.running = false;
-							thumbnailDecode.running = true;
-						}
-
-						Component.onCompleted: loadThumbnail()
-						onModelDataChanged: loadThumbnail()
-
-						Process {
-							id: thumbnailDecode
-							onExited: (exitCode, exitStatus) => {
-								if (exitCode === 0)
-									row.thumbnailSource = `file://${row.thumbnailInput}`;
-							}
-						}
-
-						Process {
-							id: linkMetadata
-							property string rowId: ""
-							stdout: StdioCollector {
-								onStreamFinished: {
-									if (!text.trim() || row.modelData.id !== linkMetadata.rowId)
-										return;
-									row.thumbnailSource = text.trim();
-								}
+							sourceComponent: ClipboardPreview {
+								row: thumbnailLoader.entry
+								imageDirectory: root.imageCacheDirectory
+								linkCache: root.linkPreviewCache
+								thumbnailOnly: true
 							}
 						}
 
@@ -778,6 +661,7 @@ PanelWindow {
 						anchors.margins: 10
 						visible: root.previewImage === "" && root.linkPreview === null
 						text: root.previewText
+						textFormat: Text.PlainText
 						color: Theme.text
 						font.family: Theme.fontFamily
 						font.pixelSize: 15
@@ -804,6 +688,7 @@ PanelWindow {
 								fillMode: Image.PreserveAspectCrop
 								asynchronous: false
 								smooth: true
+								sourceSize: Qt.size(Math.ceil(width * Screen.devicePixelRatio), Math.ceil(height * Screen.devicePixelRatio))
 							}
 
 							MultiEffect {
@@ -844,6 +729,7 @@ PanelWindow {
 							Text {
 								Layout.fillWidth: true
 								text: root.linkPreview ? root.linkPreview.title : ""
+								textFormat: Text.PlainText
 								color: Theme.text
 								font.family: Theme.fontFamily
 								font.pixelSize: 19
@@ -856,6 +742,7 @@ PanelWindow {
 							Layout.fillWidth: true
 							visible: text !== ""
 							text: root.linkPreview ? root.linkPreview.description : ""
+							textFormat: Text.PlainText
 							color: Theme.muted
 							font.family: Theme.fontFamily
 							font.pixelSize: 14
@@ -882,6 +769,7 @@ PanelWindow {
 						fillMode: Image.PreserveAspectFit
 						asynchronous: false
 						smooth: true
+						sourceSize: Qt.size(Math.ceil(width * Screen.devicePixelRatio), Math.ceil(height * Screen.devicePixelRatio))
 					}
 				}
 			}

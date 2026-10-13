@@ -70,13 +70,23 @@ def fallback(url):
 	}
 
 
-def fetch_metadata(url):
-	response = SESSION.get(url, headers={"Accept": "text/html,application/xhtml+xml"}, timeout=6)
-	response.raise_for_status()
-	if response.headers.get("Content-Type", "").split(";", 1)[0] not in ("text/html", "application/xhtml+xml"):
-		return fallback(response.url)
+def limited_chunks(response, limit):
+	total = 0
+	for chunk in response.iter_content(64 * 1024):
+		total += len(chunk)
+		if total > limit:
+			raise ValueError("preview exceeds size limit")
+		yield chunk
 
-	soup = BeautifulSoup(response.content[:MAX_HTML_BYTES], "html.parser")
+
+def fetch_metadata(url):
+	with SESSION.get(url, headers={"Accept": "text/html,application/xhtml+xml"}, timeout=6, stream=True) as response:
+		response.raise_for_status()
+		if response.headers.get("Content-Type", "").split(";", 1)[0].strip().lower() not in ("text/html", "application/xhtml+xml"):
+			return fallback(response.url)
+		content = b"".join(limited_chunks(response, MAX_HTML_BYTES))
+
+	soup = BeautifulSoup(content, "html.parser")
 	metadata = {
 		(tag.get("property") or tag.get("name", "")).lower(): tag.get("content", "")
 		for tag in soup.find_all("meta")
@@ -127,7 +137,7 @@ def load_metadata(url, cache):
 			pass
 	try:
 		metadata = fetch_metadata(url)
-	except requests.RequestException:
+	except (requests.RequestException, ValueError):
 		return fallback(url)
 	write_json(cache, metadata)
 	return metadata
@@ -151,36 +161,33 @@ def cache_image(url, cache_root):
 	try:
 		with SESSION.get(url, headers={"Accept": "image/*"}, timeout=8, stream=True) as response:
 			response.raise_for_status()
-			content_type = response.headers.get("Content-Type", "").split(";", 1)[0]
+			content_type = response.headers.get("Content-Type", "").split(";", 1)[0].strip().lower()
 			if not content_type.startswith("image/"):
-				return url
+				return ""
 			suffix = IMAGE_SUFFIXES.get(content_type, ".img")
 			output = image_root / f"{key}{suffix}"
-			total = 0
 			with temporary.open("wb") as file:
-				for chunk in response.iter_content(64 * 1024):
-					total += len(chunk)
-					if total > MAX_IMAGE_BYTES:
-						return url
+				for chunk in limited_chunks(response, MAX_IMAGE_BYTES):
 					file.write(chunk)
 		temporary.replace(output)
 		return output.as_uri()
-	except (OSError, requests.RequestException):
-		return url
+	except (OSError, requests.RequestException, ValueError):
+		return ""
 	finally:
 		temporary.unlink(missing_ok=True)
 
 
 def cache_favicon(url, cache_root):
 	cached = cache_image(url, cache_root)
-	if cached != url:
+	if cached or not url:
 		return cached
 	parsed = urlparse(url)
 	fallback_url = f"{parsed.scheme}://{parsed.netloc}/favicon.ico"
-	return url if fallback_url == url else cache_image(fallback_url, cache_root)
+	return "" if fallback_url == url else cache_image(fallback_url, cache_root)
 
 
 def main():
+	os.umask(0o077)
 	favicon_only = len(sys.argv) == 3 and sys.argv[1] == "--favicon"
 	url = sys.argv[2] if favicon_only else sys.argv[1] if len(sys.argv) == 2 else ""
 	if urlparse(url).scheme not in ("http", "https"):

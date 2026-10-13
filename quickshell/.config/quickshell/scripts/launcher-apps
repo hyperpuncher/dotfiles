@@ -5,6 +5,7 @@ import json
 import locale
 import os
 import shutil
+import sys
 from pathlib import Path
 
 
@@ -27,9 +28,50 @@ def enabled_for_desktop(section):
 	return (not only or bool(desktops & only)) and not bool(desktops & excluded)
 
 
-def desktop_entries():
+def data_paths():
 	data_home = Path(os.environ.get("XDG_DATA_HOME", Path.home() / ".local/share"))
 	data_dirs = [Path(path) for path in os.environ.get("XDG_DATA_DIRS", "/usr/local/share:/usr/share").split(":")]
+	return data_home, data_dirs
+
+
+def fallback_icons(data_home, data_dirs):
+	icons = {}
+	for data_dir in (data_home, *data_dirs):
+		root = data_dir / "icons/hicolor"
+		if root.is_dir():
+			candidates = sorted(
+				(
+					path
+					for path in root.glob("*/apps/*")
+					if path.suffix.lower() in {".svg", ".png", ".xpm"}
+				),
+				key=lambda path: (path.parent.parent.name != "scalable", path.name),
+			)
+			for path in candidates:
+				icons.setdefault(path.stem, str(path))
+				icons.setdefault(path.name, str(path))
+
+		pixmaps = data_dir / "pixmaps"
+		if pixmaps.is_dir():
+			for path in pixmaps.iterdir():
+				if path.is_file() and path.suffix.lower() in {".svg", ".png", ".xpm"}:
+					icons.setdefault(path.stem, str(path))
+					icons.setdefault(path.name, str(path))
+	return icons
+
+
+def watch():
+	data_home, data_dirs = data_paths()
+	paths = [str(path / "applications") for path in (data_home, *data_dirs) if (path / "applications").is_dir()]
+	os.execvp("inotifywait", [
+		"inotifywait", "--monitor", "--quiet", "--recursive",
+		"--event", "close_write,create,delete,move", *paths,
+	])
+
+
+def desktop_entries():
+	data_home, data_dirs = data_paths()
+	icons = fallback_icons(data_home, data_dirs)
 	seen = set()
 	entries = []
 
@@ -62,6 +104,11 @@ def desktop_entries():
 			if not name:
 				continue
 
+			icon = section.get("Icon", "")
+			icon_path = Path(icon)
+			if not icon_path.is_absolute() or not icon_path.is_file():
+				icon_path = Path(icons.get(icon, ""))
+
 			entries.append({
 				"id": desktop_id,
 				"desktopEntryId": f"{desktop_id}.desktop",
@@ -69,11 +116,15 @@ def desktop_entries():
 				"genericName": localized(section, "GenericName"),
 				"comment": localized(section, "Comment"),
 				"keywords": [word for word in localized(section, "Keywords").split(";") if word],
-				"icon": section.get("Icon", ""),
+				"icon": icon,
+				"iconPath": str(icon_path) if icon_path.is_file() else "",
 				"path": str(path),
 			})
 
 	return entries
 
 
-print(json.dumps(desktop_entries(), ensure_ascii=False, separators=(",", ":")))
+if len(sys.argv) == 2 and sys.argv[1] == "--watch":
+	watch()
+else:
+	print(json.dumps(desktop_entries(), ensure_ascii=False, separators=(",", ":")))

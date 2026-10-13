@@ -8,7 +8,7 @@ import Quickshell.Wayland
 PanelWindow {
 	id: root
 
-	property string query: ""
+	property alias query: queryInput.text
 	property int selectedIndex: 0
 	property var emojis: []
 	readonly property var results: filterRows(emojis, query)
@@ -48,10 +48,9 @@ PanelWindow {
 		query = "";
 		selectedIndex = 0;
 		ShellState.resetPointerSelection();
-		ShellState.open("emoji");
 		if (emojis.length === 0)
 			emojiReader.running = true;
-		Qt.callLater(() => keyHandler.forceActiveFocus());
+		Qt.callLater(() => queryInput.forceActiveFocus());
 	}
 
 	function close(): void {
@@ -61,7 +60,7 @@ PanelWindow {
 	function moveSelection(delta: int): void {
 		if (results.length === 0)
 			return;
-		selectedIndex = (selectedIndex + delta + results.length) % results.length;
+		selectedIndex = ((selectedIndex + delta) % results.length + results.length) % results.length;
 		resultList.positionViewAtIndex(selectedIndex, ListView.Contain);
 	}
 
@@ -87,7 +86,6 @@ PanelWindow {
 	WlrLayershell.layer: WlrLayer.Overlay
 	WlrLayershell.keyboardFocus: visible ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None
 
-	onVisibleChanged: if (visible) open()
 	onResultsChanged: {
 		if (results.length === 0)
 			selectedIndex = 0;
@@ -146,16 +144,8 @@ PanelWindow {
 					root.moveSelection(7);
 				} else if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
 					root.copySelected();
-				} else if (event.key === Qt.Key_Backspace) {
-					root.query = root.query.slice(0, -1);
-					root.selectedIndex = 0;
 				} else if (event.key === Qt.Key_U && ctrl) {
 					root.query = "";
-					root.selectedIndex = 0;
-				} else if (event.text.length === 1 && event.text.charCodeAt(0) >= 32
-						&& (event.modifiers === Qt.NoModifier || event.modifiers === Qt.ShiftModifier)) {
-					root.query += event.text;
-					root.selectedIndex = 0;
 				} else {
 					return;
 				}
@@ -191,12 +181,14 @@ PanelWindow {
 						font.weight: Font.Medium
 					}
 
-					Text {
+					SearchInput {
+						id: queryInput
 						Layout.fillWidth: true
-						text: root.query
-						color: Theme.text
-						font.family: Theme.fontFamily
-						font.pixelSize: 17
+						Keys.forwardTo: [keyHandler]
+						onTextChanged: {
+							root.selectedIndex = 0;
+							resultList.positionViewAtBeginning();
+						}
 					}
 				}
 			}

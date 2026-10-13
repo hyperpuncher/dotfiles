@@ -48,7 +48,6 @@ PanelWindow {
 		selectedIndex = 0;
 		activeTab = 0;
 		ShellState.resetPointerSelection();
-		ShellState.open("audio");
 		Qt.callLater(() => keyHandler.forceActiveFocus());
 	}
 
@@ -77,7 +76,9 @@ PanelWindow {
 		const row = selectedRow();
 		if (!row || !row.node.audio)
 			return;
-		row.node.audio.volume = Math.max(0, Math.min(1.5, row.node.audio.volume + delta));
+		const factor = Math.pow(10, 2.5 / 60);
+		const volume = row.node.audio.volume * (delta > 0 ? factor : 1 / factor);
+		row.node.audio.volume = Math.max(0.01, Math.min(1.0, volume));
 	}
 
 	function toggleMute(): void {
@@ -115,7 +116,6 @@ PanelWindow {
 	WlrLayershell.layer: WlrLayer.Overlay
 	WlrLayershell.keyboardFocus: visible ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None
 
-	onVisibleChanged: if (visible) open()
 	onRowsChanged: {
 		if (rows.length === 0)
 			selectedIndex = 0;

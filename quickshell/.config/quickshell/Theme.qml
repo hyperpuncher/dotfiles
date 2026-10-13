@@ -39,14 +39,13 @@ Singleton {
 	}
 
 	function toggle(): void {
-		Quickshell.execDetached(["darkman", "toggle"]);
-		refreshTimer.restart();
+		darkmanToggle.running = true;
 	}
 
-	Timer {
-		id: refreshTimer
-		interval: 800
-		onTriggered: root.refresh()
+	Process {
+		id: darkmanToggle
+		command: ["darkman", "toggle"]
+		onExited: root.refresh()
 	}
 
 	Process {

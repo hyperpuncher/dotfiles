@@ -1,6 +1,7 @@
 pragma Singleton
 
 import QtQuick
+import QtQml.Models
 import Quickshell
 import Quickshell.Services.Notifications
 import Quickshell.Wayland
@@ -11,16 +12,33 @@ Singleton {
 	property bool doNotDisturb: false
 	property bool popupStartupReady: false
 	property var popupNotifications: []
-	readonly property var history: server.trackedNotifications.values.slice().reverse()
+	readonly property var history: server.trackedNotifications.values.filter(notification => !notification.transient).reverse()
+	signal popupShown(var notification)
+
+	onDoNotDisturbChanged: if (doNotDisturb) hideAllPopups()
 
 	function showPopup(notification): void {
 		const popups = popupNotifications.filter(item => item !== notification);
 		popups.unshift(notification);
 		popupNotifications = popups.slice(0, 4);
+		for (const dropped of popups.slice(4))
+			expirePopup(dropped);
+		popupShown(notification);
 	}
 
 	function hidePopup(notification): void {
 		popupNotifications = popupNotifications.filter(item => item !== notification);
+	}
+
+	function expirePopup(notification): void {
+		hidePopup(notification);
+		if (notification && notification.transient && notification.tracked)
+			notification.expire();
+	}
+
+	function hideAllPopups(): void {
+		for (const notification of popupNotifications.slice())
+			expirePopup(notification);
 	}
 
 	function dismiss(notification): void {
@@ -34,8 +52,8 @@ Singleton {
 			return;
 		for (const action of notification.actions) {
 			if (action.identifier === "default") {
+				hidePopup(notification);
 				action.invoke();
-				dismiss(notification);
 				return;
 			}
 		}
@@ -63,7 +81,7 @@ Singleton {
 	}
 
 	function clear(): void {
-		popupNotifications = [];
+		hideAllPopups();
 		for (const notification of history) {
 			if (notification.tracked)
 				notification.dismiss();
@@ -71,11 +89,39 @@ Singleton {
 	}
 
 	function timeoutFor(notification): int {
-		if (notification.urgency === NotificationUrgency.Critical)
+		if (notification.expireTimeout === 0 || notification.urgency === NotificationUrgency.Critical)
 			return 0;
 		if (notification.expireTimeout > 0)
-			return Math.max(1000, notification.expireTimeout);
+			return notification.expireTimeout;
 		return notification.urgency === NotificationUrgency.Low ? 2000 : 4000;
+	}
+
+	Instantiator {
+		model: server.trackedNotifications
+		delegate: Scope {
+			id: lifetime
+			required property Notification modelData
+
+			Timer {
+				id: expiry
+				interval: root.timeoutFor(lifetime.modelData)
+				running: interval > 0 && root.popupNotifications.includes(lifetime.modelData)
+				onTriggered: root.expirePopup(lifetime.modelData)
+			}
+
+			Connections {
+				target: lifetime.modelData
+				function onClosed(): void { root.hidePopup(lifetime.modelData); }
+			}
+
+			Connections {
+				target: root
+				function onPopupShown(notification): void {
+					if (notification === lifetime.modelData && expiry.interval > 0)
+						expiry.restart();
+				}
+			}
+		}
 	}
 
 	Timer {
@@ -98,8 +144,9 @@ Singleton {
 		inlineReplySupported: false
 
 		onNotification: notification => {
-			notification.tracked = true;
-			if (root.popupStartupReady && !notification.lastGeneration && !root.doNotDisturb)
+			const show = root.popupStartupReady && !notification.lastGeneration && !root.doNotDisturb;
+			notification.tracked = !notification.transient || show;
+			if (show)
 				root.showPopup(notification);
 		}
 	}

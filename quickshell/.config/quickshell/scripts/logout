@@ -8,7 +8,7 @@ elif [ -n "${HYPRLAND_INSTANCE_SIGNATURE:-}" ]; then
 	if [ -n "${UWSM_WAIT_VARNAMES:-}" ]; then
 		exec uwsm stop
 	fi
-	exec hyprctl dispatch exit
+	exec hyprctl dispatch 'hl.dsp.exit()'
 elif [ -n "${NIRI_SOCKET:-}" ]; then
 	exec niri msg action quit --skip-confirmation
 elif [ -n "${XDG_SESSION_ID:-}" ]; then

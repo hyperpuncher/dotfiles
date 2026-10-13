@@ -15,8 +15,7 @@ PanelWindow {
 	function open(): void {
 		selectedIndex = 0;
 		ShellState.resetPointerSelection();
-		ShellState.open("notifications");
-		NotificationService.popupNotifications = [];
+		NotificationService.hideAllPopups();
 		Qt.callLater(() => keyHandler.forceActiveFocus());
 	}
 
@@ -45,9 +44,7 @@ PanelWindow {
 		const notification = selectedNotification();
 		if (!notification)
 			return;
-		if (notification.actions.length > 0)
-			notification.actions[0].invoke();
-		NotificationService.dismiss(notification);
+		NotificationService.activate(notification);
 	}
 
 	visible: ShellState.activePanel === "notifications"
@@ -65,7 +62,6 @@ PanelWindow {
 	WlrLayershell.layer: WlrLayer.Overlay
 	WlrLayershell.keyboardFocus: visible ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None
 
-	onVisibleChanged: if (visible) open()
 	onRowsChanged: {
 		if (rows.length === 0)
 			selectedIndex = 0;
@@ -230,6 +226,7 @@ PanelWindow {
 							Text {
 								Layout.fillWidth: true
 								text: row.modelData.summary || row.modelData.appName || "notification"
+								textFormat: Text.PlainText
 								color: row.selected ? Theme.selectedText : Theme.text
 								font.family: Theme.fontFamily
 								font.pixelSize: 15
@@ -254,7 +251,7 @@ PanelWindow {
 						Text {
 							Layout.minimumWidth: 76
 							Layout.maximumWidth: 76
-							text: row.modelData.actions.length > 0 ? `↵ ${row.modelData.actions[0].text}` : "del dismiss"
+							text: "↵ open"
 							color: Theme.selectedText
 							opacity: row.selected ? 0.55 : 0
 							font.family: Theme.fontFamily
@@ -292,7 +289,7 @@ PanelWindow {
 				spacing: 18
 
 				KeyHint { shortcut: "↑↓"; description: "navigate" }
-				KeyHint { shortcut: "↵"; description: "action" }
+				KeyHint { shortcut: "↵"; description: "open" }
 				KeyHint { shortcut: "del"; description: "dismiss" }
 				KeyHint { shortcut: "ctrl+del"; description: "clear" }
 				KeyHint { shortcut: "d"; description: "do not disturb" }

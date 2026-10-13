@@ -44,13 +44,13 @@ Scope {
 		device.type === DeviceType.Wired && device.network && device.network.connected)
 	readonly property string networkIcon: {
 		if (connectedWifi) {
-			if (connectedWifi.signalStrength >= 80)
+			if (connectedWifi.signalStrength >= 0.8)
 				return "network-wireless-signal-excellent-symbolic";
-			if (connectedWifi.signalStrength >= 60)
+			if (connectedWifi.signalStrength >= 0.6)
 				return "network-wireless-signal-good-symbolic";
-			if (connectedWifi.signalStrength >= 40)
+			if (connectedWifi.signalStrength >= 0.4)
 				return "network-wireless-signal-ok-symbolic";
-			if (connectedWifi.signalStrength >= 20)
+			if (connectedWifi.signalStrength >= 0.2)
 				return "network-wireless-signal-weak-symbolic";
 			return "network-wireless-signal-none-symbolic";
 		}
@@ -140,6 +140,11 @@ Scope {
 			WlrLayershell.namespace: "quickshell-bar"
 			WlrLayershell.layer: WlrLayer.Top
 
+			TrayMenu {
+				id: trayMenu
+				screen: window.screen
+			}
+
 			Item {
 				anchors.fill: parent
 
@@ -182,14 +187,14 @@ Scope {
 					id: mediaArea
 					visible: root.mediaText !== ""
 					anchors.top: clockMouse.bottom
-					anchors.bottom: bottomArea.top
 					anchors.left: parent.left
 					anchors.right: parent.right
 					anchors.topMargin: 10
-					anchors.bottomMargin: 8
+					height: Math.max(0, Math.min(mediaLabel.implicitWidth + 8, bottomArea.y - y - 8))
 					clip: true
 
 					Text {
+						id: mediaLabel
 						anchors.centerIn: parent
 						width: Math.max(0, mediaArea.height - 8)
 						rotation: -90
@@ -249,12 +254,18 @@ Scope {
 								acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
 								cursorShape: Qt.PointingHandCursor
 								onClicked: mouse => {
-									if (mouse.button === Qt.RightButton && modelData.hasMenu)
-										modelData.display(window, window.width, parent.y);
-									else if (mouse.button === Qt.MiddleButton)
+									if (mouse.button === Qt.RightButton || (mouse.button === Qt.LeftButton && modelData.onlyMenu)) {
+										if (modelData.hasMenu) {
+											const position = mapToItem(window.contentItem, width, 0);
+											trayMenu.anchorX = position.x;
+											trayMenu.anchorY = position.y;
+											trayMenu.trayItem = modelData;
+										}
+									} else if (mouse.button === Qt.MiddleButton) {
 										modelData.secondaryActivate();
-									else
+									} else {
 										modelData.activate();
+									}
 								}
 							}
 						}
@@ -269,7 +280,7 @@ Scope {
 					BarButton {
 						visible: root.onHyprland
 						text: root.language
-						onClicked: Hyprland.dispatch("switchxkblayout current next")
+						onClicked: Quickshell.execDetached(["hyprctl", "switchxkblayout", "current", "next"])
 					}
 
 					BarButton {

@@ -6,7 +6,7 @@ import Quickshell.Wayland
 PanelWindow {
 	id: root
 
-	property string query: ""
+	property alias query: queryInput.text
 	property int selectedIndex: 0
 	property var usage: ({})
 	signal usageBumped(var updatedUsage)
@@ -62,7 +62,7 @@ PanelWindow {
 	}
 
 	function compact(value: string): string {
-		return value.toLowerCase().replace(/[^a-z0-9]/g, "");
+		return value.toLowerCase().replace(/[^\p{L}\p{N}]/gu, "");
 	}
 
 	function fuzzySubsequence(haystack: string, needle: string): int {
@@ -82,19 +82,19 @@ PanelWindow {
 		const name = entry.name.toLowerCase();
 		const compactName = compact(name);
 		const compactNeedle = compact(needle);
-		if (name === needle || compactName === compactNeedle)
+		if (name === needle || (compactNeedle !== "" && compactName === compactNeedle))
 			return 1000;
-		if (name.startsWith(needle) || compactName.startsWith(compactNeedle))
+		if (name.startsWith(needle) || (compactNeedle !== "" && compactName.startsWith(compactNeedle)))
 			return 700 - name.length;
 
-		const words = name.split(/[^a-z0-9]+/);
+		const words = name.split(/[^\p{L}\p{N}]+/u);
 		if (words.some(word => word.startsWith(needle)))
 			return 500 - name.length;
 		if (name.includes(needle))
 			return 300 - name.length;
 		if (searchableText(entry).includes(needle))
 			return 220 - name.length;
-		return fuzzySubsequence(compact(searchableText(entry)), compactNeedle);
+		return compactNeedle === "" ? -1 : fuzzySubsequence(compact(searchableText(entry)), compactNeedle);
 	}
 
 	function usageKey(entry): string {
@@ -105,14 +105,22 @@ PanelWindow {
 		return usage[usageKey(entry)] || 0;
 	}
 
+	function iconSource(entry): string {
+		if (!entry.icon)
+			return "";
+		if (Quickshell.hasThemeIcon(entry.icon))
+			return Quickshell.iconPath(entry.icon);
+		return entry.iconPath ? `file://${entry.iconPath}` : "";
+	}
+
 	function buildResults(filter, entries): var {
 		const needle = filter.trim().toLowerCase();
 		const matches = [];
 
 		for (const entry of shellActions) {
-			const rank = needle.length === 0 ? usageCount(entry) : score(entry, needle) + 50;
+			const rank = needle.length === 0 ? usageCount(entry) : score(entry, needle);
 			if (rank >= 0)
-				matches.push({ entry, rank, uses: usageCount(entry) });
+				matches.push({ entry, rank: rank + (needle.length > 0 ? 50 : 0), uses: usageCount(entry) });
 		}
 
 		for (const entry of entries) {
@@ -136,8 +144,7 @@ PanelWindow {
 		query = "";
 		selectedIndex = 0;
 		ShellState.resetPointerSelection();
-		ShellState.open("launcher");
-		Qt.callLater(() => keyHandler.forceActiveFocus());
+		Qt.callLater(() => queryInput.forceActiveFocus());
 	}
 
 	function close(): void {
@@ -147,7 +154,7 @@ PanelWindow {
 	function moveSelection(delta: int): void {
 		if (results.length === 0)
 			return;
-		selectedIndex = (selectedIndex + delta + results.length) % results.length;
+		selectedIndex = ((selectedIndex + delta) % results.length + results.length) % results.length;
 		resultList.positionViewAtIndex(selectedIndex, ListView.Contain);
 	}
 
@@ -173,6 +180,8 @@ PanelWindow {
 		]);
 	}
 
+	onResultsChanged: selectedIndex = Math.max(0, Math.min(selectedIndex, results.length - 1))
+
 	visible: ShellState.activePanel === "launcher"
 	color: "transparent"
 	exclusionMode: ExclusionMode.Ignore
@@ -188,10 +197,6 @@ PanelWindow {
 	WlrLayershell.layer: WlrLayer.Overlay
 	WlrLayershell.keyboardFocus: visible ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None
 
-	onVisibleChanged: {
-		if (visible)
-			open();
-	}
 
 	MouseArea {
 		anchors.fill: parent
@@ -237,16 +242,8 @@ PanelWindow {
 					root.moveSelection(6);
 				} else if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
 					root.launchSelected();
-				} else if (event.key === Qt.Key_Backspace) {
-					root.query = root.query.slice(0, -1);
-					root.selectedIndex = 0;
 				} else if (event.key === Qt.Key_U && ctrl) {
 					root.query = "";
-					root.selectedIndex = 0;
-				} else if (event.text.length === 1 && event.text.charCodeAt(0) >= 32
-						&& (event.modifiers === Qt.NoModifier || event.modifiers === Qt.ShiftModifier)) {
-					root.query += event.text;
-					root.selectedIndex = 0;
 				} else {
 					return;
 				}
@@ -282,34 +279,14 @@ PanelWindow {
 						font.weight: Font.Medium
 					}
 
-					Item {
+					SearchInput {
+						id: queryInput
 						Layout.fillWidth: true
 						Layout.fillHeight: true
-
-						Row {
-							anchors.left: parent.left
-							anchors.verticalCenter: parent.verticalCenter
-							spacing: 2
-
-							Text {
-								text: root.query
-								color: Theme.text
-								font.family: Theme.fontFamily
-								font.pixelSize: 17
-							}
-
-							Rectangle {
-								anchors.verticalCenter: parent.verticalCenter
-								width: 1
-								height: 19
-								color: Theme.text
-								SequentialAnimation on opacity {
-									running: root.visible
-									loops: Animation.Infinite
-									NumberAnimation { to: 0; duration: 550 }
-									NumberAnimation { to: 1; duration: 550 }
-								}
-							}
+						Keys.forwardTo: [keyHandler]
+						onTextChanged: {
+							root.selectedIndex = 0;
+							resultList.positionViewAtBeginning();
 						}
 					}
 				}
@@ -356,7 +333,7 @@ PanelWindow {
 								visible: !row.entry.shellIcon
 								width: 24
 								height: 24
-								source: visible ? Quickshell.iconPath(row.entry.icon, "") : ""
+								source: visible ? root.iconSource(row.entry) : ""
 								fillMode: Image.PreserveAspectFit
 								sourceSize: Qt.size(48, 48)
 								asynchronous: true
@@ -366,7 +343,7 @@ PanelWindow {
 
 							Text {
 								anchors.centerIn: parent
-								visible: !!row.entry.shellIcon || appIcon.status === Image.Error || row.entry.icon === ""
+								visible: !!row.entry.shellIcon || appIcon.status !== Image.Ready
 								text: row.entry.shellIcon || row.entry.name.slice(0, 1).toUpperCase()
 								color: row.selected ? Theme.selectedText : Theme.text
 								font.family: Theme.fontFamily

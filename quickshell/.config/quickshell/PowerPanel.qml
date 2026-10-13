@@ -17,7 +17,6 @@ PanelWindow {
 	function open(): void {
 		selectedIndex = 0;
 		ShellState.resetPointerSelection();
-		ShellState.open("power");
 		Qt.callLater(() => keyHandler.forceActiveFocus());
 	}
 
@@ -52,7 +51,6 @@ PanelWindow {
 	WlrLayershell.layer: WlrLayer.Overlay
 	WlrLayershell.keyboardFocus: visible ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None
 
-	onVisibleChanged: if (visible) open()
 
 	MouseArea {
 		anchors.fill: parent

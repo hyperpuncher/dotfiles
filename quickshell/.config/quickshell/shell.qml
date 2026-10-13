@@ -9,51 +9,22 @@ import Quickshell.Io
 ShellRoot {
 	id: root
 
-	readonly property string wallpaperInput: `${Quickshell.env("HOME")}/Pictures/wallpapers/keith-up.png`
-	readonly property string wallpaperCache: Quickshell.cachePath("wallpaper.webp")
-	property url wallpaperSource: `file://${wallpaperCache}`
-	readonly property var wallpaperScreen: Quickshell.screens.length > 0 ? Quickshell.screens[0] : null
-	property var pendingWallpaperCommand: []
-	property bool wallpaperPreparePending: false
 	property var launcherApplications: []
 	property var launcherUsage: ({})
+	property bool launcherReloadPending: false
 	property bool screenshotActive: false
 	property string screenshotMode: "region"
-
-	function prepareWallpaper(): void {
-		const monitor = wallpaperScreen && Quickshell.env("HYPRLAND_INSTANCE_SIGNATURE") !== ""
-			? Hyprland.monitorFor(wallpaperScreen)
-			: null;
-		const scale = monitor ? monitor.scale : (wallpaperScreen ? wallpaperScreen.devicePixelRatio : 1);
-		const width = wallpaperScreen ? Math.round(wallpaperScreen.width * scale) : 3840;
-		const height = wallpaperScreen ? Math.round(wallpaperScreen.height * scale) : 2160;
-		pendingWallpaperCommand = [
-			`${Quickshell.shellDir}/scripts/prepare-wallpaper`,
-			wallpaperInput,
-			wallpaperCache,
-			String(width),
-			String(height)
-		];
-		wallpaperPrepareDebounce.restart();
-	}
-
-	Timer {
-		id: wallpaperPrepareDebounce
-		interval: 250
-		onTriggered: {
-			if (wallpaperPrepare.running) {
-				root.wallpaperPreparePending = true;
-				return;
-			}
-			wallpaperPrepare.command = root.pendingWallpaperCommand;
-			wallpaperPrepare.running = true;
-		}
-	}
 
 	Process {
 		id: launcherApplicationsReader
 		command: [`${Quickshell.shellDir}/scripts/launcher-apps`]
 		running: true
+		onExited: {
+			if (root.launcherReloadPending) {
+				root.launcherReloadPending = false;
+				launcherReloadDebounce.restart();
+			}
+		}
 		stdout: StdioCollector {
 			onStreamFinished: {
 				try {
@@ -62,6 +33,25 @@ ShellRoot {
 					console.warn("could not read applications", error);
 				}
 			}
+		}
+	}
+
+	Process {
+		command: [`${Quickshell.shellDir}/scripts/launcher-apps`, "--watch"]
+		running: true
+		stdout: SplitParser {
+			onRead: launcherReloadDebounce.restart()
+		}
+	}
+
+	Timer {
+		id: launcherReloadDebounce
+		interval: 150
+		onTriggered: {
+			if (launcherApplicationsReader.running)
+				root.launcherReloadPending = true;
+			else
+				launcherApplicationsReader.running = true;
 		}
 	}
 
@@ -80,28 +70,8 @@ ShellRoot {
 		}
 	}
 
-	Process {
-		id: wallpaperPrepare
-		onExited: (exitCode, exitStatus) => {
-			if (exitCode === 0)
-				root.wallpaperSource = `file://${root.wallpaperCache}?v=${Date.now()}`;
-			else if (exitCode !== 10)
-				console.warn("could not prepare wallpaper with vips", exitCode, exitStatus);
-			if (root.wallpaperPreparePending) {
-				root.wallpaperPreparePending = false;
-				wallpaperPrepareDebounce.restart();
-			}
-		}
-	}
-
-	Timer {
-		interval: 500
-		running: true
-		onTriggered: root.prepareWallpaper()
-	}
-
 	Wallpaper {
-		source: root.wallpaperSource
+		source: `file://${Quickshell.env("HOME")}/Pictures/wallpapers/keith-up.png`
 		barWidth: 38
 		cornerRadius: 9
 	}
@@ -132,7 +102,10 @@ ShellRoot {
 			usage: root.launcherUsage
 			onUsageBumped: updatedUsage => root.launcherUsage = updatedUsage
 		}
-		onLoaded: item.open()
+		onLoaded: {
+			launcherReloadDebounce.restart();
+			item.open();
+		}
 	}
 
 	Loader {
@@ -181,28 +154,28 @@ ShellRoot {
 					appid: "quickshell"
 					name: "launcher"
 					description: "open the application launcher"
-					onPressed: root.togglePanel("launcher")
+					onPressed: ShellState.toggle("launcher")
 				}
 
 				GlobalShortcut {
 					appid: "quickshell"
 					name: "clipboard"
 					description: "open clipboard history"
-					onPressed: root.togglePanel("clipboard")
+					onPressed: ShellState.toggle("clipboard")
 				}
 
 				GlobalShortcut {
 					appid: "quickshell"
 					name: "power"
 					description: "open power menu"
-					onPressed: root.togglePanel("power")
+					onPressed: ShellState.toggle("power")
 				}
 
 				GlobalShortcut {
 					appid: "quickshell"
 					name: "emoji"
 					description: "open emoji picker"
-					onPressed: root.togglePanel("emoji")
+					onPressed: ShellState.toggle("emoji")
 				}
 
 				GlobalShortcut {
@@ -229,13 +202,6 @@ ShellRoot {
 		}
 	}
 
-	function togglePanel(name: string): void {
-		if (ShellState.activePanel === name)
-			ShellState.close();
-		else
-			ShellState.open(name);
-	}
-
 	function openScreenshot(mode: string): void {
 		if (root.screenshotActive) {
 			root.screenshotActive = false;
@@ -250,31 +216,31 @@ ShellRoot {
 		target: "shell"
 
 		function toggleLauncher(): void {
-			root.togglePanel("launcher");
+			ShellState.toggle("launcher");
 		}
 
 		function toggleClipboard(): void {
-			root.togglePanel("clipboard");
+			ShellState.toggle("clipboard");
 		}
 
 		function togglePower(): void {
-			root.togglePanel("power");
+			ShellState.toggle("power");
 		}
 
 		function toggleEmoji(): void {
-			root.togglePanel("emoji");
+			ShellState.toggle("emoji");
 		}
 
 		function toggleNetwork(): void {
-			root.togglePanel("network");
+			ShellState.toggle("network");
 		}
 
 		function toggleAudio(): void {
-			root.togglePanel("audio");
+			ShellState.toggle("audio");
 		}
 
 		function toggleNotifications(): void {
-			root.togglePanel("notifications");
+			ShellState.toggle("notifications");
 		}
 
 		function close(): void {

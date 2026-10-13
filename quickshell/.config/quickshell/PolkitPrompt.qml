@@ -207,7 +207,7 @@ Scope {
 						passwordCharacter: "•"
 						color: Theme.text
 						selectionColor: Theme.selection
-						selectedTextColor: Theme.text
+						selectedTextColor: Theme.selectedText
 						font.family: Theme.fontFamily
 						font.pixelSize: 13
 						selectByMouse: true

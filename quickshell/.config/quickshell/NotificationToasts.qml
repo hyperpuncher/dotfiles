@@ -37,7 +37,6 @@ PanelWindow {
 			Rectangle {
 				id: toast
 				required property var modelData
-				readonly property int timeout: NotificationService.timeoutFor(modelData)
 				implicitWidth: 58 + Math.max(summaryText.implicitWidth, bodyText.visible ? bodyText.implicitWidth : 0)
 				width: toastColumn.width
 				height: 62
@@ -90,6 +89,7 @@ PanelWindow {
 							id: summaryText
 							Layout.fillWidth: true
 							text: toast.modelData.summary || "notification"
+							textFormat: Text.PlainText
 							color: Theme.text
 							font.family: Theme.fontFamily
 							font.pixelSize: 14
@@ -136,18 +136,6 @@ PanelWindow {
 					onCanceled: toast.x = 0
 				}
 
-				Timer {
-					interval: toast.timeout
-					running: toast.timeout > 0
-					onTriggered: NotificationService.hidePopup(toast.modelData)
-				}
-
-				Connections {
-					target: toast.modelData
-					function onClosed(): void {
-						NotificationService.hidePopup(toast.modelData);
-					}
-				}
 			}
 		}
 	}

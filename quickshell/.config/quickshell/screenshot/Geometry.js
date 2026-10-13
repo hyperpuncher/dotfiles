@@ -68,7 +68,7 @@ function hitTest(annotations, x, y) {
 		if (contains(annotations[i], x, y))
 			return i;
 	}
-	return null;
+	return -1;
 }
 
 if (typeof module !== "undefined" && module.exports) {

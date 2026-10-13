@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
+import QtQml.Models
 import Quickshell
 import Quickshell.Networking
 import Quickshell.Wayland
@@ -8,8 +9,9 @@ PanelWindow {
 	id: root
 
 	property int selectedIndex: 0
-	property bool enteringPassword: false
-	property string password: ""
+	property WifiNetwork passwordNetwork: null
+	readonly property bool enteringPassword: passwordNetwork !== null
+	property alias password: passwordInput.text
 	property string statusText: ""
 	readonly property var devices: Networking.devices.values
 	readonly property var wifiDevices: devices.filter(device => device.type === DeviceType.Wifi)
@@ -25,19 +27,20 @@ PanelWindow {
 				result.push({ kind: "wired", name: device.network.name || device.name, device, network: device.network });
 		}
 
-		const seen = {};
+		const seen = new Map();
 		const networks = [];
 		for (const device of wifi) {
 			for (const network of device.networks.values) {
 				if (!network.name)
 					continue;
-				const previous = seen[network.name];
-				if (!previous || network.signalStrength > previous.signalStrength)
-					seen[network.name] = network;
+				const previous = seen.get(network.name);
+				if (!previous || (network.connected && !previous.connected)
+					|| (network.connected === previous.connected && network.signalStrength > previous.signalStrength))
+					seen.set(network.name, network);
 			}
 		}
-		for (const name of Object.keys(seen))
-			networks.push(seen[name]);
+		for (const network of seen.values())
+			networks.push(network);
 		networks.sort((a, b) => Number(b.connected) - Number(a.connected)
 			|| Number(b.known) - Number(a.known)
 			|| b.signalStrength - a.signalStrength
@@ -49,21 +52,16 @@ PanelWindow {
 
 	function open(): void {
 		selectedIndex = 0;
-		enteringPassword = false;
+		passwordNetwork = null;
 		password = "";
 		statusText = "";
 		ShellState.resetPointerSelection();
-		ShellState.open("network");
-		for (const device of wifiDevices)
-			device.scannerEnabled = true;
 		Qt.callLater(() => keyHandler.forceActiveFocus());
 	}
 
 	function close(): void {
-		for (const device of wifiDevices)
-			device.scannerEnabled = false;
+		passwordNetwork = null;
 		password = "";
-		enteringPassword = false;
 		ShellState.close();
 	}
 
@@ -86,21 +84,48 @@ PanelWindow {
 		statusText = "";
 		if (network.connected) {
 			network.disconnect();
-		} else if (row.kind === "wired" || network.known || network.security === WifiSecurityType.Open) {
+		} else if (row.kind === "wired" || network.known
+			|| network.security === WifiSecurityType.Open || network.security === WifiSecurityType.Owe) {
 			network.connect();
 		} else {
-			password = "";
-			enteringPassword = true;
+			requestPassword(network);
 		}
 	}
 
-	function submitPassword(): void {
-		const row = selectedRow();
-		if (!row || row.kind !== "wifi" || password.length === 0)
+	function requestPassword(network): void {
+		if (![WifiSecurityType.WpaPsk, WifiSecurityType.Wpa2Psk, WifiSecurityType.Sae].includes(network.security)) {
+			statusText = "use a network manager for this authentication type";
 			return;
-		row.network.connectWithPsk(password);
+		}
 		password = "";
-		enteringPassword = false;
+		passwordNetwork = network;
+		Qt.callLater(() => passwordInput.forceActiveFocus());
+	}
+
+	function submitPassword(): void {
+		if (!passwordNetwork || password.length === 0)
+			return;
+		passwordNetwork.connectWithPsk(password);
+		passwordNetwork = null;
+	}
+
+	onPasswordNetworkChanged: {
+		if (!passwordNetwork) {
+			password = "";
+			Qt.callLater(() => keyHandler.forceActiveFocus());
+		}
+	}
+
+	Instantiator {
+		model: root.wifiDevices
+		delegate: Binding {
+			required property var modelData
+			target: modelData
+			property: "scannerEnabled"
+			value: true
+			when: root.visible
+			restoreMode: Binding.RestoreBindingOrValue
+		}
 	}
 
 	function forgetSelected(): void {
@@ -124,8 +149,9 @@ PanelWindow {
 	WlrLayershell.layer: WlrLayer.Overlay
 	WlrLayershell.keyboardFocus: visible ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None
 
-	onVisibleChanged: if (visible) open()
 	onRowsChanged: {
+		if (passwordNetwork && !wifiDevices.some(device => device.networks.values.includes(passwordNetwork)))
+			passwordNetwork = null;
 		if (rows.length === 0)
 			selectedIndex = 0;
 		else if (selectedIndex >= rows.length)
@@ -162,23 +188,6 @@ PanelWindow {
 
 			Keys.priority: Keys.BeforeItem
 			Keys.onPressed: event => {
-				if (root.enteringPassword) {
-					if (event.key === Qt.Key_Escape) {
-						root.password = "";
-						root.enteringPassword = false;
-					} else if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
-						root.submitPassword();
-					} else if (event.key === Qt.Key_Backspace) {
-						root.password = root.password.slice(0, -1);
-					} else if (event.text.length === 1 && event.text.charCodeAt(0) >= 32
-							&& !(event.modifiers & (Qt.ControlModifier | Qt.AltModifier | Qt.MetaModifier))) {
-						root.password += event.text;
-					} else {
-						return;
-					}
-					event.accepted = true;
-					return;
-				}
 
 				const ctrl = event.modifiers & Qt.ControlModifier;
 				if (event.key === Qt.Key_Escape) {
@@ -249,18 +258,29 @@ PanelWindow {
 					anchors.rightMargin: 14
 
 					Text {
-						text: "password"
+						text: root.passwordNetwork ? root.passwordNetwork.name : "password"
+						Layout.maximumWidth: 180
+						elide: Text.ElideRight
+						textFormat: Text.PlainText
 						color: Theme.muted
 						font.family: Theme.fontFamily
 						font.pixelSize: 14
 					}
 
-					Text {
+					TextInput {
+						id: passwordInput
 						Layout.fillWidth: true
-						text: "•".repeat(root.password.length)
+						clip: true
+						enabled: root.enteringPassword
+						echoMode: TextInput.Password
+						selectByMouse: true
 						color: Theme.text
+						selectionColor: Theme.selected
+						selectedTextColor: Theme.selectedText
 						font.family: Theme.fontFamily
 						font.pixelSize: 17
+						onAccepted: root.submitPassword()
+						Keys.onEscapePressed: root.passwordNetwork = null
 					}
 				}
 			}
@@ -317,7 +337,7 @@ PanelWindow {
 
 							Text {
 								Layout.fillWidth: true
-								text: row.network.stateChanging ? "connecting" : row.network.connected ? "connected" : row.modelData.kind === "wired" ? "disconnected" : `${Math.round(row.network.signalStrength)}%${row.network.known ? "  saved" : ""}`
+								text: row.network.stateChanging ? "connecting" : row.network.connected ? "connected" : row.modelData.kind === "wired" ? "disconnected" : `${Math.round(row.network.signalStrength * 100)}%${row.network.known ? "  saved" : ""}`
 								color: row.selected ? Theme.selectedText : Theme.muted
 								opacity: row.selected ? 0.65 : 1
 								font.family: Theme.fontFamily
@@ -344,6 +364,7 @@ PanelWindow {
 							if (!root.enteringPassword && ShellState.pointerSelectionMoved(row.mapToItem(card, mouse.x, mouse.y)))
 								root.selectedIndex = row.index;
 						}
+						enabled: !root.enteringPassword
 						onClicked: {
 							root.selectedIndex = row.index;
 							root.activateSelected();
@@ -353,9 +374,9 @@ PanelWindow {
 					Connections {
 						target: row.network
 						function onConnectionFailed(reason): void {
-							root.password = "";
-							root.enteringPassword = false;
 							root.statusText = ConnectionFailReason.toString(reason);
+							if (row.modelData.kind === "wifi" && reason === ConnectionFailReason.NoSecrets && !root.enteringPassword)
+								root.requestPassword(row.network);
 						}
 					}
 				}
