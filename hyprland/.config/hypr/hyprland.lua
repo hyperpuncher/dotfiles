@@ -313,8 +313,8 @@ hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl --player=" .. players .. " 
 hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl --player=" .. players .. " next"))
 hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl --player=" .. players .. " previous"))
 
-hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_SINK@ 5%-"), { repeating = true })
-hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_SINK@ 5%+"), { repeating = true })
+hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("~/dotfiles/scripts/volume down"), { repeating = true })
+hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("~/dotfiles/scripts/volume up"), { repeating = true })
 
 hl.bind(
 	"XF86MonBrightnessDown",
