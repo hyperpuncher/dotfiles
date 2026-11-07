@@ -35,6 +35,7 @@ stow:
 	foot \
 	git \
 	glow \
+	helium \
 	home \
 	hyprland \
 	icons \
@@ -50,8 +51,6 @@ stow:
 	paru \
 	pi \
 	pipewire \
-	pnpm \
-	pulse \
 	quickshell \
 	rg \
 	spotify \
@@ -90,7 +89,6 @@ greetd:
 misc:
 	sudo localectl set-locale LANG=en_IE.UTF-8
 	chsh -s /usr/bin/zsh
-	sudo ln -sf /usr/share/fontconfig/conf.avail/10-hinting-none.conf /etc/fonts/conf.d/
 	sudo usermod -aG video $(whoami)
 
 theme:
@@ -98,6 +96,7 @@ theme:
 	gsettings set org.gnome.desktop.interface icon-theme 'Papirus'
 	gsettings set org.gnome.desktop.interface font-name 'Geist 11'
 	gsettings set org.gnome.desktop.interface monospace-font-name 'CaskaydiaMono Nerd Font 11'
+	gsettings set org.gnome.desktop.interface font-rendering 'manual'
 	gsettings set org.gnome.desktop.interface font-hinting 'none'
 	gsettings set org.gnome.desktop.interface font-antialiasing 'rgba'
 	gsettings set org.gnome.desktop.interface cursor-theme 'macOS'
