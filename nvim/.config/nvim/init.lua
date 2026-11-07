@@ -127,7 +127,7 @@ local linters = {
 	"oxlint",
 }
 
-local filetypes = {
+local parsers = {
 	"astro",
 	"bash",
 	"c",
@@ -162,7 +162,6 @@ local filetypes = {
 	"svelte",
 	"swift",
 	"templ",
-	"tmux",
 	"toml",
 	"tsx",
 	"typescript",
@@ -179,13 +178,13 @@ require("lazy").setup({
 		branch = "main",
 		build = ":TSUpdate",
 		config = function()
-			require("nvim-treesitter").install(filetypes)
+			require("nvim-treesitter").install(parsers)
 
-			for _, filetype in ipairs(vim.list_extend(filetypes, { "javascriptreact", "typescriptreact" })) do
+			for _, parser in ipairs(parsers) do
 				autocmd("FileType", {
-					pattern = { filetype },
-					callback = function()
-						vim.treesitter.start()
+					pattern = vim.treesitter.language.get_filetypes(parser),
+					callback = function(args)
+						vim.treesitter.start(args.buf)
 					end,
 				})
 			end
@@ -243,6 +242,10 @@ require("lazy").setup({
 							args = { "fmt", "-" },
 							stdin = true,
 						},
+						dsfmt = {
+							command = "dsfmt",
+							stdin = true,
+						},
 						oxfmt = {
 							append_args = {
 								"--config=" .. vim.fn.expand("~/.config/oxfmt/oxfmtrc.jsonc"),
@@ -254,9 +257,6 @@ require("lazy").setup({
 								"--print-width=90",
 								"--use-tabs=true",
 							},
-						},
-						dsfmt = {
-							command = vim.fn.expand("~/projects/dsfmt/target/release/dsfmt"),
 						},
 					},
 					formatters_by_ft = {
@@ -381,11 +381,10 @@ require("lazy").setup({
 			indent = {
 				animate = { enabled = false },
 				filter = function(buf)
-					local excluded_filetypes = { markdown = true }
 					return vim.g.snacks_indent ~= false
 						and vim.b[buf].snacks_indent ~= false
 						and vim.bo[buf].buftype == ""
-						and not excluded_filetypes[vim.bo[buf].filetype]
+						and vim.bo[buf].filetype ~= "markdown"
 				end,
 			},
 			input = {},
@@ -798,36 +797,24 @@ map("n", "<leader>d", function()
 	-- Format with conform first
 	require("conform").format({ bufnr = buf })
 
-	-- Get formatted content
 	lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
-	vim.bo[buf].modifiable = false
+	vim.api.nvim_buf_delete(buf, { force = true })
 
-	-- Open window
-	local width = math.min(vim.fn.max(vim.fn.map(lines, "len(v:val)")) + 4, 50)
-	-- Calculate height: estimate visual lines accounting for wrapping
-	local height = 0
-	for _, l in ipairs(lines) do
-		height = height + math.max(1, math.ceil(#l / width))
-	end
-	height = math.max(1, math.min(height, 15))
-	local win = vim.api.nvim_open_win(buf, true, {
-		relative = "cursor",
-		width = width,
-		height = height,
-		style = "minimal",
+	local preview_buf, win = vim.lsp.util.open_floating_preview(lines, "markdown", {
+		max_width = 50,
+		max_height = 15,
 		title = " " .. vim.diagnostic.severity[diag.severity] .. " ",
-		row = 1,
-		col = 0,
+		anchor_bias = "below",
+		close_events = {},
 	})
-	-- Enable markdown rendering (hide syntax)
-	vim.wo[win].conceallevel = 2
 	vim.wo[win].concealcursor = "n"
+	vim.api.nvim_set_current_win(win)
 
 	-- Close on q/Esc
 	local close = function()
 		vim.api.nvim_win_close(win, true)
 	end
-	vim.keymap.set("n", { "<Esc>", "q" }, close, { buffer = buf, nowait = true })
+	vim.keymap.set("n", { "<Esc>", "q" }, close, { buffer = preview_buf, nowait = true })
 end, { desc = "Show diagnostic" })
 
 hl(0, "YankHighlight", { fg = "#131412", bg = "#E2E3E3" })
@@ -846,7 +833,7 @@ autocmd({ "BufRead", "BufNewFile", "BufEnter" }, {
 
 autocmd("InsertLeave", {
 	callback = function()
-		os.execute("hyprctl switchxkblayout current 0 >/dev/null 2>&1")
+		vim.system({ "hyprctl", "switchxkblayout", "current", "0" })
 	end,
 })
 
