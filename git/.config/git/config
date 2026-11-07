@@ -8,9 +8,6 @@
 [init]
     defaultBranch = main
 
-[http]
-	postBuffer = 524288000
-
 [merge]
     conflictStyle = zdiff3
 
