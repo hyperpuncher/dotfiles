@@ -769,8 +769,6 @@ map("x", "K", ":m '<-2<CR>gv=gv", { silent = true })
 
 map("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename" })
 
-map("n", "<C-f>", "<CMD>silent !tmux neww tmux-sessionizer<CR>")
-
 map("n", "x", '"_x')
 map("n", "X", '"_X')
 
