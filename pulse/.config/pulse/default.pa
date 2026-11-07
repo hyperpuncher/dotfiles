@@ -1,3 +1,0 @@
-.include /etc/pulse/client.conf
-
-set-source-volume alsa_input.pci-0000_09_00.4.analog-stereo 0.15
