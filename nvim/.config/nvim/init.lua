@@ -749,17 +749,12 @@ map({ "n", "i" }, "<MiddleMouse>", "<Nop>")
 map({ "n", "i", "v" }, "<RightMouse>", "<Nop>")
 map({ "n", "i", "v" }, "<S-RightMouse>", "<Nop>")
 
-map("n", "<C-h>", "<C-w><C-h>")
-map("n", "<C-j>", "<C-w><C-j>")
-map("n", "<C-k>", "<C-w><C-k>")
-map("n", "<C-l>", "<C-w><C-l>")
-
 map({ "n", "v" }, "<Space>", "<Nop>")
 map("n", "<C-a>", "ggVG")
 map({ "i", "c" }, "<C-v>", "<C-R><C-R>+")
 
-map("n", "<C-s>", ":w<CR>")
-map({ "i", "v", "c" }, "<C-s>", "<Esc>:w<CR>")
+map("n", "<C-s>", ":update<CR>", { desc = "Save" })
+map({ "i", "v", "c" }, "<C-s>", "<Esc>:update<CR>", { desc = "Save" })
 
 map({ "n", "v" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 map({ "n", "v" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
