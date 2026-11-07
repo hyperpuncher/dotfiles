@@ -60,7 +60,6 @@ local servers = {
 	bashls = {},
 	clangd = { filetypes = { "c", "cpp", "arduino", "h", "hpp" } },
 	cssls = {},
-	elixirls = { cmd = { vim.fn.expand("~/.local/share/nvim/mason/packages/elixir-ls/language_server.sh") } },
 	gopls = {},
 	html = {},
 	htmx = { filetypes = { "templ" } },
@@ -88,7 +87,6 @@ local servers = {
 	marksman = {},
 	ols = {},
 	openscad_lsp = {},
-	phpactor = {},
 	basedpyright = {
 		settings = {
 			basedpyright = {
@@ -100,7 +98,6 @@ local servers = {
 		},
 	},
 	ruff = {},
-	ruby_lsp = {},
 	qmlls = {},
 	rust_analyzer = {},
 	sqls = {},
@@ -109,7 +106,6 @@ local servers = {
 	templ = {},
 	tinymist = {},
 	tsc = {},
-	vue_ls = {},
 	yamlls = {},
 }
 
@@ -127,7 +123,6 @@ local formatters = {
 }
 
 local linters = {
-	"golangci-lint",
 	"shellcheck",
 	"oxlint",
 }
@@ -198,12 +193,6 @@ require("lazy").setup({
 	},
 
 	{
-		"ravsii/tree-sitter-d2",
-		dependencies = { "nvim-treesitter/nvim-treesitter" },
-		build = "make nvim-install",
-	},
-
-	{
 		"hyperpuncher/tree-sitter-datastar",
 		dependencies = { "nvim-treesitter/nvim-treesitter" },
 	},
@@ -218,52 +207,6 @@ require("lazy").setup({
 	{ "nvim-tree/nvim-web-devicons", opts = {} },
 
 	{
-		"Mofiqul/dracula.nvim",
-		opts = {
-			colors = {
-				black = "None",
-				white = "None",
-				bg = "None",
-				menu = "None",
-				comment = "#636363",
-				selection = "#2D2D2D",
-				visual = "#2D2D2D",
-			},
-			italic_comment = true,
-			overrides = {
-				LspInlayHint = { fg = "#636363", bg = "None", italic = true },
-			},
-		},
-		setup = function()
-			hl(0, "MiniStatuslineModeNormal", {
-				fg = "#111111",
-				bg = "#bd93f9",
-				bold = true,
-			})
-			hl(0, "MiniStatuslineModeVisual", {
-				fg = "#111111",
-				bg = "#ff79c6",
-				bold = true,
-			})
-			hl(0, "MiniStatuslineModeInsert", {
-				fg = "#111111",
-				bg = "#50fa7b",
-				bold = true,
-			})
-			hl(0, "MiniStatuslineModeCommand", {
-				fg = "#111111",
-				bg = "#8be9fd",
-				bold = true,
-			})
-			hl(0, "MiniStatuslineModeReplace", {
-				fg = "#111111",
-				bg = "#f1fa8c",
-				bold = true,
-			})
-		end,
-	},
-
-	{
 		"rose-pine/neovim",
 		name = "rose-pine",
 		opts = {
@@ -273,22 +216,6 @@ require("lazy").setup({
 			},
 		},
 	},
-
-	-- {
-	-- 	"f-person/auto-dark-mode.nvim",
-	-- 	opts = {
-	-- 		{
-	-- 			set_dark_mode = function()
-	-- 				vim.cmd.colorscheme("catppuccin-mocha")
-	-- 			end,
-	-- 			set_light_mode = function()
-	-- 				vim.cmd.colorscheme("catppuccin-latte")
-	-- 			end,
-	-- 			update_interval = 3000,
-	-- 			fallback = "dark",
-	-- 		},
-	-- 	},
-	-- },
 
 	{
 		"neovim/nvim-lspconfig",
@@ -338,7 +265,6 @@ require("lazy").setup({
 						caddy = { "caddy" },
 						cpp = { "clang-format" },
 						css = { "oxfmt" },
-						d2 = { "d2" },
 						go = { "gofumpt" },
 						html = { "oxfmt" },
 						http = { "kulala-fmt" },
@@ -363,39 +289,6 @@ require("lazy").setup({
 						yaml = { "oxfmt" },
 					},
 				},
-			},
-
-			{
-				"mfussenegger/nvim-lint",
-				config = function()
-					local lint = require("lint")
-					lint.linters.oxlint.args = {
-						"--format",
-						"unix",
-						"-D",
-						"suspicious",
-						"-D",
-						"perf",
-					}
-					lint.linters_by_ft = {
-						go = { "golangcilint" },
-						svelte = { "oxlint" },
-						javascript = { "oxlint" },
-						typescript = { "oxlint" },
-						javascriptreact = { "oxlint" },
-						typescriptreact = { "oxlint" },
-					}
-
-					-- Create autocommand which carries out the actual linting
-					-- on the specified events.
-					local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
-					autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
-						group = lint_augroup,
-						callback = function()
-							require("lint").try_lint()
-						end,
-					})
-				end,
 			},
 		},
 	},
@@ -981,9 +874,6 @@ autocmd("User", {
 })
 
 vim.filetype.add({
-	extension = {
-		d2 = "d2",
-	},
 	filename = {
 		Caddyfile = "caddy",
 	},
