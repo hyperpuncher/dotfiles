@@ -1,0 +1,37 @@
+#!/bin/sh
+
+# LG B9: exact jobs and apps checked on this TV. No firmware files are changed.
+jobs='remotelogger rdxd uploadd contentminer nudge'
+apps='com.webos.app.browser com.webos.app.tips netflix amazon vudu'
+
+luna() {
+	response=$(luna-send -w 3000 -n 1 "luna://$1" "$2" </dev/null) || return 1
+	printf '%s\n' "$response"
+	printf '%s' "$response" | grep -Eq '"returnValue"[[:space:]]*:[[:space:]]*true'
+}
+
+case "${1:-status}" in
+	apply) action=stop; enabled=false ;;
+	restore) action=start; enabled=true ;;
+	status)
+		for job in $jobs; do initctl status "$job"; done
+		luna com.webos.service.preloadmanager/getPreloadPolicy '{}'
+		exit $?
+		;;
+	*) printf 'usage: %s [status|apply|restore]\n' "$0" >&2; exit 2 ;;
+esac
+
+for job in $jobs; do
+	state=$(initctl status "$job") || exit 1
+	case "$action:$state" in
+		stop:*start/running*|start:*stop/waiting*) initctl "$action" "$job" || exit 1 ;;
+		*) printf '%s\n' "$state" ;;
+	esac
+done
+
+# Runtime policy only. Do not close apps or restart the app manager.
+# These five preloads were enabled before our changes; restore enables them again.
+for app in $apps; do
+	luna com.webos.service.preloadmanager/setPreloadPolicy \
+		"{\"application\":{\"id\":\"$app\",\"isEnabled\":$enabled}}" || exit 1
+done

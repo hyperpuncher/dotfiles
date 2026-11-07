@@ -1,0 +1,26 @@
+#!/bin/sh
+set -eu
+
+# LG B9: load the native input hook once. No Node service is needed.
+dir=/var/lib/webosbrew/inputhook
+exec 9>/tmp/inputhook-start.lock
+flock -n 9 || exit 0
+
+# lginput2 handles the required buttons. Keep RELEASE, the main TV process, untouched.
+input_pids=$(pidof lginput2)
+
+for pid in $input_pids; do
+	# Do not load a second copy, including one loaded by the old app.
+	if grep -q '/libinputhookpp.so' "/proc/$pid/maps"; then
+		continue
+	fi
+	IFS= read -r name <"/proc/$pid/comm"
+	: >"/tmp/lginput-hook-$name.log"
+	# Let the injector restore the target state and detach before it exits.
+	"$dir/ezinject" -l "/tmp/lginput-hook-$name.log" \
+		"$pid" "$dir/libinputhookpp.so" >"/tmp/ezinject-$name.log" 2>&1
+	grep -q "$dir/libinputhookpp.so" "/proc/$pid/maps"
+done
+
+# Also prevent the old app from injecting again while it remains installed.
+touch /tmp/inputhook

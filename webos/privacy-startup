@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# Let the boot jobs start without holding up Homebrew startup.
+(
+	sleep 30
+	exec sh /home/root/b9-privacy apply
+) </dev/null >/tmp/b9-privacy.log 2>&1 &
