@@ -42,6 +42,13 @@ opt.foldexpr = "v:lua.vim.lsp.foldexpr()"
 opt.langmap =
 	"ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz"
 
+vim.g.diffs = {
+	integrations = {
+		neogit = true,
+		gitsigns = true,
+	},
+}
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.uv.fs_stat(lazypath) then
 	vim.fn.system({
@@ -685,6 +692,40 @@ require("lazy").setup({
 			mappings = {
 				go_in_plus = "<CR>",
 			},
+		},
+	},
+
+	{ "https://forge.barrettruth.com/barrettruth/diffs.nvim" },
+
+	{
+		"esmuellert/codediff.nvim",
+		cmd = "CodeDiff",
+		opts = {
+			explorer = {
+				view_mode = "tree",
+				width = 30,
+			},
+		},
+		keys = {
+			{ "<leader>cd", "<cmd>CodeDiff<cr>", desc = "Show CodeDiff" },
+		},
+	},
+
+	{
+		"NeogitOrg/neogit",
+		lazy = true,
+		dependencies = {
+			"esmuellert/codediff.nvim",
+		},
+		cmd = "Neogit",
+		keys = {
+			{ "<leader>gg", "<cmd>Neogit<cr>", desc = "Show Neogit UI" },
+		},
+		opts = {
+			integrations = {
+				codediff = true,
+			},
+			diff_viewer = "codediff",
 		},
 	},
 }, {
