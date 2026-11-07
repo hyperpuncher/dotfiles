@@ -11,10 +11,8 @@ opt.pumborder = "rounded"
 opt.cursorline = true
 opt.breakindent = true
 opt.linebreak = true
-opt.breakat = " ^I!@*+;:,./?"
 opt.clipboard = "unnamedplus"
-opt.completeopt = "menuone,noselect"
-opt.expandtab = false
+opt.completeopt = "menuone,noselect,fuzzy"
 opt.hlsearch = false
 opt.ignorecase = true
 opt.inccommand = "split"
@@ -30,7 +28,6 @@ opt.signcolumn = "yes"
 opt.smartcase = true
 opt.smartindent = true
 opt.softtabstop = 4
-opt.spell = false
 opt.splitright = true
 opt.swapfile = false
 opt.tabstop = 4
@@ -39,7 +36,6 @@ opt.timeoutlen = 500
 opt.undofile = true
 opt.updatetime = 200
 opt.laststatus = 3
-opt.foldcolumn = "0"
 opt.foldlevel = 99
 opt.foldmethod = "expr"
 opt.foldexpr = "v:lua.vim.lsp.foldexpr()"
@@ -411,8 +407,6 @@ require("lazy").setup({
 			{ "rafamadriz/friendly-snippets" },
 		},
 		opts = {
-			keymap = { preset = "default" },
-
 			appearance = {
 				nerd_font_variant = "normal",
 			},
@@ -439,14 +433,7 @@ require("lazy").setup({
 					},
 				},
 			},
-
-			sources = {
-				default = { "lsp", "path", "snippets", "buffer" },
-			},
-
-			fuzzy = { implementation = "prefer_rust_with_warning" },
 		},
-		opts_extend = { "sources.default" },
 	},
 
 	{
@@ -707,13 +694,6 @@ require("lazy").setup({
 				desc = "Select Scratch Buffer",
 			},
 			{
-				"<leader>n",
-				function()
-					Snacks.notifier.show_history()
-				end,
-				desc = "Notification History",
-			},
-			{
 				"<leader>bd",
 				function()
 					Snacks.bufdelete()
@@ -862,8 +842,6 @@ map("x", "K", ":m '<-2<CR>gv=gv", { silent = true })
 map("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename" })
 
 map("n", "<C-f>", "<CMD>silent !tmux neww tmux-sessionizer<CR>")
-
-map("n", "<leader>d", vim.diagnostic.open_float)
 
 map("n", "x", '"_x')
 map("n", "X", '"_X')
