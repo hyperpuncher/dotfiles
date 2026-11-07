@@ -9,6 +9,7 @@ hl.monitor({
 	output = "",
 	scale = "1.5",
 	bitdepth = 10,
+	supports_hdr = -1,
 })
 
 -- exec
