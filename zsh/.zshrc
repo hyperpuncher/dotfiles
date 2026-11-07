@@ -1,8 +1,11 @@
+if [[ -t 0 ]]; then
+	export GPG_TTY=$(tty)
+fi
+
 # Periodic auto-update on Zsh startup: 'ask' or 'no'.
 # You can manually run `z4h update` to update everything.
 zstyle ':z4h:' auto-update      'no'
-# Ask whether to auto-update this often; has no effect if auto-update is 'no'.
-zstyle ':z4h:' auto-update-days '28'
+zstyle ':z4h:powerlevel10k' channel dev
 
 # Keyboard type: 'mac' or 'pc'.
 zstyle ':z4h:bindkey' keyboard  'pc'
@@ -19,8 +22,8 @@ zstyle ':z4h:autosuggestions' forward-char 'accept'
 
 # Recursively traverse directories when TAB-completing files.
 zstyle ':z4h:fzf-complete' recurse-dirs 'no'
+zstyle ':z4h:*' fzf-command /usr/bin/fzf
 zstyle ':z4h:*' fzf-flags --color=fg:7,fg+:7,bg:-1,bg+:-1,hl:4,hl+:4,info:3,prompt:2,pointer:5,marker:5,spinner:3,header:8
-# zstyle ':z4h:fzf-complete' fzf-bindings tab:repeat
 
 # Enable direnv to automatically source .envrc files.
 zstyle ':z4h:direnv'         enable 'yes'
@@ -98,7 +101,6 @@ alias stow='stow --no-folding -Rv'
 alias sv='sudoedit'
 alias tldr='tldr -c'
 alias udiskmount='udisksctl mount -b'
-alias up-docs='parallel --tagstring "{/}" "cd {} && [ -d .git ] && git fetch --depth=1 origin && git reset --hard @{u}" ::: ~/docs/*'
 alias v='nvim'
 alias wgdown='basename /proc/sys/net/ipv4/conf/*vpn | xargs sudo wg-quick down'
 alias wgup='sudo wg-quick up'
@@ -111,6 +113,3 @@ setopt glob_dots     # no special treatment for file names with a leading dot
 setopt auto_menu  # require an extra TAB press to open the completion menu
 
 eval "$(zoxide init zsh)"
-
-
-
