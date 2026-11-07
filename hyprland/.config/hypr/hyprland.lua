@@ -126,15 +126,17 @@ end
 
 -- workspaces
 
-hl.workspace_rule({
-	workspace = "special:notes",
-	on_created_empty = "[pseudo; size 950 1200] foot -D ~/Documents/notes nvim",
-})
+local special_workspaces = {
+	["special:notes"] = "[pseudo; size 950 800] foot -D ~/Documents/notes nvim",
+	["special:calculator"] = "[pseudo; size 700 800] foot numr",
+}
 
-hl.workspace_rule({
-	workspace = "special:calculator",
-	on_created_empty = "[pseudo; size 700 800] foot numr",
-})
+hl.on("workspace.created", function(ws)
+	local command = special_workspaces[ws.addressable_name]
+	if command and ws.is_empty then
+		hl.exec_cmd(command)
+	end
+end)
 
 -- layer rules
 
