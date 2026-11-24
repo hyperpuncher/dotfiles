@@ -4,11 +4,13 @@ adw-gtk-theme
 age
 alsa-utils
 amd-ucode
+amdsmi
 android-emulator
 android-file-transfer
 android-sdk-cmdline-tools-latest
 android-sdk-platform-tools
 android-tools
+antigravity-cli
 apple_cursor
 arch-wiki-lite
 arduino-cli
@@ -27,7 +29,6 @@ bind
 blender
 bluez
 bluez-utils
-bs-manager-bin
 btop
 btrfs-progs
 buildah
@@ -146,6 +147,7 @@ kimageformats5
 kvantum
 kvantum-qt5
 labwc
+ladybird-bin
 lazydocker
 lazygit
 lazysql
@@ -164,6 +166,7 @@ linux-headers
 linux-lts
 linux-lts-headers
 llama-cpp
+lld
 llvm
 lnav
 localsend-bin
@@ -204,6 +207,7 @@ nsis
 nss-mdns
 nsz
 numr
+nvchecker
 nvme-cli
 nvtop
 obs-studio
@@ -230,10 +234,11 @@ pastel
 pavucontrol
 pbzip2
 pdfarranger
+perf
 perl-image-exiftool
 pgformatter
 pi
-pi-ui-bin
+pi-ui-git
 pigz
 pipewire
 pipewire-alsa
@@ -290,7 +295,9 @@ retroarch-assets-ozone
 rift-clipboard-bin
 ripgrep
 rocm-hip-runtime
+rocm-llvm-libs
 rocm-opencl-runtime
+rocm-openmp
 rpi-imager
 runapp
 rustdesk-bin
@@ -386,6 +393,7 @@ wlsunset
 wtype
 xdg-desktop-portal-gtk
 xdg-desktop-portal-hyprland
+xdg-terminal-exec
 xh
 xorg-server-xvfb
 xorg-xhost
@@ -394,7 +402,6 @@ yaak-bin
 yarn
 yt-dlp
 yt-dlp-ejs
-zedis-bin
 zip
 zoxide
 zsh-autosuggestions
